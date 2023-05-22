@@ -1,0 +1,168 @@
+<div class="main_wrapper">
+
+    <div class="header1" style="z-index:99;position: relative;">
+        <div class="container">
+            <div class="d-flex justify-content-between main-hedings">
+                <div>
+                    <a (click)="navigatetorbt()" class="back_arrow">
+                        <img src="assets/images/close_black.svg" alt="">
+                    </a>
+                </div>
+                <div>
+                    <h6>Search </h6>
+                </div>
+                <div class="d-flex justify-content-between">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search_wrapper" style="height:calc(100vh - 57px);">
+        <div class="container">
+            <!--tab swiper slider st-->
+            <div class="d-flex flex-column py_24">
+                <div class="sec_top">
+                    <!--tabs st-->
+                    <div class="corp-abt-thumb-slider pack-tab-swiper">
+                        <div class="position-relative category-tabs main-hedings">
+                            <div class="container-tab position-relative">
+                                <div class="swiper-container tabs-thumbs c-about-thumbs">
+                                    <div class="swiper-wrapper m-0 pb-1">
+                                        <div class="swiper-slide p-0 me-3">
+                                            <p [ngClass]="btnbool == true ? 'year-cont' : 'cs_btn_primary1'  "
+                                                (click)="nametune('name')">Name Tune</p>
+
+                                        </div>
+                                        <div class="swiper-slide p-0 mr-2">
+                                            <p class="year-cont"
+                                                [ngClass]="btnbool1 == true ? 'year-cont' : 'cs_btn_primary1'  "
+                                                (click)="song('song')">Song</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Swiper -->
+                        <div class="swiper-container tabs-top-swiper container p-0">
+                            <div class="swiper-wrapper m-0">
+                                <!--all-->
+                                <div class="swiper-slide">
+                                    <section class="activity-camp bg-white">
+                                        <!--All tab cont-->
+
+                                        <!--normal-bundles-->
+                                        <div class="normal-bundles">
+                                            <div class="swiper column_swiper_1 pt-0 mr2">
+                                                <div class="swiper-wrapper flex-column">
+
+                                                    <div class="search-wrapper mt-2">
+                                                        <input type="text" name="focus" required
+                                                            class="form-control search-box" [(ngModel)]="tuneName"
+                                                            placeholder="Enter search term" maxlength="50"
+                                                            (keyup.enter)="searchnameTunes()">
+                                                        <!-- <input type="text" name="focus" required *ngIf="!tabintput"
+                                                            class="form-control search-box" [(ngModel)]="songName"
+                                                            placeholder="Enter search term"
+                                                            (keyup.enter)="closethedata()"> -->
+                                                        <button class="close-icon1" type="reset"
+                                                            (click)="searchnameTunes()">
+                                                            <img src="assets/images/search_black.svg" alt="" title=""
+                                                                *ngIf="seachbtn==true" />
+
+                                                        </button>
+                                                        <button class="close-icon1" (click)="closethedata()"> <img
+                                                                src="assets/images/close_black.svg" alt="" title=""
+                                                                *ngIf="seachbtn==false" /></button>
+                                                    </div>
+                                                   
+
+                                                    <div class="mt-3" *ngIf="seachbtn==false">
+                                                        <div class="d-flex justify-content-between mt-2 align-items-center"
+                                                            *ngFor="let song of nameTunes">
+                                                            <label class="proximanova-semibold">{{song.name}}</label>
+                                                            <div class="d-flex ">
+                                                                <!-- <a> <img src={{song.wavfileurl}} alt="" title="" /> </a> -->
+                                                                <button (click)="playinvidualsongs(song)"
+                                                                    class="btn_border" *ngIf="!song.playsong">
+
+                                                                    <i-bs name="play-circle" width="25" height="25">
+                                                                    </i-bs></button>
+                                                                <button *ngIf="song.playsong" class="btn_border"><i-bs
+                                                                        name="pause-circle" width="25" height="25">
+                                                                    </i-bs></button>
+                                                                <div class="ms-3">
+                                                                    <button class="cs_btn cs_btn_primary btn-sm"
+                                                                        (click)="setnewnametune(song)"
+                                                                        data-bs-target=".bottom-popup00400"
+                                                                        data-bs-toggle="modal"> Set
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div>
+                                                        <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="small" color="#fff"
+                                                        type="ball-scale-multiple">
+                                                        <p style="font-size: 20px; color: white">Loading...</p>
+                                                    </ngx-spinner>
+                                                    </div>
+                                                   
+                                                    <!--Content End-->
+                                                </div>
+                                            </div>
+                                            <!--column_swiper_1-->
+                                        </div>
+
+                                        <!--tab cont-->
+                                    </section>
+                                </div>
+
+                                <!--Normal Bundles-->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+<div class="modal fade bottom_modal animated slideInUp faster bottom-popup00400" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="set_btn11" data-bs-dismiss="modal"> <img src="assets/images/close_black.svg" alt=""
+                        title="" /></button>
+                <div class="noresult-found-comp mt-4">
+                    <div class="row-comp mb-2">
+                        <img src="assets/images/confirmation.svg"
+                            onerror="this.src='assets/images/default_song_track.png'" alt="" title="" />
+                    </div>
+                    <div class="label_text text-center mt-3">
+                        <h6>Are Sure Want to set this Caller Tune</h6>
+
+                    </div>
+                    <div class="mt-3">
+                        <button class="cs_btn cs_btn_primary" data-bs-dismiss="modal"
+                            (click)="setnametune()">Proceed</button>
+                    </div>
+                </div>
+            </div>
+            <!--div class="modal-footer">
+                fsdfsfsdfsdfsdfds
+            </div-->
+            <!--modal-body -->
+        </div>
+    </div>
+</div>

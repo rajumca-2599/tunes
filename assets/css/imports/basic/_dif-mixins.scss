@@ -1,0 +1,17 @@
+// GLOBAL MIXINS
+@mixin white_card($padding) {
+    padding: $padding;
+    border-radius: 24px;
+    @extend %white-bg;
+    box-shadow: 0 8px 63px 0 rgba(0, 0, 0, .08);
+}
+  
+@mixin ellipsis($ellipsis) {
+    -webkit-line-clamp: $ellipsis;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+}

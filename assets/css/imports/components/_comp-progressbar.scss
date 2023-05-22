@@ -1,0 +1,25 @@
+//Progressbar Css
+
+.CircularProgressbar-text{
+    display: none;
+}
+.usage_box_info{
+    margin-top: -33px;
+}
+.CircularProgressbar{
+    &.blue_semicircle{
+        .CircularProgressbar-path{
+            stroke: $blue;
+        }
+    }
+    &.orange_semicircle{
+        .CircularProgressbar-path{
+            stroke: $orange;
+        }
+    }
+    &.green_semicircle{
+        .CircularProgressbar-path{
+            stroke: $green;
+        }
+    }
+} 

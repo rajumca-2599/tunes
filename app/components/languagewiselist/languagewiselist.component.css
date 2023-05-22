@@ -1,0 +1,39 @@
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 150px;
+
+}
+.cs_btn_primary1 {
+    background: #FD212A;
+    border: #FD212A solid 2px;
+    /* color: white !important; */
+    border-color: #FD212A;
+    width: 75px;
+    border-radius: 17px;
+    color: white;
+    height: 35px;
+}
+.cs_btn_primary2 {
+    background: white;
+    color:black !important;
+    border-color: #FD212A;
+    width: 75px;
+    border: black solid black;
+    border-radius: 17px;
+    height: 35px;
+}
+.sub-btn01 {
+    background: #ed1c24!important;
+    color: #fff!important;
+    border: 1px solid #ed1c24!important;
+    border-radius: 55px!important;
+}
+.btn {
+    font-family: Rubik-SemiBold;
+    font-size: 12px!important;
+    line-height: normal!important;
+    padding: 6px 12px!important;
+    border-radius: 55px!important;
+}

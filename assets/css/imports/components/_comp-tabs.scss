@@ -1,0 +1,97 @@
+.tabs-comp-two{
+    background:#F2F2F2;
+    width:100%;
+    .activity-camp{padding:0px 25px !important;}
+    .pack-tab-swiper-two{
+        background:#F8F8F8;
+        color:#000;
+        .category-tabs{
+            border-bottom: solid 2px #ccc;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            color: #ed1c24 !important;
+        .container-tab {
+            padding:0px 25px !important;
+        .swiper-container{
+         .swiper-wrapper {
+            color: #000 !important;            
+            margin:0px auto !important;
+            .swiper-slide{
+                padding:0px 10px!important;
+                p{
+                    box-shadow: none !important;
+                    color: #000 !important; 
+                    padding:15px !important;
+                }
+            }
+
+        .swiper-slide-thumb-active{
+            padding: 0px 25px;
+            p{
+                background-color: transparent !important;
+                border-bottom: 2px solid #ed1c24 !important;
+                color: #ed1c24 !important;
+                box-shadow: none !important;
+                border-radius:0px !important;
+            }
+        }
+    }
+}
+}
+}
+}
+}
+
+.right-arrow{
+    img{
+        width:16px;height:16px;
+    }
+}
+
+.cs_tabs{
+    border-bottom: none !important;
+    display: flex;
+    align-items: center;
+    // overflow-y: hidden;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    margin: 0px -25px;
+    padding: 20px 25px;
+    .nav-item{
+        margin-right: 10px;
+        &:first-child{
+            margin-left: 25px;
+        }
+        .nav-link{
+            height: 30px;
+            font-size: 13px;
+            @extend %primary-font;
+            padding: 6px 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            height: 30px;
+            border-radius: 30px;
+            box-shadow: 0px 2px 13px rgba(0, 0, 0, 0.08);
+            @extend %white-bg;
+            @extend %primary-color;
+            border: none;
+            &.active{
+                @extend %primary-bg;
+                @extend %white-color;
+            }
+        }
+    }
+}
+@media (max-width: 767.98px) {
+    .cs_tabs{
+        margin: 0px -12px;
+        padding: 20px 12px;
+        .nav-item{
+            &:first-child{
+                margin-left: 12px;
+            }
+        }
+    }
+}

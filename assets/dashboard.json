@@ -1,0 +1,399 @@
+{
+    "list": [
+        {
+            "Title": "Subscriber",
+            "showheader":true,
+            "list": [
+                {
+                    "id": "30",
+                    "name": "Daily Visitors",
+                    "widgetid": "30",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":true
+                },{
+                    "id": "32",
+                    "name": "New installations  (D-1)",
+                    "widgetid": "32",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":true
+                },{
+                    "id": "33",
+                    "name": "DAU  (D-1)",
+                    "widgetid": "33",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":true
+                },{
+                    "id": "34",
+                    "name": "Inactive (No activity)  (D-1)",
+                    "widgetid": "34",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":false
+                },{
+                    "id": "35",
+                    "name": "Overall cumulative APP users  (D-1)",
+                    "widgetid": "35",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":false
+                },{
+                    "id": "37",
+                    "name": "Online Acquisition",
+                    "widgetid": "37",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":false
+                },{
+                    "id": "38",
+                    "name": "Post-paid upgrade",
+                    "widgetid": "38",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":false
+                },{
+                    "id": "39",
+                    "name": "Win-back  (D-1)",
+                    "widgetid": "39",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":false
+                },{
+                    "id": "36",
+                    "name": "MAU  (D-1)",
+                    "widgetid": "36",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-6",
+                    "showwidget":true
+                }
+            ]
+        },
+        {
+            "Title": "Revenue",
+            "showheader":true,
+            "list": [
+                {
+                    "id": "3",
+                    "name": "Top 10 Pack purchases",
+                    "widgetid": "3",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },                
+                {
+                    "id": "4",
+                    "name": "Card wise purchase",
+                    "widgetid": "4",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },                
+                {
+                    "id": "5",
+                    "name": "Payment MODE",
+                    "widgetid": "5",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "6",
+                    "name": "Price wise",
+                    "widgetid": "6",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "7",
+                    "name": "Channel",
+                    "widgetid": "7",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "8",
+                    "name": "Overall Status wise",
+                    "widgetid": "8",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },                
+                {
+                    "id": "43",
+                    "name": "Operation Type Wise",
+                    "widgetid": "43",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "16",
+                    "name": "Over All Revenue",
+                    "widgetid": "16",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "15",
+                    "name": "Revenue BillPay",
+                    "widgetid": "15",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "14",
+                    "name": "Transactions Bill Payment",
+                    "widgetid": "14",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "13",
+                    "name": "Payment MODE RELOAD",
+                    "widgetid": "13",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+             
+                {
+                    "id": "10",
+                    "name": "Total Pack Charge Traffic",
+                    "widgetid": "10",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "2",
+                    "name": "Pack purchases",
+                    "widgetid": "2",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "11",
+                    "name": "Price wise RELOAD",
+                    "widgetid": "11",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                }
+            ]
+        },
+        {
+            "Title": "Others",
+            "showheader":true,
+            "list": [
+                {
+                    "id": "22",
+                    "name": "App Visits",
+                    "widgetid": "22",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "23",
+                    "name": "Device wise – top",
+                    "widgetid": "23",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "24",
+                    "name": "APP version wise traffic",
+                    "widgetid": "24",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "25",
+                    "name": "Top page wise traffic",
+                    "widgetid": "25",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "26",
+                    "name": "Total Search Page traffic",
+                    "widgetid": "26",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                {
+                    "id": "28",
+                    "name": "Total HELP tab clicks",
+                    "widgetid": "28",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },  
+                {
+                    "id": "27",
+                    "name": "Top search",
+                    "widgetid": "27",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":true
+                },
+                
+               
+                {
+                    "id": "21",
+                    "name": "Provision B party",
+                    "widgetid": "21",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "20",
+                    "name": "Provision A party",
+                    "widgetid": "20",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "19",
+                    "name": "Total Reference",
+                    "widgetid": "19",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "18",
+                    "name": "Push Notifications",
+                    "widgetid": "18",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "17",
+                    "name": "MSG Traffic",
+                    "widgetid": "17",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                },
+                {
+                    "id": "29",
+                    "name": "Total Indira tab clicks",
+                    "widgetid": "29",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                }   
+                ,
+                {
+                    "id": "40",
+                    "name": "Overall Spins",
+                    "widgetid": "40",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                }     
+                ,
+                {
+                    "id": "41",
+                    "name": "Overall Spin Product Count",
+                    "widgetid": "41",
+                    "enablerefresh": "1",
+                    "refreshinterval": "5",
+                    "filters": "keyword",
+                    "cssclass":"col-md-4",
+                    "showwidget":false
+                }            
+            ]
+        }
+    ]
+}

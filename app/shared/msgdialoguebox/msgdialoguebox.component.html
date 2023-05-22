@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4 class="" *ngIf="msgobj.type === 'success'"></h4>
+    <h4 class="" *ngIf="msgobj.type === 'error'"></h4>
+    <h4 class="" *ngIf="msgobj.type === 'warning'"></h4>
+    <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <img src="/assets/images/close-x.svg"/>
+    </button> -->
+  </div>
+  <div class="modal-body text-center">
+    {{msgobj.message}}
+  </div>
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-primary" (click)="sendModal()" >Send</button> -->
+    <button type="button" class="btn btn-danger" (click)="closeAllModals()">Close</button>
+</div>

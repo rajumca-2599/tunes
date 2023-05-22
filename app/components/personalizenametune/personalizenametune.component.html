@@ -1,0 +1,351 @@
+<div class="pack-banner py_24_">
+    <img src="{{multiBannerList}}" onerror="this.src='assets/images/default_song_track_md.jpg'" alt="" title=""
+        data-bs-toggle="modal"  data-bs-target=".bottom-popup001">
+</div>
+<!-- <div class="pack-banner py_24" >
+    <img src={{multiBannerList[0].src}} alt="" title="" style="width: 100%;">
+</div> -->
+<div class="modal fade bottom_modal animated slideInUp faster bottom-popup001" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel1" aria-hidden="true" >
+   
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button class="set_btn1"  data-bs-dismiss="modal"  (click)="closethedata()"> <img
+                src="assets/images/close_black.svg" alt="" title=""  /></button>
+            <div class="modal-body" *ngIf="modelvalue1==true">
+                <div>
+                    <div class="hed-h1">Name Tunes</div>
+                    <p>Select language and set your name caller tune for free</p>
+                </div>
+                
+               
+
+                <div >
+                    <div *ngIf="newZoneid==0 ||newZoneid==3|| newZoneid==1 " class="radiobtn-comp1 d-flex mb-3">
+                        <div *ngFor="let option of options; let id= index" class="mr-20 mb-2 me-2">
+                            <input type="radio" id="options_{{option.value}}" name="options" [(ngModel)]="chackValue"
+                                [checked]="id== 0" value="{{option.value}}">
+                            <label for="options_{{option.value}}"> {{option.name}}</label>
+    
+                        </div>
+                    </div>
+                    <div *ngIf="newZoneid==4" class="radiobtn-comp1 d-flex mb-3">
+                        <div *ngFor="let option of nortzoneOptions; let id= index" class="mr-20 mb-2 me-2">
+                            <input type="radio" id="options_{{option.value}}" name="options" [(ngModel)]="chackValue"
+                                [checked]="id== 0" value="{{option.value}}">
+                            <label for="options_{{option.value}}"> {{option.name}}</label>
+    
+                        </div>
+                    </div>
+                    <div *ngIf="newZoneid==2" class="radiobtn-comp1 d-flex mb-3">
+                        <div *ngFor="let option of westzoneOptions; let id= index" class="mr-20 mb-2 me-2">
+                            <input type="radio" id="options_{{option.value}}" name="options" [(ngModel)]="chackValue"
+                                [checked]="id== 0" value="{{option.value}}">
+                            <label for="options_{{option.value}}"> {{option.name}}</label>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="input_icon right-icon mb-4">
+                    <input type="text" maxlength="50" class="form-control form-border-radi22"
+                        placeholder="Search your name"  [(ngModel)]="nameTunevalue"
+                        (keyup.enter)="searchnameTunes()">
+                    <button class="search-icon" (click)="searchnameTunes()" >
+                        <img src="assets/images/search.svg" alt="" *ngIf="seachbtn==true"  >
+                    </button>
+                    <button class="search-icon" (click)="closethedata()"> <img src="assets/images/close_black.svg"
+                            alt="" title="" *ngIf="seachbtn==false" /></button>
+                </div>
+
+                <div class="search-details-comp mt-3" *ngFor="let tune of tunes">
+                    <div class="row-comp d-flex justify-content-between mb-3">
+                        <div class="label_text" title="{{tune.name}}">{{ titletrim(tune.name)}} </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="mr-20">
+                                <!-- <img src={{tune.wavfileurl}} alt="" title="" />  -->
+                                <button (click)="playinvidualsongs(tune)" *ngIf="!tune.playsong" style="border: none;background-color: white;">
+                                    <i-bs name="play-circle" width="25" height="25">
+                                    </i-bs></button>
+                                <button  *ngIf="tune.playsong" style="border: none; background-color: white;" >
+                                    <i-bs name="pause-circle" width="25" height="25">
+                                    </i-bs>
+                                </button>
+                                <!-- <button (click)="plauseSound(tune)" *ngIf="tune.playsong"><img src="assets/images/playanimation.gif"  style="width: 25px;" /></button> -->
+                            </div>
+                            <div class="card_link"> <button class="cs_btn cs_btn_primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target=".bottom-popup004 " (click)="proced(tune)"
+                                    data-bs-dismiss="modal">Set </button> </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+            <div class="modal-body" *ngIf="modelvalue11==false">
+                <div *ngIf="noresultpopup">
+                    <div class="hed-h1">Name Tunes</div>
+                    <p>Select language and set your name caller tune for free</p>
+                </div>
+                <div *ngIf="!noresultpopup">
+                    <div class="hed-h1">Personalized Name Tune</div>
+                    <p> Enter Your Name  and Select respective  language</p>
+                </div>
+                <div >
+                    <div *ngIf="newZoneid==0 ||newZoneid==3|| newZoneid==1" class="radiobtn-comp1 d-flex mb-3">
+                        <div *ngFor="let option of options; let id= index" class="mr-20 mb-2 me-2">
+                            <input type="radio" id="options_{{option.value}}" name="options" [(ngModel)]="chackValue"
+                                [checked]="id== 0" value="{{option.value}}">
+                            <label for="options_{{option.value}}"> {{option.name}}</label>
+    
+                        </div>
+                    </div>
+                    <div *ngIf="newZoneid==4" class="radiobtn-comp1 d-flex mb-3">
+                        <div *ngFor="let option of nortzoneOptions; let id= index" class="mr-20 mb-2 me-2">
+                            <input type="radio" id="options_{{option.value}}" name="options" [(ngModel)]="chackValue"
+                                [checked]="id== 0" value="{{option.value}}">
+                            <label for="options_{{option.value}}"> {{option.name}}</label>
+    
+                        </div>
+                    </div>
+                    <div *ngIf="newZoneid==2" class="radiobtn-comp1 d-flex mb-3">
+                        <div *ngFor="let option of westzoneOptions; let id= index" class="mr-20 mb-2 me-2">
+                            <input type="radio" id="options_{{option.value}}" name="options" [(ngModel)]="chackValue"
+                                [checked]="id== 0" value="{{option.value}}">
+                            <label for="options_{{option.value}}"> {{option.name}}</label>
+    
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="noresultpopup">
+                    <div class="input_icon right-icon mb-4 mt-4">
+                        <input type="text" maxlength="50" class="form-control form-border-radi22" [(ngModel)]="nameTunevalue"
+                            placeholder="Search your name" data-bs-toggle="modal" (click)="hidepopup()">
+                        <button class="search-icon">
+                            <img src="assets/images/search.svg" alt="">
+                        </button>
+                    </div>
+                    <div class="noresult-found-comp mt-3">
+                        <div class="row-comp mb-2">
+                            <img src="assets/images/no result.png" alt="" title="" />
+                        </div>
+                        <div class="label_text text-center">
+                            Sorry, no result found <br> search again
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!noresultpopup">
+                    <div class="input_icon right-icon mb-4">
+                        <label class="mb-2">Name</label>
+                        <input type="text" maxlength="50" class="form-control" placeholder="Enter Name"  
+                            [(ngModel)]="nameTunevalue1">
+                    </div>
+
+                    <div class="card_link mt-3 text-center">
+                        <button class="cs_btn cs_btn_primary btn-md" data-bs-dismiss="modal"
+                            (click)="searchnameforTunes()"  [disabled]="nameTunevalue1.length < 3" > Submit </button>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- <div class="modal fade bottom_modal animated slideInUp faster bottom-popup002" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel1" aria-hidden="true" bsModal #modal="bs-modal" *ngIf="modelvalue==true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body" *ngIf="modelvalue1==true">
+                <div>
+                    <div class="hed-h1">Name Tunes</div>
+                    <p>Select language and set your name caller tune for free</p>
+                </div>
+                <div class="radiobtn-comp1 d-flex">
+                    <div *ngFor="let option of options">
+                        <label style="margin-left:6px ;">
+                            <input type="checkbox" name="options" value="{{option.value}}" [(ngModel)]="option.checked"
+                                (change)="updateCheckedOptions(option, $event)" />
+                            {{option.name}}
+                        </label>
+                    </div>
+
+                </div>
+                <div class="input_icon right-icon mb-4 mt-4">
+                    <input type="text" maxlength="10" class="form-control form-border-radi22"
+                        placeholder="Search your name" data-bs-toggle="modal" data-bs-target=".bottom-popup003"
+                        data-bs-dismiss="modal">
+                    <button class="search-icon">
+                        <img src="assets/images/search.svg" alt="">
+                    </button>
+                </div>
+                <div class="search-details-comp mt-3" *ngFor="let tune of tunes">
+                    <div class="row-comp d-flex justify-content-between mb-3">
+                        <div class="label_text">{{tune.name}} </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="mr-20">
+                               
+                                <button (click)="playSound(tune,true)" *ngIf="!tune.playsong"><i-bs name="caret-right"
+                                        width="25" height="25">
+                                    </i-bs></button>
+                                <button (click)="playSound(tune,false)" *ngIf="tune.playsong"><i-bs name="pause"
+                                        width="25" height="25">
+                                    </i-bs></button>
+                            </div>
+                            <div class="card_link"> <button class="cs_btn cs_btn_primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target=".bottom-popup004 " (click)="proced(tune)">Set </button> </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="modal-body" *ngIf="modelvalue1==false">
+                <div>
+                    <div class="hed-h1">Name Tunes</div>
+                    <p>Select language and set your name caller tune for free</p>
+                </div>
+                <div class="radiobtn-comp1 d-flex">
+                    <div *ngFor="let option of options">
+                        <label style="margin-left:6px ;">
+                            <input type="checkbox" name="options" value="{{option.value}}" [(ngModel)]="option.checked"
+                                (change)="updateCheckedOptions(option, $event)" />
+                            {{option.name}}
+                        </label>
+                    </div>
+                </div>
+                <div class="input_icon right-icon mb-4 mt-4">
+                    <input type="text" maxlength="10" class="form-control form-border-radi22"
+                        placeholder="Search your name" data-bs-toggle="modal" data-bs-target=".bottom-popup007"
+                        (click)="hidepopup()">
+                    <button class="search-icon">
+                        <img src="assets/images/search.svg" alt="">
+                    </button>
+                </div>
+                <div class="noresult-found-comp mt-3">
+                    <div class="row-comp mb-2">
+                        <img src="assets/images/no result.png" alt="" title="" />
+                    </div>
+                    <div class="label_text text-center">
+                        Sorry, no result found <br> search again
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div> -->
+<!-- <div class="modal fade bottom_modal animated slideInUp faster bottom-popup007" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+
+                <div class="pack-details-comp mt-3">
+                    <div>
+                        <div class="hed-h1">Name Tunes</div>
+                        <p>Select language and set your name caller tune for free</p>
+                    </div>
+                    <div class="radiobtn-comp1 d-flex">
+                        <div *ngFor="let option of options">
+                            <label style="margin-left:6px ;">
+                                <input type="checkbox" name="options" value="{{option.value}}"
+                                    [(ngModel)]="option.checked" (change)="updateCheckedOptions(option, $event)" />
+                                {{option.name}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input_icon right-icon mb-4">
+                        <label class="mb-2">Name</label>
+                        <input type="text" maxlength="20" class="form-control" placeholder="Enter Name"
+                            [(ngModel)]="nameTunevalue1">
+                    </div>
+
+                    <div class="card_link mt-3 text-center">
+                        <button class="cs_btn cs_btn_primary btn-md" data-bs-dismiss="modal"
+                            (click)="searchnameforTunes()"> Submit </button>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="modal fade bottom_modal animated slideInUp faster bottom-popup004" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="set_btn11"  data-bs-dismiss="modal" > <img
+                    src="assets/images/close_black.svg" alt="" title="" (click)="closethedata()"  /></button>
+                <div class="noresult-found-comp mt-4">
+                    <div class="row-comp mb-2">
+                        <img src="assets/images/confirmation.svg"
+                        onerror="this.src='assets/images/default_song_track.png'" alt="" title="" />
+                    </div>
+                    <div class="label_text text-center mt-3">
+                        <h6>Are Sure Want to set this Caller Tune</h6>
+
+                    </div>
+                    <div class="mt-3">
+                        <button class="cs_btn cs_btn_primary" data-bs-dismiss="modal"
+                            (click)="setnametune()">Proceed</button>
+                    </div>
+                </div>
+            </div>
+            <!--div class="modal-footer">
+                fsdfsfsdfsdfsdfds
+            </div-->
+            <!--modal-body -->
+        </div>
+    </div>
+</div>
+<div class="modal fade bottom_modal animated slideInUp faster bottom-popup005" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="noresult-found-comp mt-4">
+                    <div class="row-comp mb-2">
+                        <img src="assets/images/confirmation.svg" alt="" title="" />
+                    </div>
+                    <div class="label_text text-center mt-3">
+                        <h6>Submitted Successfully</h6>
+                        <p>
+                            Your name tune you will get shortly
+                        </p>
+                    </div>
+                    <div class="mt-3">
+                        <button class="cs_btn cs_btn_primary" data-bs-dismiss="modal"> Back to home </button>
+                    </div>
+                </div>
+            </div>
+            <!--div class="modal-footer">
+                fsdfsfsdfsdfsdfds
+            </div-->
+            <!--modal-body -->
+        </div>
+    </div>
+</div>

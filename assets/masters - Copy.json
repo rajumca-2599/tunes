@@ -1,0 +1,566 @@
+{
+    "pages": [
+        {
+            "value": "home",
+            "key": "Home"
+        },
+        {
+            "value": "myprofile",
+            "key": "My Profile"
+        },
+        {
+            "value": "category",
+            "key": "Category"
+        },
+        {
+            "value": "offers",
+            "key": "My Offers"
+        }
+    ],
+    "banners": [
+        {
+            "type": "1",
+            "width": "100",
+            "height": "100"
+        },
+        {
+            "type": "2",
+            "width": "100",
+            "height": "100"
+        },
+        {
+            "type": "3",
+            "width": "100",
+            "height": "100"
+        }
+    ],
+    "arpuranges": [
+        "0-0",
+        "1-50000",
+        "50001-70000",
+        "70001-100000",
+        "100001-20000000"
+    ],
+    "customercarereports": [
+        {
+            "reportid": "2",
+            "datecolumn": "FLTNTdatetime",
+            "reportname": "OTP Messages",
+            "displayfields": [
+                {
+                    "key": "trans_id",
+                    "name": "TransID"
+                },
+                {
+                    "key": "datetime",
+                    "name": "DateTime"
+                },
+                {
+                    "key": "shortcode",
+                    "name": "shortcode"
+                },
+                {
+                    "key": "msg",
+                    "name": "MSG"
+                },
+                {
+                    "key": "state",
+                    "name": "Status"
+                },
+                {
+                    "key": "error_code",
+                    "name": "Error Code"
+                }
+            ]
+        },
+        {
+            "reportid": "1",
+            "datecolumn": "FLTNTtransdate",
+            "reportname": "Payments",
+            "displayfields": [
+                {
+                    "key": "transid",
+                    "name": "TransID"
+                },
+                {
+                    "key": "transdate",
+                    "name": "DateTime"
+                },               
+                {
+                    "key": "msisdn",
+                    "name": "msisdn"
+                },                
+                {
+                    "key": "tomsisdn",
+                    "name": "tomsisdn"
+                },
+                {
+                    "key": "paymentchannel",
+                    "name": "Payment Channel"
+                },
+                {
+                    "key": "amount",
+                    "name": "Amount"
+                },
+                {
+                    "key": "operationtype",
+                    "name": "Operation Type"
+                },               
+                {
+                    "key": "usertype",
+                    "name": "User Type"
+                },
+                {
+                    "key": "responsedesc",
+                    "name": "Remarks"
+                },
+                {
+                    "key":"osversion",
+                    "name":"osversion"
+                },
+                {
+                    "key": "osname",
+                    "name": "OS Name"
+                }
+               
+            ]
+        },
+        {
+            "reportid": "3",
+            "datecolumn": "FLTNTtransdate",
+            "reportname": "UserJourney",
+            "displayfields": [
+                {
+                    "key": "transid",
+                    "name": "TransID"
+                },
+                {
+                    "key": "transdate",
+                    "name": "DateTime"
+                },
+                {
+                    "key": "usertype",
+                    "name": "UserType"
+                },
+                {
+                    "key": "action",
+                    "name": "Action"
+                },
+                {
+                    "key": "page",
+                    "name": "Page"
+                },
+                {
+                    "key": "osversion",
+                    "name": "OS Version"
+                },
+                {
+                    "key": "osname",
+                    "name": "OSNAME"
+                },
+                {
+                    "key": "devicemodel",
+                    "name": "Device Model"
+                },
+                {
+                    "key": "appversion",
+                    "name": "App Version"
+                }
+            ]
+        }
+    ],
+    "moduleslist": [
+        "PROFILE",
+        "AUTHENTICATION",
+        "GENERAL",
+        "MANAGE_NUMBERS",
+        "TOPUP",
+        "PAYBILL",
+        "CVM",
+        "VASSDP",
+        "ESB",
+        "PAYMENTGW",
+        "HISTORY",
+        "DASHBOARD",
+        "FEEDBACK",
+        "RATING",
+        "PUSHNOTIFICATIONS",
+        "CALLBACKS",
+        "4GCOVERAGE",
+        "STORES"
+    ],
+    "voucherspartners": [
+        {
+            "partnerid": "1",
+            "partnername": "HOOQ"
+        },
+        {
+            "partnerid": "2",
+            "partnername": "RedDoorz"
+        },
+        {
+            "partnerid": "3",
+            "partnername": "Zalora"
+        }
+    ],
+    "bannerpageslist": [
+        {
+            "key": "Only For U",
+            "value": "onlyforu",
+            "desc": "Internal App Redirection to Only For U page"
+        },
+        {
+            "key": "Add Number",
+            "value": "addnumber",
+            "desc": "Internal App Redirection to AddNumber page"
+        },
+        {
+            "key": "Search",
+            "value": "search",
+            "desc": "Internal App Redirection to Search page"
+        },
+        {
+            "key": "Help",
+            "value": "help",
+            "desc": "Internal App Redirection to Help page"
+        },
+        {
+            "key": "Inbox",
+            "value": "inbox",
+            "desc": "Internal App Redirection to Inbox page"
+        },
+        {
+            "key": "Home",
+            "value": "home",
+            "desc": "Internal App Redirection to Home page"
+        },
+        {
+            "key": "Topup",
+            "value": "topup",
+            "desc": "Internal App Redirection to Topup page"
+        },
+        {
+            "key": "PayBill",
+            "value": "paybill",
+            "desc": "Internal App Redirection to Paybill page"
+        },
+        {
+            "key": "Account",
+            "value": "account",
+            "desc": "Internal App Redirection to Account Details page"
+        },
+        {
+            "key": "Transaction History",
+            "value": "transactionhistory",
+            "desc": "Internal App Redirection to Transaction History Page"
+        },
+        {
+            "key": "Billing History",
+            "value": "billinghistory",
+            "desc": "Internal App Redirection to Billing History Page"
+        },
+        {
+            "key": "Usage History",
+            "value": "usagehistory",
+            "desc": "Internal App Redirection to Usage History Page"
+        },
+        {
+            "key": "Data",
+            "value": "data",
+            "desc": ""
+        },
+        {
+            "key": "Voice",
+            "value": "voice",
+            "desc": ""
+        },
+        {
+            "key": "SMS",
+            "value": "sms",
+            "desc": ""
+        },
+        {
+            "key": "Credit",
+            "value": "credit",
+            "desc": ""
+        },
+        {
+            "key": "Buy",
+            "value": "buy",
+            "desc": ""
+        },
+        {
+            "key": "PackageList",
+            "value": "packagelist",
+            "desc": ""
+        },
+        {
+            "key": "PackageDetails",
+            "value": "packagedetail",
+            "desc": ""
+        },
+        {
+            "key": "CategoryList",
+            "value": "categorylist",
+            "desc": ""
+        },
+        {
+            "key": "Rewards",
+            "value": "rewards",
+            "desc": ""
+        },
+        {
+            "key": "Invite friends",
+            "value": "invitefriend",
+            "desc": ""
+        },
+        {
+            "key": "More",
+            "value": "more",
+            "desc": ""
+        },
+        {
+            "key": "Profile",
+            "value": "profile",
+            "desc": ""
+        },
+        {
+            "key": "Social Connect",
+            "value": "socialconnect",
+            "desc": ""
+        },
+        {
+            "key": "Edit Profile",
+            "value": "editprofile",
+            "desc": ""
+        },
+        {
+            "key": "Manage Number",
+            "value": "managenumber",
+            "desc": ""
+        },
+        {
+            "key": "Billing Settings",
+            "value": "billingsettings",
+            "desc": ""
+        },
+        {
+            "key": "Persoonal Balance",
+            "value": "personalbalance",
+            "desc": ""
+        },
+        {
+            "key": "4G Readiness",
+            "value": "4greadiness",
+            "desc": ""
+        },
+        {
+            "key": "PIN/PUK Info",
+            "value": "pinpukinfo",
+            "desc": ""
+        },
+        {
+            "key": "Roaming Status",
+            "value": "roamingstatus",
+            "desc": ""
+        },
+        {
+            "key": "Buy New Number",
+            "value": "buynewnumber",
+            "desc": ""
+        },
+        {
+            "key": "Store Locator",
+            "value": "storelocator",
+            "desc": ""
+        },
+        {
+            "key": "Welcome Tour",
+            "value": "welcometour",
+            "desc": ""
+        },
+        {
+            "key": "About myIM3",
+            "value": "aboutmyim3",
+            "desc": ""
+        },
+        {
+            "key": "App Rating",
+            "value": "apprating",
+            "desc": ""
+        },
+        {
+            "key": "Upgrade to Postpaid",
+            "value": "upgradetopostpaid",
+            "desc": ""
+        },
+        {
+            "key": "4Gplus Coverage",
+            "value": "4gpluscoverage",
+            "desc": ""
+        },
+        {
+            "key": "Send Gift",
+            "value": "gift",
+            "desc": ""
+        }
+    ],
+    "refreshitems": [
+        {
+            "key": "Global",
+            "value": "global"
+        },
+        {
+            "key": "Messages",
+            "value": "messages"
+        },
+        {
+            "key": "Multi Alerts",
+            "value": "multialerts"
+        },
+        {
+            "key": "Smart Alerts",
+            "value": "smartalerts"
+        },
+        {
+            "key": "Master Templates",
+            "value": "templates"
+        },
+        {
+            "key": "Language Translations",
+            "value": "transulates"
+        },
+        {
+            "key": "Master Packages",
+            "value": "package"
+        },
+        {
+            "key": "Special Packages",
+            "value": "specialpackage"
+        },
+        {
+            "key": "Banner",
+            "value": "banners"
+        },
+        {
+            "key": "Top Banners",
+            "value": "topbanners"
+        },
+        {
+            "key": "Pages",
+            "value": "page"
+        },
+        {
+            "key": "Images",
+            "value": "Images"
+        },
+        {
+            "key": "urlinfo",
+            "value": "urlinfo"
+        },
+        {
+            "key": "VOCE",
+            "value": "VOCE"
+        },
+        {
+            "key": "rss",
+            "value": "rss"
+        },
+        {
+            "key": "tooltip",
+            "value": "tooltip"
+        }
+    ],
+    "packagemaster_imageurl": "https://domain/gamification/assets/images/seg/d_0.svg",
+    "showspindashboard": "F",
+    "imageasseturl": "https://domain/api/v1/image?id=!TID!",
+    "mastertemplateassets": "https://domain/api/v1/template/get?type=!TID!",
+    "showbannerapproval": "T",
+    "showbannergroupapproval": "T",
+    "showalertsapproval": "T",
+    "showpagesapproval": "T",
+    "showrulesapproval": "T",
+    "checkprofileexists": "T",
+    "jsonasseturl":"https://domain/api/v1/asset?id=!TID!",
+    "appversions": [
+        "1.0.0",
+        "1.2.0",
+        "1.9.0",
+        "2.2.0",
+        "4.2.0"
+    ],
+    "platformsettingfilters":[
+        {
+            "key":"MOBAPP_SETTINGS","value":"MOBAPP_SETTINGS"
+        },
+        {
+            "key":"SMTP","value":"SMTP"
+        },
+        {
+            "key":"MOBAPPAPI_SETTINGS","value":"MOBAPPAPI_SETTINGS"
+        },
+        {
+            "key":"REPORTS","value":"REPORTS"
+        },
+        {
+            "key":"GLOBAL_SETTINGS","value":"GLOBAL_SETTINGS"
+        }
+    ],
+    "SPINSTART":"2019-12-15",
+    "REFRESH_TOKEN":"1//0gL2qI0V4xbejCgYIARAAGBASNwF-L9Irewxa7QP-sKWzu9O-ZWxu0RYpYBPd_kP9cj138FggEVouGLB_ssaR_nfo5j9iplbpbRI",
+    "paymenttransactionreports": [
+        {
+            "reportid": "1",
+            "datecolumn": "FLTNTtransdate",
+            "reportname": "Payments",
+            "displayfields": [
+                {
+                    "key": "transid",
+                    "name": "TransID"
+                },
+                {
+                    "key": "transdate",
+                    "name": "DateTime"
+                },               
+                {
+                    "key": "msisdn",
+                    "name": "msisdn"
+                },                
+                {
+                    "key": "tomsisdn",
+                    "name": "tomsisdn"
+                },
+                {
+                    "key": "paymentchannel",
+                    "name": "Payment Channel"
+                },
+                {
+                    "key": "amount",
+                    "name": "Amount"
+                },
+                {
+                    "key": "operationtype",
+                    "name": "Operation Type"
+                },               
+                {
+                    "key": "usertype",
+                    "name": "User Type"
+                },
+                {
+                    "key": "responsedesc",
+                    "name": "Remarks"
+                },
+                {
+                    "key":"osversion",
+                    "name":"osversion"
+                },
+                {
+                    "key": "osname",
+                    "name": "OS Name"
+                }              
+            
+            ]
+        }
+    ]
+}
+

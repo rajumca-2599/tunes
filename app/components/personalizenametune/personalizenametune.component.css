@@ -1,0 +1,103 @@
+.slideInUp {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+  }
+  /* audio{
+    width: 200px;
+    height: 30px;
+  } */
+  /* audio::-webkit-media-controls-panel {
+    background-color: white;
+  }
+  
+  audio::-webkit-media-controls-current-time-display {
+    display: none;
+    
+  }
+
+  audio::-webkit-media-controls-time-remaining-display{
+    display: none;
+  }
+  audio::-webkit-media-controls-volume-slider-container{
+    display: none;
+  }
+
+audio::-webkit-media-controls-volume-slider{
+  display: none;
+}
+
+audio::-webkit-media-controls-seek-back-button{
+  display: none;
+} */
+/* audio::-webkit-media-controls-panel {
+  background-color: white;
+}
+audio::-webkit-media-controls-play-button{
+  display: none;
+}
+
+audio::-webkit-media-controls-timeline-container{
+  display: none;
+}
+
+audio::-webkit-media-controls-current-time-display{
+  display: none;
+}
+
+audio::-webkit-media-controls-time-remaining-display{
+  display: none;
+}
+
+audio::-webkit-media-controls-timeline{
+  display: none;
+}
+
+audio::-webkit-media-controls-volume-slider-container{
+  display: none;
+}
+
+audio::-webkit-media-controls-volume-slider{
+  display: none;
+}
+
+audio::-webkit-media-controls-seek-back-button{
+  display: none;
+}
+
+audio::-webkit-media-controls-seek-forward-button{
+  display: none;
+}
+
+audio::-webkit-media-controls-fullscreen-button{
+  display: none;
+}
+
+audio::-webkit-media-controls-rewind-button{
+  display: none;
+}
+
+audio::-webkit-media-controls-return-to-realtime-button{
+  display: none;
+}
+
+audio::-webkit-media-controls-toggle-closed-captions-button{
+  display: none;
+} */
+.timeline::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+.set_btn1{
+  position: absolute;
+  top: 8px;
+  transform: translateY(-50%);
+  right: -3px;
+  border: none;
+  border-radius: 74%;
+  background-color: #f9fafb;
+  opacity: 1.2;
+  padding: 8px;
+  display: flex;
+}

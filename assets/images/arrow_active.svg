@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="84" height="84" viewBox="0 0 84 84">
+  <defs>
+    <filter id="Ellipse_2381" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#2f3044" flood-opacity="0.502"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_58672" data-name="Rectangle 58672" width="20" height="20" transform="translate(291 601)" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="arrow_active" transform="translate(-165 -611)">
+    <g transform="matrix(1, 0, 0, 1, 165, 611)" filter="url(#Ellipse_2381)">
+      <circle id="Ellipse_2381-2" data-name="Ellipse 2381" cx="30" cy="30" r="30" transform="translate(12 12)" fill="#fd212a"/>
+    </g>
+    <g id="arrow_white" transform="translate(-94 42)" clip-path="url(#clip-path)">
+      <g id="longarrow" transform="translate(290.119 600.1)">
+        <g id="layer1" transform="translate(0 -997.325)">
+          <path id="path9413" d="M1.832,1009.129H17.78l-2.988,2.988a.91.91,0,0,0,1.287,1.287l2.721-2.725,1.816-1.819a.908.908,0,0,0,0-1.28l-4.538-4.543a.91.91,0,1,0-1.287,1.287l2.995,2.988h-16a.909.909,0,1,0,.047,1.818Z" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

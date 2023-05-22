@@ -1,0 +1,14 @@
+<svg id="play_black" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_64042" data-name="Rectangle 64042" width="14" height="14" fill="#2f3044" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Ellipse_2386" data-name="Ellipse 2386" fill="none" stroke="#2f3044" stroke-width="1">
+    <circle cx="15" cy="15" r="15" stroke="none"/>
+    <circle cx="15" cy="15" r="14.5" fill="none"/>
+  </g>
+  <g id="Mask_Group_23762" data-name="Mask Group 23762" transform="translate(8 8)" clip-path="url(#clip-path)">
+    <path id="Icon_awesome-play" data-name="Icon awesome-play" d="M11.25,5.693,1.919.176A1.265,1.265,0,0,0,0,1.271V12.3A1.271,1.271,0,0,0,1.919,13.4L11.25,7.882A1.271,1.271,0,0,0,11.25,5.693Z" transform="translate(1.723 0.181)" fill="#2f3044"/>
+  </g>
+</svg>

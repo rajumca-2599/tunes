@@ -1,0 +1,83 @@
+  <section>
+
+            <div class="flex_grp_between mb-2"  *ngIf="hidetitle">
+                <div class="flex_grp_align_center flex1 main-hedings">
+                    <!-- <h3 class="section_title_light mb-0">Top Trending Now!</h3> -->
+                    <h4 class="section_title_light mb-0">{{trandingTitle}}!</h4>
+                    <!-- <img src="assets/images/arrow.svg" width="20" class="ms-2" alt=""> -->
+                </div>
+                <!--a class="hyperlink">
+                    View All
+                    <img src="assets/images/right_arrow_red.svg" class="ms-1" alt="">
+                </a-->
+            </div>
+
+            <!--Evergreen Classics -->
+            <swiper [config]="config" class="auto_swiper_1">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" *ngFor="let item of albumList">
+                        <div class="card_style_1 height_100">
+                            <div class="card_img position-relative" >
+                                <div class="play-btn-comp">
+                                    <a *ngIf="!item.playsong" (click)="playinvidualsongs(item)">
+                                        
+                                        <img src="assets/images/play.svg" alt="" title="" class="play-icon"   >
+                                       
+                                    </a>
+                                    <a *ngIf="item.playsong">
+                                        <img src="assets/images/music waves.gif"  alt="" title="" class="play-icon" >
+                                    </a>
+                                </div>
+                                <img src={{item.imageurl}} onerror="this.src='assets/images/default_song_track.png'" alt="">
+                            </div>
+                            <div class="card_info">
+                                <div class="card_info_grp">
+                                    <!-- <h4 class="text-ellipsis" title="{{item.metadata.album}}">{{(item.metadata.album.length>10)?(item.metadata.album | slice:0:10)+'...':(item.metadata.album)}}</h4> -->
+                                    <h4 class="text-ellipsis" title="{{item.title}}">{{titletrim(item.title)}}</h4>
+                                    <p>{{item.metadata.yearofrelease==""?"Year-NA":item.metadata.yearofrelease}} | {{item.metadata.language}}</p>
+                                </div>
+                                <div class="card_link">
+                                    <button class="cs_btn cs_btn_primary btn-sm" (click)="setthesongforpopup(item)" data-bs-target=".bottom-popup00400" data-bs-toggle="modal"> Set </button>
+                                </div>
+                            </div>
+                        </div><!--card_style_1-->
+                    </div>
+                    
+                   
+                </div>
+            </swiper>
+
+
+          
+           
+
+        </section>
+        <div class="modal fade bottom_modal animated slideInUp faster bottom-popup00400" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="set_btn11"  data-bs-dismiss="modal" (click)="pausesong(data,1)" > <img
+                    src="assets/images/close_black.svg" alt="" title="" /></button>
+                <div class="noresult-found-comp mt-4">
+                    <div class="row-comp mb-2">
+                        <img src="assets/images/confirmation.svg"
+                        onerror="this.src='assets/images/default_song_track.png'" alt="" title="" />
+                    </div>
+                    <div class="label_text text-center mt-3">
+                        <h6>Are Sure Want to set this Caller Tune</h6>
+
+                    </div>
+                    <div class="mt-3">
+                        <button class="cs_btn cs_btn_primary" data-bs-dismiss="modal"
+                        (click)="setthesong()">Proceed</button>
+                    </div>
+                </div>
+            </div>
+            <!--div class="modal-footer">
+                fsdfsfsdfsdfsdfds
+            </div-->
+            <!--modal-body -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+//Accordion Css
+.accordion_style_1{
+    .accordion_item{
+        margin-bottom: 8px;
+        border-radius: 0px !important;
+        border: none !important;
+        &:last-child{
+            margin-bottom: 0px;
+        }
+        .accordion-button{
+            position: relative;
+            transition: padding 0.3s ease-out;
+            padding: 45px 12px;
+            cursor: pointer;
+            box-shadow: none;
+            @extend %secondary-color;
+            border: none !important;
+            h3{
+                padding-right: 20px;
+            }
+            img{
+                width: 20px;
+                position: absolute;
+                top: 38%;
+                transform: translateY(-50%);
+                right: 16px;
+                transform: rotate(0deg);
+                transition: all 0.4s ease-out;
+            }
+            // &[aria-expanded="true"]{
+            //     padding: 25px 12px 20px 12px;
+            //     transition: padding 0.3s ease-out;
+            //     img{
+            //         top: 40%;
+            //         transform: translateY(-50%);
+            //         transform: rotate(180deg);
+            //         transition: all 0.4s ease-out;
+            //     }
+            // }
+            &::after{
+                content: none;
+            }
+            &:not(.collapsed){
+                @extend %secondary-color;
+                padding: 25px 12px 20px 12px;
+                transition: padding 0.3s ease-out;
+                img{
+                    top: 40%;
+                    transform: translateY(-50%);
+                    transform: rotate(180deg);
+                    transition: all 0.4s ease-out;
+                }
+            }
+        }
+        .accordion_collapse{
+            padding: 0px;
+            .accordion_collapse_in{
+                padding: 0px 12px 20px 12px;
+            }
+        }
+    }
+}

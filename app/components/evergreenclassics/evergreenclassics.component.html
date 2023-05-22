@@ -1,0 +1,48 @@
+<section class="py_24">
+
+    <div class="flex_grp_between mb-14" *ngIf="hidetitle">
+        <div class="flex_grp_align_center flex1 main-hedings">
+            <h3 class="section_title_light mb-0">{{trandingTitle}}</h3>
+            <!-- <img src="assets/images/arrow.svg" width="20" class="ms-2" alt=""> -->
+        </div>
+        <!--a class="hyperlink">
+            View All
+            <img src="assets/images/right_arrow_red.svg" class="ms-1" alt="">
+        </a-->
+    </div>
+    <swiper [config]="config"  class="auto_swiper_1">
+        <div class="swiper-wrapper" >
+          <div class="swiper-slide" *ngFor="let item of evergreenalbumlist">
+            <div class="card_style_1 height_100">
+                <div class="card_img">
+                    <div class="play-icon-comp2">
+                       
+                        <a *ngIf="!item.playsong" (click)="playinvidualsongs(item)"  >
+                                        
+                            <img    src="assets/images/play-arrow-icon.svg" alt="" title=""    >
+                           
+                        </a>
+                        <a *ngIf="item.playsong"  >
+                            <img  src="assets/images/music waves.gif"  alt="" title=""  >
+                        </a>
+                    </div>
+                    <img  src="{{item.imageurl}}" onerror="this.src='assets/images/default_song_track.png'" alt="">
+                </div>
+                <div class="card_info">
+                    <div class="card_info_grp">
+                        <h4 title="{{item.title}}" >{{ titletrim(item.title)}}</h4>
+                        <p>{{item.groupname}}</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+         
+        </div>
+       
+       
+      </swiper>
+
+    <!--Evergreen Classics -->
+   
+    
+</section>

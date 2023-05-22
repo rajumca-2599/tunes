@@ -1,0 +1,25 @@
+//Cards Css
+.link_style_menu{
+    li{
+        .link_style_item{
+            padding: 20px 10px;
+            font-size: 16px;
+            border-bottom: 1px solid #E0E0E0;
+            .left_icon{
+                width: 40px;
+                margin-right: 14px;
+            }
+            .right_arrow{
+                width: 16px;
+            }
+            &:hover{
+                @extend %primary-color;
+            }
+        }
+        &:last-child{
+            .link_style_item{
+                border-bottom: 0px;
+            }
+        }
+    }
+}

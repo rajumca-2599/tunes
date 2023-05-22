@@ -1,0 +1,116 @@
+//Header Css
+
+.header{
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 100;
+    display: flex;
+    &.white_header{
+        .header_container{
+            @extend %white-bg;
+            box-shadow: 0px 1px 16px 0px rgba(0, 0, 0, 0.1);
+        }
+    }
+    &.open{
+        .header_container{
+            transition: all .2s ease-out;
+            @extend %white-bg;
+            box-shadow: 0px 1px 16px 0px rgba(0, 0, 0, 0.1  );
+        }
+    }
+    .header_container{
+        padding: 10px 12px 10px 12px;
+        position: relative;
+        flex: 1;
+        max-width: 480px;
+        margin: 0px auto;
+        height: 60px;
+    }
+    .header_center{
+        padding: 0px 40px;
+    }
+    .header_title{
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 0px;
+    }
+    .header_logo{
+        height: 22px;
+    }
+    .header_left,.header_actions{
+        position: absolute;
+        top:10px;
+    }
+    .header_left{
+        left: 5px;
+        // display: none;
+    }
+    .header_actions{
+        right: 5px;
+    }
+}
+
+.counter{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    position: absolute;
+    background: $primary;
+    border: 1px solid $white;
+    top: 0px;
+    right: 0px;
+    font-size: $proximanova-bold;
+    font-size: 8px;
+    color: $white;
+}
+.multi_account_drop{
+    @extend %primary-font;
+    font-size: 16px;
+    @extend %flex_grp_center;
+    @extend %secondary-color;
+    padding: 8px;
+    img{
+        width: 20px;
+        margin-left: 6px;
+    }
+    &:hover{
+        @extend %secondary-color;
+    }
+}
+
+.toggle-up {
+    animation-name: toggle-up;
+    animation-delay: 0.25s;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+}
+.toggle-down {
+    animation-name: toggle-down;
+    animation-delay: 0.25s;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+}
+  
+  /*animations*/
+  @keyframes toggle-up {
+    100% {
+      transform: rotate(180deg);
+    }
+  }
+  @keyframes toggle-down {
+    100% {
+      transform: rotate(180deg);
+    }
+  }
+
+@media (max-width: 768px) {
+    .header{
+        .header_left{ display: block;}
+    }
+}

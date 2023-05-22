@@ -1,0 +1,82 @@
+.cs_btn {
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+    border: 1px solid;
+    text-align: center;
+    padding: 8px 24px;
+    color: #ffffff;
+    font-family: 'Proxima-Nova-Semibold';
+    min-width: 180px;
+    height: calc(2em + 12px);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cs_btn_primary {
+    background: #FD212A;
+    color: #ffffff;
+    border-color: #FD212A;
+    &:hover {
+        background: #FD212A;
+        color: #ffffff;
+        border-color: #FD212A;
+    }
+    &.disabled,
+    &:disabled {
+        background: #aaaaaa;
+        color: #ffffff;
+        border-color: #aaaaaa;
+        &:hover {
+            background: #aaaaaa;
+            color: #ffffff;
+            border-color: #aaaaaa;
+        }
+    }
+}
+
+.arrow_link {
+    font-family: 'Proxima-Nova-bold';
+    font-size: 12px;
+    color: #FD212A;
+    text-decoration: none;
+    &:hover {
+        color: #FD212A;
+        text-decoration: none;
+    }
+    img {
+        width: 10px;
+    }
+}
+.btn-sm{
+    font-size:14px !important;
+    min-width:60px !important;
+    height:30px !important;
+    line-height:11px !important;
+    padding:7px 10px !important;
+}
+.btn-md{
+    font-size:14px !important;
+    min-width:100px !important;
+    height:30px !important;
+    line-height:11px !important;
+    padding:7px 10px !important;
+}
+
+.bs_btn {
+    background: #fd212a;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px 15px;
+    font-family: 'Proxima-Nova-Bold';
+    width: 100%;
+    border-radius: 50px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+
+.bs_btn:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
