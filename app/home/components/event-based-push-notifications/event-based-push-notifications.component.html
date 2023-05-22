@@ -1,0 +1,490 @@
+<section class="basic_details sticky base80">
+    <div class="container-fluid">
+      <div class="detail_sec">
+        <div class="details_inner">
+          <div class="type_camp">
+            <div class="container-fluid">
+              <div class="detail_title">
+                <h4>
+                  <em class="fa fa-comment-o"></em><span class="user">Event Notifications</span>
+                  <a class="pull-right cmp-fa" mat-mini-fab (click)="AddNewNotification()" *ngIf="showlist=='1'">
+                    <i class="fa fa-plus" aria-hidden="true" matTooltip="Add" ></i>
+                  </a>
+                </h4>
+              </div>
+              <div *ngIf="showlist=='1'">
+                <div class="container px-lg-3 my-1 p-1">
+  
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-select placeholder="Pushtype" name="pushtype" #region="ngModel"
+                          [(ngModel)]="searchObj.pushtype">
+                          <mat-option *ngFor="let reg of pushtypelst" [value]="reg.Id"
+                            (onSelectionChange)="onPushTypeChange(reg.Id,$event)">{{ reg.Name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <div style="border-bottom:solid 1px #EEE">
+                        <span class="date-picker">
+                          <mat-label>Start Date</mat-label>
+                          <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                          <input name="sstartdate" placeholder="" [(ngModel)]="searchObj.startdate"
+                            [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" />
+                          <owl-date-time #dt2></owl-date-time>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div style="border-bottom:solid 1px #EEE">
+                        <span class="date-picker">
+                          <mat-label>End Date</mat-label>
+                          <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                          <input name="senddate" placeholder="" [(ngModel)]="searchObj.enddate" [owlDateTimeTrigger]="dt3"
+                            [owlDateTime]="dt3" />
+                          <owl-date-time #dt3></owl-date-time>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>Status</mat-label>
+                        <mat-select [(ngModel)]="searchObj.fstatus" name="fstatus" #fstatus="ngModel">
+                          <mat-option *ngFor="let status of statuslist" [value]="status.id" (onSelectionChange)="onStatusChange(status.id,$event)">{{status.name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+  
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-select placeholder="zone" name="zone" #zone="ngModel" [(ngModel)]="searchObj.zone">
+                          <!-- <mat-option value="All">ALL</mat-option> -->
+                          <mat-option *ngFor="let reg of regionlst" [value]="reg.Id"
+                            (onSelectionChange)="onAreaChange(reg.Id,$event)">{{ reg.Name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-select placeholder="circle" name="circle" #circle="ngModel"
+                          [(ngModel)]="searchObj.circle">
+                          <mat-option value="All">All</mat-option>
+                          <mat-option *ngFor="let sales of circleList" [value]="sales.circle_code"  (onSelectionChange)="oncircleChange(sales.circle_code,$event)"
+                           >{{ sales.name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-select placeholder="subscriber type" name="subscriber_type" #subscriber_type="ngModel"
+                          [(ngModel)]="searchObj.subscriber_type">
+                          <!-- <mat-option [value]="0">Select</mat-option> -->
+                          <mat-option *ngFor="let clust of clusterlst" [value]="clust.Id"
+                            (onSelectionChange)="onClusterChanges(clust.Id,$event)">{{ clust.Name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-select placeholder="Os Name" name="Os_name" #Os_name="ngModel"
+                          [(ngModel)]="searchObj.Os_name">
+                          <!-- <mat-option [value]="0">ALL</mat-option> -->
+                          <mat-option *ngFor="let mclust of microclusterlst" [value]="mclust.Id"   (onSelectionChange)="onosnameChanges(mclust.Id,$event)"
+                           >{{ mclust.Name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                 
+  
+  
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>Search</mat-label>
+                        <input matInput type="text" maxlength="20" name="searchString" titleChars autocomplete="off"
+                          value="&nbsp;" #searchString="ngModel" [(ngModel)]="searchObj.searchString">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <button type="button" class="btn btn-outline-primary btn_custom"
+                          (click)="pageObject.pageNo=0;getNotificationlistfoesearch()"><i class="fa fa-search" aria-hidden="true"
+                            matTooltip="search"></i></button>
+                        <span>&nbsp;</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!--table-->
+                <!-- <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs ">
+                  <div fxLayout="row">
+                    <div class="data-container">
+                      <div class="data-table-container">
+                        <table mat-table [dataSource]="dataSource" matSort
+                        matSortDirection="asc" class="data-table mattable">
+                          <ng-container matColumnDef="title">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                            <td mat-cell *matCellDef="let row">{{row?.title}} 
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="message">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Message</th>
+                            <td mat-cell *matCellDef="let row">
+                              <div title="{{row?.message}}">
+                                {{row?.message}}
+                              </div>
+                            </td>
+                          </ng-container>
+                          
+                          <ng-container matColumnDef="scheduleon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Scheduled On</th>
+                            <td mat-cell *matCellDef="let row">{{row?.startdate}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="createdon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Created On</th>
+                            <td mat-cell *matCellDef="let row">{{row?.createdon}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
+                            <td mat-cell *matCellDef="let row">
+  
+                              <div >{{getstatustext(row?.status)}}
+                              </div>
+                             
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+                            <td mat-cell *matCellDef="let row">
+                              <button  matTooltip="Edit {{row?.title}}" (click)="editnotification(row)" [disabled]="row?.status != 0 || row?.btndis==true"
+                                class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                <em class="fa fa-edit"></em>
+                              </button>
+                               <button  mat-icon-button color="warn" (click)="Addchangestatus(row)" data-toggle="modal" data-target="#exampleModal"
+                                matTooltip="Deactivate"  *ngIf="row?.btndis!=true" [disabled]="row?.status == 3">
+                                <em class="fa fa-trash-o"></em>
+                              </button> 
+                             
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                          <tr mat-row
+                            *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="" [ngClass]="{hideelement: pageObject.totalRecords == 0}">
+                        <div class="mt-0 pull-left">
+                          <div class="row">
+                            <div class="col-md-12 mt-0 text-left">
+                              <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                [pageSizeOptions]="[5, 10, 25, 100]">
+                              </mat-paginator>
+                            </div>
+                          </div>
+                        </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <!--table ends-->
+                <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                  <div fxLayout="row">
+                    <div class="data-container">
+                      <div class="data-table-container">
+                        <table mat-table [dataSource]="dataSource" matSort
+                        matSortDirection="asc" class="data-table mattable">
+                          <ng-container matColumnDef="title">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                            <td mat-cell *matCellDef="let row">{{row?.title}} 
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="message">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Message</th>
+                            <td mat-cell *matCellDef="let row">
+                              <div title="{{row?.message}}">
+                                {{row?.message}}
+                              </div>
+                            </td>
+                          </ng-container>
+                          
+                          <ng-container matColumnDef="scheduleon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Scheduled On</th>
+                            <td mat-cell *matCellDef="let row">{{row?.startdate}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="createdon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Created On</th>
+                            <td mat-cell *matCellDef="let row">{{row?.createdon}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
+                            <td mat-cell *matCellDef="let row">
+  
+                              <div >{{getstatustext(row?.status)}}
+                              </div>
+                             
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+                            <td mat-cell *matCellDef="let row">
+                              <button  matTooltip="Edit {{row?.title}}" (click)="editnotification(row)" [disabled]="row?.status != 0 || row?.btndis==true"
+                                class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                <em class="fa fa-edit"></em>
+                              </button>
+                               <button  mat-icon-button color="warn" (click)="Addchangestatus(row)" data-toggle="modal" data-target="#exampleModal"
+                                matTooltip="Deactivate"  *ngIf="row?.btndis!=true" [disabled]="row?.status == 3">
+                                <em class="fa fa-trash-o"></em>
+                              </button> 
+                             
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                          <tr mat-row
+                            *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="" [ngClass]="{hideelement: pageObject.totalRecords == 0}">
+                        <div class="mt-0 pull-left">
+                          <div class="row">
+                            <div class="col-md-12 mt-0 text-left">
+                              <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                [pageSizeOptions]="[5, 10, 25, 100]">
+                              </mat-paginator>
+                            </div>
+                          </div>
+                        </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="showlist=='2'" style="min-height: 500px;">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h5 class="h5user">Basic Details</h5>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-label>Title*</mat-label>
+                          <input matInput type="text" titleChars maxlength="100" name="nottitle" autocomplete="off"
+                            value="&nbsp;"  [(ngModel)]="notification.title">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-label>Image URL*</mat-label>
+                          <input matInput type="text" name="nottitleimage" maxlength="200" autocomplete="off"
+                            value="&nbsp;" [(ngModel)]="notification.image">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-label>Action URL*</mat-label>
+                          <input matInput type="text" name="notationurl" maxlength="200" autocomplete="off" value="&nbsp;"
+                           [(ngModel)]="notification.actionurl">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-label>Message*</mat-label>
+                          <input matInput type="text" name="notmsg" maxlength="500" autocomplete="off" value="&nbsp;"
+                           [(ngModel)]="notification.message">
+                        </mat-form-field>
+                      </div>                  
+  
+                     
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-select placeholder="Pushtype" name="pushtype" #region="ngModel"
+                            [(ngModel)]="notification.pushtype">
+                            <mat-option *ngFor="let reg of pushtypelst" [value]="reg.Id"
+                              (onSelectionChange)="onPushTypeChange(reg.Id,$event)">{{ reg.Name }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <!-- <div class="col-md-12">
+                        <div style="border-bottom:solid 1px #EEE">
+                          <span class="date-picker">
+                            <mat-label>Schedule Date</mat-label>
+                            <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                            <input name="sstartdate" placeholder="" [(ngModel)]="notification.scheduleon"
+                              [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" />
+                            <owl-date-time #dt4></owl-date-time>
+                          </span>
+                        </div>
+                      </div> -->
+                      
+                      <!-- <div class="col-md-6">
+                        <div class="form-group" *ngIf="notification.pushcode==''">
+                          <button type="button" class="btn btn-outline-primary "
+                            (click)="SendNow()">Send Now</button>
+                          <span>&nbsp;</span>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h5 class="h5user">Targeted Users</h5>
+                      </div>
+                      <!-- <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-select placeholder="User Group" name="notusertype" #notusertype="ngModel"
+                            [(ngModel)]="notification.usertype">
+                            <mat-option *ngFor="let mclust of usertypeslist" [value]="mclust.Id">{{ mclust.Name }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div> -->
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-select placeholder="zone" name="notzone" #notregion="ngModel"
+                            [(ngModel)]="notification.zoneid">
+                            <!-- <mat-option value="All">All</mat-option> -->
+                            <mat-option *ngFor="let reg of regionlst" [value]="reg.Id"
+                              (onSelectionChange)="onAreaChangeEdit(reg.Id,$event)">{{ reg.Name }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-select placeholder="circle" name="circleid" #circleid="ngModel"
+                            [(ngModel)]="notification.circleid">
+                            <mat-option value="All">All</mat-option>
+                            <mat-option *ngFor="let sales of circleList" [value]="sales.circle_code"
+                            (onSelectionChange)="oncircleChangeEdit(sales.circle_code,$event)"
+                              >{{ sales.name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-select placeholder="subscriber type" name="subscriber_type" #subscriber_type="ngModel"
+                            [(ngModel)]="notification.subscriber_type">
+                            <!-- <mat-option [value]="0">All</mat-option> -->
+                            <mat-option *ngFor="let clust of clusterlst" [value]="clust.Id"
+                              (onSelectionChange)="onClusterChange(clust.Id,$event)">{{ clust.Name }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12">
+                        <mat-form-field floatLabel="always">
+                          <mat-select placeholder="Os name" name="Os_name" #Os_name="ngModel"
+                            [(ngModel)]="notification.Os_name">
+                            <!-- <mat-option [value]="0">All</mat-option> -->
+                            <mat-option *ngFor="let mclust of microclusterlst" [value]="mclust.Id" (onSelectionChange)="onOsnameChange(mclust.Id,$event)">{{ mclust.Name }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <div style="border-bottom:solid 1px #EEE">
+                          <span class="date-picker">
+                            <mat-label>Start Date</mat-label>
+                            <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                            <input name="sstartdate" placeholder="" [(ngModel)]="notification.startdate" [min]="minDates"
+                              [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" />
+                            <owl-date-time #dt2></owl-date-time>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div style="border-bottom:solid 1px #EEE">
+                          <span class="date-picker">
+                            <mat-label>End Date</mat-label>
+                            <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                            <input name="senddate" placeholder="" [(ngModel)]="notification.enddate" [owlDateTimeTrigger]="dt3" [min]="notification.startdate"
+                              [owlDateTime]="dt3" />
+                            <owl-date-time #dt3></owl-date-time>
+                          </span>
+                        </div>
+                      </div>
+  
+                      
+  
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                  <div class="col-md-10">&nbsp;</div>
+                  <!-- <div class="col-md-1"
+                    *ngIf="notification.pushcode!='' && notification.pushcode.length>3 && notification.status=='1'">
+                    <div class="form-group">
+                      <button type="button" class="btn btn-outline-primary "
+                        (click)="UpdateNotification()">Update</button>
+                      <span>&nbsp;</span>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <button type="button" class="btn btn-outline-primary " (click)="ResetAddView()">Close</button>
+                      <span>&nbsp;</span>
+                    </div>
+                  </div> -->`
+                  <mat-divider></mat-divider>
+                  <mat-dialog-actions class="pull-right">
+                    <button class="btn mr-2 mat-raised-button" (click)="ResetAddView()">Close</button>
+                    <button  class="btn mat-raised-button mat-primary" type="button" *ngIf="notification.pushcode==''"
+                      (click)="InsertNotifications()">Save</button>
+                    <button  class="btn mat-raised-button mat-primary" type="button"
+                      *ngIf="notification.pushcode!='' && notification.pushcode.length>3 "
+                      (click)="UpdateNotification()">Update</button>
+                  </mat-dialog-actions>
+                </div>
+              </div>
+              <!-- <div *ngIf="showlist=='3'" >
+                <div class="col-md-3 ml-3">
+                  <mat-form-field floatLabel="always">
+                    <mat-label>Status</mat-label>
+                    <mat-select [(ngModel)]="statusValue" name="fstatus" #fstatus="ngModel">
+                      <mat-option *ngFor="let status of statuslist" [value]="status.id" (onSelectionChange)="onStatusChanged(status.id)">{{status.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <mat-divider></mat-divider>
+                <mat-dialog-actions class="pull-right">
+                  <button class="btn mr-2 mat-raised-button" (click)="ResetAddView()">Close</button>
+                  <button  class="btn mat-raised-button mat-primary" type="button" 
+                    (click)="ChangetheNotificationstatus()">Save</button>
+                 
+                </mat-dialog-actions>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 id="exampleModalLabel">Do You Want change the status?</h5>
+          <div class="alignbtn">
+            <button type="button" class="btn btn-secondary m-3" data-dismiss="modal">NO</button>
+            <button type="button" class="btn btn-primary m-3" data-dismiss="modal"  (click)="ChangetheNotificationstatus()">YES </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

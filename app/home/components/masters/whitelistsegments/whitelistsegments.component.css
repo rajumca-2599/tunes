@@ -1,0 +1,34 @@
+.data-table{
+    width: 100%;
+}
+.banner-head {
+    color: #00aeef;
+    font-size: 14px;
+  }     
+  .mat-header-cell{
+    padding-left: 8px!important;
+  }
+  .label-default {
+    background-color: #777;
+  }
+  
+  .label-primary {
+    background-color: #337ab7;
+  }
+  
+  .label-success {
+    background-color: #5cb85c;
+  }
+  
+  .label-info {
+    background-color: #5bc0de;
+  }
+  
+  .label-warning {
+    background-color: #f0ad4e;
+  }
+  
+  .label-danger {
+    background-color: #d9534f;
+  }
+  

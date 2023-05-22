@@ -1,0 +1,103 @@
+<div class="row adjheight">
+<div *ngFor="let catobj of catlist" class="col-sm-6 col-md-6">
+        <span *ngIf="catobj.lang=='id'"><strong >Commercial Category Indonasian</strong></span>
+        <span *ngIf="catobj.lang=='en'"><strong >Commercial Category English</strong></span>
+        <button *ngIf="catobj.lang=='id'" title="copy the content from Indonasian to English" class="mat-raised-button copy-btn" type="button" (click)="copyCategory()">COPY</button>
+        <hr />
+        <form autocomplete="off" name="addRuleForm" novalidate >
+              <div class="row">
+                  <div class="col-sm-12 col-md-12">
+                      <mat-form-field>
+                        <mat-label> {{'Main Category'| langFilter}}</mat-label>
+                        <input matInput type="text" [(ngModel)]="catobj.mainCategory" name="{{'mainCategory'+ catobj.lang}}" [disabled]="mode =='update'" maxlength="50" required autocomplete="off">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Category'| langFilter}}</mat-label>
+                          <input matInput type="text" [(ngModel)]="catobj.category" name="{{'category'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50" required autocomplete="off">
+                    
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                      <mat-form-field>
+                        <mat-label> {{'Language'| langFilter}}</mat-label>
+                        <input *ngIf="catobj.lang=='id'" matInput type="text" value="Indonasian" name="{{'lang'+ catobj.lang}}"  [disabled]="true" maxlength="50" required autocomplete="off">
+                        <input *ngIf="catobj.lang=='en'" matInput type="text" value="English" name="{{'lang'+ catobj.lang}}"  [disabled]="true" maxlength="50" required autocomplete="off">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Channel'| langFilter}}</mat-label>
+                          <input matInput type="text" [(ngModel)]="catobj.channelName" name="{{'channelName'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50" required autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Start Price'| langFilter}}</mat-label>
+                          <input matInput type="number" [(ngModel)]="catobj.startPrice" name="{{'startPrice'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="6"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Category Subtitle'| langFilter}}</mat-label>
+                          <input matInput type="text" [(ngModel)]="catobj.catSubtitle" name="{{'catSubtitle'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Category Banner Image'| langFilter}}</mat-label>
+                          <input matInput type="text" [(ngModel)]="catobj.catBannerImage" name="{{'catBannerImage'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Category Footer Description'| langFilter}}</mat-label>
+                          <input matInput type="text" [(ngModel)]="catobj.catFooterDesc" name="{{'catFooterDesc'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Category Ribon'| langFilter}}</mat-label>
+                            <input matInput type="text" [(ngModel)]="catobj.catRibbon" name="{{'catRibbon'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                          </mat-form-field>
+                        </div>
+                      <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Category Footer Images'| langFilter}}</mat-label>
+                          <input matInput type="text" [(ngModel)]="catobj.catFooterImage" name="{{'catFooterImage'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Category List Images'| langFilter}}</mat-label>
+                          <input matInput type="text" [(ngModel)]="catobj.catListImages" name="{{'catListImages'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Category Feature Images'| langFilter}}</mat-label>
+                          <input matInput type="text" [(ngModel)]="catobj.catFeaterImage" name="{{'catFeaterImage'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                        <mat-form-field>
+                          <mat-label> {{'Sequence'| langFilter}}</mat-label>
+                          <input matInput type="number" [(ngModel)]="catobj.sequence" name="{{'sequence'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Attribute'| langFilter}}</mat-label>
+                            <input matInput type="text" [(ngModel)]="catobj.attributeIds" name="{{'attributeIds'+ catobj.lang}}"  [disabled]="mode =='update'" maxlength="50"  autocomplete="off">
+                          </mat-form-field>
+                        </div>
+              </div>
+        </form>
+</div>
+</div>
+<hr />
+<mat-dialog-actions class="pull-right">
+    <button class="btn mr-2 mat-raised-button" (click)="close()">Close</button>
+    <button class="btn mat-raised-button mat-primary" type="button" (click)="submitCategory()">Submit</button>
+</mat-dialog-actions>

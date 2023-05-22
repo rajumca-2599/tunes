@@ -1,0 +1,112 @@
+<!--<app-header></app-header>-->
+<!-- <div class="row">
+  <div class="col-md-1">
+    <p>sidenav</p>
+  </div>
+  <div class="col-md-11">
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
+<!--header with side nav starts here-->
+<div class="header">
+  <a id="menu-action">
+    <!-- <i class="fa fa-bars"></i> -->
+    <span class="img_logo"><img alt="*" src="assets/images/header-logo.svg"></span>
+  </a>
+  <div class="logo">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <span class="logo Oordeoo_logo">
+            <!-- <img alt="*" src="assets/images/bsnl-logo.jpg" style="height: 45px "> -->
+            <img alt="*" src={{env.logo}} style="height: 45px "> 
+
+          </span>
+          <span class="header_log_text">
+            <!-- My BSNL Admin -->
+            {{env.header_text}}
+          </span>
+        </div>
+        <div class="col-md-1 belltop" style="padding: 0;text-align: right;">
+          <i class="fa fa-bell " matBadge="{{badgecount}}" matBadgeColor="accent" (click)="shownotifytab()"
+            aria-hidden="true"></i>
+        </div>
+        <div class="col-md-2">
+          <div class="profile">
+            <div class="dropdown" style="float:right;">
+              <button class="dropbtn"><img alt="*"
+                  src="assets/images/avatar.png" /><span>{{currentuser | uppercase }}</span></button>
+              <div class="dropdown-content">
+                <a routerLink="/home/myprofile"><em class="icon-user"></em>My Profile</a>
+                <button type="button" class="btn btn-outline-primary btn_c" (click)="logout()">Logout</button>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="sidebar" id="style-7">
+  <ul>
+    <li *ngFor="let menu of menulist">
+      <a *ngIf="menu.items.length==0 && menu.url!=''" routerLinkActive="active-link" routerLink="{{menu.url}}"><em
+          class="{{menu.icon}}"></em><span class="title">{{menu.name | uppercase}}</span></a>
+      <a *ngIf="menu.items.length>0 && menu.url==''" routerLinkActive="active-link"><em class="{{menu.icon}}"></em><span
+          class="title">{{menu.name | uppercase}}</span></a>
+      <ul *ngIf="menu.items.length>0" class="sub-menu dropup">
+        <li *ngFor="let submenu of menu.items"><a routerLinkActive="active-link" routerLink="{{submenu.url}}"><span
+              class="title_sub">{{submenu.name }}</span></a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div class="notbar" *ngIf="shownotify">
+  <div class="row" style="margin: 0;">
+    <div class="col-sm-12 notbarhdr">
+      <div class="col-sm-9" style="float: left;">Notifications</div>
+      <div class="col-sm-3" style="float: right;">
+        <button type="button" class="btn pull-right marg10" (click)="hidenottab()">
+          <i class=" fa fa-close " style=" font-size: 20px;" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-12 notitm" *ngFor="let itm of notifyarray">
+      <div>{{itm.msg}}</div>
+    </div>
+  </div>
+
+</div>
+<!--header with side nav ends here-->
+<!--main-->
+<main class="main" style="height:100%;">
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<!--main section-->
+<!--footer-->
+<footer class="page_bottom">
+  <div class="page-footer">
+    <div class="container-fluid">
+      <div class="page-footer-inner pull-left col-11" style="padding-left: 40px">
+        <a target="_blank" href="https://imimobile.com/" style="color:#fff">© Copyright 2021 Digitral. All Rights Reserved.</a>
+        <span clas="pl-5 footer-span" style="font-size: 8px;text-align: center;display: inline-block;width: 94%;">Min
+          Resolution: 1024 x 768 pixels | Supported Browsers : Chrome / Internet Explorer (Version 11.0+) &amp; above /
+          Mozilla Firefox (version 26+) &amp; above</span>
+      </div>
+      <div class="page-footer-inner pull-right col-1 text-right p-0">
+        <!-- <a target="_blank" href="https://imimobile.com/"><img alt="*" height="15px" style="margin-top: -10px"
+            src="assets/images/imi_logo.svg"></a> -->
+        <div class="scroll-to-top">
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!--footer ends here-->

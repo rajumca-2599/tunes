@@ -1,0 +1,236 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="addChannelForm" novalidate #addUserForm='ngForm'>
+  <mat-dialog-content>
+
+    <div *ngIf="mode != 'manage'" class="">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <div class="row">
+            <div class="col-sm-6 col-md-6">
+              <mat-form-field>
+                <mat-label> {{'Schema '| langFilter}}</mat-label>
+                <input titleChars matInput type="text" [(ngModel)]="aspconfig.schema" name="schema" #schema="ngModel"
+                  maxlength="50" required autocomplete="off">
+
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 col-md-6">
+              <mat-form-field>
+                <mat-label> {{'Description '| langFilter}}</mat-label>
+                <input matInput type="text" [(ngModel)]="aspconfig.description" name="description"
+                  #description="ngModel" maxlength="50" autocomplete="off">
+              </mat-form-field>
+            </div>
+            <!-- <div class="col-sm-2 col-md-2">
+          <mat-form-field floatLabel="always">
+            <mat-label> {{'Status'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="aspconfig.status" name="status" required #status="ngModel">
+              <mat-option value="1">Active </mat-option>
+              <mat-option value="0">Inactive </mat-option>
+            </mat-select>
+ 
+          </mat-form-field>
+        </div> -->
+            <div class="col-sm-4 col-md-4 top-10">
+              <mat-checkbox name="isDisplayUnlimitedDataCircle" [(ngModel)]="aspconfig.isDisplayUnlimitedDataCircle">
+              </mat-checkbox>
+              <mat-label> {{'Display Unlimited Data Circle'| langFilter}}</mat-label>
+            </div>
+            <div class="col-sm-4 col-md-4 top-10">
+              <mat-checkbox name="isDisplayUnlimitedPhoneCircle" [(ngModel)]="aspconfig.isDisplayUnlimitedPhoneCircle">
+              </mat-checkbox>
+              <mat-label> {{'Display Unlimited Phone Circle'| langFilter}}</mat-label>
+            </div>
+            <div class="col-sm-4 col-md-4 top-10">
+              <mat-checkbox name="isDisplayUnlimitedSMSCircle" [(ngModel)]="aspconfig.isDisplayUnlimitedSMSCircle">
+              </mat-checkbox>
+              <mat-label> {{'Display Unlimited SMS Circle'| langFilter}}</mat-label>
+            </div>
+            <div class="col-sm-4 col-md-4 top-10">
+              <mat-checkbox name="isDisplayUnlimitedDataBar" [(ngModel)]="aspconfig.isDisplayUnlimitedDataBar">
+              </mat-checkbox>
+              <mat-label> {{'Display Unlimited Data Bar'| langFilter}}</mat-label>
+            </div>
+            <div class="col-sm-4 col-md-4 top-10">
+              <mat-checkbox name="isDisplayUnlimitedPhoneBar" [(ngModel)]="aspconfig.isDisplayUnlimitedPhoneBar">
+              </mat-checkbox>
+              <mat-label> {{'Display Unlimited Phone Bar'| langFilter}}</mat-label>
+            </div>
+            <div class="col-sm-4 col-md-4 top-10">
+              <mat-checkbox name="isDisplayUnlimitedSMSBar" [(ngModel)]="aspconfig.isDisplayUnlimitedSMSBar">
+              </mat-checkbox>
+              <mat-label> {{'Display Unlimited SMS Bar'| langFilter}}</mat-label>
+            </div>
+            <!-- <div class="col-sm-3 col-md-3">
+            <mat-form-field floatLabel="always">
+                <mat-label> {{'Display Unlimited SMS Circle'| langFilter}}</mat-label>
+                <mat-checkbox  name="isDisplayUnlimitedSMSCircle" [(ngModel)]="aspconfig.isDisplayUnlimitedSMSCircle"></mat-checkbox>
+            </mat-form-field>
+        </div> -->
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <div class="row">
+        <div class="col-xs-6 col-md-6">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>English</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'Image URL'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.home_banner_en"
+                      name="home_banner_en" #home_banner_en="ngModel" maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'External URL'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.home_banner_url_en"
+                      name="home_banner_url_en" #home_banner_url_en="ngModel" safeChars maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'Unlimited Data'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.UnlimitedDataBarString_en"
+                      name="UnlimitedDataBarString_en" #UnlimitedDataBarString_en="ngModel" maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'Unlimited Phone'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.UnlimitedPhoneBarString_en"
+                      name="UnlimitedPhoneBarString_en" #UnlimitedPhoneBarString_en="ngModel"
+                      maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'Unlimited SMS'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.UnlimitedSMSBarString_en"
+                      name="UnlimitedSMSBarString_en" #UnlimitedSMSBarString_en="ngModel" maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-xs-6 col-md-6">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>Bahasa</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'Image URL'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.home_banner_id"
+                      name="home_banner_id" #home_banner_id="ngModel" maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'External URL '| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.home_banner_url_id"
+                      name="home_banner_url_id" #home_banner_url_id="ngModel" safeChars maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'Unlimited Data'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.UnlimitedDataBarString_id"
+                      name="UnlimitedDataBarString_id" #UnlimitedDataBarString_id="ngModel" maxlength="200"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'Unlimited Phone'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.UnlimitedPhoneBarString_id"
+                      name="UnlimitedPhoneBarString_id" #UnlimitedPhoneBarString_id="ngModel"
+                      maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <mat-form-field>
+                    <mat-label> {{'Unlimited SMS'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="aspconfig.UnlimitedSMSBarString_id"
+                      name="UnlimitedSMSBarString_id" #UnlimitedSMSBarString_id="ngModel" maxlength="200" ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="mode == 'manage'" class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>Packages</span>
+          <div class="form-group ">
+            <div class="row">
+              <div class="col-md-11">
+                <div class="form-control form-control-static">
+                  <input matInput type="text" [(ngModel)]="selectedpack" name="Package" #description="ngModel"
+                    maxlength="50" autocomplete="off" (keydown)="validateproduct($event)" >
+                </div>
+              </div>
+              <div class="col-md-1"> <button type="button" class="btn btn-outline-primary btn_custom21 pull-right"
+                  (click)="onPkgSelectedChange()">
+                  <i class="fa fa-plus" aria-hidden="true">
+                  </i>
+                </button></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <span>Selected Packages</span>
+          <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+            <div fxLayout="row">
+              <div class="data-container bgdata-container">
+                <div class="data-table-container bgdata-table-container">
+                  <table mat-table [dataSource]="dataSource" class="bgdata-table">
+                    <ng-container matColumnDef="pvrid">
+                      <th mat-header-cell *matHeaderCellDef>PVR ID</th>
+                      <td mat-cell *matCellDef="let row">{{row?.pvrid}}</td>
+                    </ng-container>
+                    <ng-container cdkColumnDef="actions" stickyEnd>
+                      <th mat-header-cell *matHeaderCellDef>Actions</th>
+                      <td *cdkCellDef="let row;let i = index">
+                        <div>
+                          <button matTooltip="Remove Package" [hidden]="!row.isnew && row.status =='0'"
+                            (click)="removeSplConfig(row)"
+                            class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                            <i class="fa fa-remove" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions class="pull-right">
+    <button class="mat-raised-button btn mr-2" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary btn" type="button" (click)="submitSplConfig()">Submit</button>
+  </mat-dialog-actions>
+</form>

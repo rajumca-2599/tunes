@@ -1,0 +1,10 @@
+.multidrop-padtop {
+  padding-top: 10px !important;
+}
+
+.mat-dialog-content{
+  display:contents !important;
+}
+  .mat-dialog-content .container{
+    height:400px !important;
+  }

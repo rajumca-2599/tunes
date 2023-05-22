@@ -1,0 +1,178 @@
+<section class="basic_details sticky base80">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 no-padding">
+              <div class="detail_sec">
+                <div class="details_inner">
+                  <div class="type_camp">
+                    <div class="container-fluid no-padding">
+                      <div class="detail_title">
+                        <h4>
+                          <em class="icon-settings"></em><span class="user">Spin The Wheel <span style="font-size: 16px;">&#8811;</span> Package Master</span>
+                          <button type="button"
+                            [ngClass]="isOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                            (click)="toggle()">
+                            <i class="fa fa-filter" aria-hidden="true" matTooltip="filter"></i>
+                          </button>
+                          <button type="button"
+                            [ngClass]="isAddOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                            (click)="addpackmaster(null)"  *ngIf="userpermissions.add==1">
+                            <i class="fa fa-plus" aria-hidden="true" matTooltip="Add" ></i>
+                          </button>
+                        </h4>
+                      </div>
+                      <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm">
+                        <div class="row" *ngIf="isOpen">
+                            <div class="col-sm-3">
+                                <mat-form-field>
+                                    <mat-label> {{'Category'| langFilter}}</mat-label>
+                                    <mat-select [(ngModel)]="catagory" name="status" required >
+                                        <mat-option [value]="0">ALL</mat-option>
+                                        <mat-option [value]="1">LISTING OFFER</mat-option>
+                                        <mat-option [value]="2">WINNING OFFER</mat-option>
+                                        <mat-option [value]="3">ACQUISITION</mat-option>
+                                        <mat-option [value]="4">RETENTION</mat-option>
+                                        <mat-option [value]="5">MEMBER TO MEMBER</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-3">
+                                <mat-form-field>
+                                    <mat-label> {{'Offer Type'| langFilter}}</mat-label>
+                                    <mat-select [(ngModel)]="offertype" name="offertype" required >
+                                        <mat-option [value]="0">ALL</mat-option>
+                                        <mat-option [value]="1">DATA</mat-option>
+                                        <mat-option [value]="2">VOICE</mat-option>
+                                        <mat-option [value]="3">COMBO</mat-option>
+                                        <mat-option [value]="4">PULSA</mat-option>
+                                        <mat-option [value]="5">MIX</mat-option>
+                                        <mat-option [value]="6">VOUCHER </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-2">
+                              <mat-form-field>
+                                <mat-label> {{'Status'| langFilter}}</mat-label>
+                                <mat-select [(ngModel)]="status" name="status" required>
+                                    <!-- <mat-option [value]="">ALL</mat-option> -->
+                                    <mat-option [value]="1">ACTIVE</mat-option>
+                                    <mat-option [value]="0">INACTIVE</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          <div class="col-md-3">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Search</mat-label>
+                                <input matInput type="text" titleChars autocomplete="off" value="&nbsp;"
+                                    [(ngModel)]="searchString">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-1">
+                            <div class="form-group">
+                              <button type="button" class="btn btn-outline-primary btn_custom" (click)="pageObject.pageNo=0;getpackmastersList()"><i
+                                  class="fa fa-search" aria-hidden="true" matTooltip="search"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                        <div fxLayout="row">
+                          <div class="data-container">
+                            <div class="data-table-container">
+                              <table mat-table [dataSource]="dataSource" matSort class="data-table">
+      
+      
+                                <ng-container matColumnDef="id">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                  <td mat-cell *matCellDef="let row">{{row?.id}}</td>
+                                </ng-container>
+      
+                                <ng-container matColumnDef="name">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                                  <td mat-cell *matCellDef="let row"><button class="btn btn-link btn_style"
+                                    (click)="addpackmaster(row)" title="Edit Pack Master">{{row?.name}}</button></td>
+                                  <!-- <td mat-cell *matCellDef="let row">{{row?.name}}</td> -->
+                                </ng-container>
+                                <ng-container matColumnDef="catagory">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                                    <td mat-cell *matCellDef="let row">{{getcategory(row?.catagory)}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="offertype">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Offer Type</th>
+                                        <td mat-cell *matCellDef="let row">{{getoffertype(row?.offertype)}}</td>
+                                    </ng-container>
+                                <ng-container matColumnDef="description">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Bahasa</th>
+                                  <td mat-cell *matCellDef="let row">{{row?.description}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="imageurl">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Image URL</th>
+                                    <td mat-cell *matCellDef="let row">{{row?.imageurl}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="createdon">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Created On</th>
+                                    <td mat-cell *matCellDef="let row">{{(row?.createdon)}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="updatedon">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated On</th>
+                                    <td mat-cell *matCellDef="let row">{{(row?.updatedon)}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="status">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
+                                  <td mat-cell *matCellDef="let row">{{getStatus(row?.status)}}</td>
+                                </ng-container>
+                                <ng-container cdkColumnDef="actions">
+                                    <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+                                    <td *cdkCellDef="let row">
+                                      <div>
+                                        <button matTooltip="Manage Packages" 
+                                          (click)="managePackMaster(row)" *ngIf="userpermissions.edit==1"
+                                          class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                          <i class="fa fa-edit" aria-hidden="true"></i>
+                                        </button>
+                                        <!-- <button matTooltip="Delete Rule" (click)="deleteRule(row)" class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                            <i class="fa fa-remove"></i>
+                                          </button> -->
+                                      </div>
+                                    </td>
+                                  </ng-container>
+                              
+      
+      
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                                <tr mat-row
+                                  *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                                </tr>
+                              </table>
+                            </div>
+                            <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix"
+                               [ngClass]="{hideelement: pageObject.totalRecords == 0}">
+                              <div class="mt-0 pull-left">
+      
+                                <div class="row">
+                                  <div class="col-md-12 mt-0 text-left">
+                                    <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                      [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                      [pageSizeOptions]="[5, 10, 25, 100]">
+                                    </mat-paginator>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="mt-3 pull-right">
+                                <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                                  screenReaderCurrentLabel="You're on page" id="user_list_pagination">
+                                </pagination-controls>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--table ends-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>

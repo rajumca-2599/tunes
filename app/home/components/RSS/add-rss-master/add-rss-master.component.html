@@ -1,0 +1,93 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="addChannelForm" novalidate #addUserForm='ngForm'>
+  <mat-dialog-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <mat-form-field>
+            <mat-label> {{'Name'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="rssObj.name" titleChars name="name" #name="ngModel"
+             [disabled]="mode =='update'" maxlength="30" required autocomplete="off">
+        
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <mat-form-field>
+            <mat-label> {{'Description'| langFilter}}</mat-label>
+            <input matInput type="text" placeholder="" [(ngModel)]="rssObj.desc" titleChars name="desc" #desc="ngModel"
+                    maxlength="50" autocomplete="off">   
+          </mat-form-field>
+        </div>
+          <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+              <mat-label> {{'Frequency'| langFilter}}(Minutes)</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="rssObj.frequency" name="frequency" #frequency="ngModel"
+                     required  maxlength="4" numbersOnly autocomplete="off">   
+            </mat-form-field>
+          </div>
+        <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+            <mat-label> {{'Category'| langFilter}}</mat-label>          
+                    <mat-select [(ngModel)]="rssObj.category"
+                        name="category">
+                        <mat-option [value]="a.id" *ngFor="let a of categorylist">{{a.name}}
+                        </mat-option>
+                    </mat-select> 
+            </mat-form-field>
+        </div> 
+          <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+              <mat-label> {{'Partner Name'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="rssObj.partnername" titleChars name="partnername" #partnername="ngModel"
+                     required  maxlength="50" autocomplete="off">   
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+              <mat-label>{{'Status'| langFilter}}</mat-label>
+              <mat-select [(ngModel)]="rssObj.status" name="status" required>
+                <mat-option  [value]="1">Active</mat-option>
+                <mat-option  [value]="0">Inactive</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+              <mat-label> {{'Feed Url'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="rssObj.url" name="url" #url="ngModel"
+                     required  maxlength="500" autocomplete="off">   
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+              <mat-label> {{'Icon'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="rssObj.icon" name="icon" #icon="ngModel"
+                     required  maxlength="500" autocomplete="off">   
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6" *ngIf="rssObj.category=='ecommerce'">
+            <mat-form-field>
+              <mat-label> {{'Promo Image'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="rssObj.promoimage"  name="promoimage" #promoimage="ngModel"
+                      maxlength="500" autocomplete="off">   
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6" *ngIf="rssObj.category=='ecommerce'">
+            <mat-form-field>
+              <mat-label> {{'Top Image'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="rssObj.topimage"  name="topimage" #topimage="ngModel"
+                      maxlength="500" autocomplete="off">   
+            </mat-form-field>
+          </div>
+       
+      </div>
+      <hr />
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="pull-right">
+    <button class="btn mr-2 mat-raised-button" (click)="close()">Close</button>
+    <button class="btn mat-raised-button mat-primary" type="button" (click)="addRSS()">Submit</button>
+  </mat-dialog-actions>
+</form>

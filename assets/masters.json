@@ -125,6 +125,10 @@
                 {
                     "key":"circle",
                     "name":"Circle"
+                } ,
+                {
+                    "key":"receiptnum",
+                    "name":"receiptnum"
                 } 
                
             ]
@@ -479,6 +483,10 @@
             "value": "circle"
         },
         {
+            "key":"receiptnum",
+            "name":"receiptnum"
+        },
+        {
             "key": "Bundle",
             "value": "bundle"
         },
@@ -489,7 +497,16 @@
         {
             "key": "Prepaid Validation",
             "value": "prepaidvalidation"
+        },
+        {
+            "key": "GrabOn Coupons",
+            "value": "graboncoupons"
+        },
+        {
+            "key": "RBT Priview Images",
+            "value": "rbtpriviewImages"
         }
+        
     ],
     "packagemaster_imageurl": "https://domain/gamification/assets/images/seg/d_0.svg",
     "showspindashboard": "F",
@@ -581,7 +598,11 @@
                 {
                     "key":"circle",
                     "name":"Circle"
-                }             
+                }  ,
+                {
+                    "key":"receiptnum",
+                    "name":"receiptnum"
+                }            
             
             ]
         }
@@ -640,6 +661,10 @@
                 {
                     "key":"circle",
                     "name":"Circle"
+                } ,
+                {
+                    "key":"receiptnum",
+                    "name":"receiptnum"
                 } 
                
             ]

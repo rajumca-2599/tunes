@@ -1,0 +1,165 @@
+span.dash {
+  padding: 20px 63px;
+  border-bottom: 1px solid #ececec;
+  font-weight: 400;
+  margin-bottom: 20px;
+  overflow: hidden;
+  display: block;
+}
+
+.fonth4 {
+  font-size: 2em;
+}
+
+.title_spin {
+  width: 70%;
+  display: inherit
+}
+
+.filter_dash {
+  width: 30%;
+  /* display: block; */
+}
+
+.font-red-sunglo {
+  color: #E26A6A !important;
+}
+
+.chart-area {
+  width: 98%;
+  display: none;
+  height: 280px;
+  margin: 5px !important;
+}
+
+.chart-msg {
+  padding: 30px;
+  display: block;
+  text-align: center;
+  background-color: #f2f4f6;
+  border-color: #f2f4f6;
+  color: #738397;
+  font-size: 14px;
+}
+
+mat-progress-bar.chart .mat-progress-bar-fill::after {
+  background-color: #539ebd !important;
+}
+
+.modebar--hover {
+  margin-top: -50px !important;
+}
+
+.modebar:hover {
+  margin-top: -50px !important;
+}
+
+.modebar {
+  display: none !important
+}
+
+#reportrange {
+  float: right;
+  display: inline;
+  background: #ffffff;
+  cursor: pointer;
+  padding: 10px;
+  /* border: none; */
+  width: auto;
+  min-width: 7%;
+  font-size: 11px;
+  border-radius: 18px;
+  color: #000000;
+  box-shadow: 0px 1px 6px #909090;
+}
+
+.mat-mini-fab {
+  width: 36px !important;
+  height: 35px !important;
+  line-height: 36px !important;
+}
+
+@media only screen and (max-width:479px) and (min-width: 320px) {
+  .hd_content {
+    border: 1px solid #97BECC;
+    padding: 10px 10px !important;
+    margin-top: 20%;
+  }
+}
+
+@media only screen and (max-width:767px) and (min-width: 480px) {
+  .hd_content {
+    border: 1px solid #97BECC;
+    padding: 10px 10px !important;
+    margin-top: 12%;
+  }
+}
+
+
+.date-picker input {
+  float: right;
+  text-align: right;border: none;
+  width:50%;
+}
+.dashboarditem .mat-card {
+  margin-bottom: 1% !important;
+  padding-bottom: 5px;
+}
+/*.date-picker span {
+  float: right;
+}*/
+.dashboarditem .mat-card-header .mat-card-title{
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom:0px !important;
+}
+ 
+.dashboarditem .mat-card-content{
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.pad5{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.chart-title{
+  margin:0 auto;font-weight: 550;
+}
+.hideele{display: none !important;}
+.showeele{display: block !important;
+
+margin:0 auto;
+padding: 5px 10px;
+min-height: 200px;
+
+}
+.showeele mat-label ,.showeele input {
+  display: block;
+
+}
+.showeele mat-select{
+  display: block;border-bottom: solid 1px #eee;
+}
+.zoomchart{
+  position: fixed;
+  top: 50px;
+  z-index: 100;
+  background: #ccc transparent;
+  height: 100%;
+  background-color: rgba(210, 210, 210, 0.5);
+  width: 100%;
+  max-width: 100%;
+  padding:20px 40px 40px 70px;
+  left:0px;
+}
+.btn_icon{
+  font-size:12px;
+  padding: 3px 6px;
+  border-radius: 20px;
+}
+.zoomchart .chart-area {
+  width: 98%;
+  display: none;
+  height: 500px;
+  margin: 10px !important;
+}

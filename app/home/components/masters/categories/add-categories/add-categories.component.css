@@ -1,0 +1,9 @@
+.adjheight{
+    overflow-y: scroll !important;
+    max-height: 550px !important;
+}
+.copy-btn{
+    background-color: springgreen;
+    color: white;
+    float: right
+}

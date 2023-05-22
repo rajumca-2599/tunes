@@ -1,38 +1,34 @@
 import { Injectable } from "@angular/core";
 import { Location, formatDate } from "@angular/common";
 import { Router } from "@angular/router";
-import { MsgdialogueboxComponent } from '../msgdialoguebox/msgdialoguebox.component'
 import {
   HttpClient,
   HttpErrorResponse,
   HttpEventType,
   HttpEvent,
 } from "@angular/common/http";
-
+import { MatDialog, MatSnackBar } from "@angular/material";
 import * as sha512 from "js-sha512";
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { MsgdialogueboxComponent } from "../msgdialoguebox/msgdialoguebox.component";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable, throwError, Subscription } from "rxjs";
 
 import { catchError, retry, map, tap, timeout } from "rxjs/operators";
 import { NgxSpinnerService } from "ngx-spinner";
-
-
+import { EnvService } from "./env.service";
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
 @Injectable({
   providedIn: "root",
 })
 export class CommonService {
-  modalRefs: BsModalRef[] = [];
-  validatedata: any;
-  domainname: boolean = false;
   durationInSeconds = 5;
-  private statename: string = "";
+  private statename: string;
   private _dialog1: any;
   private EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   private EXCEL_EXTENSION = '.xlsx';
-  public token: any;
-  public client: any;
-  public token_id: any;
+
   public lang: any;
   public subkey: any = "";
   public baseapiurl = "/ccareportal/";
@@ -41,10 +37,10 @@ export class CommonService {
     private http: HttpClient,
     private router: Router,
     private location: Location,
-    private modalService: BsModalService,
+    private dialog: MatDialog,
     private spinner: NgxSpinnerService,
-
-
+    private _snackBar: MatSnackBar,
+    private env:EnvService
   ) {
     if (this.getSession("lang") != null && this.getSession("lang") != undefined)
       this.lang = this.getSession("lang");
@@ -55,95 +51,85 @@ export class CommonService {
     // translate.use(this.lang);
 
   }
-  // public getBannerUrl(id): string {
-  //   let _url = "";
-  //   if (window.locationpost.href.indexOf("://localhost") > 0)
-  //     // _url = "http://10.0.9.79:9169/admin/api/v1/downloadbanner?bannerid=24&language=en";
-  //     _url =
-  //       this.env.domainurl +
-  //       "/admin/api/v1/downloadbanner?bannerid=" +
-  //       id +
-  //       "&language=en";
-  //   else _url = "/admin/api/v1/downloadbanner?bannerid=" + id + "&language=en";
-  //   return _url;
-  // }
-
-  // public getBannerUrlByLang(id, lang): string {
-  //   let _url = "";
-  //   if (window.location.href.indexOf("://localhost") > 0)
-  //     _url =
-  //       this.env.domainurl +
-  //       "/admin/api/v1/downloadbanner?bannerid=" +
-  //       id +
-  //       "&language=" +
-  //       lang;
-  //   else
-  //     _url =
-  //       "/admin/api/v1/downloadbanner?bannerid=" + id + "&language=" + lang;
-  //   return _url;
-  // }
-
-  public getUrl(curl: any): string {
-   return "https://stg-mybsnl.bsnl.co.in/api/v2" + curl;
-    // if (curl == "/banners/getbyid" && this.domainname == true) {
-    //   return "https://stg-mybsnl.bsnl.co.in/api/v2" + curl;
-    // }
-    // if (curl == "/pages/getmodules") {
-    //   return "https://stg-mybsnl.bsnl.co.in/api/v2" + curl;
-    // }
-    // if (this.domainname && curl != "/banners/getbyid") {
-    //   return "http://172.16.68.34:9102/api/v2" + curl;
-    // }
-    // else {
-    //   // return " https://172.16.68.34:9101/api/v2/" + curl;
-    //   return "https://stg-mybsnl.bsnl.co.in/api/v2" + curl;
-    //   // return "http://location:9135/mockdata/postdata" ;
-    // }
+  public getBannerUrl(id): string {
+    let _url = "";
+    if (window.location.href.indexOf("://localhost") > 0)
+      // _url = "http://10.0.9.79:9169/admin/api/v1/downloadbanner?bannerid=24&language=en";
+      _url =
+        this.env.domainurl +
+        "/admin/api/v1/downloadbanner?bannerid=" +
+        id +
+        "&language=en";
+    else _url = "/admin/api/v1/downloadbanner?bannerid=" + id + "&language=en";
+    return _url;
   }
 
-  // public exportAsExcelFile(json: any[], excelFileName: string): void {
-  //   const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-  //   const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-  //   const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
-  //   this.saveAsExcelFile(excelBuffer, excelFileName);
-  // }
+  public getBannerUrlByLang(id, lang): string {
+    let _url = "";
+    if (window.location.href.indexOf("://localhost") > 0)
+      _url =
+        this.env.domainurl +
+        "/admin/api/v1/downloadbanner?bannerid=" +
+        id +
+        "&language=" +
+        lang;
+    else
+      _url =
+        "/admin/api/v1/downloadbanner?bannerid=" + id + "&language=" + lang;
+    return _url;
+  }
 
-  // private saveAsExcelFile(buffer: any, fileName: string): void {
-  //   const data: Blob = new Blob([buffer], {
-  //     type: this.EXCEL_TYPE
-  //   });
-  //   FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + this.EXCEL_EXTENSION);
-  // }
+  public getUrl(curl): string {
+    if (window.location.href.indexOf("://localhost") > 0) {
+      // return "https://d5.imidigital.net/admin/api/v1/" + curl;
+      // if (true) {
+      //   return "http://10.0.9.79:9169/admin/api/v1/" + curl;
+      //   // return "https://myim3-stgcms.indosatooredoo.com/admin/api/v1/" + curl;
+      // }
+      // else
+      // if (this.getStateName() == "ccare")
+      //   return "http://10.0.9.78:9179/admin/api/v1/" + curl;
+      // else if (curl.indexOf("bi-reports-api") >= 0) {
+      //   // return "http://10.0.9.79:9068/" + curl;
+      //   return "http://10.0.9.78:9179/admin/api/v1/" + curl;
+      // }
+      // else if (curl.indexOf("reports/downloadreport") >= 0) {
+      //   // return "http://10.0.9.79:9068/" + curl;
+      //   return "http://10.0.9.79:9179/admin/api/v1/" + curl;
+      // } else
+      // return "https://d5.imidigital.net/admin/api/v1/" + curl;
+      return this.env.apiUrl + curl;
+    } else return "/admin/api/v1/" + curl;
+  }
+
+  public exportAsExcelFile(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {
+      type: this.EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + this.EXCEL_EXTENSION);
+  }
   private setHeaders() {
-    let _rc4username_password = this.RC4EncryptDecrypt("admin|admin")
-
     var headersList = {
-
-
-      "X-IMI-LANGUAGE": "EN",
-      "X-IMI-CHANNEL": "MYBSNL",
-      "X-IMI-TOKENID": this.currenttime(),
-      "Authorization": _rc4username_password,
-      "X-IMI-JWTTOKEN": "",
-      "X-IMI-JWTCLIENT": "",
-      "x-imi-oauth": "",
-      "X-IMI-SERVICEKEY": ""
-
+      "X-IMI-LANGUAGE" : "en",
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      accesskey: this.getAccessKey(),
+      csrftoken: this.getCsrfKey(),
+      statename: this.getStateName(),
+      subscriberkey: this.getSubKey(),
+      useXDomain: "true",
     };
-
-    if (this.client == undefined || this.token == undefined) {
-      headersList["X-IMI-CHANNEL"] = "WEB"
-    }
-
-
     return headersList;
   }
-  postData(curl: any, data: any) {
-
-
-
-    var headersList: any = {}
-    var tid = this.currenttime();
+  postData(curl, data) {
     this.showhttpspinner();
     try {
       if (data.search != null && data.search != undefined) {
@@ -164,112 +150,26 @@ export class CommonService {
               data[_keys[i]] = _p;
             }
           }
-        } catch (e) { }
+        } catch (e) {}
       }
-    } catch (e) { }
-    if (curl.indexOf('/token/authenticate') > -1) {
-      let _rc4username_password = this.RC4EncryptDecrypt("admin|admin")
-
-      // headersList['X-IMI-JWTTOKEN'] = this.token;
-      headersList['X-DIGI-JWTTOKEN'] = this.token;
-      headersList['Authorization'] = _rc4username_password;
-      // headersList['X-IMI-JWTCLIENT'] = this.client;
-      headersList['X-DIGI-JWTCLIENT'] = this.client;
-      // headersList['X-IMI-TOKENID'] = sessionStorage.getItem("token_id") //this.token_id
-      headersList["X-IMI-CHANNEL"] = "MYBSNL",
-        headersList["X-IMI-LANGUAGE"] = "EN"
-
-    }
-    else if (curl.indexOf('/otp/validate') > -1) {
-      let _rc4username_password = this.RC4EncryptDecrypt("admin|admin")
-
-      headersList['Authorization'] = _rc4username_password;
-      headersList["X-IMI-CHANNEL"] = "WEB",
-        headersList["X-IMI-LANGUAGE"] = "EN"
-      headersList['X-IMI-TOKENID'] = sessionStorage.getItem("token_id")//this.token_id,
-      headersList['SERVICEKEY'] = "12345678"
-
-    }
-
-    else if (curl.indexOf('/otp/send') > -1) {
-      let _rc4username_password = this.RC4EncryptDecrypt("admin|admin")
-      var id = sessionStorage.getItem("token_id")//this.token_id
-      // console.log(id, "session")
-      headersList['Authorization'] = _rc4username_password;
-      headersList["X-IMI-CHANNEL"] = "WEB",
-        headersList["X-IMI-LANGUAGE"] = "EN"
-      headersList['X-IMI-TOKENID'] = sessionStorage.getItem("token_id")//this.token_id
-
-
-
-
-    }
-    // else if (curl.indexOf('/packages/eligibilitypromo') > -1) {
-    //    let _rc4username_password = this.RC4EncryptDecrypt("admin|admin")
-    //   headersList['Authorization'] = _rc4username_password;
-    //   headersList['X-IMI-TOKENID'] = sessionStorage.getItem("token_id")//this.token_id
-
-
-
-
-    // }
-    else {
-      var headersList: any = this.setHeaders();
-    }
-    if (curl.indexOf('/token/get') > -1) {
-
-      headersList['X-IMI-TOKENID'] = this.currenttime();
-
-    }
-    else {
-      headersList['X-IMI-TOKENID'] = sessionStorage.getItem("token_id")// this.token_id
-    }
-    if (headersList['X-IMI-TOKENID'] == null)
-      headersList['X-IMI-TOKENID'] = ""
-    // headersList['x-imi-oauth'] = sha512.sha512(
-    //   'REQBODY=' +
-    //     JSON.stringify(data) +
-    //     '&SALT=' +
-    //     this.getReqToken(headersList['X-IMI-TOKENID'])
-    // );
+    } catch (e) {}
+    // console.log(data);
+    //console.log(curl + ":" + data);
     var t = this.currenttime();
-    // console.log("this.token_id", this.token_id)
-    // console.log("sessionStorage.getItem(token_id)", sessionStorage.getItem("token_id"))
-
-    headersList['x-imi-oauth'] = sha512.sha512(
-      'REQBODY=' +
-      JSON.stringify(data) +
-      '&SALT=' +
-      this.getReqToken(headersList['X-IMI-TOKENID'])
+    let headersList: any = this.setHeaders();
+    headersList["current"] = t;
+    headersList["reqtoken"] = sha512.sha512(
+      JSON.stringify(data) + this.getReqToken(t)
     );
-    headersList['x-current'] = t;
-    headersList['Access-Control-Allow-Origin'] = '*';
-    headersList['x-reqtoken'] = sha512.sha512(
-      'REQBODY=' +
-      JSON.stringify(data) +
-      '&SALT=' +
-      this.getReqToken(headersList['X-IMI-TOKENID'])
-    );
-
-    let _url = this.getUrl(curl);
-    // console.log(window.location.href, "", window.location.href.indexOf("localhost"));
-    if (window.location.href.indexOf("localhost") > 0) {
-      // console.log("---------localhton greate");
-      _url = "http://localhost:9135/mockdata/postdata";
-      headersList.proxypath = this.getUrl(curl);
-    }
-    // console.log(_url, "url")
-
     return this.http
-      .post(_url, data, { headers: headersList })
+      .post(this.getUrl(curl), data, { headers: headersList })
       .pipe(
         timeout(1200000),
         tap((data) => {
-
-          // console.log(JSON.stringify(data))
+          //   console.log(JSON.stringify(data))
           try {
             this.hidehttpspinner();
-          } catch (e) { }
+          } catch (e) {}
 
           try {
             let _jresp = JSON.parse(JSON.stringify(data));
@@ -288,14 +188,13 @@ export class CommonService {
                 window.location.reload();
               }, 1000);
             }
-          } catch (e) { }
+          } catch (e) {}
         }),
         catchError(this.handleError)
       );
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.log(error)
     let data = {
       status: "500",
       message: "Internal Error Unable to process your request now.",
@@ -303,7 +202,7 @@ export class CommonService {
     try {
       try {
         this.hidehttpspinner();
-      } catch (e) { }
+      } catch (e) {}
       if (error != null) {
         data = {
           status: error.status + "",
@@ -316,22 +215,22 @@ export class CommonService {
         } else {
           console.error(
             `Backend returned code ${error.status}, ` +
-            `body was: ${error.error}`
+              `body was: ${error.error}`
           );
         }
       }
-    } catch (e) { }
+    } catch (e) {}
     return throwError(data);
   }
-  getData(url: any) {
+  getData(url) {
     let headersList: any = this.setHeaders();
     return this.http.get(this.getUrl(url), { headers: headersList });
   }
-  getStaticData(url: any) {
+  getStaticData(url) {
     let headersList: any = this.setHeaders();
     return this.http.get(url, { headers: headersList });
   }
-  postFormData(curl: any, data: any) {
+  postFormData(curl, data) {
     var t = this.currenttime();
     let headersList: any = {
       "Access-Control-Allow-Origin": "*",
@@ -384,20 +283,20 @@ export class CommonService {
     }
     return this.subkey;
   }
-  setsubkey(subkey: any) {
+  setsubkey(subkey) {
     this.setSession("subkey", subkey);
     this.subkey = subkey;
   }
-  getReqToken(t: any) {
+  getReqToken(t) {
     try {
-      var v = '';
-      for (let i = 0; i < t.length;) {
+      var v = "";
+      for (let i = 0; i < t.length; ) {
         v += t[i];
         i = i + 2;
       }
-      return v;
+      return this.getStateName() + t + v;
     } catch (e) {
-      return t;
+      return this.getStateName() + t;
     }
   }
   getAccessKey(): string {
@@ -427,7 +326,7 @@ export class CommonService {
             ? this.statename.split("/")[0]
             : this.statename.split("/")[1];
       }
-    } catch (e) { }
+    } catch (e) {}
     if (this.statename != undefined)
       if (this.statename.trim().length == 0)
         this.statename = this.getAccessKey() != "NA" ? "login" : "dashbaord";
@@ -481,21 +380,27 @@ export class CommonService {
     }
   }
 
-  get7digitRole(roleid: any) {
+  get7digitRole(roleid) {
     try {
-      if (roleid == "101000") {
+      if(roleid == "101000") {
         return "1010000";
-      } else if (roleid == "101001") {
+      } else if(roleid == "101001")
+      {
         return "1010001";
-      } else if (roleid == "101002") {
+      }else if(roleid == "101002")
+      {
         return "1010002";
-      } else if (roleid == "101003") {
+      }else if(roleid == "101003")
+      {
         return "1010003";
-      } else if (roleid == "101004") {
+      }else if(roleid == "101004")
+      {
         return "1010004";
-      } else if (roleid == "101005") {
+      }else if(roleid == "101005")
+      {
         return "1010005";
-      } else if (roleid == "101006") {
+      }else if(roleid == "101006")
+      {
         return "1010006";
       }
     } catch (e) {
@@ -503,24 +408,18 @@ export class CommonService {
     }
   }
 
-  setSession(n: any, d: any) {
+  setSession(n, d) {
     if (d === undefined) {
       window.sessionStorage.removeItem(n);
     } else {
       window.sessionStorage.setItem(n, btoa(d));
     }
   }
-  // getSession(n: any) {
-  //   if (window.sessionStorage.getItem(n)) {
-  //     return atob(window.sessionStorage.getItem(n));
-  //   }
-  //   return "";
-  // }
-  getSession(n: any): string {
-    if (window.localStorage.getItem(n)) {
-      // return atob(window.localStorage.getItem(n));
+  getSession(n) {
+    if (window.sessionStorage.getItem(n)) {
+      return atob(window.sessionStorage.getItem(n));
     }
-    return 'NA';
+    return "";
   }
   clearSession() {
     window.sessionStorage.clear();
@@ -529,87 +428,43 @@ export class CommonService {
     try {
       this.httpCounter++;
       var _dd = new Date();
-      return _dd.getTime() + '' + this.httpCounter;
-    } catch (e) { }
+      return _dd.getTime() + "" + this.httpCounter;
+    } catch (e) {}
     return this.httpCounter;
-  }
-  // openDialog(alert: string, txt: string, html?: boolean) {
-  //   try {
-  //     if (txt == null || txt == undefined || txt.length < 3) {
-  //       txt = "Unable to process your request";
-  //     }
-  //     if (txt == "success") {
-  //       txt = "Request has been successfully processed.";
-  //     }
-  //     if (txt == "Internal Error") {
-  //       txt = "Unable to process your request.";
-  //     }
-  //     if (txt == "Duplicate Entry") {
-  //       txt = "Same record already exists.";
-  //     }
-  //   } catch (e) { }
-  //   try {
-  //     if (this._dialog1 != null) {
-  //       console.log("Closing");
-  //       this._dialog1.close();
-  //     }
-  //   } catch (e) { }
-  //   let _wid = "400px";
-  //   if (html) {
-  //     _wid = "900px";
-  //   }
-
-  // }
-  closeAllModals() {
-    this.modalRefs.forEach(modal => modal.hide());
   }
   openDialog(alert: string, txt: string, html?: boolean) {
     try {
-      if (!txt || txt.length < 3) {
-        txt = 'Unable to process your request';
+      if (txt == null || txt == undefined || txt.length < 3) {
+        txt = "Unable to process your request";
       }
-      if (txt == 'success') {
-        txt = 'Request has been successfully processed.';
+      if (txt == "success") {
+        txt = "Request has been successfully processed.";
       }
-      if (txt == 'Internal Error') {
-        txt = 'Unable to process your request.';
+      if (txt == "Internal Error") {
+        txt = "Unable to process your request.";
       }
-      if (txt == 'Duplicate Entry') {
-        txt = 'Same record already exists.';
+      if (txt == "Duplicate Entry") {
+        txt = "Same record already exists.";
       }
-    } catch (e) { }
+    } catch (e) {}
     try {
-      if (this.modalRefs && this.modalRefs.length > 0) {
-        console.log('Closing');
-        this.modalRefs.forEach(modal => modal.hide());
-        // this.bsModalRef.hide();
+      if (this._dialog1 != null) {
+        console.log("Closing");
+        this._dialog1.close();
       }
-    } catch (e) { }
-
-    const initialState = {
-      msgobj: {
-        type: alert,
-        message: txt,
-        ishtml: html ? html : false
-      }
-    };
-    // if (this.bsModalRef) {
-    const modalRef = this.modalService.show(MsgdialogueboxComponent, { initialState });
-    // modalRef.content.closeBtnName = 'Close';
-    this.modalRefs.push(modalRef);
-    return modalRef;
-    // }
-
-    // this.dialog.showModal(alert, txt, html);
-    // this._dialog1 = this.dialog.open(MsgdialogueboxComponent, {
-    //   disableClose: true,
-    //   width: _wid,
-    //   data: { type: alert, msg: txt, html },
-    // });
+    } catch (e) {}
+    let _wid = "400px";
+    if (html) {
+      _wid = "900px";
+    }
+    this._dialog1 = this.dialog.open(MsgdialogueboxComponent, {
+      disableClose: true,
+      width: _wid,
+      data: { type: alert, msg: txt, html: html },
+    });
   }
 
-
-  ShowJsonErrorMessage(resp: any) {
+  ShowJsonErrorMessage(resp) {
     try {
       if (resp != null && resp.data.data.errorInfo) {
         return resp.data.data.errorInfo.errorDescription;
@@ -617,10 +472,10 @@ export class CommonService {
         if (resp.data.message != null && resp.data.message.length > 10)
           return resp.data.message;
       }
-    } catch (e) { }
+    } catch (e) {}
     return "--Unable to process your request. Please try again later.--";
   }
-  ApiUrl(url: any) {
+  ApiUrl(url) {
     try {
       if (
         url.indexOf("/uploadfiles") > 0 ||
@@ -636,24 +491,24 @@ export class CommonService {
           url = url + "?ticks=" + this.currenttime();
         }
       }
-    } catch (e) { }
+    } catch (e) {}
     return this.baseapiurl + "" + url;
   }
-  // getAlertConfigurations(jsonfilename: any) {
-  //   let url = "/adminui/simulator/" + jsonfilename.toLowerCase() + ".json";
-  //   this.http.get(url).subscribe(
-  //     (data) => {
-  //       if (data != undefined) {
-  //         // console.log(data);
-  //         this.setSession("messageconfig", JSON.stringify(data));
-  //       }
-  //     },
-  //     (error) => {
-  //       this.setSession("messageconfig", []);
-  //       // console.log(error);
-  //     }
-  //   );
-  // }
+  getAlertConfigurations(jsonfilename) {
+    let url = "/adminui/simulator/" + jsonfilename.toLowerCase() + ".json";
+    this.http.get(url).subscribe(
+      (data) => {
+        if (data != undefined) {
+          // console.log(data);
+          this.setSession("messageconfig", JSON.stringify(data));
+        }
+      },
+      (error) => {
+        this.setSession("messageconfig", []);
+        // console.log(error);
+      }
+    );
+  }
   HandleHTTPError(response: any) {
     try {
       this.spinner.hide();
@@ -688,7 +543,7 @@ export class CommonService {
           "Unable to process your request. Please try again later."
         );
       }
-    } catch (e) { }
+    } catch (e) {}
   }
 
   HandleHTTPDefaultError(response: any) {
@@ -720,14 +575,14 @@ export class CommonService {
           window.location.reload();
         }, 1000);
       }
-    } catch (e) { }
+    } catch (e) {}
   }
 
   getContentJSON(url: any) {
     return this.http.get(url);
   }
 
-  restrictspecialchars(event: any) {
+  restrictspecialchars(event) {
     var k;
     k = event.charCode;
     return (
@@ -747,7 +602,7 @@ export class CommonService {
   getJSON(url: any) {
     return this.http.get(url);
   }
-  isvalidhttpurl(url: any) {
+  isvalidhttpurl(url) {
     // var pattern =
     //   /([a-zA-Z0-9\-\.\$]+):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     // if (pattern.test(url)) {
@@ -764,31 +619,31 @@ export class CommonService {
     // }
     // return true;
   }
-  isvalidtext(txt: any, errmsg: any): boolean {
+  isvalidtext(txt, errmsg): boolean {
     try {
       if (txt == null || txt == undefined || txt.trim() == "") {
         this.openDialog("warning", errmsg);
         // this.openSnackBar(errmsg);
         return false;
       }
-    } catch (e) { }
+    } catch (e) {}
     return true;
   }
-  trimtext(txt: any): string {
+  trimtext(txt): string {
     try {
       let txt1 = txt.trim();
       // txt1 = txt1.replace(" ", "").replace(" ", "");
       if (txt1 != null && txt1 != undefined) return txt1;
-    } catch (e) { }
+    } catch (e) {}
     return txt;
   }
 
-  postDataNoLoader(curl: any, data: any) {
+  postDataNoLoader(curl, data) {
     try {
       if (data.search != null && data.search != undefined) {
         data.search = data.search.toString().trim();
       }
-    } catch (e) { }
+    } catch (e) {}
     var t = this.currenttime();
     let headersList: any = this.setHeaders();
     headersList["current"] = t;
@@ -817,18 +672,18 @@ export class CommonService {
                 window.location.reload();
               }, 1000);
             }
-          } catch (e) { }
+          } catch (e) {}
         }),
         catchError(this.handleError)
       );
   }
 
-  postDataNoLoaderHeaders(curl: any, data: any, lstheaders: any) {
+  postDataNoLoaderHeaders(curl, data, lstheaders) {
     try {
       if (data.search != null && data.search != undefined) {
         data.search = data.search.toString().trim();
       }
-    } catch (e) { }
+    } catch (e) {}
 
     var t = this.currenttime();
     let headersList: any = this.setHeaders();
@@ -842,7 +697,7 @@ export class CommonService {
           headersList[lstheaders[i].key] = lstheaders[i].value;
         }
       }
-    } catch (e) { }
+    } catch (e) {}
     return this.http
       .post(this.getUrl(curl), data, { headers: headersList })
       .pipe(
@@ -865,12 +720,12 @@ export class CommonService {
                 window.location.reload();
               }, 1000);
             }
-          } catch (e) { }
+          } catch (e) {}
         }),
         catchError(this.handleError)
       );
   }
-  validateEmails(mailids: any): boolean {
+  validateEmails(mailids): boolean {
     let valid = false;
     if (mailids != null && mailids != undefined && mailids != "") {
       if (mailids.indexOf(",") > -1) {
@@ -898,7 +753,7 @@ export class CommonService {
     }
     return valid;
   }
-  getccaremsg(obj: any, def: any) {
+  getccaremsg(obj, def) {
     try {
       if (
         obj != null &&
@@ -907,10 +762,10 @@ export class CommonService {
         obj.message.length > 1
       )
         return obj.message;
-    } catch (e) { }
+    } catch (e) {}
     return def;
   }
-  isvalidmsisdn(msisdn: any, allowedIndex: any) {
+  isvalidmsisdn(msisdn, allowedIndex:any) {
     try {
       // if (msisdn.indexOf("62") != 0) {
       //   return false;
@@ -919,10 +774,10 @@ export class CommonService {
         return false;
       }
       if (msisdn.length < 11) return false;
-    } catch (e) { }
+    } catch (e) {}
     return true;
   }
-  validateproduct(event: KeyboardEvent, selectedpack: any) {
+  validateproduct(event: KeyboardEvent, selectedpack) {
     let regex: RegExp = new RegExp(/[;'\\><(){}!@#$%^&*+=~?/\\[\]\{\}^%#`"]/g);
     let specialKeys: Array<string> = [
       "Backspace",
@@ -966,7 +821,7 @@ export class CommonService {
     }
     return true;
   }
-  getpermissions(substate: any) {
+  getpermissions(substate) {
     let _excludestates = "error403,error400,error405,myprofile";
     let perm = { view: 0, add: 0, edit: 0, delete: 0, export: 0 };
     let _cur = this.getStateName();
@@ -1005,7 +860,7 @@ export class CommonService {
         perm.export = _state[0].export;
         perm.view = _state[0].view;
       }
-    } catch (e) { }
+    } catch (e) {}
     // console.log(perm);
     if (perm.view == 0) {
       this.router.navigate(["/home/error405"]);
@@ -1013,7 +868,7 @@ export class CommonService {
     return perm;
   }
 
-  validatepassword(txt: any) {
+  validatepassword(txt) {
     try {
       txt = txt.trim();
       if (txt.length < 8) return false;
@@ -1024,7 +879,7 @@ export class CommonService {
       ) {
         return false;
       }
-    } catch (e) { }
+    } catch (e) {}
     return true;
   }
 
@@ -1079,28 +934,28 @@ export class CommonService {
   </div>`;
     return pwdPolicy;
   }
-  // showloadingpopup() {
-  //   try {
-  //     console.log("Loading..");
-  //     this._dialog1 = this.dialog.open(MsgdialogueboxComponent, {
-  //       disableClose: true,
-  //       width: '400px',
-  //       data: { type: alert, msg: "Loading..", html: false }
-  //     });
-  //     setTimeout(() => {
-  //       this.hideloadingpopup();
-  //     }, 3000);
-  //   } catch (e) { }
-  // }
+  showloadingpopup() {
+    // try {
+    //   console.log("Loading..");
+    //   this._dialog1 = this.dialog.open(MsgdialogueboxComponent, {
+    //     disableClose: true,
+    //     width: '400px',
+    //     data: { type: alert, msg: "Loading..", html: false }
+    //   });
+    //   setTimeout(() => {
+    //     this.hideloadingpopup();
+    //   }, 3000);
+    // } catch (e) { }
+  }
   hideloadingpopup() {
     try {
       if (this._dialog1 != null) {
         console.log("Closing");
         this._dialog1.close();
       }
-    } catch (e) { }
+    } catch (e) {}
   }
-  handleHttpUploadFileError(result: any) {
+  handleHttpUploadFileError(result) {
     if (result.code == "401") {
       this.openDialog("warning", "Session Timeout.");
       window.sessionStorage.clear();
@@ -1110,11 +965,11 @@ export class CommonService {
       }, 1000);
     }
   }
-  // openSnackBar(message:any) {
-  //   this._snackBar.open(message, "close", {
-  //     duration: 3000,
-  //   });
-  // }
+  openSnackBar(message) {
+    this._snackBar.open(message, "close", {
+      duration: 3000,
+    });
+  }
   getspinthewheeldashboard() {
     try {
       if (
@@ -1133,14 +988,14 @@ export class CommonService {
               if (response.data != null && response.data.length > 0) {
                 let _fillcnt = "0";
                 let _wincnt = "0";
-                let _tmp = response.data.filter((x: any) => {
+                let _tmp = response.data.filter((x) => {
                   return x.cnttype == "listing";
                 });
                 if (_tmp != null && _tmp.length > 0) {
                   _fillcnt = _tmp[0].cnt;
                 }
 
-                _tmp = response.data.filter((x: any) => {
+                _tmp = response.data.filter((x) => {
                   return x.cnttype == "winning";
                 });
                 if (_tmp != null && _tmp.length > 0) {
@@ -1164,15 +1019,15 @@ export class CommonService {
                 _html += "</div>";
                 _html += "</div> ";
 
-                let _tmpsegmiss = response.data.filter((x: any) => {
+                let _tmpsegmiss = response.data.filter((x) => {
                   return x.cnttype == "missingsegments";
                 });
 
-                let _tmpseg = response.data.filter((x: any) => {
+                let _tmpseg = response.data.filter((x) => {
                   return x.cnttype == "segments";
                 });
 
-                let _tmprule = response.data.filter((x: any) => {
+                let _tmprule = response.data.filter((x) => {
                   return x.cnttype == "rules";
                 });
 
@@ -1189,7 +1044,7 @@ export class CommonService {
                   _objarraynotifications = JSON.parse(_tmpnotifications);
                 }
                 if (_objarraynotifications.length > 0) {
-                  let _cntspin = _objarraynotifications.filter((x: any) => {
+                  let _cntspin = _objarraynotifications.filter((x) => {
                     x.type == "sping";
                   });
                   if (_cntspin != null && _cntspin.length > 0) {
@@ -1212,7 +1067,7 @@ export class CommonService {
                     ""
                   );
                   if (_tmpseg != null && _tmpseg.length > 0) {
-                    let _cntseg = _tmpseg.filter((x: any) => {
+                    let _cntseg = _tmpseg.filter((x) => {
                       return x.date == _date;
                     });
                     if (_cntseg != null && _cntseg.length > 0) {
@@ -1220,7 +1075,7 @@ export class CommonService {
                     }
                   }
                   if (_tmprule != null && _tmprule.length > 0) {
-                    let _cntrule = _tmprule.filter((x: any) => {
+                    let _cntrule = _tmprule.filter((x) => {
                       return x.date == _date;
                     });
                     if (_cntrule != null && _cntrule.length > 0) {
@@ -1229,7 +1084,7 @@ export class CommonService {
                   }
 
                   if (_tmpsegmiss != null && _tmpsegmiss.length > 0) {
-                    let _cntrulemis = _tmpsegmiss.filter((x: any) => {
+                    let _cntrulemis = _tmpsegmiss.filter((x) => {
                       return x.date == _date;
                     });
                     if (_cntrulemis != null && _cntrulemis.length > 0) {
@@ -1344,10 +1199,10 @@ export class CommonService {
             console.log(err);
           }
         );
-    } catch (e) { }
+    } catch (e) {}
   }
 
-  approvalpending(approvaltype: any) {
+  approvalpending(approvaltype) {
     try {
       if (approvaltype == "1") {
         if (
@@ -1564,15 +1419,15 @@ export class CommonService {
             }
           );
       }
-    } catch (e) { }
+    } catch (e) {}
   }
-  RC4EncryptDecryptph(text: string): string {
+  RC4EncryptDecrypt(text: string): string {
     let Password = '';
     Password = 'M72S912O2L';
     var cipherEnDeCrypt = '';
     var N = 256;
     var cipher = '';
-    var a;
+    a;
     var sbox;
     try {
       sbox = [];
@@ -1586,7 +1441,7 @@ export class CommonService {
       let b = 0;
       for (let a = 0; a < N; a++) {
         b = (b + sbox[a] + key[a]) % N;
-        let tempSwap: any = sbox[a];
+        let tempSwap = sbox[a];
         sbox[a] = sbox[b];
         sbox[b] = tempSwap;
       }
@@ -1595,10 +1450,10 @@ export class CommonService {
       var i = 0,
         j = 0,
         k = 0;
-      for (var a: any = 0; a < text.length; a++) {
+      for (var a = 0; a < text.length; a++) {
         i = (i + 1) % N;
         j = (j + sbox[i]) % N;
-        var tempSwap: any = sbox[i];
+        var tempSwap = sbox[i];
         sbox[i] = sbox[j];
         sbox[j] = tempSwap;
 
@@ -1619,66 +1474,10 @@ export class CommonService {
       }
 
       return enctxt;
-    } catch (e) { }
+    } catch (e) {}
     return '';
   }
-  RC4EncryptDecrypt(text: string): string {
-    let Password = '';
-    Password = '1234';
-    var cipherEnDeCrypt = '';
-    var N = 256;
-    var cipher = '';
-    var a;
-    var sbox;
-    try {
-      sbox = [];
-      let key = [];
-      let n11 = Password.length;
-      for (let a = 0; a < N; a++) {
-        let ac = Password[a % n11];
-        key[a] = ac.charCodeAt(0);
-        sbox[a] = a;
-      }
-      let b = 0;
-      for (let a = 0; a < N; a++) {
-        b = (b + sbox[a] + key[a]) % N;
-        let tempSwap: any = sbox[a];
-        sbox[a] = sbox[b];
-        sbox[b] = tempSwap;
-      }
-
-      var cipher = '';
-      var i = 0,
-        j = 0,
-        k = 0;
-      for (var a: any = 0; a < text.length; a++) {
-        i = (i + 1) % N;
-        j = (j + sbox[i]) % N;
-        var tempSwap: any = sbox[i];
-        sbox[i] = sbox[j];
-        sbox[j] = tempSwap;
-
-        k = sbox[(sbox[i] + sbox[j]) % N];
-
-        var cipherBy = text[a].charCodeAt(0) ^ k;
-
-        var _tmp1 = String.fromCharCode(cipherBy);
-        cipher += _tmp1 + '';
-      }
-
-      var enctxt = '';
-      for (var i = 0; i < cipher.length; i++) {
-        var v = cipher[i].charCodeAt(0);
-        var _cc = v.toString(16);
-        if (_cc.length == 1) _cc = '0' + _cc;
-        enctxt += _cc;
-      }
-
-      return enctxt;
-    } catch (e) { }
-    return '';
-  }
-  Decrypt(text: any) {
+  Decrypt(text) {
     var hex = text.toString();
     var str = '';
     for (var n = 0; n < hex.length; n += 2) {
@@ -1690,7 +1489,7 @@ export class CommonService {
     var cipherEnDeCrypt = '';
     var N = 256;
     var cipher = '';
-    var a;
+    a;
     var sbox;
     try {
       sbox = [];
@@ -1704,7 +1503,7 @@ export class CommonService {
       let b = 0;
       for (let a = 0; a < N; a++) {
         b = (b + sbox[a] + key[a]) % N;
-        let tempSwap: any = sbox[a];
+        let tempSwap = sbox[a];
         sbox[a] = sbox[b];
         sbox[b] = tempSwap;
       }
@@ -1713,10 +1512,10 @@ export class CommonService {
       var i = 0,
         j = 0,
         k = 0;
-      for (var a: any = 0; a < text.length; a++) {
+      for (var a = 0; a < text.length; a++) {
         i = (i + 1) % N;
         j = (j + sbox[i]) % N;
-        var tempSwap: any = sbox[i];
+        var tempSwap = sbox[i];
         sbox[i] = sbox[j];
         sbox[j] = tempSwap;
 
@@ -1728,7 +1527,7 @@ export class CommonService {
         cipher += _tmp1 + '';
       }
       return cipher;
-    } catch (e) { }
+    } catch (e) {}
     return '';
   }
 

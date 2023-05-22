@@ -1,0 +1,93 @@
+<h2 mat-dialog-title>{{titleheading}}</h2>
+<hr />
+<form autocomplete="off" name="addChannelForm" novalidate #addUserForm='ngForm'>
+  <mat-dialog-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <mat-form-field>
+            <mat-label> {{'Image'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="rssObj.image" titleChars name="image" #image="ngModel"
+              maxlength="50" required autocomplete="off">        
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+              <mat-label> {{'Partner'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.partner" titleChars name="partner" #partner="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+              <mat-label> {{'Title'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.title" titleChars name="title" #title="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6" >
+            <mat-form-field>
+              <mat-label> {{'Url'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.url" titleChars name="url" #url="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6" *ngIf="category!='ecommerce'">
+            <mat-form-field>
+              <mat-label> {{'Desc'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.desc" titleChars name="desc" #desc="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6" *ngIf="category!='ecommerce'">
+            <mat-form-field>
+              <mat-label> {{'Pubdate'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.pubdate" titleChars name="pubdate" #pubdate="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>         
+          <div class="col-sm-6 col-md-6" *ngIf="category=='ecommerce'">
+            <mat-form-field>
+              <mat-label> {{'Price'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.price" titleChars name="price" #price="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6" *ngIf="category=='ecommerce'">
+            <mat-form-field>
+              <mat-label> {{'Original Price'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.originalprice" titleChars name="originalprice" #originalprice="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6 col-md-6" *ngIf="category=='ecommerce'">
+            <mat-form-field>
+              <mat-label> {{'Brand'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.brand" titleChars name="brand" #brand="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>  
+          <div class="col-sm-6 col-md-6" *ngIf="category=='videos'">
+            <mat-form-field>
+              <mat-label> {{'Duration'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.duration" titleChars name="duration" #duration="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div> 
+          <div class="col-sm-6 col-md-6" *ngIf="category=='videos'">
+            <mat-form-field>
+              <mat-label> {{'Creator'| langFilter}}</mat-label>
+              <input matInput type="text" [(ngModel)]="rssObj.creator" titleChars name="creator" #creator="ngModel"
+               maxlength="50" required autocomplete="off">        
+            </mat-form-field>
+          </div>       
+      </div>     
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="pull-right">
+  <button class="btn mr-2 mat-raised-button" (click)="close()">Close</button>
+  <button class="btn mat-raised-button mat-primary" type="button" (click)="addrsstemplate()">Submit</button>
+</mat-dialog-actions>
+</form>
+        

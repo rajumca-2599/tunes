@@ -1,0 +1,63 @@
+.label-success {
+  background-color: #5cb85c;
+}
+
+.label-info {
+  background-color: #5bc0de;
+}  
+.label-danger {
+  background-color: #d9534f;
+}
+.h5user{
+  color: #039ce7;    
+  font-weight: 500;
+  border-bottom: solid 1px #EEEEEE;
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+
+.chk-h2 {
+  margin: 10px;
+}
+
+.chk-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.chk-margin {
+  margin: 0 10px;
+}
+.mattable{
+  width: 100%;
+}
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 400px;
+    margin: 8.75rem auto;
+}
+}
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0rem 1rem;
+  border-bottom: none;
+}
+.modal-body{
+  padding: 0rem;
+}
+.modal-body > h5{
+  text-align: center;
+  font-weight: 600;
+
+}
+.alignbtn{
+  text-align: center;
+}
+.modal-header .close {
+  padding: 20px 1rem !important;
+  margin: -1rem -1rem -1rem auto;
+}

@@ -1,0 +1,15 @@
+.multidrop-padtop {
+  padding-top: 10px !important;
+}
+
+.mat-dialog-content{
+  display:contents !important;
+}
+
+.banner-head {
+  color: #3598dc;
+  font-size: 14px;
+}
+.minheight200{
+  min-height: 200px;
+}

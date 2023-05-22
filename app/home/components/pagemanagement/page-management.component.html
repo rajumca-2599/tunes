@@ -1,0 +1,544 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title">
+                  <h4>
+                    <em class="icon-settings"></em><span class="user">Page Management <span (click)="toggle()"> <span
+                          style="font-size: 16px;">&#8811;</span>
+                        {{pagename}}</span>
+                      <span
+                        *ngIf="moduleObj.modulename!=null && moduleObj.modulename!=undefined && moduleObj.modulename!=''"
+                        (click)="togglemodule()"> >> {{moduleObj.modulename}}</span></span>
+                    <button type="button" class="btn btn-outline-primary btn_custom21 pull-right" (click)="addmodule()"
+                      *ngIf="userpermissions.add==1">
+                      <em class="fa fa-plus">
+                      </em>
+                    </button>
+
+                  </h4>
+                </div>
+                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm">
+                  <div class="row">
+                    <div class="col-md-3" *ngIf="!preview">
+                      <mat-card class="example-card">
+                        <mat-card-header>
+                          <mat-card-title>Pages</mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                          <div class="row ptop">
+                            <div class="col-md-12">
+                              <div class="example-list">
+                                <div class="example-box {{page.id==pageObj.pageid?'page_selected':''}}"
+                                  [ngClass]="{page_selected: page.id==pageObj.pageid}" *ngFor="let page of pagesList"
+                                  (click)="pageSelected(page)">
+                                  {{page.description }}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                    <!-- <div class="col-md-1">
+                      <div> <button type="button"
+                          [ngClass]="isOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                          (click)="toggle()">
+                          <i class="fa fa-arrow-circle-left" aria-hidden="true" matTooltip="filter" *ngIf="isOpen"></i>
+                          <i class="fa fa-arrow-circle-left" aria-hidden="true" matTooltip="filter" *ngIf="!isOpen"></i>
+                        </button></div>
+                    </div> -->
+                    <div class="col-md-3" *ngIf=" !preview">
+                      <mat-card class="example-card" *ngIf="modulesList.length>0">
+                        <mat-card-header>
+                          <mat-card-title>
+                            <div class="row">
+                              <!-- <div class="col-md-3">
+                                Modules
+                              </div> -->
+                              <div class="col-md-9">
+                                <mat-select name="ddlfilterstatus" [(ngModel)]="filtertype"
+                                  (ngModelChange)="filtermodules(filtertype)">
+                                  <mat-option *ngFor="let item of filtetypestatus" [value]="item.id">
+                                    {{ item?.name}}</mat-option>
+                                </mat-select>
+                              </div>
+                              <div class="col-md-3" style="padding-right: 0px">
+
+                                <button title="Update Order" class="btn btn-outline-primary" type="button"
+                                  style="float: right" (click)="showconfirm('order')" *ngIf="userpermissions.edit==1">
+                                  <i class="fa fa-save" aria-hidden="true"></i></button>
+
+                                <!-- <button title="Active Modules" class="btn  mod-active" type="button"
+                                  (click)="filtermodules(1)">
+                                  <i class="fa fa-circle  " aria-hidden="true"></i></button>
+
+                                <button title="Inactive Modules" class="btn  mod-inactive" type="button"
+                                  (click)="filtermodules(0)">
+                                  <i class="fa fa-circle  " aria-hidden="true"></i></button>
+
+                                <button title="Pending Modules" class="btn  mod-pending" type="button"
+                                  (click)="filtermodules(2)">
+                                  <i class="fa fa-circle " aria-hidden="true"></i></button> -->
+                              </div>
+                            </div>
+                          </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                          <div class="row ptop">
+                            <div class="col-md-12">
+                              <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                                <div
+                                  title="{{!module.ispositionedit?'Postion Change Not Allowed':(module.category=='2'?'Edit Not Allowed':(module.status=='2'?'Pending for Approval':''))}}"
+                                  class="example-box module {{module.class}}"
+                                  *ngFor="let module of modulesList; let i = index;" cdkDrag
+                                  (click)="moduleSelected(module)" [cdkDragDisabled]="!module.ispositionedit"
+                                  cdkDragLockAxis="y"
+                                  [ngClass]="{module_selected: moduleObjview.moduleid==module.moduleid}"
+                                  [ngStyle]="{'display':module.currentstatus==filtertype || filtertype=='-1' ?'flex':'none'}">
+                                  <span
+                                    [ngClass]="{module_full: 2==module.module_type,module_top: 3==module.module_type,module_card: 1==module.module_type}"
+                                    matBadge="{{i}}"></span> <span style="text-align: left">&nbsp;&nbsp;
+                                    {{module.modulename }}</span>
+                                  <span><small>{{getwfstatus(module.siwfstatus)}}</small></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+
+
+
+                    <div class="col-md-6" *ngIf="preview">
+                      <mat-card class="example-card" *ngIf="modulesList.length>0">
+                        <mat-card-header>
+                          <mat-card-title>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <span> {{moduleObj.modulename}} </span>
+                              </div>
+                            </div>
+                          </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <mat-label><small>{{'Status'| langFilter}}</small></mat-label><br />
+                              <mat-slide-toggle [checked]="moduleObjview.status==1?true:false" [disabled]="true">
+                                {{moduleObjview.status==1?"Active":"Inactive"}}</mat-slide-toggle>
+                            </div>
+                            <div class="col-md-9" *ngIf="showBanners">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'Banner Group'| langFilter}}</mat-label>
+                                <mat-select name="ddlbannergroup" [(ngModel)]="moduleObjview.sourceid" [disabled]="true"
+                                  #bannergroup="ngModel" (ngModelChange)="onchangeBannerGroup()">
+                                  <mat-option *ngFor="let item of bannerGroupsList" [value]="item.bannergroupid">
+                                    {{ item?.name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-9" *ngIf="showVideos">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'Videos'| langFilter}}</mat-label>
+                                <mat-select name="ddlvideo" [(ngModel)]="moduleObjview.sourceid" [disabled]="true"
+                                  #video="ngModel" >
+                                  <mat-option *ngFor="let item of videosList" [value]="item.feedid">
+                                    {{ item?.feed_name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-9" *ngIf="showEcommerce">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'ECommerce'| langFilter}}</mat-label>
+                                <mat-select name="ddlecommerce" [(ngModel)]="moduleObjview.sourceid" [disabled]="true"
+                                  #ecommerce="ngModel" >
+                                  <mat-option *ngFor="let item of eCommerceList" [value]="item.feedid">
+                                    {{ item?.feed_name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 col-sm-12 showbanneritems" *ngIf="showBanners">
+                              <mat-carousel #matCarousel [timings]="timings" [autoplay]="autoplay" [interval]="interval"
+                                [loop]="loop" [hideArrows]="hideArrows" [hideIndicators]="hideIndicators"
+                                [maxWidth]="maxWidth" [proportion]="proportion" [useKeyboard]="useKeyboard"
+                                [useMouseWheel]="useMouseWheel" [orientation]="orientation" [slides]="slides"
+                                (change)="onChange($event)">
+                                <mat-carousel-slide #matCarouselSlide *ngFor="let slide of slidesList; let i = index"
+                                  image="{{slide.img}}" [overlayColor]="overlayColor" [hideOverlay]="hideOverlay">
+                                  <ng-container>
+                                    <div
+                                      style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content:center;">
+                                      <p> {{ slide.name }}</p>
+                                    </div>
+                                  </ng-container>
+                                </mat-carousel-slide>
+                              </mat-carousel>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                              <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                                <div fxLayout="row">
+                                  <div class="data-container">
+                                    <div class="data-table-container" style="max-height: 250px;overflow-y: auto">
+                                      <table mat-table [dataSource]="dataSourceview" matSort class="data-table">
+                                        <ng-container matColumnDef="key">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Meta Key</th>
+                                          <td mat-cell *matCellDef="let row">{{row?.key | uppercase}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="en">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{env.languages[0].key}}</th>
+                                          <td mat-cell *matCellDef="let row">
+                                            <textarea class="txt-settings" [(ngModel)]="row.en"
+                                              style="resize:none;width:98%" [disabled]="!moduleObj.issourceedit"
+                                              safeChars></textarea>
+                                          </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="ba">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{env.languages[1].key}}</th>
+                                          <td mat-cell *matCellDef="let row">
+                                            <textarea class="txt-settings" [(ngModel)]="row.ba"
+                                              style="resize:none;width:98%" [disabled]="!moduleObj.issourceedit"
+                                              safeChars></textarea>
+                                          </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                                        <tr mat-row
+                                          *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+
+                    <div class="col-md-6" *ngIf="showeditsegment">
+                      <mat-card class="example-card" *ngIf="modulesList.length>0">
+                        <mat-card-header>
+                          <mat-card-title>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <span> {{moduleObj.modulename}} </span>
+                                <span *ngIf="moduleObj.status==2"> (New)</span>
+                              </div>
+                              <div class="col-md-6 mt-20" *ngIf="showSubmitBtn">
+                                <button class="btn btn-outline-primary mr-2" type="button" title="Submit"
+                                  (click)="showconfirm('page')" *ngIf="userpermissions.edit==1">
+                                  <i aria-hidden="true" class="fa fa-save">
+                                  </i></button>
+
+                                <button class="btn btn-outline-primary mr-2" type="button" title="Preview"
+                                  (click)="togglepreview()">
+                                  <i class="fa fa-eye"  aria-hidden="true"></i></button>
+
+
+                              </div>
+                            </div>
+                          </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <mat-label><small>{{'Status'| langFilter}}</small></mat-label><br />
+                              <mat-slide-toggle [checked]="moduleObj.status==1?true:false"
+                                (change)="toggleStatus($event)" [disabled]="!moduleObj.isstatusedit">
+                                {{statusText}}</mat-slide-toggle>
+                            </div>
+                            <div class="col-md-9" *ngIf="showBanners">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'Banner Group'| langFilter}}</mat-label>
+                                <mat-select name="ddlbannergroup" [(ngModel)]="moduleObj.sourceid"
+                                  [disabled]="!moduleObj.issourceedit" #bannergroup="ngModel"
+                                  (ngModelChange)="onchangeBannerGroup()">
+                                  <mat-option *ngFor="let item of bannerGroupsList" [value]="item.bannergroupid">
+                                    {{ item?.name}}</mat-option>
+                                </mat-select>
+
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12 col-sm-12 showbanneritems" *ngIf="showSnapshot">
+                                  <mat-carousel #matCarousel2 [timings]="timingsimg" [autoplay]="autoplayimg" [interval]="intervalimg"
+                                    [loop]="loopimg" [hideArrows]="hideArrowsimg" [hideIndicators]="hideIndicatorsimg"
+                                    [maxWidth]="maxWidthimg" [proportion]="proportionimg" [useKeyboard]="useKeyboardimg"
+                                    [useMouseWheel]="useMouseWheelimg" [orientation]="orientationimg" [slides]="slidesimg"
+                                    >
+                                    <mat-carousel-slide #matCarouselSlide *ngFor="let slide of slidesListimg; let i = index"
+                                      image="{{slide.img}}" [overlayColor]="overlayColorimg" [hideOverlay]="hideOverlayimg">
+                                      <ng-container>
+                                        <div
+                                          style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content:center;">
+                                          <p> {{ slide.name }}</p>
+                                        </div>
+                                      </ng-container>
+                                    </mat-carousel-slide>
+                                  </mat-carousel>
+                                </div>
+                            <div class="col-md-12 col-sm-12 showbanneritems" *ngIf="showBanners"> 
+                              <mat-carousel #matCarousel1 [timings]="timings" [autoplay]="autoplay"
+                                [interval]="interval" [loop]="loop" [hideArrows]="hideArrows"
+                                [hideIndicators]="hideIndicators" [maxWidth]="maxWidth" [proportion]="proportion1"
+                                [useKeyboard]="useKeyboard" [useMouseWheel]="useMouseWheel" [orientation]="orientation"
+                                [slides]="slidesedit" (change)="onChange($event)">
+                                <mat-carousel-slide #matCarouselSlide1
+                                  *ngFor="let slide of slidesListedit; let i = index" image="{{slide.img}}"
+                                  [overlayColor]="overlayColor" [hideOverlay]="hideOverlay">
+                                  <ng-container>
+                                    <div
+                                      style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content:center;">
+                                      <p> {{ slide.name }}</p>
+                                    </div>
+                                  </ng-container>
+                                </mat-carousel-slide>
+                              </mat-carousel>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                              <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                                <div fxLayout="row">
+                                  <div class="data-container">
+                                    <div class="data-table-container" style="max-height: 250px;overflow-y: auto">
+                                      <table mat-table [dataSource]="dataSource" matSort class="data-table">
+                                        <ng-container matColumnDef="key">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Meta Key</th>
+                                          <td mat-cell *matCellDef="let row">{{row?.key | uppercase}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="en">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{env.languages[0].key}}</th>
+                                          <td mat-cell *matCellDef="let row">
+                                            <textarea class="txt-settings" [(ngModel)]="row.en"
+                                              style="resize:none;width:98%" [disabled]="!moduleObj.issourceedit"
+                                              safeChars></textarea>
+                                          </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="ba">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>  <mat-form-field>
+                                            <mat-label> {{'Language'| langFilter}}</mat-label>
+                                            <mat-select name="ddlgroup" [(ngModel)]="lagnuagevalue" (selectionChange)="someMethod(lagnuagevalue)">
+                                              <mat-option [disabled]="ifColorDark(lang.title)"  *ngFor="let lang of languageList" [value]="lang.id">{{lang.title}}</mat-option>
+                                            </mat-select>
+                                
+                                          </mat-form-field></th>
+                                          <td mat-cell *matCellDef="let row">
+                                            <textarea class="txt-settings" [(ngModel)]="row.ba"
+                                              style="resize:none;width:98%" [disabled]="!moduleObj.issourceedit"
+                                              safeChars></textarea>
+                                          </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                                        <tr mat-row
+                                          *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+
+
+                    <div class="col-md-6" *ngIf="!showeditsegment && showaddsegment">
+                      <mat-card class="example-card">
+                        <mat-card-header>
+                          <mat-card-title>
+                            <div class="row">
+                              <div class="col-md-9">
+                                <span> Add Module</span>
+                              </div>
+                              <div class="col-md-3">
+                                <button class="btn btn-outline-primary" style="float: right" type="button"
+                                  title="Add Module" (click)="showaddconfirm()" *ngIf="userpermissions.add==1">
+                                  <i class="fa fa-save" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <mat-form-field>
+                                <mat-label>{{'Module'| langFilter}}</mat-label>
+                                <mat-select [(ngModel)]="selectedmodule" name="selectedmodule"
+                                  (selectionChange)="onchangeaddmodule()">
+                                  <mat-option *ngFor="let item of modulemasterlist" value="{{item.id}}">{{item.name}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-12">
+                              <mat-form-field floatLabel="always" *ngIf="!showaddvideos&&!showaddecommerce">
+                                <mat-label>{{'Banner Group'| langFilter}}</mat-label>
+                                <mat-select name="ddlbannergroup1" [(ngModel)]="newmoduleobj.sourceid"
+                                  #bannergroup1="ngModel" (ngModelChange)="onchangeBannerGroupAdd()">
+                                  <mat-option *ngFor="let item of bannerGroupsList" [value]="item.bannergroupid">
+                                    {{ item?.name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-9" *ngIf="showaddvideos">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'Videos'| langFilter}}</mat-label>
+                                <mat-select name="ddlvideo1" [(ngModel)]="newmoduleobj.sourceid" #video1="ngModel">
+                                  <mat-option *ngFor="let item of videosList" [value]="item.feedid">
+                                    {{ item?.feed_name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-9" *ngIf="showaddecommerce">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'ECommerce'| langFilter}}</mat-label>
+                                <mat-select name="ddlecommerce1" [(ngModel)]="newmoduleobj.sourceid"
+                                  #ecommerce1="ngModel" >
+                                  <mat-option *ngFor="let item of eCommerceList" [value]="item.feedid">
+                                    {{ item?.feed_name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-12 col-sm-12 showbanneritems">
+                              <mat-carousel #matCarousel2 [timings]="timings" [autoplay]="autoplay"
+                                [interval]="interval" [loop]="loop" [hideArrows]="hideArrows"
+                                [hideIndicators]="hideIndicators" [maxWidth]="maxWidth" [proportion]="proportion2"
+                                [useKeyboard]="useKeyboard" [useMouseWheel]="useMouseWheel" [orientation]="orientation"
+                                [slides]="slidesadd" (change)="onChange($event)">
+                                <mat-carousel-slide #matCarouselSlide2
+                                  *ngFor="let slide of slidesListadd; let i = index" image="{{slide.img}}"
+                                  [overlayColor]="overlayColor" [hideOverlay]="hideOverlay">
+                                  <ng-container>
+                                    <div
+                                      style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items:center; justify-content:center;">
+                                      <p> {{ slide.name }}</p>
+                                    </div>
+                                  </ng-container>
+                                </mat-carousel-slide>
+                              </mat-carousel>
+                            </div>
+                          </div>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+
+                    <div class="col-md-6" *ngIf="showvideoorecommerce">
+                      <mat-card class="example-card" *ngIf="modulesList.length>0">
+                        <mat-card-header>
+                          <mat-card-title>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <span> {{Objview.modulename}} </span>
+                              </div>
+                              <div class="col-md-6 mt-20" *ngIf="showSubmitBtn">
+                                <button class="btn btn-outline-primary mr-2" type="button" title="Submit"
+                                  (click)="showconfirm('page')" *ngIf="userpermissions.edit==1">
+                                  <i aria-hidden="true" class="fa fa-save">
+                                  </i></button>
+
+                                <button class="btn btn-outline-primary mr-2" type="button" title="Preview"
+                                  (click)="togglepreview()">
+                                  <i class="fa fa-eye"  aria-hidden="true"></i></button>
+
+
+                              </div>
+                            </div>
+                          </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <mat-label><small>{{'Status'| langFilter}}</small></mat-label><br />
+                              <mat-slide-toggle [checked]="moduleObjview.status==1?true:false" [disabled]="!moduleObjview.isstatusedit" (change)="toggleStatus($event)">
+                                {{moduleObjview.status==1?"Active":"Inactive"}} </mat-slide-toggle>
+                            </div>
+                            <div class="col-md-9" *ngIf="showVideos">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'Videos'| langFilter}}</mat-label>
+                                <mat-select name="ddlvideo" [(ngModel)]="moduleObjview.sourceid" [disabled]="!moduleObjview.issourceedit"
+                                  #video="ngModel">
+                                  <mat-option *ngFor="let item of videosList" [value]="item.feedid">
+                                    {{ item?.feed_name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-9" *ngIf="showEcommerce">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'ECommerce'| langFilter}}</mat-label>
+                                <mat-select name="ddlecommerce" [(ngModel)]="moduleObjview.sourceid" [disabled]="!moduleObjview.issourceedit"
+                                  #ecommerce="ngModel" >
+                                  <mat-option *ngFor="let item of eCommerceList" [value]="item.feedid">
+                                    {{ item?.feed_name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">                          
+                            <div class="col-md-12 col-sm-12">
+                              <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                                <div fxLayout="row">
+                                  <div class="data-container">
+                                    <div class="data-table-container" style="max-height: 250px;overflow-y: auto">
+                                      <table mat-table [dataSource]="dataSourceview" matSort class="data-table">
+                                        <ng-container matColumnDef="key">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Meta Key</th>
+                                          <td mat-cell *matCellDef="let row">{{row?.key | uppercase}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="en">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{env.languages[0].key}}</th>
+                                          <td mat-cell *matCellDef="let row">
+                                            <textarea class="txt-settings" [(ngModel)]="row.en"
+                                              style="resize:none;width:98%" [disabled]="!moduleObj.issourceedit"
+                                              safeChars></textarea>
+                                          </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="ba">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{env.languages[1].key}}</th>
+                                          <td mat-cell *matCellDef="let row">
+                                            <textarea class="txt-settings" [(ngModel)]="row.ba"
+                                              style="resize:none;width:98%" [disabled]="!moduleObj.issourceedit"
+                                              safeChars></textarea>
+                                          </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                                        <tr mat-row
+                                          *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                   
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+.data-table{
+    width: 100%;
+}
+.banner-head {
+  color: #00aeef;
+  font-size: 14px;
+}
+.data-container {
+    position: relative;
+    min-height: 430px;
+  }
+  
+  .data-table-container {
+    position: relative;
+    max-height: 420px;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  .mat-column-transid{
+    width: 30%;
+  }

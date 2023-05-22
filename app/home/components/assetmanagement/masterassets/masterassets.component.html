@@ -1,0 +1,216 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title">
+                  <h4>
+                    <em class="icon-settings"></em><span class="user">
+                      Page Management <span style="font-size: 16px;">&#8811;</span> Uploads
+                    </span>
+                    <button type="button"
+                      [ngClass]="isOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                      (click)="toggle()">
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="isOpen"></i>
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="!isOpen"></i>
+                    </button>
+                    <button type="button"
+                      [ngClass]="isAddOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                      (click)="toggleAdd()" *ngIf="userpermissions.add==1">
+                      <i class="fa fa-plus" aria-hidden="true" matTooltip="Add" *ngIf="isAddOpen"></i>
+                      <i class="fa fa-plus" aria-hidden="true" matTooltip="Add" *ngIf="!isAddOpen"></i>
+                    </button>
+                  </h4>
+                </div>
+                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm">
+                  <div class="row" *ngIf="isOpen">
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>{{'Type'| langFilter}}</mat-label>
+                        <mat-select [(ngModel)]="uploadtype" name="uploadtype" #bannerType="ngModel"
+                        (selectionChange)="onchange('drop1')">
+                          <mat-option [value]="a.id" *ngFor="let a of uploadtypes">
+                            {{a.name}}
+                          </mat-option>
+                          <!-- <mat-option [value]="4">KMZ Files</mat-option> -->
+                          <!-- <mat-option [value]="3">MSISDN Segments</mat-option> -->
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+                   
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>Search</mat-label>
+                        <input matInput type="text" titleChars autocomplete="off" value="&nbsp;"
+                          [(ngModel)]="searchString">
+                      </mat-form-field>
+                    </div>
+                     <div class="col-md-2 mt-2">
+                      <mat-checkbox [(ngModel)]='rbtPortalimgValue' (change)='onChanges($event)'>RBT Preview Image</mat-checkbox>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <button type="button" class="btn btn-outline-primary btn_custom" (click)="getsegmentsList()">
+                          <i class="fa fa-search" aria-hidden="true" matTooltip="search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="isAddOpen">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                      <mat-card>
+                        <h6 class="banner-head">Upload</h6>
+                        <hr />
+                        <mat-card-content>
+                          <div class="row" *ngIf="editTransId != ''">
+                            <div class="col-md-8">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'Trans ID'| langFilter}}</mat-label>
+                                <input matInput type="text" [(ngModel)]="editTransId" name="desc" #desc="ngModel"
+                                  maxlength="100" disabled autocomplete="off">
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>{{'Type'| langFilter}}</mat-label>
+                                <mat-select [(ngModel)]="bannertype" name="bannerType" #bannerType="ngModel" [disabled]="disBool"
+                                (selectionChange)="onchange()">
+                                <mat-option [value]="a.id" *ngFor="let a of uploadtypes">
+                                  {{a.name}}
+                                </mat-option>
+                                </mat-select>
+                               
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-2 mt-2">
+                              <mat-checkbox [(ngModel)]='rbtPortalValue' (change)='onChange($event)'>RBT Preview Image</mat-checkbox>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <span style="font-size:11px;"><b>Note:</b>
+                                Use drag & drop for internet explorer browser, File name should not contain special charaters and spaces.
+                              </span>
+                              <angular-file-uploader *ngIf="bannertype=='6'"  [config]="afuConfigId" (ApiResponse)="DocUpload($event)"
+                                resetUpload="resetVar">
+                              </angular-file-uploader>
+                              <angular-file-uploader *ngIf="bannertype!='6'" [config]="afuConfigId1" (ApiResponse)="DocUpload($event)"
+                              resetUpload="resetVar">
+                            </angular-file-uploader>
+                            </div>
+                          </div>
+                        </mat-card-content>
+
+                      </mat-card>
+                    </div>
+                    <div class="col-md-3" >
+                      <div  *ngIf="editTransId != ''">
+                        <img src="{{getimagetid(editTransId)}}" alt="*" style="width:98%;padding:2px">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs" *ngIf="!isAddOpen">
+                  <div fxLayout="row">
+                    <div class="data-container">
+                      <div class="data-table-container">
+                        <table mat-table [dataSource]="dataSource" matSort class="data-table">
+
+
+                          <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                            <td mat-cell *matCellDef="let row">{{row?.id}}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="transid">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              URL
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row?.physicalurl}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="images">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Image
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                              <img src="{{getimage(row)}}" alt="*" style="max-width:100px;padding:2px">
+
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="createdon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Uploaded
+                              On
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row?.createdon}}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="filename">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              File Name
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row?.filename}}</td>
+                          </ng-container>
+
+
+                          <ng-container cdkColumnDef="actions" stickyEnd>
+                            <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+                            <td *cdkCellDef="let row">
+                              <div>
+                                <button matTooltip="Download" (click)="downloadfile(row)"
+                                  *ngIf="userpermissions.export==1"
+                                  class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                  <em class="fa fa-download"></em>
+                                </button>
+                                <button matTooltip="Edit" (click)="editmasterasset(row)" *ngIf="userpermissions.edit==1"
+                                  class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                  <i class="fa fa-edit" aria-hidden="true"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                          <tr mat-row
+                            *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                          </tr>
+                        </table>
+                      </div>
+                      <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix"
+                        [ngClass]="{hideelement: pageObject.totalRecords == 0}">
+                        <div class="mt-0 pull-left">
+
+                          <div class="row">
+                            <div class="col-md-12 mt-0 text-left">
+                              <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                [pageSizeOptions]="[5, 10, 25, 100]">
+                              </mat-paginator>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 pull-right">
+                          <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                            screenReaderCurrentLabel="You're on page" id="user_list_pagination">
+                          </pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--table ends-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

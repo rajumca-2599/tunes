@@ -1,15 +1,20 @@
-<div class="modal-header">
-    <h4 class="" *ngIf="msgobj.type === 'success'"></h4>
-    <h4 class="" *ngIf="msgobj.type === 'error'"></h4>
-    <h4 class="" *ngIf="msgobj.type === 'warning'"></h4>
-    <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-      <img src="/assets/images/close-x.svg"/>
-    </button> -->
+<div mat-dialog-content>
+    <div class="alert-body">
+      <span>
+        <em class="fa fa-check msg-icon border-success" *ngIf="data.type === 'success'"></em>
+        <em class="fa fa-close msg-icon border-error" *ngIf="data.type === 'error'"></em>
+        <em class="fa fa-close msg-icon border-warning" *ngIf="data.type === 'warning'"></em>
+      </span>
+      <div *ngIf="data.html; else notHtml" style="min-height:150px;">
+        <div [innerHTML]="data.msg">
+        </div>
+      </div>
+      <ng-template #notHtml>
+        <p class="mesg-description">{{data.msg}}</p>
+      </ng-template>
+   
+      <hr  *ngIf="!data.html" />
+      <button mat-stroked-button class="close-custom" (click)="close()" cdkFocusInitial>Close</button>
+    </div>
   </div>
-  <div class="modal-body text-center">
-    {{msgobj.message}}
-  </div>
-  <div class="modal-footer">
-    <!-- <button type="button" class="btn btn-primary" (click)="sendModal()" >Send</button> -->
-    <button type="button" class="btn btn-danger" (click)="closeAllModals()">Close</button>
-</div>
+  

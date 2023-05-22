@@ -1,0 +1,116 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title ml-3">
+                    <h4>
+                      <em class="fa fa-unlock-alt"></em><span class="user">Encryption
+                        <span style="font-size: 16px;">&#8811;</span> Url</span>
+                     
+                    </h4>
+                  </div>
+
+
+
+
+                <div class="container">
+                   
+                  <div class="row m-3">
+                    
+                     
+                        <mat-form-field class="example-full-width col-4">
+                          <input matInput placeholder="Action" [(ngModel)]="action" >
+                        </mat-form-field>
+                      
+                        <mat-form-field class="example-full-width col-4">
+                          <input matInput placeholder="pagename" [(ngModel)]="pagename" >
+                        </mat-form-field>
+                        
+                      </div>
+                      <div class="row col-8 ml-1">
+                        <mat-form-field class="example-full-width col-6 ">
+                          <input matInput placeholder="url" [(ngModel)]="url" >
+                        </mat-form-field>
+                        <div class="form-group mt-3 ml-3 col-2">
+                          <button type="button" class="btn btn-danger btn-sm" (click)="encriptTheurl()">Encryption</button>
+                        </div>
+                      </div>
+                      
+                  
+                 </div>
+
+
+
+
+
+                <br />
+                <div class="row m-3" >
+                  <div class="col-6">
+                    <label for="Encrypted_Action"  class="label_cls" >Encrypted_Action :</label>
+                    <input class="input_cls"  type="text" id="Encrypted_Action" name="Encrypted_Action" [(ngModel)]="responseaction">
+                  </div>
+                </div>
+                <div class="row mt-5 ml-3">
+                  <div class="col-6">
+                    <label for="Encrypted_pagename" class="label_cls"  >Encrypted_pagename :</label>
+                    <input  class="input_cls"  type="text" id="Encrypted_pagename" name="Encrypted_pagename" [(ngModel)]="responsepagename">
+                  </div>
+                  
+                </div>
+                 
+                
+                <div class="row mt-5 ml-3">
+                  <div class="col-12">
+                    <label for="Encrypted_url" class="label_cls" >Encrypted_Action :</label>
+                    <input class="input_cls" type="text" id="Encrypted_url" name="Encrypted_url" [(ngModel)]="responseurl" >
+                  </div>
+                </div>
+                 
+                
+                <!-- <div class="row m-3">
+                    
+                     
+                  <mat-form-field class="example-full-width col-2">
+                    <label>Encrypted_Action</label>
+                    <input matInput  [(ngModel)]="responseaction" >
+                  </mat-form-field>
+                
+                  <mat-form-field class="example-full-width col-2">
+                    <label>Encrypted_pagename</label>
+                    <input matInput  [(ngModel)]="responsepagename" >
+                  </mat-form-field>
+                  
+                  
+                
+                  <mat-form-field class="example-full-width col-6 ">
+                    <label>Encrypted_url</label>
+                    <input [(ngModel)]="responseurl" >
+                  </mat-form-field>
+                 
+               
+                
+            </div> -->
+                <!-- <div class="row m-3">
+                     
+                      <div class="col-sm-12">
+                      
+                        <mat-form-field>
+                          <mat-label> {{'URL'| langFilter}}</mat-label>
+                          <textarea matInput type="text" placeholder="" [(ngModel)]="responseurl"
+                            name="bah_templatebody" style="height: 200px;border:solid 1px #cccccc"></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

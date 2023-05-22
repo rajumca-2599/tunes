@@ -1,0 +1,90 @@
+<section class="basic_details sticky base80">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 no-padding">
+          <div class="detail_sec">
+            <div class="details_inner">
+              <div class="type_camp">
+                <div class="container-fluid no-padding">
+                  <div class="detail_title">
+                    <h4>                    
+                    <em class="icon-settings"></em><span class="user"><a class="active" href="#/home/rssmaster">NATIVE
+                      CONTENT</a></span>
+                  <span class="user"> >> PROCESSED Data</span>
+                  </h4>
+                  </div>                 
+  
+                  <!--table-->
+                  <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                    <div fxLayout="row">
+                      <div class="data-container">
+                        <div class="data-table-container">
+                          <table mat-table [dataSource]="dataSource" matSort class="data-table">
+                              <ng-container matColumnDef="category">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>CATEGORY</th>
+                                <td mat-cell *matCellDef="let row">{{row?.category}}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="feedcategory">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>FEED CATEGORY</th>
+                                <td mat-cell *matCellDef="let row">{{row?.feed_category}}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="partner">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>PARTNER</th>
+                                <td mat-cell *matCellDef="let row">{{row?.partner}}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="partner_image">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>PARTNER IMAGE</th>                              
+                                <td mat-cell *matCellDef="let row">
+                                  <img src="{{row?.partner_image}}" alt="*" onerror="this.src='assets/images/default.png'" style="max-width:100px;padding:2px">    
+                                </td>
+                              </ng-container>
+                            <ng-container cdkColumnDef="actions" stickyEnd>
+                              <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+                              <td *cdkCellDef="let row">
+                                <button matTooltip="Edit {{row?.category}}" (click)="viewOptions(row)"
+                                  *ngIf="userpermissions.edit==1"
+                                  class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                  <em class="fa fa-edit"></em>
+                                </button>                               
+                              </td>
+                            </ng-container>                           
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                            <tr mat-row
+                              *matRowDef="let row; columns: displayedColumns | paginate: { id: 'vocemaster_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                            </tr>
+                          </table>
+                        </div>
+                        <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix"
+                          [ngClass]="{hideelement: pageObject.totalRecords == 0}">
+                          <div class="mt-0 pull-left">
+  
+                            <div class="row">
+                              <div class="col-md-12 mt-0 text-left">
+                                <mat-paginator #paginator class="custom-pagesize"
+                                               [length]="pageObject?.totalRecords"
+                                               [pageSize]="pageObject?.pageSize"
+                                               (page)="changePageSize($event)"
+                                               [pageSizeOptions]="[5, 10, 25, 100]">
+                                </mat-paginator>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mt-3 pull-right">
+                            <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                              screenReaderCurrentLabel="You're on page" id="vocemaster_pagination">
+                            </pagination-controls>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--table ends-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

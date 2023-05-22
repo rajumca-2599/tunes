@@ -1,0 +1,260 @@
+<h2 mat-dialog-title>CHANGE <strong style="text-decoration: underline;">{{editobj.pagename}} >> {{editobj.modulename}}</strong> MODULE CONFIGURATION</h2>
+<hr />
+<form autocomplete="off" name="moduleConfigForm" novalidate #moduleConfigForm='ngForm'>
+  <mat-dialog-content>
+    <div class="container">
+      <br />
+      <div class="row">
+        <div class="col-xs-6 col-md-6">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>English</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-sm-12">
+                  <mat-form-field>
+                    <mat-label> {{'Title'| langFilter}}</mat-label>
+                    <input matInput type="text" [(ngModel)]="editobj.titleEn"
+                           name="titleEn" #titleEn="ngModel" [disabled]="mode =='update'"
+                           maxlength="50" required autocomplete="off">
+
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12">
+                  <mat-form-field>
+                    <mat-label> {{'Description'| langFilter}}</mat-label>
+                    <input matInput type="text" placeholder="" [(ngModel)]="editobj.descEn"
+                           name="descEn" #descEn="ngModel" maxlength="200" />
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12">
+                  <mat-form-field>
+                    <mat-label> {{'More Text'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="editobj.moreTextEn"
+                              name="moreTextEn" #moreTextEn="ngModel" maxlength="200"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12">
+                  <mat-form-field>
+                    <mat-label> {{'More URL'| langFilter}}</mat-label>
+                    <input matInput type="text" placeholder="" [(ngModel)]="editobj.moreURLEn"
+                           name="moreURLEn" #moreURLEn="ngModel" maxlength="200" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-card>
+                    <!--<mat-card-header>
+                      <mat-card-title><i class="fa fa-cog"></i> Configurations</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>-->
+                    <mat-card-content>
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label>{{'Action Type'| langFilter}}</mat-label>
+                            <mat-select [(ngModel)]="editobj.actionTypeEn" name="actionTypeEn"  #actionTypeEn="ngModel">
+                              <mat-option [value]="0">Internal</mat-option>
+                              <mat-option [value]="1">External</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.actionTypeEn=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label>{{'Internal Redirect Pages'| langFilter}}</mat-label>
+                            <mat-select [(ngModel)]="editobj.intrnlRouteEn" name="intrnlRouteEn" #intrnlRouteEn="ngModel" >
+                              <mat-option [value]="0">Home</mat-option>
+                              <mat-option [value]="1">My Account</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.actionTypeEn=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Internal Value'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.internalValueEn"
+                                   name="internalValueEn" #internalValueEn="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.actionTypeEn=='1'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'External URL'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.externUrlEn"
+                                   name="externUrlEn" #externUrlEn="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div *ngIf="editobj.actionTypeEn=='1'" class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label>{{'External Type'| langFilter}}</mat-label>
+                            <mat-select [(ngModel)]="editobj.extTypeEn" name="extTypeEn" #extTypeEn="ngModel">
+                              <mat-option [value]="0">Web View</mat-option>
+                              <mat-option [value]="1">Browser</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.extTypeEn=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Web View Title'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.webViewTitleEn"
+                                   name="webViewTitleEn" #webViewTitleEn="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.extTypeEn=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Back Colour'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.backColourEn"
+                                   name="backColourEn" #backColourEn="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.extTypeEn=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Fore Colour'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.foreColourEn"
+                                   name="foreColourEn" #foreColourEn="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-xs-6 col-md-6">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>Bahasa</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-sm-12">
+                  <mat-form-field>
+                    <mat-label> {{'Title'| langFilter}}</mat-label>
+                    <input matInput type="text" [(ngModel)]="editobj.title"
+                           name="title" #title="ngModel" [disabled]="mode =='update'"
+                           maxlength="50" required autocomplete="off">
+
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12">
+                  <mat-form-field>
+                    <mat-label> {{'Description'| langFilter}}</mat-label>
+                    <input matInput type="text" placeholder="" [(ngModel)]="editobj.desc"
+                           name="desc" #desc="ngModel" maxlength="200" />
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12">
+                  <mat-form-field>
+                    <mat-label> {{'More Text'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="editobj.moreText"
+                              name="moreText" #moreText="ngModel" maxlength="200"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12">
+                  <mat-form-field>
+                    <mat-label> {{'More URL'| langFilter}}</mat-label>
+                    <input matInput type="text" placeholder="" [(ngModel)]="editobj.moreURL"
+                           name="moreURL" #moreURL="ngModel" maxlength="200" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-card>
+                    <!--<mat-card-header>
+                      <mat-card-title><i class="fa fa-cog"></i> Configurations</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>-->
+                    <mat-card-content>
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label>{{'Action Type'| langFilter}}</mat-label>
+                            <mat-select [(ngModel)]="editobj.actionType" name="actionType"  #actionType="ngModel">
+                              <mat-option [value]="0">Internal</mat-option>
+                              <mat-option [value]="1">External</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.actionType=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label>{{'Internal Redirect Pages'| langFilter}}</mat-label>
+                            <mat-select [(ngModel)]="editobj.intrnlRoute" name="intrnlRoute"  #intrnlRoute="ngModel">
+                              <mat-option [value]="0">Home</mat-option>
+                              <mat-option [value]="1">My Account</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.actionType=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Internal Value'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.internalValue"
+                                   name="internalValue" #internalValue="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.actionType=='1'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'External URL'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.externUrl"
+                                   name="externUrl" #externUrl="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div *ngIf="editobj.actionType=='1'" class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label>{{'External Type'| langFilter}}</mat-label>
+                            <mat-select [(ngModel)]="editobj.extType" name="extType"   #extType="ngModel">
+                              <mat-option [value]="0">Web View</mat-option>
+                              <mat-option [value]="1">Browser</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.extType=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Web View Title'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.webViewTitle"
+                                   name="webViewTitle" #webViewTitle="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.extType=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Back Colour'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.backColour"
+                                   name="backColour" #backColour="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="editobj.extType=='0'" class="col-sm-12 col-md-12">
+                          <mat-form-field>
+                            <mat-label> {{'Fore Colour'| langFilter}}</mat-label>
+                            <input matInput type="text" placeholder="" [(ngModel)]="editobj.foreColour"
+                                   name="foreColour" #foreColour="ngModel" required maxlength="200" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        
+      </div>
+      <hr />
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="pull-right">
+    <button class="mat-raised-button btn mr-2" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary btn" type="button" (click)="saveModuleConfig()">Submit</button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,165 @@
+[
+  {
+    "ALERTTYPE": "1",
+    "TEXT": "MULTI ALERT",
+    "LANGPARAMS": [
+      {
+        "TYPE": "1",
+        "TEXT": "Title",
+        "APIKEY": "title"
+      },
+      {
+        "TYPE": "1",
+        "TEXT": "Desc",
+        "APIKEY": "desc"
+      },
+      {
+        "TYPE": "1",
+        "TEXT": "Alert Button",
+        "APIKEY": "alertbutton"
+      }
+    ],
+    "STATICPARAMS": [
+      {
+        "TYPE": "1",
+        "TEXT": "PRIORITY",
+        "APIKEY": "priority"
+      },
+      {
+        "TYPE": "3",
+        "TEXT": "Alert Colour",
+        "APIKEY": "alertcolor"
+      },
+      {
+        "TYPE": "2",
+        "TEXT": "Redirection Page",
+        "APIKEY": "redirection"
+      }
+    ]
+  },
+  {
+    "ALERTTYPE": "2",
+    "TEXT": "SMART ALERT",
+    "LANGPARAMS": [
+      {
+        "TYPE": "1",
+        "TEXT": "Title",
+        "APIKEY": "title"
+      },
+      {
+        "TYPE": "1",
+        "TEXT": "Desc",
+        "APIKEY": "desc"
+      }
+    ],
+    "STATICPARAMS": [
+      {
+        "TYPE": "5",
+        "TEXT": "Range Min",
+        "APIKEY": "minvalue"
+      },
+      {
+        "TYPE": "6",
+        "TEXT": "Range Max",
+        "APIKEY": "maxvalue"
+      },
+      {
+        "TYPE": "3",
+        "TEXT": "Priority",
+        "APIKEY": "priority"
+      },
+      {
+        "TYPE": "2",
+        "TEXT": "Redirection Page",
+        "APIKEY": "redirection"
+      }
+    ]
+  },
+  {
+    "ALERTTYPE": "3",
+    "TEXT": "PRO TIPS",
+    "LANGPARAMS": [
+      {
+        "TYPE": "1",
+        "TEXT": "Title",
+        "APIKEY": "title"
+      },
+      {
+        "TYPE": "1",
+        "TEXT": "Desc",
+        "APIKEY": "desc"
+      },
+      {
+        "TYPE": "1",
+        "TEXT": "Alert Button",
+        "APIKEY": "alertbutton"
+      }
+    ],
+    "STATICPARAMS": [
+      {
+        "TYPE": "1",
+        "TEXT": "PRIORITY",
+        "APIKEY": "priority"
+      },
+      {
+        "TYPE": "2",
+        "TEXT": "Redirection Page",
+        "APIKEY": "redirection"
+      }
+    ]
+  },
+  {
+    "ALERTTYPE": "4",
+    "TEXT": "Tool TIPS",
+    "LANGPARAMS": [
+      {
+        "TYPE": "1",
+        "TEXT": "Title",
+        "APIKEY": "title"
+      },
+      {
+        "TYPE": "1",
+        "TEXT": "Desc",
+        "APIKEY": "desc"
+      }
+    ],
+    "STATICPARAMS": [
+      
+    ]
+  },
+  {
+    "ALERTTYPE": "5",
+    "TEXT": "Push Notifications",
+    "LANGPARAMS": [
+      {
+        "TYPE": "1",
+        "TEXT": "Title",
+        "APIKEY": "title"
+      },
+      {
+        "TYPE": "1",
+        "TEXT": "Desc",
+        "APIKEY": "desc"
+      }
+      ,
+      {
+        "TYPE": "1",
+        "TEXT": "summary",
+        "APIKEY": "pushmessage"
+      }
+    ],
+    "STATICPARAMS": [
+     
+      {
+        "TYPE": "3",
+        "TEXT": "Priority",
+        "APIKEY": "priority"
+      },
+      {
+        "TYPE": "2",
+        "TEXT": "Redirection Page",
+        "APIKEY": "redirection"
+      }
+    ]
+  }
+]

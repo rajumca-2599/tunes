@@ -1,0 +1,110 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="EmailTemplateForm" novalidate #EmailTemplateForm='ngForm'>
+  <mat-dialog-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <mat-form-field>
+            <mat-label> {{'Template Type'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="etobj.type" name="type" [disabled]="mode =='update'" titleChars required
+              #type="ngModel">
+              <mat-option value="email">Email</mat-option>
+              <mat-option value="webview">HTML</mat-option>
+              <mat-option value="json">JSON</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field>
+            <mat-label> {{'Language'| langFilter}}</mat-label>
+            <mat-select name="ddlgroup" [(ngModel)]="language11">
+              <mat-option [disabled]="ifColorDark(lang.title)" (click)="changethevalue(lang)" *ngFor="let lang of languageList" [value]="lang.id">{{lang.title}}</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+        
+        <div class="col-sm-2 col-md-2">
+          <mat-form-field floatLabel="always">
+            <mat-label> {{'Status'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="etobj.status" name="status" required #status="ngModel">
+              <mat-option value="1">Active </mat-option>
+              <mat-option value="0">Inactive</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+      </div>
+     <div class="row">
+      <div class="col-sm-4 mt-3">
+        <mat-form-field>
+          <mat-label> {{'Name '| langFilter}}</mat-label>
+          <input matInput type="text" [(ngModel)]="etobj.name" [disabled]="mode =='update'" titleChars name="name"
+            #name="ngModel" maxlength="50" required autocomplete="off">
+
+        </mat-form-field>
+      </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <mat-label>{{env.languages[0].key}} {{ 'Description'| langFilter}}</mat-label>
+            <textarea matInput type="text" placeholder="" [(ngModel)]="description1" titleChars
+              name="descen" #desc="ngModel" maxlength="200"></textarea>
+          </mat-form-field>
+        </div>
+       
+       
+        <!-- <div class="col-sm-6 col-md-6 mt-3">
+          <mat-form-field>
+            <mat-label> {{'Language'| langFilter}}</mat-label>
+            <mat-select name="ddlgroup" [(ngModel)]="etobj.templateInfo [1].language" (selectionChange)="someMethod(lang.title)">
+            <mat-select name="ddlgroup" [(ngModel)]="etobj.templateInfo [1].language" (selectionChange)="someMethod()">
+              <mat-option [disabled]="ifColorDark(lang.title)" (click)="changethevalue(lang.title)"  *ngFor="let lang of languageList" [value]="lang.id">{{lang.title}}</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div> -->
+        <div class="col-md-4">
+          <mat-form-field>
+            <mat-label> {{langtextarea }} {{'Description'| langFilter}}</mat-label>
+            <textarea matInput type="text" placeholder="" [(ngModel)]="description11" name="descba"
+              #desc="ngModel" maxlength="200"></textarea>
+          </mat-form-field>
+        </div> 
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <!-- <angular-editor [(ngModel)]="etobj.templateInfo[0].template" class="anc-htmleditor" id="eng_templatebody"
+           name="eng_templatebody" [config]="config"></angular-editor> -->
+          <!-- <span>English Template</span>
+          
+          -->
+          <mat-form-field>
+            <mat-label>{{env.languages[0].key }} {{'Template'| langFilter}}</mat-label>
+            <textarea matInput type="text" placeholder="" [(ngModel)]="template1"
+              name="eng_templatebody" style="height: 200px;border:solid 1px #cccccc"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <!-- <span>Bahasa Template</span> -->
+          <!-- <angular-editor [(ngModel)]="etobj.templateInfo[1].template" 
+           class="anc-htmleditor"  id="bah_templatebody" name="bah_templatebody" [config]="config"></angular-editor> -->
+          <!-- <textarea matInput type="text" placeholder="" [(ngModel)]="etobj.templateInfo[1].template"
+            name="bah_templatebody" style="height: 200px"></textarea> -->
+          <mat-form-field>
+            <mat-label>{{langtextarea }} {{'Template'| langFilter}}</mat-label>
+            <textarea matInput type="text" placeholder="" [(ngModel)]="template11"
+              name="bah_templatebody" style="height: 200px;border:solid 1px #cccccc"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="pull-right">
+    <button class="btn mr-2 mat-raised-button" (click)="close()">Close</button>
+    <button class="btn mat-raised-button mat-primary" type="button" (click)="submitEmailTemplate()">Submit</button>
+  </mat-dialog-actions>
+</form>

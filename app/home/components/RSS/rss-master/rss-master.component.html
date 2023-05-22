@@ -1,0 +1,148 @@
+<section class="basic_details sticky base80">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 no-padding">
+          <div class="detail_sec">
+            <div class="details_inner">
+              <div class="type_camp">
+                <div class="container-fluid no-padding">
+                  <div class="detail_title">
+                    <h4>
+                      <em class="icon-settings"></em><span class="user">Native Content</span>
+                     
+                      <button type="button" class="btn btn-outline-primary btn_custom21 pull-right"
+                        (click)="createrss(null)" *ngIf="userpermissions.add==1">
+                        <em class="fa fa-plus" matTooltip="Add" >
+                        </em>
+                      </button>
+                      <button matTooltip="Refresh" (click)="getrssList()"
+                      class="btn btn-outline-primary btn_custom21 pull-right">
+                <i class="fa fa-refresh"  aria-hidden="true"></i>
+  </button>
+                    </h4>
+                  </div>                 
+  
+                  <!--table-->
+                  <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                    <div fxLayout="row">
+                      <div class="data-container">
+                        <div class="data-table-container">
+                          <table mat-table [dataSource]="dataSource" matSort class="data-table">                           
+                            <ng-container matColumnDef="name">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>NAME</th>
+                              <td mat-cell *matCellDef="let row">{{row?.feed_name}}</td>
+                            </ng-container>                          
+                            <!-- <ng-container matColumnDef="description">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>DESCRIPTION</th>
+                                <td mat-cell *matCellDef="let row">{{row?.feed_description}}</td>
+                              </ng-container> -->
+                              <ng-container matColumnDef="partnername">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>PARTNER NAME</th>
+                                <td mat-cell *matCellDef="let row">{{row?.partner_name}}</td>
+                              </ng-container> 
+                              <ng-container matColumnDef="category">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>CATEGORY</th>
+                                <td mat-cell *matCellDef="let row">{{row?.category}}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="frequency">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>FREQUENCY</th>
+                                <td mat-cell *matCellDef="let row">{{row?.frequency}}</td>
+                              </ng-container>                            
+                            <ng-container matColumnDef="status">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
+                              <td mat-cell *matCellDef="let row"><span class="label label-{{row?.status}}">{{getstatustext(row?.status)}}</span></td>
+                            </ng-container>
+                            <ng-container matColumnDef="last_refreshed_on">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>LAST REFRESHED ON</th>
+                              <td mat-cell *matCellDef="let row">{{row?.last_refreshed_on}}</td>
+                            </ng-container>
+                            <ng-container cdkColumnDef="actions" style="width: 8% !important;" >
+                              <th mat-header-cell *matHeaderCellDef style="text-align:center">EDIT</th>
+                              <td *cdkCellDef="let row" style="text-align:center">
+                                <button matTooltip="Edit {{row?.feed_name}}" (click)="createrss(row)"
+                                  *ngIf="userpermissions.edit==1" style="text-align:center"
+                                  class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                  <em class="fa fa-edit"></em>
+                                </button>                               
+                              </td>
+                            </ng-container> 
+                            <ng-container cdkColumnDef="viewdata" >
+                                <th mat-header-cell *matHeaderCellDef style="text-align:center">PARTNER DATA</th>
+                                <td *cdkCellDef="let row">
+                                  <button matTooltip="Open Feed Url" (click)="openRssFeedUrl(row.feed_url)"
+                                    *ngIf="userpermissions.edit==1" 
+                                    class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                    <em class="fa fa-edit"></em>
+                                  </button>                               
+                                </td>
+                              </ng-container> 
+                            <ng-container cdkColumnDef="template" >
+                                <th mat-header-cell *matHeaderCellDef style="text-align:center">FIELD MAPPING</th>
+                                <td *cdkCellDef="let row">
+                                  <button matTooltip="Field Mapping" (click)="createtemplate(row)"
+                                    *ngIf="userpermissions.edit==1" 
+                                    class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                    <em class="fa fa-edit"></em>
+                                  </button>                               
+                                </td>
+                              </ng-container>  
+                              <ng-container cdkColumnDef="rssdata" >
+                                <th mat-header-cell *matHeaderCellDef style="text-align:center">PROCESSED DATA</th>
+                                <td *cdkCellDef="let row">
+                                  <button matTooltip="View Processed Data" (click)="navigatetoData(row)"
+                                    *ngIf="userpermissions.edit==1" 
+                                    class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                    <em class="fa fa-edit"></em>
+                                  </button>                               
+                                </td>
+                              </ng-container> 
+                              <ng-container cdkColumnDef="refreshdata">
+                                <th mat-header-cell *matHeaderCellDef>REFRESH DATA</th>
+                                <td *cdkCellDef="let row">
+                                  <button matTooltip="View RSS Data" (click)="refreshRSSData(row)"
+                                    *ngIf="userpermissions.edit==1"
+                                    class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                    <em class="fa fa-refresh"></em>
+                                  </button>                               
+                                </td>
+                              </ng-container>                            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                            <tr mat-row
+                              *matRowDef="let row; columns: displayedColumns | paginate: { id: 'vocemaster_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                            </tr>
+                          </table>
+                        </div>
+                        <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix"
+                          [ngClass]="{hideelement: pageObject.totalRecords == 0}">
+                          <div class="mt-0 pull-left">
+  
+                            <div class="row">
+                              <div class="col-md-12 mt-0 text-left">
+                                <mat-paginator #paginator class="custom-pagesize"
+                                               [length]="pageObject?.totalRecords"
+                                               [pageSize]="pageObject?.pageSize"
+                                               (page)="changePageSize($event)"
+                                               [pageSizeOptions]="[5, 10, 25, 100]">
+                                </mat-paginator>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mt-3 pull-right">
+                            <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                              screenReaderCurrentLabel="You're on page" id="vocemaster_pagination">
+                            </pagination-controls>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--table ends-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

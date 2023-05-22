@@ -1,0 +1,20 @@
+.adjheight {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.copy-btn {
+  background-color: springgreen;
+  color: white;
+}
+.btn-package{
+  margin-top:10px;
+  margin-bottom : 5px;
+}
+.copy-btn-spn {
+  float: right;
+  margin-bottom: 5px;
+}
+.hr-btn {
+  margin-top: 1.5rem !important;
+}

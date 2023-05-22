@@ -1,0 +1,988 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title row">
+                  <h4 class="col-sm-10 no-border">
+                    <em class="icon-settings"></em>
+                    <span class="user">Customer Care Management </span>
+                  </h4>
+                  <div class="col-sm-2" *ngIf="true">
+                    <div class="row search-number mt-2">
+                      <div class="col-md-12">
+                        <span>MSISDN:</span>
+                        <input matInput type="text" autocomplete="off" maxlength="15" numbersOnly style="border: none;border-bottom: solid 1px #ccc;width:100%"
+                          [(ngModel)]="msisdn">
+                        <button type="button" class="btn btn-outline-primary btn_custom" (click)="changenumber()"><i
+                            class="fa fa-search" aria-hidden="true" matTooltip="search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm">
+                  <div class="row " *ngIf="false">
+                    <div class="col-md-4">&nbsp;</div>
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>MSISDN</mat-label>
+                        <input matInput type="text" autocomplete="off" maxlength="15" numbersOnly value="&nbsp;"
+                          [(ngModel)]="msisdn">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <button type="button" class="btn btn-outline-primary btn_custom" (click)="getccaredetails()"><i
+                            class="fa fa-search" aria-hidden="true" matTooltip="search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row minheight500" style="width:100%;margin:0px" *ngIf="profileavailable">
+                    <div class="col-md-12 col-sm-12 col-lg-12" style="margin: 0px;padding:0px;width: 100%">
+                      <mat-tab-group dynamicHeight [@.disabled]="true" (selectedIndexChange)="tabChangeEvent($event)"
+                        class="ccaretab">
+                        <mat-tab label="Profile">
+                          <div *ngIf="selectedtab ==0" class="minheight500">
+
+                            <div class="row">
+                              <mat-accordion>
+                                <mat-expansion-panel [expanded]="true">
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      <div class="col-md-4">
+                                        <h6 class="banner-head">Profile Information</h6>
+                                      </div>
+                                      <div class="col-md-4 label label-0" *ngIf="(userinfo | json) == '{}' || (userinfo | json) == null">
+                                        User Details not found
+                                      </div>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                                  <!-- <div class="row" *ngIf="(userinfo | json) == '{}' || (userinfo | json) == null">
+                                    
+                                    <div class="col-sm-12 col-md-12">
+                                      <div class="col-sm-2 col-md-2 floatleft label label-0" >
+                                        User Details not found
+                                      </div>
+                                  </div>
+                                  </div> -->
+                                  <div class="col-sm-12 col-md-12">
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Name*
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <div class="form-control form-control-static">
+                                        <input matInput type="text" [(ngModel)]="userinfo.firstname" name="firstname"
+                                          #name="ngModel" maxlength="80" required titleChars autocomplete="off">
+                                      </div>
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      {{'DOB'| langFilter}}*
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <span class="date-picker">
+                                        <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                                        <input name="startdate" placeholder="DOB" [min]="mindob" [max]="maxdob"
+                                          readonly style="border-bottom:solid 1px #ccc;line-height:35px" [(ngModel)]="userinfo.dob"
+                                          [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" />
+                                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                                      </span>
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Email ID*
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <div class="form-control form-control-static">
+                                        <input matInput type="text" [(ngModel)]="userinfo.emailid" name="emailid" #name="ngModel"
+                                          maxlength="60" required safeChars autocomplete="off">
+                                      </div>
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Email Verified
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <span *ngIf="emailverifed" class="label label-1">
+                                        Verified
+                                      </span>
+                                      <span *ngIf="!emailverifed" class="label label-0">
+                                        Not Verified
+                                      </span>
+                                    </div>
+
+
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Parent Mobile Number
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      {{parentnumber}}
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Ported In
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      {{portedin}}
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      IS BSNL
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      {{isbsnl}}
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12  " *ngIf="!env.isbsnl">
+                                      <button class="mat-raised-button mat-primary floatright martop20" type="button"
+                                        style="margin-top: 20px" (click)="showconfirm('profile',null)">Submit
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                </mat-expansion-panel>
+                                <mat-expansion-panel *ngIf="enabledreset">
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      <h6 class="banner-head">Reset Profile</h6>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                      <!-- <small>Note: Once reset all profile data will be removed.</small> -->
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                                  <div class="col-sm-12 col-md-12">
+                                    <div class="row">
+                                      <div class="col-md-3 col-sm-3  floatleft">
+                                        <div class="form-group form-md-line-input">
+                                          <mat-label for="form_control_f1">
+                                            Reason*
+                                          </mat-label>
+                                          <div class="form-control form-control-static">
+                                            <input matInput type="text" [(ngModel)]="reason" name="reason" #name="ngModel"
+                                              maxlength="100" required titleChars autocomplete="off">
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-md-3 col-sm-3  floatleft">
+                                        <div class="form-group form-md-line-input">
+                                          <button class="mat-raised-button mat-primary" *ngIf="enabledreset" style="margin-left:10px"
+                                            type="button" (click)="showconfirm('resetprofile',null)">Reset</button>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">&nbsp;</div>
+                                    </div>
+                                  </div>
+
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      <h6 class="banner-head">Social Connect</h6>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                                  <div class="col-sm-12 col-md-12">
+                                    <div class="row">
+                                      <div class="col-md-3 col-sm-3 floatleft ">
+                                        <div class="form-group form-md-line-input">
+                                          <mat-label for="form_control_f1">
+                                            Facebook Connect
+                                          </mat-label>
+                                          <div class="form-control form-control-static">
+                                            <div class="row">
+                                              <div class="col-md-8">
+                                                <span>
+                                                  {{userinfo.socialfacebookid!=null &&
+                                                  userinfo.socialfacebookid!=undefined &&
+                                                  userinfo.socialfacebookid.length>10?"Enabled":"Disabled"}}
+                                                </span>
+                                              </div>
+                                              <div class="col-md-4" style="margin-top: -10px">
+                                                <span *ngIf="userinfo.socialfacebookid!=null && userinfo.socialfacebookid!=undefined && userinfo.socialfacebookid.length>10">
+                                                  <button class="btn btn-outline-primary btn_custom" style="float:right"
+                                                    title="Disconnect Facebook" type="button" (click)="showconfirm('disconnect','facebook')">
+                                                    <i class="fa fa-remove" aria-hidden="true"></i></button>
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3 col-sm-3 ">
+                                        <div class="form-group form-md-line-input">
+                                          <mat-label for="form_control_f1">
+                                            Gmail Connect
+                                          </mat-label>
+                                          <div class="form-control form-control-static">
+                                            <div class="row">
+                                              <div class="col-md-8">
+                                                {{userinfo.socialemailid!=null && userinfo.socialemailid!=undefined &&
+                                                userinfo.socialemailid.length>10?"Enabled":"Disabled"}}
+                                              </div>
+                                              <div class="col-md-4" style="margin-top: -10px">
+                                                <span *ngIf="userinfo.socialemailid!=null && userinfo.socialemailid!=undefined && userinfo.socialemailid.length>10">
+                                                  <button class="btn btn-outline-primary btn_custom" style="float:right"
+                                                    title="Disconnect Google" type="button" (click)="showconfirm('disconnect','google')">
+                                                    <i class="fa fa-remove" aria-hidden="true"></i></button>
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel *ngIf="!enableOtp">
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      <h6 class="banner-head">Default OTP</h6>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                      <!-- <small>Note: Once Default OTP is enabled, Same OTP value can be used for all requests.</small> -->
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+
+                                  <div class="col-sm-12 col-md-12">
+                                    <div class="row">
+                                      <div class="col-md-2">
+                                        <div>
+                                          <mat-form-field>
+                                            <mat-label>{{'Status'| langFilter}}</mat-label>
+                                            <mat-select [(ngModel)]="defaultotp.enabled" name="Defaultotp" required
+                                              #status="ngModel" [disabled]="!enabledreset">
+                                              <mat-option value="T">Enabled</mat-option>
+                                              <mat-option value="F">Disabled</mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-2">
+                                        <div class="form-group form-md-line-input" *ngIf="defaultotp.enabled=='T'">
+                                          <mat-label> {{'OTP'| langFilter}}</mat-label>
+                                          <div class="form-control form-control-static">
+                                            <input matInput type="text" placeholder="" [(ngModel)]="defaultotp.otp"
+                                              name="defaultotpotp" numbersOnly maxlength="6" required />
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4" style="margin-top: 5px;">
+                                        <!-- <div class="col-md-4" style="margin-top: 5px;" *ngIf="enabledreset">  -->
+                                        <button class="mat-raised-button mat-primary" type="button" (click)="showconfirm('updateotp','')"
+                                          *ngIf="defaultotp.enabled=='T'" style="margin-right: 10px;">ADD</button>
+                                        <button class="mat-raised-button mat-primary" type="button" (click)="showconfirm('updateotp','')"
+                                          *ngIf="defaultotp.enabled=='F'" style="margin-right: 10px;">REMOVE</button>
+                                        <button class="mat-raised-button mat-primary" type="button" (click)="showconfirm('unblockotp','')"
+                                          style="margin-right: 10px;">UNBLOCK</button>
+                                      </div>
+                                      <div class="col-md-4">&nbsp;</div>
+                                    </div>
+                                  </div>
+
+                                </mat-expansion-panel>
+                                <mat-expansion-panel>
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      <h6 class="banner-head">User Info</h6>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                                  <div class="col-sm-12 col-md-12">
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Last Accessed Date :
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      {{userInfoLst.lastaccesseddate}}
+                                    </div>
+
+                                    <!-- <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                        No.of Login Attempts :
+                                      </div>
+                                      <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                        {{loggedInAttempts }}
+                                      </div> -->
+                                    <!-- <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                        Product Name :
+                                      </div>
+                                      <div class="borderbox  col-sm-4 col-md-4 floatleft" style="line-height: 22px;">
+                                        <span *ngIf="hasprodtransinfo">{{producttransinfo.productname}}</span>
+                                      </div>
+                                      <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                        Payment Type :
+                                      </div>
+                                      <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                        <span *ngIf="hasprodtransinfo"> {{producttransinfo.paymenttype}}</span>
+                                      </div>
+                                      <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                        Price :
+                                      </div>
+                                      <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                        <span *ngIf="hasprodtransinfo"> {{producttransinfo.price}}</span>
+                                      </div>
+                                      <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                        Purchased On :
+                                      </div>
+                                      <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                        <span *ngIf="hasprodtransinfo"> {{producttransinfo.timestamp}}</span>
+                                      </div> -->
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Channel :
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <span> {{userInfoLst.channel}}</span>
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Created On :
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <span> {{userInfoLst.createdon}}</span>
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      Last Login Date :
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <span> {{userInfoLst.lastlogindate}}</span>
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      OS :
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <span> {{userInfoLst.osname}}</span>
+                                    </div>
+                                    <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                      OS Version :
+                                    </div>
+                                    <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                      <span> {{userInfoLst.osversion}}</span>
+                                    </div>
+                                    <!-- <div class="borderbox  col-sm-2 col-md-2 floatleft">
+                                        Device Model :
+                                      </div>
+                                      <div class="borderbox  col-sm-4 col-md-4 floatleft">
+                                        <span > {{userInfoLst.devicemodel}}</span>
+                                      </div> -->
+
+                                    <!-- <div class="col-md-12 col-sm-12  ">
+                                        <button class="mat-raised-button mat-primary floatright martop20" type="button"
+                                          style="margin-top: 20px" (click)="showconfirm('profile',null)">Submit</button>
+                                      </div> -->
+                                  </div>
+
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                            </div>
+                          </div>
+                        </mat-tab>
+                        <mat-tab label="Dashboard" *ngIf="profileavailable">
+
+                          <div *ngIf="selectedtab ==1" class="minheight400">
+                            <!-- <mat-tab-group dynamicHeight [@.disabled]="true"
+                              (selectedIndexChange)="tabChangeEventchild($event)"> -->
+                            <!-- <mat-tab label="Balance"> -->
+                            <mat-card *ngIf="dashboardobj!=null && dashboardobj.prepaidinfo!=null">
+                              <mat-card-header>
+                                <mat-card-title>
+                                  <h6 class="banner-head">Balance</h6>
+                                </mat-card-title>
+                              </mat-card-header>
+                              <mat-card-content>
+                                <div class="row marleft0">
+                                  <div class="col-md-3 col-sm-3 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Balance
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.prepaidinfo.balance}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3 col-sm-3 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Balance Validity Expiry
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.prepaidinfo.graceperioduntil}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="env.isbsnl" class="col-md-2 col-sm-2 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Substype
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.substype}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="env.isbsnl" class="col-md-2 col-sm-2 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Card Type
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.cardtype}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </mat-card-content>
+                            </mat-card>
+                            <mat-card *ngIf="dashboardobj!=null && dashboardobj.packdata!=null && dashboardobj.packdata.substype=='POSTPAID'">
+                              <mat-card-header>
+
+                                <mat-card-title>Postpaid Info</mat-card-title>
+
+                              </mat-card-header>
+                              <mat-card-content>
+                                <div class="row" *ngIf="dashboardobj!=null && dashboardobj.packdata!=null && dashboardobj.packdata.substype=='POSTPAID'">
+                                  <div class="col-md-3 col-sm-3 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Profile Bill Date
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.profilebilldate}}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-3 col-sm-3 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Credit Limit
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.creditlimit}}
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+                                  <div class="col-md-3 col-sm-3 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Remaining Balance (IDR)
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.remainingbalance}}
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+                                  <div class="col-md-3 col-sm-3 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Invoice Date
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.invoicedate}}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-3 col-sm-3 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Payment Due Date
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.paymentduedate}}
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+                                </div>
+                              </mat-card-content>
+                            </mat-card>
+
+
+                            <!-- </mat-tab> -->
+                            <!-- <mat-tab label="Summary"> -->
+                            <mat-card *ngIf="dashboardobj!=null && dashboardobj.summarylist!=null && dashboardobj.summarylist.length>0">
+                              <mat-card-header>
+
+                                <mat-card-title>
+                                  <h6 class="banner-head">Usage Summary</h6>
+                                </mat-card-title>
+
+                              </mat-card-header>
+                              <mat-card-content>
+
+                                <div class="row marleft0" *ngIf="dashboardobj!=null && dashboardobj.summarylist!=null && dashboardobj.summarylist.length>0">
+                                  <div class="col-sm-3 col-md-3">
+                                    <mat-label>Data > </mat-label>
+                                    <div *ngIf="dashboardobj.summary!=null &&  dashboardobj.summary.data!=null && dashboardobj.summary.data.remainingquota!=null && dashboardobj.summary.data.isunlimited!=true">
+                                      {{bytesToSizeData(dashboardobj.summary.data.remainingquota,dashboardobj.summary.data.usedquota)}}
+                                    </div>
+                                    <div *ngIf="dashboardobj.summary!=null &&  dashboardobj.summary.data!=null && dashboardobj.summary.data.isunlimited!=undefined && dashboardobj.summary.data.isunlimited==true">
+                                      UNLIMITED
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-3 col-md-3">
+                                    <mat-label>Voice ></mat-label>
+                                    <div *ngIf="dashboardobj.summary!=null &&  dashboardobj.summary.voice!=null && dashboardobj.summary.voice.remainingquota!=null && dashboardobj.summary.voice.isunlimited!=true">
+                                      {{(dashboardobj.summary.voice.remainingquota)}}</div>
+                                    <div *ngIf="dashboardobj.summary!=null &&  dashboardobj.summary.voice!=null && dashboardobj.summary.voice.isunlimited!=undefined && dashboardobj.summary.voice.isunlimited==true">
+                                      UNLIMITED
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-3 col-md-3">
+                                    <mat-label>SMS ></mat-label>
+                                    <div *ngIf="dashboardobj.summary!=null &&  dashboardobj.summary.sms!=null && dashboardobj.summary.sms.remainingquota!=null &&  dashboardobj.summary.sms.isunlimited!=true">
+                                      {{(dashboardobj.summary.sms.remainingquota)}}</div>
+                                    <div *ngIf="dashboardobj.summary!=null &&  dashboardobj.summary.sms!=null && dashboardobj.summary.sms.isunlimited!=undefined && dashboardobj.summary.sms.isunlimited==true">
+                                      UNLIMITED
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-3 col-md-3">
+                                    <mat-label>Credits ></mat-label>
+                                    <div *ngIf="dashboardobj.summary!=null &&  dashboardobj.summary.credits!=null && dashboardobj.summary.credits.remainingquota!=null && dashboardobj.summary.credits.isunlimited!=true">
+                                      {{(dashboardobj.summary.credits.remainingquota)}}</div>
+                                  </div>
+                                  <div *ngIf="dashboardobj.summary!=null &&  dashboardobj.summary.credits!=null && dashboardobj.summary.credits.isunlimited!=undefined && dashboardobj.summary.credits.isunlimited==true">
+                                    UNLIMITED
+                                  </div>
+                                </div>
+                              </mat-card-content>
+                            </mat-card>
+                            <mat-card *ngIf="dashboardobj.packdata!=null && !env.isbsnl">
+                              <mat-card-header>
+                                <mat-card-title>
+                                  <h6 class="banner-head">Packages</h6>
+                                </mat-card-title>
+                              </mat-card-header>
+
+                              <mat-card-content>
+                                <div class="row marleft0">
+                                  <div class="col-md-2 col-sm-2 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Service Class
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.serviceclass}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-2 col-sm-2 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Expired Date
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.expireddate}}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-2 col-sm-2 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Substype
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.substype}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-2 col-sm-2 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Card Type
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.cardtype}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-2 col-sm-2 ">
+                                    <div class="form-group form-md-line-input">
+                                      <mat-label for="form_control_f1">
+                                        Last Balance(IDR)
+                                      </mat-label>
+                                      <div class="form-control form-control-static">
+                                        {{ dashboardobj.packdata.lastbalance}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </mat-card-content>
+                            </mat-card>
+                            <mat-card *ngIf="dashboardobj.packdata!=null && dashboardobj.packdata.packageslist.length>0">
+                              <mat-card-header>
+                                <mat-card-title>
+                                  <h6 class="banner-head">Packages</h6>
+                                </mat-card-title>
+                              </mat-card-header>
+                              <mat-card-content>
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    <mat-card>
+                                      <mat-card-header>
+                                        <mat-card-title>
+                                          <h6 class="banner-head">Subscribed Packages</h6>
+                                        </mat-card-title>
+                                      </mat-card-header>
+                                      <mat-card-content>
+                                        <div class="row ptop">
+                                          <div class="col-md-12">
+                                            <div class="example-list">
+                                              <div class="example-box {{itm.ServiceName==selectedprodobj.ServiceName ?'itm_selected':''}}"
+                                                *ngFor="let itm of dashboardobj.packdata.packageslist" (click)="serviceselected(itm)">
+                                                {{itm.ServiceName | uppercase}}</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </mat-card-content>
+                                    </mat-card>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <mat-card>
+                                      <mat-card-header>
+                                        <mat-card-title>
+                                          <h6 class="banner-head">{{selectedprodobj.ServiceName}}</h6>
+                                        </mat-card-title>
+                                      </mat-card-header>
+                                      <mat-card-content>
+                                        <div class="row marleft0" *ngIf="dashboardobj!=null && dashboardobj.packdata!=null && dashboardobj.packdata.packageslist!=null && dashboardobj.packdata.packageslist.length>0">
+                                          <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                                            <div fxLayout="row">
+                                              <div class="data-container">
+                                                <div class="data-table-container">
+                                                  <table mat-table [dataSource]="dataSourcepacks" class="data-table">
+                                                    <ng-container matColumnDef="key">
+                                                      <th mat-header-cell *matHeaderCellDef></th>
+                                                      <td mat-cell *matCellDef="let row">&nbsp;&nbsp;{{row?.key}}</td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="value">
+                                                      <th mat-header-cell *matHeaderCellDef></th>
+                                                      <td mat-cell *matCellDef="let row">&nbsp;&nbsp;{{row?.value}}</td>
+                                                    </ng-container>
+
+                                                    <!-- <tr mat-header-row
+                                                      *matHeaderRowDef="displayedColumnspack;sticky: true">
+                                                    </tr> -->
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumnspack">
+                                                    </tr>
+                                                  </table>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </mat-card-content>
+                                    </mat-card>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <mat-card>
+                                      <mat-card-header>
+                                        <mat-card-title>
+                                          <h6 class="banner-head">Quota</h6>
+                                        </mat-card-title>
+                                      </mat-card-header>
+                                      <mat-card-content>
+                                        <div class="row" *ngFor="let quota of selectedprodobj.Quotas">
+                                          <div class="col-sm-12">
+                                            <mat-label>{{quota.name}}</mat-label>
+                                            <div>
+                                              {{bytesToSizeData(quota.remainingQuota,quota.unit)}} /
+                                              {{bytesToSizeData(quota.initialQuota,quota.unit)}} / {{quota.type}} /
+                                              {{quota.id}}
+                                            </div>
+                                            <hr class="hrmin" />
+                                          </div>
+                                        </div>
+                                      </mat-card-content>
+                                    </mat-card>
+                                  </div>
+                                </div>
+
+                              </mat-card-content>
+                            </mat-card>
+                            <!-- </mat-tab> -->
+                            <!-- <mat-tab label="Products"> -->
+                            <!-- </mat-tab> -->
+                            <!-- </mat-tab-group> -->
+                          </div>
+                        </mat-tab>
+                        <mat-tab label="Manage Secondary" *ngIf="profileavailable && showchildnumbers">
+                          <div *ngIf="selectedtab==2">
+                            <div class="row">
+                              <div class="col-md-12">
+
+                                <div class="row">
+                                  <div class="col-md-3" *ngIf="env.isenablesecondarysendotp">
+                                    <mat-form-field>
+                                      <mat-label>MSISDN</mat-label>
+                                      <input matInput type="text" placeholder="" [disabled]="showotp" [(ngModel)]="childobject.childmsisdn"
+                                        name="childobjchildmsisdn" numbersOnly maxlength="15" required />
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-3" style="display: none;">
+                                    <mat-form-field>
+                                      <mat-label>Relation</mat-label>
+                                      <input matInput type="text" placeholder="" [(ngModel)]="childobject.relation"
+                                        name="childobjectrelation" titleChars maxlength="15" required />
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-3" *ngIf="showotp">
+                                    <mat-form-field>
+                                      <mat-label>OTP</mat-label>
+                                      <input matInput type="text" placeholder="" [(ngModel)]="childobject.otp" name="childobjchildotp"
+                                        numbersOnly maxlength="6" required />
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-3" *ngIf="env.isenablesecondarysendotp">
+                                    <button class="mat-raised-button mat-primary btn  mr-2" type="button" (click)="sendotpaddline()"
+                                      *ngIf="!showotp" [disabled]="!env.isenablesecondarysendotp">
+                                      Send OTP
+                                    </button>
+                                    <button class="mat-raised-button mat-primary btn  mr-2" type="button" (click)="validateotp()"
+                                      *ngIf="showotp" [disabled]="!env.isenablesecondarysendotp">
+                                      Add
+                                    </button>
+                                    <!-- <button class="mat-raised-button mat-primary btn" type="button"
+                                      (click)="restaddnumber()">
+                                      Reset
+                                    </button> -->
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                            <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                              <div fxLayout="row">
+                                <div class="data-container">
+                                  <div class="data-table-container">
+                                    <table mat-table [dataSource]="dataSource" class="data-table">
+                                      <ng-container matColumnDef="serviceType">
+                                        <th mat-header-cell *matHeaderCellDef>SERVICE TYPE</th>
+                                        <td mat-cell *matCellDef="let row">{{row?.serviceType}}</td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="childmsisdn">
+                                        <th mat-header-cell *matHeaderCellDef>MSISDN</th>
+                                        <td mat-cell *matCellDef="let row">{{row?.childmsisdn}}</td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="name">
+                                        <th mat-header-cell *matHeaderCellDef>NAME</th>
+                                        <td mat-cell *matCellDef="let row">{{row?.name}}</td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="portedin">
+                                        <th mat-header-cell *matHeaderCellDef>PORTED IN</th>
+                                        <td mat-cell *matCellDef="let row">{{row?.portedin}}</td>
+                                      </ng-container>
+                                      
+                                      <!-- <ng-container  cdkColumnDef="actions" stickyEnd>
+                                        <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+                                        <td *cdkCellDef="let row">
+                                          <div>
+                                            <button type="button"
+                                              class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs"
+                                              (click)="showconfirm('removeline',row)"><i class="fa fa-remove"
+                                                aria-hidden="true" matTooltip="remove"></i></button>
+                                          </div>
+                                        </td>
+                                      </ng-container> -->
+                                      <tr mat-header-row *matHeaderRowDef="displayedColumnsGetLine;sticky: true"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: displayedColumnsGetLine">
+                                      </tr>
+                                    </table>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                        <mat-tab label="Transactions">
+                          <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                              <mat-form-field floatLabel="always">
+                                <mat-label>Report Name</mat-label>
+                                <mat-select name="reportname" [(ngModel)]="reportid" [disabled]="reportnameList.length==0"
+                                  (ngModelChange)="loadReportsdata()">
+                                  <mat-option *ngFor="let obj of reportnameList" [value]="obj.reportid">
+                                    {{obj.reportname}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-sm-4 col-md-4 other-mat">
+                              <span class="date-picker reports_datepicker">
+                                <mat-label>{{'Report Date Range'| langFilter}}</mat-label>
+                                <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                                <input name="transactionrange" placeholder="Report Date Range:" [selectMode]="'range'"
+                                  [(ngModel)]="transactionrange" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [min]="mindays"
+                                  [max]="currentdate" readonly />
+                                <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                              </span>
+                            </div>
+                            <div class="col-sm-1">
+                              <button type="button" class="btn btn-outline-primary btn_custom" (click)="pageObject.pageNo=0;gettranshistory()"><i
+                                  class="fa fa-search" aria-hidden="true" matTooltip="search"></i></button>
+                            </div>
+                          </div>
+                          <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                            <div fxLayout="row">
+                              <div class="data-container">
+                                <div class="data-table-container">
+                                  <table mat-table [dataSource]="dataSource" class="data-table">
+                                    <ng-container *ngFor="let obj of displayedColumnsReports;let idx = index"
+                                      matColumnDef="{{obj}}">
+                                      <th mat-header-cell *matHeaderCellDef>&nbsp;&nbsp;{{obj}}&nbsp;&nbsp;</th>
+                                      <td mat-cell *matCellDef="let row">{{getdatafromrow(row,idx)}}</td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsReports;sticky: true"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsReports | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                                    </tr>
+                                  </table>
+                                </div>
+                                <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix" *ngIf="pageObject.totalRecords > 0">
+                                  <div class="mt-0 pull-left">
+
+                                    <div class="row">
+                                      <div class="col-md-12 mt-0 text-left">
+                                        <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                          [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                          [pageSizeOptions]="[5, 10, 25, 100]">
+                                        </mat-paginator>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 pull-right">
+                                    <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                                      screenReaderCurrentLabel="You're on page" id="user_list_pagination">
+                                    </pagination-controls>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                        <mat-tab label="promotions">
+                          <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                            <div fxLayout="row">
+                              <div class="data-container">
+                                <div class="data-table-container">
+                                  <table mat-table [dataSource]="dataSource1" class="data-table">
+                                    <ng-container matColumnDef="transectiondate">
+                                      <th mat-header-cell *matHeaderCellDef>transectionDate</th>
+                                      <td mat-cell *matCellDef="let row">{{row?.lasttransdate}}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="Promocode">
+                                      <th mat-header-cell *matHeaderCellDef>PROMO CODE</th>
+                                      <td mat-cell *matCellDef="let row">{{row?.promocode}}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="status">
+                                      <th mat-header-cell *matHeaderCellDef>STATUS</th>
+                                      <td mat-cell *matCellDef="let row">{{row?.status}}</td>
+                                    </ng-container>
+                                     
+                                    <ng-container matColumnDef="Actions">
+                                        <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+                                        <td mat-cell *matCellDef="let row">
+                                          <div   style="text-align:center">
+                                              <button matTooltip="Delete record" (click)="deleteRule(row)"  data-toggle="modal" data-target="#modaltemplate" class="btn btn-danger btn-sm">
+                                                 delete
+                                                </button>
+                                                
+                                          </div>
+                                        </td>
+                                      </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsPromoCode;sticky: true"></tr>
+                                    <tr mat-row
+                                      *matRowDef="let row; columns: displayedColumnsPromoCode | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                                    </tr>
+                                  </table>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                        <!-- <mat-tab label="Transaction History">
+                        <div *ngIf="selectedtab ==0">
+                          <app-trans-history [msisdn]="msisdn"></app-trans-history>
+                        </div>
+                        </mat-tab>
+                        <mat-tab label="OTP History">
+                          <div *ngIf="selectedtab ==1">
+                            <app-otp-history [msisdn]="msisdn"></app-otp-history>
+                          </div>
+                        </mat-tab>
+                        <mat-tab label="Payment History">
+                          <div *ngIf="selectedtab ==2">
+                            <div class="col-md-12 px-lg-3 my-1 p-1 bg-white rounded shadow-sm">
+                              <div class="row">
+                                <div class="col-sm-6 col-md-6 other-mat">
+                                  <span class="date-picker">
+                                    <mat-label>{{'Report Date Range'| langFilter}}</mat-label>
+                                    <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                                    <input name="startdate" placeholder="Report Date Range:" [selectMode]="'range'"
+                                      [(ngModel)]="startdate" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" />
+                                    <owl-date-time #dt3></owl-date-time>
+                                  </span>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                  <div class="form-group">
+                                    <button type="button" class="btn btn-outline-primary btn_custom"><i
+                                        class="fa fa-search" aria-hidden="true" matTooltip="search"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12 px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+
+                            </div>
+                          </div>
+                        </mat-tab> -->
+                      </mat-tab-group>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal fade" id="modaltemplate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLabel">message</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label for="txttemplatename" style="font-size: 15px;"> Reason</label>
+              <input  type="text"
+              class="form-control" [(ngModel)]="deleteRecord"
+               id="txttemplatename" placeholder="Enter The Reason">
+            </div>
+      </div>
+        <div class="modal-footer">
+          <button type="button"  class="btn btn-success"  (click)="deleteMsisdn()" >submit</button>
+          <button type="button" data-dismiss="modal" class="btn btn-danger"  #btnModaltemplate>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

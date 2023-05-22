@@ -2,60 +2,38 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MsgdialogueboxComponent } from './shared/msgdialoguebox/msgdialoguebox.component'
+import { MsgdialogueboxComponent } from './shared/msgdialoguebox/msgdialoguebox.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { CommonService } from './shared/services/common.service';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatDialogModule , MatButtonModule} from '@angular/material';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { MaterialModule } from './shared/modules/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { alarm, alarmFill, alignBottom } from 'ngx-bootstrap-icons';
+import { AngularEditorModule } from '@kolkov/angular-editor/';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { CommonModule } from '@angular/common';
-import { allIcons } from 'ngx-bootstrap-icons';
-import { LoginComponent } from './components/login/login.component';
-import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
-import { RBTportaldashboardComponent } from './components/rbtportaldashboard/rbtportaldashboard.component';
-import { ToptandingComponent } from './components/toptanding/toptanding.component';
-import { PersonalizenametuneComponent } from './components/personalizenametune/personalizenametune.component';
-import { LanguagewiselistComponent } from './components/languagewiselist/languagewiselist.component';
-import { EvergreenclassicsComponent } from './components/evergreenclassics/evergreenclassics.component';
-import { FreesongpackComponent } from './components/freesongpack/freesongpack.component';
-import { FavouritealbumComponent } from './components/favouritealbum/favouritealbum.component';
-import { FunnytunesComponent } from './components/funnytunes/funnytunes.component';
-// import * as $ from 'jquery';
-import { NametunespopupComponent } from './components/nametunespopup/nametunespopup.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import {  AngMusicPlayerModule } from 'ang-music-player';
-import { NgOtpInputModule } from  'ng-otp-input';
-import { SearchsongsComponent } from './components/searchsongs/searchsongs.component';
-import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
-import { PunjabitrandingComponent } from './components/punjabitranding/punjabitranding.component';
-import { NgxAudioPlayerModule } from 'ngx-audio-player';
-import { NgxPullToRefreshModule } from 'ngx-pull-to-refresh';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+//import { NumbersOnlyDirective } from './shared/directives/numbersonly';
+import { AngularFileUploaderModule } from "angular-file-uploader";
+import { ColorPickerModule } from 'ngx-color-picker';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { EnvServiceProvider } from '../../src/app/shared/services/env.service.provider';
+import { AlertDialogComponent } from './home/components/reports/reports-list/reports-list.component';
+
+
+// import { TitlespecialDirective } from './shared/directives/titlespecial.directive';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ForgotpasswordComponent,
-    RBTportaldashboardComponent,
-    ToptandingComponent,
-    PersonalizenametuneComponent,
-    LanguagewiselistComponent,
-    EvergreenclassicsComponent,
-    FreesongpackComponent,
-    FavouritealbumComponent,
-    FunnytunesComponent,
-    NametunespopupComponent,
-    SearchsongsComponent,
     MsgdialogueboxComponent,
-    PunjabitrandingComponent,
-    
-   
-    // AlertDialogComponent
+    ConfirmDialogComponent,
+    AlertDialogComponent
     // NumbersOnlyDirective
   ],
   imports: [
@@ -63,23 +41,24 @@ import { NgxPullToRefreshModule } from 'ngx-pull-to-refresh';
     AppRoutingModule,NgxSpinnerModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
-    NgxBootstrapIconsModule.pick(allIcons),
+    MatDialogModule,
+    MatButtonModule,
+    MaterialModule,
     FormsModule,
-    NgxAudioPlayerModule,
-    NgxUsefulSwiperModule,
-   ModalModule.forRoot(),
+    AngularEditorModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     // SelectModule,
-   AngMusicPlayerModule,
-   NgOtpInputModule,    
-   CommonModule,
-   NgxPullToRefreshModule,
- 
+    CommonModule,
+    ColorPickerModule,
+    AngularFileUploaderModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxJsonViewerModule 
   ],
   providers: [
-    CommonService
+    CommonService,EnvServiceProvider
   ],
   bootstrap: [AppComponent],
-  entryComponents:[ ]
+  entryComponents:[ MsgdialogueboxComponent,ConfirmDialogComponent, AlertDialogComponent]
 })
 export class AppModule { }

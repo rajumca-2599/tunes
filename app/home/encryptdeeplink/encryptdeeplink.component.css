@@ -1,0 +1,10 @@
+.input_cls{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-left: 10px;
+    width: 500px;
+}
+.label_cls{
+    width: 142px;
+    font: -webkit-control;
+}

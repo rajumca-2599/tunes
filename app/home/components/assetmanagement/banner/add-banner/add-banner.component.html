@@ -1,0 +1,436 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title">
+                  <h4>
+                    <em class="icon-settings"></em><span class="user"><a class="active" href="#/home/banner">Asset
+                        Management</a></span>
+                    <span class="user"> >> Manage
+                      Banners</span>
+                  </h4>
+                </div>
+
+                <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                  <div fxLayout="row">
+                    <div class="data-container adjheight-banner">
+
+                      <form autocomplete="off" name="addRuleForm" novalidate #addUserForm='ngForm'>
+
+                        <div class="container">
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <mat-card style="width: 100%">
+                                <h6 class="banner-head">Banner Definition</h6>
+                                <mat-card-content>
+                                  <div class="row">
+                                    <div class="col-sm-3 col-md-3">
+                                      <mat-form-field>
+                                        <mat-label> {{'Name'| langFilter}}</mat-label>
+                                        <input matInput type="text" [(ngModel)]="bannerObj.name" name="name" titleChars
+                                          #name="ngModel" [disabled]="mode =='update'" maxlength="50" required
+                                          autocomplete="off">
+
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                      <mat-form-field>
+                                        <mat-label>{{'Banner Type '| langFilter}}</mat-label>
+                                        <mat-select [(ngModel)]="bannerObj.type" [disabled]="mode =='update'"
+                                          name="bannerType">
+                                          <mat-option [value]="a.id" *ngFor="let a of bannertypeslist">{{a.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3 other-mat">
+                                      <span class="date-picker">
+                                        <mat-label>{{'Start Date'| langFilter}}</mat-label>
+                                        <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                                        <input name="startdate" placeholder="Start Date Time:" [min]="d" [max]="enddate"
+                                          [(ngModel)]="startdate" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" />
+                                        <owl-date-time #dt1></owl-date-time>
+                                      </span>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3 other-mat">
+                                      <span class="date-picker">
+                                        <mat-label>{{'End Date'| langFilter}}</mat-label>
+                                        <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                                        <input name="enddate" placeholder="End Date Time:" [min]="startdate"
+                                          [(ngModel)]="enddate" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" />
+                                        <owl-date-time #dt></owl-date-time>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <!-- <h6 class="banner-head">Rules</h6> -->
+                                    <div class="col-sm-3 col-md-3 other-mat multidrop-padtop">
+                                      <mat-form-field>
+                                        <mat-label> {{'Description'| langFilter}}</mat-label>
+                                        <input matInput type="text" [(ngModel)]="bannerObj.description" name="desc"
+                                          #name="ngModel" [disabled]="mode =='update'" maxlength="100" required
+                                          titleChars autocomplete="off">
+
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                      <mat-form-field>
+                                        <mat-label>{{'Status '| langFilter}}</mat-label>
+                                        <mat-select [(ngModel)]="bannerObj.status" name="bannerstatus"
+                                          #bannerstatus="ngModel">
+                                          <mat-option [value]="1">Active</mat-option>
+                                          <mat-option [value]="0">Inactive</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-3 other-mat multidrop-padtop">
+                                      <ng-multiselect-dropdown class="multi-selct-pos shadow-up" name="multiselectdrp"
+                                        [placeholder]="'Select Rule*'" [data]="dropdownList" [(ngModel)]="selectedItems"
+                                        [settings]="dropdownSettings" (onSelectAll)="onSelectAll($event)">
+                                      </ng-multiselect-dropdown>
+                                    </div>
+                                    <div class="col-sm-3 other-mat multidrop-padtop">
+                                      <div *ngFor="let desc of rulesdesc">{{desc}}</div>
+                                    </div>
+
+                                  </div>
+                                </mat-card-content>
+                              </mat-card>
+                            </div>
+                          </div>
+                          <br />
+
+                          <div class="row">
+                            <div class="col-sm-6 col-md-6 mt-4">
+                              <div class="col-sm-12 mt-4">
+                                <!-- <mat-form-field>
+                                 
+                                  <mat-select name="ddlgroup" [(ngModel)]="bannerObj.multilagnuages" (selectionChange)="someMethod(bannerObj.multilagnuages)">
+                                    <mat-option [disabled]="ifColorDark(lang.title)"  *ngFor="let lang of languageList" [value]="lang.id">{{lang.title}}</mat-option>
+                                  </mat-select>
+                      
+                                </mat-form-field> -->
+                              </div>
+                              <mat-card>
+                                <h6 class="banner-head">English</h6>
+                                <hr />
+                                <mat-card-content>
+                                  <div class="col-sm-12">
+                                    <mat-form-field>
+                                      <mat-label> {{'Title'| langFilter}}</mat-label>
+                                      <input matInput type="text" [(ngModel)]="bannerObj.bannerlist[0].title"
+                                        name="bannerTitle1" #bannerTitle="ngModel" titleChars maxlength="50" required
+                                        autocomplete="off">
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-sm-12">
+                                    <mat-form-field>
+                                      <mat-label> {{'Description'| langFilter}}</mat-label>
+                                      <input matInput type="text" placeholder="" titleChars
+                                        [(ngModel)]="bannerObj.bannerlist[0].desc" name="description1"
+                                        #description="ngModel" maxlength="200" />
+                                    </mat-form-field>
+                                  </div>
+
+                                  <div class="row mrlr0">
+                                    <div class="col-sm-12 col-md-12">
+                                      <h6 class="banner-head">Action Configurations</h6>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12">
+                                      <mat-form-field>
+                                        <mat-label>{{'Action Type'| langFilter}}</mat-label>
+                                        <mat-select 
+                                          [(ngModel)]="bannerObj.bannerlist[0].actiontype" name="action_type1">
+                                          <mat-option [value]="a.id" *ngFor="let a of actiontype">{{a.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[0].actiontype=='1'" class="col-sm-4 col-md-4">
+                                      <mat-form-field>
+                                        <mat-label>{{'Internal Redirect Pages'| langFilter}}</mat-label>
+                                        <mat-select [(ngModel)]="bannerObj.bannerlist[0].redirectpage"
+                                          name="internalRedirectPage1" (ngModelChange)="onEngInternalRedirChange()">
+                                          <mat-option [value]="desc.value" *ngFor="let desc of pagemasters">
+                                            {{desc.key}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[0].actiontype=='1'" class="col-sm-8 col-md-8">
+                                      <mat-form-field>
+                                        <mat-label> {{'Internal Value'| langFilter}}</mat-label>
+                                        <input matInput type="text" placeholder=""
+                                          [(ngModel)]="bannerObj.bannerlist[0].redirectvalue" appTitlespecial
+                                          name="internalRedirectValue2" #internalRedirectValue="ngModel" required
+                                          maxlength="200" />
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[0].actiontype=='1'" class="col-sm-12 col-md-12">
+                                      <p><small>Note: {{getbannerdesc(bannerObj.bannerlist[0].redirectpage)}}</small>
+                                      </p>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[0].actiontype=='2'" class="col-sm-12 col-md-12">
+                                      <mat-form-field>
+                                        <mat-label> {{'External URL'| langFilter}}  &nbsp;&nbsp;(Placeholders): ?msisdn=!MSISDN!&usertype=!USERTYPE!&language=!LANGUAGE! 
+                                        </mat-label>
+                                        <input matInput type="text" placeholder="" safeChars
+                                          [(ngModel)]="bannerObj.bannerlist[0].redirectvalue" name="external_url3"
+                                          #external_url="ngModel" required maxlength="400" />
+                                      </mat-form-field>
+                                      
+                                    </div>
+                                  </div>
+                                  <div *ngIf="bannerObj.bannerlist[0].actiontype=='2'" class="row mrlr0">
+                                    <div class="col-sm-4 col-md-4">
+                                      <mat-form-field>
+                                        <mat-label>{{'External Type'| langFilter}}</mat-label>
+                                        <mat-select [(ngModel)]="bannerObj.bannerlist[0].externaltype"
+                                          name="externalType14">
+                                          <mat-option [value]="desc.id" *ngFor="let desc of externalactiontype">
+                                            {{desc.name}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[0].externaltype=='1'" class="col-sm-8 col-md-8">
+                                      <mat-form-field>
+                                        <mat-label> {{'Web View Title'| langFilter}}</mat-label>
+                                        <input matInput type="text" placeholder="" titleChars
+                                          [(ngModel)]="bannerObj.bannerlist[0].webviewtitle" name="webviewBannerTitle1"
+                                          #webviewBannerTitle="ngModel" required maxlength="50" />
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[0].externaltype=='1'" class="col-sm-4 col-md-4">
+                                      <mat-form-field>
+                                        <mat-label> {{'Back Colour'| langFilter}}</mat-label>
+
+                                        <input matInput type="text" [value]="bannerObj.bannerlist[0].backcolor"
+                                          [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-warning btn-xs'"
+                                          [cpOKButton]="true" [cpOKButtonClass]="'btn btn-primary btn-xs'"
+                                          [cpOutputFormat]="hex" [(colorPicker)]="bannerObj.bannerlist[0].backcolor"
+                                          [(ngModel)]="bannerObj.bannerlist[0].backcolor" name="alertcolor112"
+                                          #alertcolor112="ngModel" maxlength="10" required autocomplete="off">
+
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[0].externaltype=='1'" class="col-sm-4 col-md-4">
+                                      <mat-form-field>
+                                        <mat-label> {{'Fore Colour'| langFilter}}</mat-label>
+
+
+                                        <input matInput type="text" [value]="bannerObj.bannerlist[0].forecolor"
+                                          [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-warning btn-xs'"
+                                          [cpOKButton]="true" [cpOKButtonClass]="'btn btn-primary btn-xs'"
+                                          [cpOutputFormat]="hex" [(colorPicker)]="bannerObj.bannerlist[0].forecolor"
+                                          [(ngModel)]="bannerObj.bannerlist[0].forecolor" name="alertcolor114"
+                                          #alertcolor114="ngModel" maxlength="10" required autocomplete="off">
+
+
+
+                                      </mat-form-field>
+                                    </div>
+
+                                  </div>
+                                  <div class="col-sm-12">
+                                    <div class="upld-bnr" *ngIf="isview ==0">
+                                      <h6 class="banner-head">Banner Upload</h6>
+                                      <span style="font-size:11px;"><b>Note:</b>Use drag & drop for internet explorer
+                                        browser,
+                                        File name should not contain special charaters and spaces.</span>
+                                      <angular-file-uploader [config]="afuConfigId" (ApiResponse)="DocUpload($event)">
+                                      </angular-file-uploader>
+                                    </div>
+                                    <div *ngIf="mode=='update'  && bannerObj!=null && bannerObj.bannerid>0"
+                                      style="margin-top: 5px;overflow: hidden;">
+                                      <br />
+                                      <img src="{{getBannerUrlByLang(bannerObj.bannerid,env.languages[0].value)}}" alt="*" width="100%">
+                                    </div>
+                                  </div>
+                                </mat-card-content>
+                              </mat-card>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                              <div class="col-sm-12 mrgtpp">
+                                <mat-form-field>
+                                  <mat-select name="ddlgroup" [(ngModel)]="multilagnuages" (selectionChange)="someMethod(multilagnuages)">
+                                    <mat-option [disabled]="ifColorDark(lang.title)"  *ngFor="let lang of languageList" [value]="lang.id">{{lang.title}}</mat-option>
+                                  </mat-select>
+                      
+                                </mat-form-field>
+                              </div>
+                              <mat-card>
+                               
+                                <h6 class="banner-head">Language</h6>
+                                <hr />
+                                <mat-card-content>
+                                  <div class="col-sm-12">
+                                    <mat-form-field>
+                                      <mat-label> {{'Title'| langFilter}}</mat-label>
+                                      <input matInput type="text" [(ngModel)]="bannerObj.bannerlist[1].title"
+                                        name="bannerTitle_ind1" #bannerTitle_ind="ngModel" titleChars maxlength="50"
+                                        required autocomplete="off">
+
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-sm-12">
+                                    <mat-form-field>
+                                      <mat-label> {{'Description'| langFilter}}</mat-label>
+                                      <input matInput type="text" placeholder="" titleChars
+                                        [(ngModel)]="bannerObj.bannerlist[1].desc" name="description_in3d"
+                                        #description_ind="ngModel" maxlength="200" />
+                                    </mat-form-field>
+                                  </div>
+
+                                  <div class="row mrlr0">
+                                    <div class="col-sm-12 col-md-12">
+                                      <h6 class="banner-head">Action Configurations</h6>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12">
+                                      <mat-form-field>
+                                        <mat-label>{{'Action Type'| langFilter}}</mat-label>
+                                        <mat-select 
+                                          [(ngModel)]="bannerObj.bannerlist[1].actiontype" name="action_type3">
+                                          <mat-option [value]="a.id" *ngFor="let a of actiontype">{{a.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[1].actiontype=='1'" class="col-sm-4 col-md-4">
+                                      <mat-form-field>
+                                        <mat-label>{{'Internal Redirect Pages'| langFilter}}</mat-label>
+                                        <mat-select [(ngModel)]="bannerObj.bannerlist[1].redirectpage"
+                                          name="internalRedirectPage41" (ngModelChange)="onBahasaInternalRedirChange()">
+                                          <mat-option [value]="desc.value" *ngFor="let desc of pagemasters">
+                                            {{desc.key}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+
+                                    <div *ngIf="bannerObj.bannerlist[1].actiontype=='1'" class="col-sm-8 col-md-8">
+                                      <mat-form-field>
+                                        <mat-label> {{'Internal Value'| langFilter}}</mat-label>
+                                        <input matInput type="text" placeholder="" appTitlespecial
+                                          [(ngModel)]="bannerObj.bannerlist[1].redirectvalue"
+                                          name="internalRedirectValu4e" #internalRedirectValue="ngModel" required
+                                          maxlength="200" />
+                                      </mat-form-field>
+                                    </div>
+
+                                    <div *ngIf="bannerObj.bannerlist[1].actiontype=='1'" class="col-sm-12 col-md-12">
+                                      <p><small>Note: {{getbannerdesc(bannerObj.bannerlist[1].redirectpage)}}</small>
+                                      </p>
+                                    </div>
+
+                                    <div *ngIf="bannerObj.bannerlist[1].actiontype=='2'" class="col-sm-12 col-md-12">
+                                      <mat-form-field>
+                                        <mat-label> {{'External URL'| langFilter}} &nbsp;&nbsp;(Placeholders):  ?msisdn=!MSISDN!&usertype=!USERTYPE!&language=!LANGUAGE! 
+                                        </mat-label>
+                                        <input matInput type="text" placeholder="" safeChars
+                                          [(ngModel)]="bannerObj.bannerlist[1].redirectvalue" name="external_urrl"
+                                          #external_url="ngModel" required maxlength="400" />
+                                      </mat-form-field>
+
+                                    </div>
+                                  </div>
+                                  <div *ngIf="bannerObj.bannerlist[1].actiontype=='2'" class="row mrlr0">
+                                    <div class="col-sm-4 col-md-4">
+                                      <mat-form-field>
+                                        <mat-label>{{'External Type'| langFilter}}</mat-label>
+                                        <mat-select [(ngModel)]="bannerObj.bannerlist[1].externaltype"
+                                          name="externaleType">
+                                          <mat-option [value]="desc.id" *ngFor="let desc of externalactiontype">
+                                            {{desc.name}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[1].externaltype=='1'" class="col-sm-8 col-md-8">
+                                      <mat-form-field>
+                                        <mat-label> {{'Web View Title'| langFilter}}</mat-label>
+                                        <input matInput type="text" placeholder="" titleChars
+                                          [(ngModel)]="bannerObj.bannerlist[1].webviewtitle" name="webviewBannerTitleee"
+                                          #webviewBannerTitle="ngModel" required maxlength="50" />
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[1].externaltype=='1'" class="col-sm-4 col-md-4">
+                                      <mat-form-field>
+                                        <mat-label> {{'Back Colour'| langFilter}}</mat-label>
+                                        <input matInput type="text" [value]="bannerObj.bannerlist[1].backcolor"
+                                          [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-warning btn-xs'"
+                                          [cpOKButton]="true" [cpOKButtonClass]="'btn btn-primary btn-xs'"
+                                          [cpOutputFormat]="hex" [(colorPicker)]="bannerObj.bannerlist[1].backcolor"
+                                          [(ngModel)]="bannerObj.bannerlist[1].backcolor" name="alertcolor111"
+                                          #alertcolor111="ngModel" maxlength="10" required autocomplete="off">
+                                      </mat-form-field>
+                                    </div>
+                                    <div *ngIf="bannerObj.bannerlist[1].externaltype=='1'" class="col-sm-4 col-md-4">
+                                      <mat-form-field>
+                                        <mat-label> {{'Fore Colour'| langFilter}}</mat-label>
+                                        <input matInput type="text" [value]="bannerObj.bannerlist[1].forecolor"
+                                          [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-warning btn-xs'"
+                                          [cpOKButton]="true" [cpOKButtonClass]="'btn btn-primary btn-xs'"
+                                          [cpOutputFormat]="hex" [(colorPicker)]="bannerObj.bannerlist[1].forecolor"
+                                          [(ngModel)]="bannerObj.bannerlist[1].forecolor" name="alertcolor11"
+                                          #alertcolor11="ngModel" maxlength="10" required autocomplete="off">
+                                      </mat-form-field>
+                                    </div>
+
+                                  </div>
+                                  <div class="col-sm-12">
+                                    <div class="upld-bnr" *ngIf="isview ==0">
+                                      <h6 class="banner-head">Banner Upload</h6>
+                                      <!-- <angular-file-uploader [config]="afuConfig">
+    (ApiResponse)="DocUploadId($event)"
+  </angular-file-uploader> -->
+                                      <span style="font-size:11px;"><b>Note:</b>Use drag & drop for internet explorer
+                                        browser,
+                                        File name should not contain special charaters and spaces. </span>
+
+                                      <angular-file-uploader [config]="afuConfigId" (ApiResponse)="DocUploadId($event)">
+                                      </angular-file-uploader>
+                                    </div>
+                                    <div *ngIf="mode=='update' && bannerObj!=null && bannerObj.bannerid>0"
+                                      style="margin-top: 5px;overflow: hidden;">
+                                      <br />
+                                      <img src="{{getBannerUrlByLang(bannerObj.bannerid,env.languages[1].value)}}" alt="*" width="100%">
+                                    </div>
+                                  </div>
+                                </mat-card-content>
+                              </mat-card>
+                            </div>
+                          </div>
+                          <br />
+
+
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <mat-card-actions>
+                                <div class="pull-right mar10">
+                                  <button class="btn mr-2 mat-raised-button" (click)="close()">Cancel</button>
+                                  <button class="btn mat-raised-button mat-primary" type="button" *ngIf="isview ==0"
+                                    (click)="submitBanner()">
+                                    Submit
+                                  </button>
+                                </div>
+                              </mat-card-actions>
+                            </div>
+                          </div>
+                          <br />
+                        </div>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,33 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
-import { RBTportaldashboardComponent } from './components/rbtportaldashboard/rbtportaldashboard.component';
-import { SearchsongsComponent } from './components/searchsongs/searchsongs.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: "login",
-    pathMatch: 'full'
-  },
-  {
-    path: "dashboard", component:RBTportaldashboardComponent
-  },
-  {
-    path: "validateotp", component: ForgotpasswordComponent
-  },
-  {
-   path:"search",component:SearchsongsComponent 
-  },
-  {
-
-    path: "login", component: LoginComponent, pathMatch: 'full'
-  }
+  //{path: "" , component:LoginComponent},
+  //{path: "login" , component:LoginComponent},
+  {path:"",loadChildren:()=>import("./auth/auth.module").then(m=>m.AuthModule)},
+  {path:"login",loadChildren:()=>import("./auth/auth.module").then(m=>m.AuthModule)},
+  {path:"home",loadChildren:()=>import("./home/home.module").then(m=>m.HomeModule)},
+  //{ path: "packages", loadChildren: () => import("./packages/packages.module").then(m => m.PackagesModule)}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes,{ useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

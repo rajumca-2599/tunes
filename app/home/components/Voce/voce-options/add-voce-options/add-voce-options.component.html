@@ -1,0 +1,302 @@
+<section class="basic_details sticky base80">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 no-padding">
+          <div class="detail_sec">
+            <div class="details_inner">
+              <div class="type_camp">
+                <div class="container-fluid no-padding">
+                  <div class="detail_title">
+                    <h4>
+                      <em (click)="close()"class="icon-settings"></em><span class="user"><a class="active" (click)="close()">VOCE OPTION</a></span>
+                      <span class="user"> >> {{title}}</span>
+                    </h4>
+                  </div>
+  
+                  <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                    <div fxLayout="row">
+                      <div class="data-container adjheight-banner">
+  
+                        <form autocomplete="off" name="addvoiceForm" novalidate #addvoiceForm='ngForm'>
+  
+                          <div class="container">
+  
+                            <div class="row" *ngIf="type=='0'">
+                              <div class="col-sm-4 col-md-4">
+                                <mat-card>
+                                  <h6 class="banner-head">English</h6>
+                                  <hr />
+                                  <mat-card-content>                                  
+                                    <div class="col-sm-12">
+                                      <mat-form-field>
+                                        <mat-label> {{'Title'| langFilter}}</mat-label>
+                                        <input matInput type="text" [(ngModel)]="engtitle1"
+                                          name="bannerTitle1" #bannerTitle="ngModel" titleChars maxlength="50" required
+                                          autocomplete="off">                                       
+                                      </mat-form-field>
+                                      <mat-form-field >
+                                        <input matInput type="text" [(ngModel)]="engtitle2"
+                                        name="bannerTitle2" #bannerTitle2="ngModel" titleChars maxlength="50" required
+                                        autocomplete="off"> 
+                                      </mat-form-field>
+                                      <mat-form-field  >
+                                        <input matInput type="text" [(ngModel)]="engtitle3"
+                                        name="bannerTitle3" #bannerTitle3="ngModel" titleChars maxlength="50" required
+                                        autocomplete="off"> 
+                                      </mat-form-field>
+                                      <mat-form-field  >
+                                        <input matInput type="text" [(ngModel)]="engtitle4"
+                                        name="bannerTitle4" #bannerTitle4="ngModel" titleChars maxlength="50" required
+                                        autocomplete="off"> 
+                                      </mat-form-field>
+                                      <mat-form-field  > 
+                                        <input matInput type="text" [(ngModel)]="engtitle5"
+                                        name="bannerTitle5" #bannerTitle5="ngModel" titleChars maxlength="50" required
+                                        autocomplete="off"> 
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-12">
+                                      <mat-form-field>
+                                        <mat-label> {{'Button Text'| langFilter}}</mat-label>
+                                        <input matInput type="text" placeholder="" titleChars
+                                          [(ngModel)]="engbuttontext" name="buttontext"
+                                          #buttontext="ngModel" maxlength="200" />
+                                      </mat-form-field>
+                                    </div>  
+                                  </mat-card-content>
+                                </mat-card>
+                              </div>
+                              <div class="col-sm-4 col-md-4">
+                                <mat-card>
+                                  <h6 class="banner-head">Bahasa</h6>
+                                  <hr />
+                                  <mat-card-content>
+                                    <div class="col-sm-12">
+                                        <mat-form-field>
+                                          <mat-label> {{'Title'| langFilter}}</mat-label>
+                                          <input matInput type="text" [(ngModel)]="bahtitle1"
+                                            name="bannerTitle6" #bannerTitle6="ngModel" titleChars maxlength="50" required
+                                            autocomplete="off">
+                                          </mat-form-field>
+                                          <mat-form-field  >
+                                            <input matInput type="text" [(ngModel)]="bahtitle2"
+                                            name="bannerTitle7" #bannerTitle7="ngModel" titleChars maxlength="50" required
+                                            autocomplete="off">
+                                          </mat-form-field>
+                                          <mat-form-field  >
+                                            <input matInput type="text" [(ngModel)]="bahtitle3"
+                                            name="bannerTitle8" #bannerTitle8="ngModel" titleChars maxlength="50" required
+                                            autocomplete="off">
+                                          </mat-form-field>
+                                          <mat-form-field >
+                                            <input matInput type="text" [(ngModel)]="bahtitle4"
+                                            name="bannerTitle9" #bannerTitle9="ngModel" titleChars maxlength="50" required
+                                            autocomplete="off">
+                                          </mat-form-field>
+                                          <mat-form-field  >
+                                            <input matInput type="text" [(ngModel)]="bahtitle5"
+                                            name="bannertitle10" #bannertitle10="ngModel" titleChars maxlength="50" required
+                                            autocomplete="off">                                          
+                                        </mat-form-field>
+                                      </div>
+                                      <div class="col-sm-12">
+                                        <mat-form-field>
+                                          <mat-label> {{'Button Text'| langFilter}}</mat-label>
+                                          <input matInput type="text" placeholder="" titleChars
+                                            [(ngModel)]="bahbuttontext" name="buttontext"
+                                            #buttontext="ngModel" maxlength="200" />
+                                        </mat-form-field>
+                                      </div> 
+                                  </mat-card-content>
+                                </mat-card>
+                              </div>
+                              <div class="col-sm-4 col-md-4">
+                                <mat-card>
+                                  <h6 class="banner-head">TRIGGER QUESTIONS</h6>
+                                  <hr />
+                                  <mat-card-content> 
+                                <div class="col-sm-12">
+                                  <mat-form-field>                                  
+                                    <mat-select name="trig1" [(ngModel)]="trigger1" > 
+                                      <mat-option [value]="a.qid" *ngFor="let a of voceQuestionsLst">{{a.title}}</mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                </div> 
+                                <div class="col-sm-12">
+                                  <mat-form-field>  
+                                    <mat-select name="trig2" [(ngModel)]="trigger2" > 
+                                      <mat-option [value]="a.qid" *ngFor="let a of voceQuestionsLst">{{a.title}}</mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                </div> 
+                                <div class="col-sm-12">
+                                  <mat-form-field>
+                                    <mat-select name="trig3" [(ngModel)]="trigger3"> 
+                                      <mat-option [value]="a.qid" *ngFor="let a of voceQuestionsLst">{{a.title}}</mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                </div> 
+                                <div class="col-sm-12">
+                                  <mat-form-field>
+                                    <mat-select name="trig4" [(ngModel)]="trigger4" > 
+                                      <mat-option [value]="a.qid" *ngFor="let a of voceQuestionsLst">{{a.title}}</mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                </div> 
+                                <div class="col-sm-12">
+                                  <mat-form-field>
+                                    <mat-select name="trig5" [(ngModel)]="trigger5"> 
+                                      <mat-option [value]="a.qid" *ngFor="let a of voceQuestionsLst">{{a.title}}</mat-option>
+                                      </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                  </mat-card-content>
+                                </mat-card> 
+                              </div>
+                             
+                            </div>
+                            <div class="row" *ngIf="type=='1'">
+                              <div class="col-sm-6 col-md-6">
+                                <mat-card>
+                                  <h6 class="banner-head">English</h6>
+                                  <hr />
+                                  <mat-card-content>                                  
+                                    <div class="col-sm-12">
+                                      <mat-form-field>
+                                        <mat-label> {{'Title'| langFilter}}</mat-label>
+                                        <input matInput type="text" [(ngModel)]="drpdownengtitle"
+                                          name="bannerTitle1" #bannerTitle="ngModel" maxlength="50" 
+                                           autocomplete="off">                                       
+                                      </mat-form-field>                                     
+                                    </div>
+                                    <div class="col-sm-12">
+                                      <mat-form-field>
+                                        <mat-label> {{'Button Text'| langFilter}}</mat-label>
+                                        <input matInput type="text" placeholder=""                                           [(ngModel)]="drpdownengbuttontext" name="buttontexteng"
+                                          #buttontexteng="ngModel" maxlength="200" />
+                                      </mat-form-field>
+                                    </div>  
+                                    <div class="col-sm-12">
+                                      <mat-form-field>
+                                        <mat-label> {{'PREDEFINED'| langFilter}}</mat-label>
+                                        <input matInput type="text" placeholder=""                                      [(ngModel)]="drpdownengpredefined" name="predefined1"
+                                          #predefined1="ngModel" maxlength="200" />
+                                      </mat-form-field>
+                                    </div> 
+                                  </mat-card-content>
+                                </mat-card>
+                              </div>
+                              <div class="col-sm-6 col-md-6">
+                                <mat-card>
+                                  <h6 class="banner-head">Bahasa</h6>
+                                  <hr />
+                                  <mat-card-content>
+                                    <div class="col-sm-12">
+                                        <mat-form-field>
+                                          <mat-label> {{'Title'| langFilter}}</mat-label>
+                                          <input matInput type="text" [(ngModel)]="drpdownbahtitle"
+                                            name="bannerTitle6" #bannerTitle6="ngModel" maxlength="50" 
+                                                                                        autocomplete="off">
+                                          </mat-form-field>                                         
+                                      </div>
+                                      <div class="col-sm-12">
+                                        <mat-form-field>
+                                          <mat-label> {{'Button Text'| langFilter}}</mat-label>
+                                          <input matInput type="text" placeholder=""                                             [(ngModel)]="drpdownbhabuttontext" name="buttontext"
+                                            #buttontext="ngModel" maxlength="200" />
+                                        </mat-form-field>
+                                      </div> 
+                                      <div class="col-sm-12">
+                                        <mat-form-field>
+                                          <mat-label> {{'PREDEFINED'| langFilter}}</mat-label>
+                                          <input matInput type="text" placeholder=""                                             [(ngModel)]="drpdownbhapredefined" name="predefined2"
+                                            #predefined2="ngModel" maxlength="200" />
+                                        </mat-form-field>
+                                      </div> 
+                                  </mat-card-content>
+                                </mat-card>
+                              </div>                             
+                              <div class="row" style="padding-left: 45%"  *ngIf="type=='1'">
+                                <div class="col-sm-12">                                 
+                                    <button class="btn mat-raised-button mat-primary" type="button" 
+                                    (click)="addoptions()">
+                                    {{btnText}}
+                                  </button>                                 
+                                </div>                               
+                              </div>
+                              <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs" *ngIf="type=='1' && showgrid">
+                                <div fxLayout="row">
+                                  <div class="data-container">
+                                    <div class="data-table-container">
+                                      <table mat-table [dataSource]="dataSource" matSort class="data-table">                          
+                                        <ng-container matColumnDef="title">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>TITLE</th>
+                                          <td mat-cell *matCellDef="let row">{{row?.title_bah}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="buttontext">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>BUTTON TEXT</th>
+                                          <td mat-cell *matCellDef="let row">{{row?.buttontext_bah}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="predefined">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>PREDEFINED</th>
+                                          <td mat-cell *matCellDef="let row">{{row?.predefined_bah}}</td>
+                                        </ng-container>
+                                        <!-- <ng-container matColumnDef="buttontexteng">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header>BUTTON TEXT ENG</th>
+                                          <td mat-cell *matCellDef="let row">{{row?.buttontext_eng}}</td>
+                                        </ng-container> -->
+                                        
+                                        <ng-container cdkColumnDef="actions" stickyEnd>
+                                          <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+                                          <td *cdkCellDef="let row">
+                                            <button matTooltip="Edit {{row.category}}" (click)="editvoiceOptions(row)"
+                                             class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                              <em class="fa fa-edit"></em>
+                                            </button> 
+                                            <button matTooltip="Delete {{row.category}}" (click)="deletevoiceOptions(row)"
+                                           class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                            <em class="fa fa-remove"></em>
+                                          </button>                                
+                                          </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                                        <tr mat-row
+                                          *matRowDef="let row; columns: displayedColumns | paginate: { id: 'voceptions_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                                        </tr>
+                                      </table>
+                                    </div>                                  
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <br />
+  
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <mat-card-actions>
+                                  <div class="pull-right mar10">
+                                    <button class="btn mr-2 mat-raised-button" (click)="close()">Cancel</button>
+                                    <button class="btn mat-raised-button mat-primary" type="button" 
+                                      (click)="addVoceOptions()">
+                                      Submit
+                                    </button>
+                                  </div>
+                                </mat-card-actions>
+                              </div>
+                            </div>
+
+                            <br />
+                          </div>
+                        </form>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

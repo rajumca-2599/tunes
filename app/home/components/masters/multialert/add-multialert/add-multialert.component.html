@@ -1,0 +1,201 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="addChannelForm" novalidate #addUserForm='ngForm'>
+  <mat-dialog-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <mat-form-field>
+            <mat-label> {{'Name '| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="acobj.name" name="name" #name="ngModel" maxlength="50" required autocomplete="off">
+         
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <mat-form-field floatLabel="always">
+            <mat-label> {{'Type'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="acobj.type" name="type" required #type="ngModel" [disabled]="mode =='update'" (ngModelChange)="onchangeAlertType()">
+              <mat-option value="1">Multi Alert </mat-option>
+              <mat-option value="2">Smart Alert </mat-option>
+              <mat-option value="3">Pro Tip  </mat-option>
+              <mat-option value="4">Tool Tips  </mat-option>
+              <mat-option value="5">Push Notifications   </mat-option>
+            </mat-select>
+            
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2 col-md-2">
+          <mat-form-field floatLabel="always">
+            <mat-label> {{'Status'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="acobj.status" name="status" required #status="ngModel">
+              <mat-option value="1">Active </mat-option>
+              <mat-option value="0">Inactive </mat-option>
+            </mat-select>
+            
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-md-4" *ngIf="viewObject.eventtype==1">
+          <mat-form-field floatLabel="always">
+            <mat-label> {{'Event Type'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="acobj.eventtype" name="eventtype" required #eventtype="ngModel">
+              <mat-option *ngFor="let item of eventtypeslist" [value]="item.value">{{ item?.key}}</mat-option>
+            </mat-select>
+      
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4 col-md-4" *ngIf="viewObject.range==1">
+          <mat-form-field>
+            <mat-label> {{'Min Range Value'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="acobj.minrange" name="minrange" #minrange="ngModel"
+                   numbersOnly maxlength="3" max="acobj.maxrange" required autocomplete="off">
+        
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4 col-md-4" *ngIf="viewObject.range==1">
+          <mat-form-field>
+            <mat-label> {{'Max Range Value'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="acobj.maxrange" name="maxrange" #maxrange="ngModel"
+                   numbersOnly maxlength="3" min="acobj.minrange" required autocomplete="off">
+       
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-md-6" *ngIf="viewObject.alertcolor==1">
+          <mat-form-field>
+            <mat-label> {{'Alert color'| langFilter}}</mat-label>
+            <input matInput type="text" [value]="acobj.alertcolor" [cpCancelButton]="true" [cpCancelButtonClass]="'btn btn-warning btn-xs'"
+                   [cpOKButton]="true" [cpOKButtonClass]="'btn btn-primary btn-xs'" [cpOutputFormat]="hex"
+                   [(colorPicker)]="acobj.alertcolor" [(ngModel)]="acobj.alertcolor" name="alertcolor" #alertcolor="ngModel"
+                   maxlength="20" required autocomplete="off">
+         
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6" *ngIf="viewObject.redirectpage==1">
+          <mat-form-field floatLabel="always">
+            <mat-label> {{'Redirection page'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="acobj.redir_page" name="redir_page" required #redir_page="ngModel">
+              <mat-option *ngFor="let item of redirectpageslist" [value]="item.value">{{ item?.key}}</mat-option>
+            </mat-select>
+       
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" *ngIf="viewObject.priority==1">
+          <mat-form-field>
+            <mat-label> {{'Priority'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="acobj.priority" name="priority" #priority="ngModel"
+                   numbersOnly maxlength="3" required autocomplete="off">
+        
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6" *ngIf="viewObject.staticpages==1">
+          <mat-form-field floatLabel="always">
+            <mat-label> {{'Page'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="acobj.page" name="page" required #page="ngModel">
+              <mat-option *ngFor="let item of staticpageslist" [value]="item.value">{{ item?.key}}</mat-option>
+            </mat-select>
+      
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6" *ngIf="viewObject.alerttype==1">
+          <mat-form-field floatLabel="always">
+            <mat-label> {{'Alert  Type'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="acobj.alerttype" name="alerttype" required #alerttype="ngModel">
+              <mat-option *ngFor="let item of alerttypeslist" [value]="item.value">{{ item?.key}}</mat-option>
+            </mat-select>
+     
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="acobj.type !=''">
+        <div class="col-xs-6 col-md-6">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>{{env.languages[0].key}}</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-sm-12 col-md-12" *ngIf="viewObject.title==1">
+                  <mat-form-field>
+                    <mat-label> {{'Heading'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="acobj.eng_alertheading" name="eng_alertheading" #eng_alertheading="ngModel"
+                              maxlength="200"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12" *ngIf="viewObject.desc==1">
+                  <mat-form-field>
+                    <mat-label> {{'Description '| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="acobj.eng_alertdesc" name="eng_alertdesc" #eng_alertdesc="ngModel"
+                              maxlength="200"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12" *ngIf="viewObject.alertbutton==1">
+                  <mat-form-field>
+                    <mat-label> {{'Button Text'| langFilter}}</mat-label>
+                    <input matInput type="text" [(ngModel)]="acobj.eng_act_btntxt" name="eng_act_btntxt" #eng_act_btntxt="ngModel" maxlength="50" required autocomplete="off">
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-xs-6 col-md-6">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>{{env.languages[1].key}}</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-sm-12 col-md-12" *ngIf="viewObject.title==1">
+                  <mat-form-field>
+                    <mat-label> {{'Heading'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="acobj.bah_alertheading" name="bah_alertheading" #bah_alertheading="ngModel"
+                              maxlength="200"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12" *ngIf="viewObject.desc==1">
+                  <mat-form-field>
+                    <mat-label> {{'Description'| langFilter}}</mat-label>
+                    <textarea matInput type="text" placeholder="" [(ngModel)]="acobj.bah_alertdesc" name="bah_alertdesc" #bah_alertdesc="ngModel"
+                              maxlength="200"></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-12" *ngIf="viewObject.alertbutton==1">
+                  <mat-form-field>
+                    <mat-label> {{'Button Text'| langFilter}}</mat-label>
+                    <input matInput type="text" [(ngModel)]="acobj.bah_act_btntxt" name="bah_act_btntxt" #bah_act_btntxt="ngModel" maxlength="50" required autocomplete="off">
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions class="pull-right">
+    <div class="sa_notify" *ngIf="acobj.type =='2'">
+      <ng-container *ngIf="acobj.eventtype =='1'">
+        <p>Low Credit Balance: Min and Max will be 0 – 5000  </p>
+      </ng-container>
+      <ng-container *ngIf="acobj.eventtype =='3'">
+        <p>Low Data Balance: Min and Max will be 0 to 100 MB&nbsp;&nbsp;</p>
+      </ng-container>
+      <ng-container *ngIf="acobj.eventtype =='4'">
+        <p>Low Voice Balance: Min and Max will be 0 to 15 Min&nbsp;&nbsp;</p>
+      </ng-container>
+      <ng-container *ngIf="acobj.eventtype =='5'">
+        <p>Low SMS Balance: Min and Max will be 0 to 15 SMS&nbsp;&nbsp;</p>
+      </ng-container>
+    </div>
+    <button class="mat-raised-button btn mr-2" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary btn" type="button" (click)="submitAlertConfig()">Submit</button>
+  </mat-dialog-actions>
+</form>

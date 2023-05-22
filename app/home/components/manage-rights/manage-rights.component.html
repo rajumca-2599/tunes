@@ -1,0 +1,125 @@
+<!-- <section>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a> <i class="fa fa-angle-right"></i></li>
+    <li class="breadcrumb-item active" aria-current="page">
+      Menu Management
+    </li>
+  </ol>
+    <ul class="breadcrumb">
+      <li class="completed"><a  href="#/home/dashboard">Home</a></li>
+      <li class="active"><a>Menu Management</a></li>
+
+    </ul>
+  </nav>
+  </section> -->
+  <section class="basic_details">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 no-padding">
+          <div class="detail_sec">
+            <div class="detail_title uppercase">
+              <div class="row">
+                <div class="col-md-6">
+                  <h4> <em class="icon-settings"></em> <span class="user"> Menu Management </span></h4>                                   
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3 pull-right tp5" *ngIf="permissionsby ==0">
+                 
+                    <mat-form-field floatLabel="always">
+                      <mat-label>{{'User Role'| langFilter}}</mat-label>
+                      <mat-select name="service_group" [(ngModel)]="roleid" (ngModelChange)="onchangeRole()">
+                        <!-- <mat-option value="">{{'Select'| langFilter}}</mat-option> -->
+                        <mat-option *ngFor="let item of rolesmaster" [value]="item.roleId">{{ item?.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+  
+                  <!--<div class="select_role">
+                    <div class="form-group">
+                      <label class="control-label"> User Role:</label>
+                      <select class="form-control" placeholder="select" aria-hidden="true" [(ngModel)]="roleid"
+                              (change)="onchangeRole()">
+                        <option *ngFor="let item of rolesmaster" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>-->
+                </div>
+                <div class="col-md-2 pull-right">
+                  <div class="form-group">
+                    <a *ngIf="permissionsby ==1" (click)="resetuser()" class="btn btn-outline-secondary">Reset User</a> &nbsp; &nbsp; &nbsp;
+                    <a (click)="SaveManagerights()" class="btn btn-outline-primary">Save</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="details_inner">
+              <div class="type_camp">
+                <div class="container">
+                  <!--<div class="filter-section open-close-container">
+                    <div class="row">
+  
+                  
+                    </div>
+                  </div>-->
+                  <div class="row">
+                    <div class="col-md-12">
+  
+                      <table class="table table-hover permission-table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th width="40%"> Name</th>
+                            <th width="12%"> View</th>
+                            <th width="12%"> Create </th>
+                            <th width="12%"> Modify </th>
+                            <th width="12%"> Delete </th>
+                            <th width="12%"> Export</th>
+                          </tr>
+                        </thead>
+                      </table>
+                      <ul class="nav nav-list nav-menu-list-style" id="ulmenus">
+                        <li  *ngFor="let m of menusList;" id="li_{{m.menuid}}_{{m.parentmenuid}}" [attr.parentid]="m.parentmenuid" [ngClass]="m.menulevel ==1?'parent':'child hide'">
+                          <label class="label-permission" [ngClass]="m.menulevel ==2?'child-padding':''" (click)="liclickevent(m)" style="cursor:pointer"><em  class={{m.plusMinusIcon}}></em>{{m.name}}</label>
+                          <div class="checkbox-section">
+                            <div class="form-check">
+                              <label class="form-check-label" for="vw_{{m.menuKey}}">
+                                <input type="checkbox" class="form-check-input" id="siview_{{m.menuKey}}" name="{{m.menuKey}}" checked="{{getPermission(m.menuKey,'view')}}" (change)="updateSelectedPermissions($event)">
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label" for="cr_{{m.menuKey}}" *ngIf="m.childcount == 0">
+                                <input type="checkbox" class="form-check-input" id="siadd_{{m.menuKey}}" name="{{m.menuKey}}" checked="{{getPermission(m.menuKey,'add')}}" (change)="updateSelectedPermissions($event)">
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label" for="md_{{m.menuKey}}" *ngIf="m.childcount == 0">
+                                <input type="checkbox" class="form-check-input" id="siedit_{{m.menuKey}}" name="{{m.menuKey}}" checked="{{getPermission(m.menuKey,'edit')}}" (change)="updateSelectedPermissions($event)">
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label" for="del_{{m.menuKey}}" *ngIf="m.childcount == 0">
+                                <input type="checkbox" class="form-check-input" id="simoderate_{{m.menuKey}}" name="{{m.menuKey}}" checked="{{getPermission(m.menuKey,'delete')}}" (change)="updateSelectedPermissions($event)">
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label" for="ex_{{m.menuKey}}" *ngIf="m.childcount == 0">
+                                <input type="checkbox" class="form-check-input" id="siexport_{{m.menuKey}}" name="{{m.menuKey}}" checked="{{getPermission(m.menuKey,'export')}}" (change)="updateSelectedPermissions($event)">
+                              </label>
+                            </div>
+                          </div>
+  
+                        </li>
+                      </ul>
+  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

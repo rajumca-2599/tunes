@@ -1,0 +1,136 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="addUserForm" novalidate #addUserForm='ngForm'>
+  <mat-dialog-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label> {{'User Type'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="userobj.uusertype" (selectionChange)="GetSps()" name="uusertype" #uusertype="ngModel" required [disabled]="mode =='update'">
+              <mat-option *ngFor="let item of rolesList" [value]="item.roleId">{{item.name}}</mat-option>
+            </mat-select>
+       
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label> {{'Name'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="userobj.uname" name="uname" #uname="ngModel" maxlength="50" required autocomplete="off">
+        
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-6">
+          <mat-form-field>
+            <mat-label> {{'Login Id'| langFilter}}</mat-label>
+            <input matInput  [(ngModel)]="userobj.uloginid" name="uloginid"  [disabled]="mode =='update'" required
+            (keypress)="titlecheck($event)"  maxlength="50" />
+          
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field>
+            <mat-label> {{'Mobile No'| langFilter}}</mat-label>
+            <input matInput type="tel" placeholder="" [(ngModel)]="userobj.umobileno" name="umobileno" #umobileno="ngModel"
+                   required numbersOnly maxlength="15" autocomplete="off">
+         
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-9">
+          <mat-form-field>
+            <mat-label> {{'Email'| langFilter}}</mat-label>
+            <input matInput placeholder="" [(ngModel)]="userobj.uemail" autocomplete="off" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" type="email" [email]="true" name="uemail" #uemail="ngModel" maxlength="100" required>
+        
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field>
+            <mat-label> {{'Status'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="userobj.status" name="status" required #status="ngModel">
+              <mat-option [value]="1">Active</mat-option>
+              <mat-option [value]="0" *ngIf="mode =='update'">Inactive</mat-option>
+            </mat-select>
+       
+          </mat-form-field>
+        </div>
+
+        <!--<div class="col-sm-4">
+    <mat-form-field>
+      <mat-label> {{'Display Name'| langFilter}}</mat-label>
+      <input matInput placeholder="" [(ngModel)]="userobj.udisplayname" autocomplete="off" name="udisplayname" #udisplayname="ngModel">
+    </mat-form-field>
+  </div>-->
+
+        <div class="col-sm-12">
+          <mat-form-field>
+            <mat-label> {{'Address'| langFilter}}</mat-label>
+            <input matInput [(ngModel)]="userobj.uaddress" autocomplete="off" name="uaddress" #uaddress="ngModel">
+          </mat-form-field>
+        </div>
+
+        <div class=" col-md-12 col-sm-12  other-mat">
+          <mat-label> {{'User Channels'| langFilter}}</mat-label>
+          <ng-multiselect-dropdown class="multi-selct-pos shadow-up" name="multiselectdrp" [placeholder]="'Select Channels'"
+                                   [data]="dropdownList"
+                                   [(ngModel)]="selectedItems"
+                                   [settings]="dropdownSettings"
+                                   (onSelectAll)="onSelectAll($event)">
+          </ng-multiselect-dropdown>
+        </div>
+
+
+
+        <!--<div class="col-sm-4">
+    <mat-form-field>
+      <mat-label>{{'Service Group'| langFilter}}</mat-label>
+      <mat-select [(ngModel)]="userobj.selectedservicegroups" name="selectedservicegroups" #selectedservicegroups="ngModel" multiple [compareWith]="compareWithFunc">
+        <mat-option *ngFor="let item of servicegrouplist" value="{{item.id}}">{{item.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>-->
+        <!--<div class="col-sm-6" *ngIf="!buadmin">
+    <mat-form-field id="divsps">
+      <mat-label> {{'Bussiness Unit'| langFilter}}</mat-label>
+      <mat-select [(ngModel)]="userobj.usp" name="usp" #usp="ngModel" [disabled]="mode =='update'">
+        <mat-option *ngFor="let item of buunits" value="{{item.id}}">{{item.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>-->
+        <!--<div class="col-sm-6" *ngIf="isbuadmin">
+    <mat-form-field>
+      <mat-label> {{'Operators'| langFilter}}</mat-label>
+      <mat-select [(ngModel)]="userobj.operators" name="operators" #operators="ngModel">
+        <mat-option *ngFor="let item of OperatorsList" value="{{item.operatorid}}">{{item.operator}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>-->
+
+      </div>
+      <!--<hr />
+      <h6>Access Details</h6>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row" *ngFor="let atype of authtypelist">
+            <div class="col-sm-3 flex_center">
+              <mat-checkbox [(ngModel)]="atype.istatus" (change)="atype.istatus=($event.checked)" id="chk_{{atype.authtype}}" name="{{atype.authtype}}">{{atype.authtype}}</mat-checkbox>
+            </div>
+            <div class="col-sm-9">
+              <mat-form-field>
+                <mat-label>Login ID*</mat-label>
+                <input matInput placeholder="" [(ngModel)]="atype.authloginid" name="{{atype.authtype}}" id="txt_{{atype.authtype}}" type="text" autocomplete="off" allow-pattern="[a-zA-Z0-9._@$\s\b]" maxlength="100">
+                
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>-->
+    </div>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions class="pull-right">
+    <button class="mat-raised-button  btn mr-2" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary  btn" type="button" (click)="submitUser()">Submit</button>
+  </mat-dialog-actions>
+</form>

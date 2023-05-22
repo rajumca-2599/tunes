@@ -1,0 +1,109 @@
+
+
+
+:focus {
+  outline: none !important;
+}
+/* Structure */
+.data-container {
+  position: relative;
+  min-height: 200px;
+}
+
+.data-table-container {
+  position: relative;
+  max-height: 500px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.data-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+.mat-column-created {
+  max-width: 124px;
+}
+
+th.mat-column-gtrid, td.mat-column-gtrid {
+  padding-left: 8px;
+}
+
+.mat-table-sticky:first-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky:last-child {
+  border-left: 1px solid #e0e0e0;
+}
+
+
+.mat-column-actions {
+  flex: 0 0 25% !important;
+  min-width: 120px !important;
+  padding-right: 8px;
+}
+
+.mat-column-name {
+  width: 25% !important;
+  word-break: break-all;
+}
+
+  .mat-column-name .btn {
+    text-align: left;
+  }
+
+.mat-column-keyword {
+  flex: 0 0 15% !important;
+  width: 100px !important;
+  min-width: 100px !important;
+}
+.mat-column-group_name {
+  flex: 0 0 15% !important;
+  width: 80px !important;
+  min-width: 80px !important;
+}
+.mat-column-description {
+  flex: 0 0 20% !important;
+  width: 100px !important;
+  min-width: 100px !important;
+}
+
+.mat-column-value {
+  flex: 0 0 20% !important;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.txt-settings{
+  width: 95% !important;
+  resize: none !important;
+}
+.btn-platform{
+  font-size: 12px !important;
+	line-height: 25px !important;
+  min-width: 40px !important;
+  vertical-align: text-bottom;
+}
+
+
+.mat-column-value .btn {
+   text-align: left;
+   text-transform: none !important;
+}

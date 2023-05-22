@@ -1,0 +1,153 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title">
+                  <h4>
+                    <em class="icon-settings"></em
+                    ><span class="user">Packages >> Package Mapping</span>
+                  </h4>
+                </div>
+                <mat-dialog-content>
+                  <div class="row minheight500" style="width:100%;margin:0px" >
+                  <div  class="row" >
+                    <div class="col-md-3">
+                      <mat-form-field>
+                      <mat-label>{{ "Package Code" }}</mat-label>
+                      <input matInput [(ngModel)]="packagecode" disabled=true autocomplete="off" name="pkgcode" #pkgcode="ngModel">
+                      </mat-form-field>
+                    </div> 
+                    <div class="col-sm-3">
+                      <mat-form-field>
+                        <mat-label> {{'Status'| langFilter}}</mat-label>
+                        <mat-select [(ngModel)]="status" name="statusobj" required #statusobj="ngModel">
+                          <mat-option [value]="1">Active</mat-option>
+                          <mat-option [value]="0" >Inactive</mat-option>
+                        </mat-select>
+                   
+                      </mat-form-field>
+                    </div>  
+
+                    <div class="col-md-6">
+                      <mat-form-field>
+                      <mat-label>{{ "Price" }}</mat-label>
+                      <input matInput [(ngModel)]="price" required autocomplete="off" name="pkgprice" #pkgprice="ngModel" decimalNumber  maxlength="10">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field>
+                      <mat-label>{{ "Title" }}</mat-label>
+                      <input matInput [(ngModel)]="title" required autocomplete="off" name="pkgtitle" #pkgtitle="ngModel" safeChars  maxlength="200">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field>
+                      <mat-label>{{ "Description" }}</mat-label>
+                      <input matInput [(ngModel)]="description" required autocomplete="off" name="pkgdescription" #pkgdescription="ngModel"  maxlength="1000">
+                      </mat-form-field>
+                    </div>
+                   
+
+                  </div>
+                  <div class="row" >
+                    <div class="col-md-12">
+                      <mat-form-field>
+                      <mat-label>{{ "Info" }}</mat-label>
+                      <input matInput [(ngModel)]="info" required autocomplete="off" name="pkginfo" #pkginfo="ngModel" safeChars  maxlength="1000">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field>
+                      <mat-label>{{ "Benefits" }}</mat-label>
+                      <input matInput [(ngModel)]="benfits" required autocomplete="off" name="pkgbenfits" #pkgbenfits="ngModel" safeChars  maxlength="1000">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field>
+                      <mat-label>{{ "Data" }}</mat-label>
+                      <input matInput [(ngModel)]="data" required autocomplete="off" name="pkgdata" #pkgdata="ngModel" safeChars  maxlength="500">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field>
+                      <mat-label>{{ "Voice" }}</mat-label>
+                      <input matInput [(ngModel)]="voice" required autocomplete="off" name="pkgvoice" #pkgvoice="ngModel" safeChars  maxlength="500">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field>
+                      <mat-label>{{ "SMS" }}</mat-label>
+                      <input matInput [(ngModel)]="sms" required autocomplete="off" name="pkgsms" #pkgsms="ngModel" safeChars  maxlength="500">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field>
+                      <mat-label>{{ "Validity" }}</mat-label>
+                      <input matInput [(ngModel)]="validity" required autocomplete="off" name="pkgvalidity" #pkgvalidity="ngModel" safeChars  maxlength="500">
+                      </mat-form-field>
+                    </div>
+                  <div class="col-md-12 col-sm-12 other-mat">
+
+                    <mat-label> {{ "Category" | langFilter }}</mat-label>
+                    <ng-multiselect-dropdown
+                      class="multi-selct-pos shadow-up"
+                      name="multiselectdrp"
+                      [placeholder]="'Select Category'"
+                      [data]="subcategoryLst"
+                      [(ngModel)]="selectedItemsCategories"
+                      [settings]="dropdownSettingsCategories"
+                      (onSelectAll)="onSelectAll($event)"
+                    >
+                    </ng-multiselect-dropdown>
+                  </div>
+                  
+                  <div class="col-md-12 col-sm-12 other-mat">
+                    <mat-label> {{ "Circles" | langFilter }}</mat-label>
+                    <ng-multiselect-dropdown
+                      class="multi-selct-pos shadow-up"
+                      name="multiselectdrpdown"
+                      [placeholder]="'Select Circle'"
+                      [data]="ciclesLst"
+                      [(ngModel)]="selectedItemsCircles"
+                      [settings]="dropdownSettingsCircles"
+                      (onSelect)="onCircleSelectAll($event)" 
+                      (onDeSelect)="onDeSelect($event)"
+                    >
+                    </ng-multiselect-dropdown>
+                 
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field>
+                  <mat-label>{{ "search keywords" }}</mat-label>
+                  <input matInput [(ngModel)]="searchkeywords" required autocomplete="off"  safeChars  maxlength="500">
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-12">
+                    <mat-form-field>
+                      <mat-label> {{'Plantype'| langFilter}}</mat-label>
+                      <mat-select [(ngModel)]="packagetype" name="packagetypeobj" required #packagetypeobj="ngModel">
+                        <mat-option [value]="'baseplan'">Baseplan</mat-option>
+                        <mat-option [value]="'addon'" >Addon</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>  
+                </div>
+                  </div>
+                </mat-dialog-content>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<mat-dialog-actions class="pull-right">
+  <button class="mat-raised-button btn mr-2" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary btn mr-2" type="button" (click)="deletemapping()">Delete</button>
+  <button class="mat-raised-button mat-primary btn" type="button" (click)="updatemapping()">Submit</button>
+</mat-dialog-actions>

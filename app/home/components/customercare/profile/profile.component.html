@@ -1,0 +1,85 @@
+<section class="basic_details sticky base80">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 no-padding">
+                <div class="detail_sec">
+                    <div class="details_inner">
+                        <div class="type_camp">
+                            <div class="container-fluid no-padding">
+                                <div class="detail_title row">
+                                    <h4 class="col-sm-10 no-border">
+                                        <em class="icon-settings"></em>
+                                        <span class="user">Profile Information</span>
+                                    </h4>
+                                    <div class="col-sm-2" *ngIf="true">
+                                        <div class="row search-number mt-2">
+                                            <div class="col-md-12">
+                                                <span>MSISDN:</span>
+                                                <input matInput type="text" autocomplete="off" maxlength="15"
+                                                    numbersOnly
+                                                    style="border: none;border-bottom: solid 1px #ccc;width:100%"
+                                                    [(ngModel)]="msisdn">
+                                                <button type="button" class="btn btn-outline-primary btn_custom"
+                                                    (click)="changenumber()"><i class="fa fa-search" aria-hidden="true"
+                                                        matTooltip="search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm">
+
+                                    <div class="row  " style="width:100%;margin:0px;" *ngIf="profileavailable">
+
+                                        <mat-tab-group dynamicHeight [@.disabled]="true"
+                                            (selectedIndexChange)="tabChangeEvent($event)" class="ccaretab">
+                                            <mat-tab label="Profile">
+                                                <div *ngIf="selectedtab ==0" class="minheight500">
+                                                    <div class="col-md-12 col-sm-12 col-lg-12"
+                                                        style="margin: 0px;padding:0px;width: 100%;border:solid 1px #aaa;overflow: hidden;">
+                                                        <div [ngClass]="idx%3==0 ? 'altergrdblk' : '' "
+                                                            class="col-md-6 fltleft gridblk"
+                                                            *ngFor="let inkeys of profileinformation; let idx=index">
+                                                            <div class=" col-md-4 fltleft lefttitle">
+                                                                {{inkeys.key}}
+                                                            </div>
+                                                            <div class=" col-md-8 fltleft" style="word-break:break-word">
+                                                                {{inkeys.value}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-tab>
+                                            <mat-tab label="Spin the Wheel">
+                                                <div *ngIf="selectedtab ==1" class="minheight500" style="min-width:1100px">
+                                                    <div class="col-md-12 col-sm-12 col-lg-12"
+                                                        style="margin: 0px;padding:0px;width: 100%;border:solid 1px #aaa;overflow: hidden;">
+                                                        <div [ngClass]="idx%3==0 ? 'altergrdblk' : '' "
+                                                            class="col-md-4 fltleft gridblk" style="width:32%"
+                                                            *ngFor="let inkeys of segementinformation; let idx=index">
+                                                            <div class=" col-md-4 fltleft lefttitle">
+                                                                {{inkeys.key}}
+                                                            </div>
+                                                            <div class=" col-md-4 fltleft">
+                                                                {{inkeys.value}}
+                                                            </div>
+                                                            <div class=" col-md-4 fltleft">
+                                                                {{inkeys.pack}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-tab>
+                                        </mat-tab-group>
+
+                                    </div>
+                                    <br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

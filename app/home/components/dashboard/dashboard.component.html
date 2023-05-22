@@ -1,0 +1,239 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title date-picker">
+                  <h4>
+                    <em class="icon-settings"></em><span class="user">Dashboard</span>
+                    <a class="pull-right cmp-fa" mat-mini-fab (click)="loadWidgetstab()"><i class="fa fa-refresh"
+                        aria-hidden="true"></i></a>
+                    <input type="text" ngxDaterangepickerMd [(ngModel)]="dtrange" [showCustomRangeLabel]="true"
+                      [alwaysShowCalendars]="true" [showCancel]="true" [ranges]="ranges" [linkedCalendars]="true"
+                      [timePicker]="true" [timePickerSeconds]="false" [timePickerIncrement]="15" 
+                      [timePicker24Hour]="true" (rangeClicked)="rangeClicked($event)" readonly
+                      [maxDate]="curdate"
+                      [minDate]="mindt"
+                      [dateLimit]="30"
+                      (datesUpdated)="datesUpdated($event)" [locale]="{format: 'YYYY/MM/DD HH:mm', firstDay: 0}" />
+                  </h4>
+                </div>
+                <div class="row  m-0">
+                  <mat-tab-group dynamicHeight [@.disabled]="true" (selectedIndexChange)="tabChangeEvent($event)">
+                    <mat-tab label="{{wa.Title}}" *ngFor="let wa of widgetListtabs">
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm dashboarditem">
+                  <div class="row">
+                    <div id="ds_cont_w_{{data.id}}" class="{{data.cssclass}}   pad5" *ngFor="let data of widgetList">
+                      <mat-card >
+                        <mat-card-header>
+                          <div class="title_spin">
+                            <mat-card-title class="chart-title" style="margin:0 auto;font-weight: 500"><em
+                                class="fa fa-bar-chart font-red-sunglo"></em>&nbsp;{{data.name}}</mat-card-title>
+                            <mat-spinner *ngIf="!nodatagraph" id="spin_{{data.id}}_{{data.widgetid}}" [diameter]="20">
+                            </mat-spinner>
+                          </div>
+                          <div class="filter_dash" style="text-align: right;">
+                            <button type="button" class="btn btn-outline-primary btn_custom21 btn_icon"  *ngIf="data.enablefilter"
+                              (click)="getwidgetinfo(data)">
+                              <i class="fa fa-filter" aria-hidden="true" matTooltip="filter"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn_custom21 btn_icon"
+                            (click)="zoomdata(data)">
+                            <i *ngIf="!data.zoomstatus" class="fa fa-arrows-alt" aria-hidden="true" matTooltip="Full Screen"></i>
+                            <i *ngIf="data.zoomstatus" class="fa fa-compress" aria-hidden="true" matTooltip="Original View"></i>
+                          </button>
+                          </div>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <div [ngClass]="{showeele: data.showfilter}" style="display:none;">
+                            <div class="reportfilter" style="margin-bottom: 2px;">
+                              <div class="row" *ngFor="let fil of data.filterselected" style="margin-bottom: 2px">
+                               
+                                <div class="col-md-5" style="margin-top:10px">
+
+                                  <mat-label>Report Field</mat-label>
+                                  <mat-select name="reportfiltertype" [(ngModel)]="fil.filtertype" disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of filtertypelist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+                                </div>
+                                <div class="col-md-5" style="margin-top:10px">
+                                  <mat-label>Comparator</mat-label>
+                                  <mat-select name="comparator" [(ngModel)]="fil.comparator" disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of fil.comparelist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+                                </div>
+                                <div class="col-md-5" style="margin-top:10px">
+
+                                  <mat-label>Value</mat-label>
+
+                                  <mat-select name="paymenttype" [(ngModel)]="fil.filtervalue"
+                                    *ngIf="fil.filtertype=='1'" disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of paymenttypelist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+                                  <mat-select name="paymentchannel" [(ngModel)]="fil.filtervalue"
+                                    *ngIf="fil.filtertype=='2'" disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of paymentchannellist">{{a.name}}
+                                    </mat-option>
+                                  </mat-select>
+
+                                  <mat-select name="transactiontype" [(ngModel)]="fil.filtervalue"
+                                    *ngIf="fil.filtertype=='3'" disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of transactiontypelist">{{a.name}}
+                                    </mat-option>
+                                  </mat-select>
+
+
+                                  <mat-select name="usertype" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='4'"
+                                    disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of usertypelist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+
+                                  <mat-select name="channels" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='5'"
+                                    disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of channelslist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+
+                                  <mat-select name="statulis" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='6'"
+                                    disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of statuslist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+
+                                  <mat-select name="Operationty" [(ngModel)]="fil.filtervalue"
+                                    *ngIf="fil.filtertype=='8'" disabled>
+                                    <mat-option [value]="a.id" *ngFor="let a of operationtypelist">{{a.name}}
+                                    </mat-option>
+                                  </mat-select>
+
+                                  <input matInput type="text" titleChars autocomplete="off" value="&nbsp;"
+                                    style="border:none;border-bottom: solid 1px #cccccc" [(ngModel)]="fil.filtervalue"
+                                    *ngIf="fil.filtertype=='7' || fil.filtertype=='9' " disabled>
+
+                                </div>
+                                <div class="col-md-5" style="margin-top:30px">
+                                  <button type="button" title="remove" (click)="removefilter(fil)"
+                                    class="btn btn-outline-primary btn_icon">
+                                    <em class="fa fa-remove"></em>
+                                  </button>
+                                </div>
+                              </div>
+
+                              <div class="row" *ngIf="filtertypelist.length>0" style="margin-bottom:2px">
+                                <hr width="100%">
+                                <div class="col-md-5" style="margin-top:10px">
+                                  <mat-label>Report Field</mat-label>
+                                  <mat-select name="reportfiltertype1" [(ngModel)]="filterobj.filtertype"
+                                    (ngModelChange)="changefiltertype()">
+                                    <mat-option [value]="a.id" *ngFor="let a of filtertypelist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+                                </div>
+                                <div class="col-md-5" style="margin-top:10px">
+                                  <mat-label>Comparator</mat-label>
+                                  <mat-select name="comparator1" [(ngModel)]="filterobj.comparator">
+                                    <mat-option [value]="a.id" *ngFor="let a of filterobj.comparelist">{{a.name}}
+                                    </mat-option>
+                                  </mat-select>
+
+                                </div>
+                                <div class="col-md-5" style="margin-top:10px">
+
+                                  <mat-label style="display: block;">Value</mat-label>
+
+                                  <mat-select name="paymenttype1" [(ngModel)]="filterobj.filtervalue"
+                                    *ngIf="filterobj.filtertype=='1'">
+                                    <mat-option [value]="a.id" *ngFor="let a of paymenttypelist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+                                  <mat-select name="paymentchannel1" [(ngModel)]="filterobj.filtervalue"
+                                    *ngIf="filterobj.filtertype=='2'">
+                                    <mat-option [value]="a.id" *ngFor="let a of paymentchannellist">{{a.name}}
+                                    </mat-option>
+                                  </mat-select>
+
+                                  <mat-select name="transactiontype1" [(ngModel)]="filterobj.filtervalue"
+                                    *ngIf="filterobj.filtertype=='3'">
+                                    <mat-option [value]="a.id" *ngFor="let a of transactiontypelist">{{a.name}}
+                                    </mat-option>
+                                  </mat-select>
+
+
+                                  <mat-select name="usertyp1e" [(ngModel)]="filterobj.filtervalue"
+                                    *ngIf="filterobj.filtertype=='4'">
+                                    <mat-option [value]="a.id" *ngFor="let a of usertypelist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+
+                                  <mat-select name="channels2" [(ngModel)]="filterobj.filtervalue"
+                                    *ngIf="filterobj.filtertype=='5'">
+                                    <mat-option [value]="a.id" *ngFor="let a of channelslist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+
+                                  <mat-select name="statuli2s" [(ngModel)]="filterobj.filtervalue"
+                                    *ngIf="filterobj.filtertype=='6'">
+                                    <mat-option [value]="a.id" *ngFor="let a of statuslist">{{a.name}}</mat-option>
+                                  </mat-select>
+
+
+                                  <mat-select name="Operatio3nty" [(ngModel)]="filterobj.filtervalue"
+                                    *ngIf="filterobj.filtertype=='8'">
+                                    <mat-option [value]="a.id" *ngFor="let a of operationtypelist">{{a.name}}
+                                    </mat-option>
+                                  </mat-select>
+
+                                  <input matInput type="text" titleChars autocomplete="off" value="&nbsp;"
+                                    [(ngModel)]="filterobj.filtervalue"
+                                    style="border:none;border-bottom: solid 1px #cccccc"
+                                    *ngIf="filterobj.filtertype=='7' || filterobj.filtertype=='9' ">
+
+                                </div>
+                                <div class="col-md-5" style="margin-top:30px">
+                                  <button type="button" (click)="addfilter()" title="Add"
+                                    class="btn btn-outline-primary btn_icon" style="margin-right: 5px;">
+                                    <em class="fa fa-plus"></em>
+                                  </button>
+                                  <button type="button" title="Apply Filter" (click)="reloadwidget(data)"
+                                    class="btn btn-outline-primary btn_icon">
+                                    <em class="fa fa-refresh"></em>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div [ngClass]="{hideele: data.showfilter}" style="display: block;">
+                            <div *ngIf="!nodatagraph" id="msg_{{data.id}}_{{data.widgetid}}" class="chart-msg">
+                              Loading...
+                            </div>
+                            <div *ngIf="!nodatagraph" id="chart_{{data.id}}_{{data.widgetid}}" class="chart-area">
+                            </div>
+                            <div *ngIf="nodatagraph" id="myDiv">
+                            </div>
+                          </div>
+
+
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

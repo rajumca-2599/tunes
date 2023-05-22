@@ -1,0 +1,226 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="addRuleForm" novalidate #addUserForm='ngForm'>
+  <mat-dialog-content>
+    <div class="container">
+      <div class="row">
+        <!-- <div class="col-sm-12 col-md-12">
+          <h6 class="banner-head">Rule Details</h6>
+          <hr class="nomargin" />
+        </div> -->
+
+        <div class="col-sm-6 col-md-6">
+          <mat-form-field>
+            <mat-label> {{'Title'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="ruleobj.ruleid" name="ruleId" #ruleId="ngModel"
+              [disabled]="mode =='update'" maxlength="50" required autocomplete="off">
+
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <mat-form-field>
+            <mat-label>{{'Status'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="ruleobj.status" name="status" required>
+              <!-- <mat-option [value]="1">Active</mat-option>
+              <mat-option *ngIf="mode == 'update'" [value]="0">Inactive</mat-option> -->
+              <mat-option *ngFor="let item of statuslist" value="{{item.id}}">{{item.name}}</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6 other-mat">
+          <span class="date-picker">
+            <mat-label>{{'Start Date'| langFilter}}</mat-label>
+            <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+            <input name="startdate" placeholder="Start Date Time:" [min]="d" [max]="enddate" [(ngModel)]="startdate"
+              [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" [disabled]="ruleobj.scheduling==0" />
+            <owl-date-time #dt1></owl-date-time>
+          </span>
+        </div>
+        <div class="col-sm-6 col-md-6 other-mat">
+          <span class="date-picker">
+            <mat-label>{{'End Date'| langFilter}}</mat-label>
+            <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+            <input name="enddate" placeholder="End Date Time:" [min]="startdate" [(ngModel)]="enddate"
+              [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [disabled]="ruleobj.scheduling==0" />
+            <owl-date-time #dt></owl-date-time>
+          </span>
+        </div>
+        <div class="col-sm-12 col-md-12">
+          <mat-form-field>
+            <mat-label> {{'Description'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="ruleobj.description" name="description" 
+              maxlength="200" autocomplete="off">
+          </mat-form-field>
+        </div>
+
+        <div class="row  m-0 minheight200" style="width:100%;">
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <mat-tab-group dynamicHeight [@.disabled]="true" (selectedIndexChange)="tabChangeEvent($event)">
+              <mat-tab class="" label="Profile">
+                  <div class="row minheight200">
+                    <div class="col-sm-4 col-md-4">
+                      <mat-form-field>
+                        <mat-label>{{'Subscriber Type'| langFilter}}</mat-label>
+                        <mat-select [(ngModel)]="ruleobj.subscribertype" name="subscriberType">
+                          <mat-option [value]="3">Both</mat-option>
+                          <mat-option [value]="1">Prepaid</mat-option>
+                          <mat-option [value]="2">Postpaid</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                      <mat-form-field>
+                        <mat-label> {{'Service Class'| langFilter}}</mat-label>
+                        <input matInput type="text" [(ngModel)]="ruleobj.servicecls" name="servicecls"
+                          maxlength="200" autocomplete="off">
+            
+                      </mat-form-field>
+                    </div>
+                    <!-- <div class="col-sm-6 col-md-6 multidrop-padtop other-mat">
+                      <ng-multiselect-dropdown class="multi-selct-pos shadow-up" name="multiselectdrp"
+                        [placeholder]="'Select Service Class'" [data]="dropdownList" [(ngModel)]="selectedItems"
+                        [settings]="dropdownSettings" (onSelectAll)="onSelectAll($event)">
+                      </ng-multiselect-dropdown>
+                    </div> -->
+                </div>
+              </mat-tab>
+              <mat-tab label="Recurring">
+                <div class="row minheight200">
+                    <div class="col-sm-2 col-md-2">
+                        <mat-form-field>
+                          <mat-label>{{'Recurring'| langFilter}}</mat-label>
+                          <mat-select [(ngModel)]="ruleobj.recurring" name="recurring">
+                            <mat-option [value]="1">Enable</mat-option>
+                            <mat-option [value]="0">Disable</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm-3 col-md-3 other-mat  multidrop-padtop">
+                        <ng-multiselect-dropdown class="multi-selct-pos shadow-up setdrpheight" name="multiselectdrp1"
+                          [placeholder]="'Select Weekdays'" [data]="dropdownListWeek" [(ngModel)]="selectedItemsWeek"
+                          [settings]="dropdownSettingsWeek" (onSelectAll)="onSelectAllWeek($event)">
+                        </ng-multiselect-dropdown>
+                      </div>
+                      <div class="col-sm-3 col-md-3 other-mat  multidrop-padtop">
+                        <ng-multiselect-dropdown class="multi-selct-pos shadow-up setdrpheight" name="multiselectdrp2"
+                          [placeholder]="'Select Days of the month'" [data]="dropdownListDays" [(ngModel)]="selectedItemsDays"
+                          [settings]="dropdownSettingsDays" (onSelectAll)="onSelectAllDays($event)">
+                        </ng-multiselect-dropdown>
+                      </div>
+                      <div class="col-sm-2 col-md-2 other-mat">
+                        <span class="date-picker">
+                          <mat-label>{{'Start Time'| langFilter}}</mat-label>
+                          <span class="position-absolute"><em class="fa fa-clock-o"></em></span>
+                          <input name="starttime" [owlDateTimeTrigger]="dt2" [(ngModel)]="starttime" [owlDateTime]="dt2">
+                          <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+                        </span>
+                      </div>
+                        <div class="col-sm-2 col-md-2 other-mat">
+                          <span class="date-picker">
+                            <mat-label>{{'End Time'| langFilter}}</mat-label>
+                            <span class="position-absolute"><em class="fa fa-clock-o"></em></span>
+                            <input name="endtime" [owlDateTimeTrigger]="dt3" [(ngModel)]="endtime" [owlDateTime]="dt3">
+                            <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time>
+                          </span>
+                        </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="App Versions">
+                <div class="row minheight200">
+                    <div class="col-sm-4 col-md-4">
+                        <mat-form-field>
+                          <mat-label>{{'App Version'| langFilter}}</mat-label>
+                          <mat-select [(ngModel)]="ruleobj.appversioneligible" name="appVersionElgible" >
+                            <mat-option [value]="1">All</mat-option>
+                            <mat-option [value]="2">Specific selected versions</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="ruleobj.appversioneligible == 2" class="col-sm-4 col-md-4 other-mat  multidrop-padtop">
+                        <ng-multiselect-dropdown class="multi-selct-pos shadow-up  setdrpheight" name="multiselectdrp3"
+                        
+                          [placeholder]="'Select App Versions'" [data]="dropdownListAppVer" [(ngModel)]="selectedItemsAppVer"
+                          [settings]="dropdownSettingsAppVer" (onSelectAll)="onSelectAllDays($event)">
+                        </ng-multiselect-dropdown>
+                      </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Platform">
+                <div class="row minheight200">
+                    <div class="col-sm-4 col-md-4">
+                        <mat-form-field>
+                          <mat-label>{{'OS Type'| langFilter}}</mat-label>
+                          <mat-select [(ngModel)]="ruleobj.targetedos" name="targettedOs">
+                            <mat-option [value]="3">All</mat-option>
+                            <mat-option [value]="1">IOS</mat-option>
+                            <mat-option [value]="2">Android</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                       
+                      </div>
+                      
+                      <div *ngIf="ruleobj.targetedos == 1" class="col-sm-4 col-md-4" >
+                        <mat-form-field>
+                          <mat-label>{{'IOS Minmum Version'| langFilter}}</mat-label>
+                          <mat-select [(ngModel)]="ruleobj.iosmin" name="iosmin" >
+                            <mat-option *ngFor="let item of iosVersions" value="{{item.versionId}}">{{item.versionId}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="ruleobj.targetedos == 1" class="col-sm-4 col-md-4">
+                        <mat-form-field>
+                          <mat-label>{{'IOS Maximum Version'| langFilter}}</mat-label>
+                          <mat-select [(ngModel)]="ruleobj.iosmax" name="iosmax" >
+                            <mat-option *ngFor="let item of iosVersions" value="{{item.versionId}}">{{item.versionId}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      
+                      <div *ngIf="ruleobj.targetedos == 2" class="col-sm-4 col-md-4" >
+                        <mat-form-field>
+                          <mat-label>{{'Android Minmum version'| langFilter}}</mat-label>
+                          <mat-select [(ngModel)]="ruleobj.androidmin" name="androidmin" >
+                            <mat-option *ngFor="let item of andriodVersions" value="{{item.versionId}}">{{item.versionId}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="ruleobj.targetedos == 2" class="col-sm-4 col-md-4" >
+                        <mat-form-field>
+                          <mat-label>{{'Android Maximum Version'| langFilter}}</mat-label>
+                          <mat-select [(ngModel)]="ruleobj.androidmax" name="androidmax" >
+                            <mat-option *ngFor="let item of andriodVersions" value="{{item.versionId}}">{{item.versionId}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Segments">
+                <div class="row minheight200">
+                    <div class="col-sm-4 col-md-4">
+                      <ng-multiselect-dropdown class="multi-selct-pos shadow-up setdrpheight" name="multiselectsegmentdrp"
+                        [placeholder]="'Select Segments'" [data]="segmentlist" [(ngModel)]="selectedItemssegment"
+                        [settings]="dropdownSettingssegment" (onSelectAll)="onSelectAllSegments($event)">
+                      </ng-multiselect-dropdown>
+                    </div>
+                </div>
+              </mat-tab>
+
+            </mat-tab-group>
+          </div>
+        </div>
+
+       
+      </div>
+      <hr />
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="pull-right">
+    <button class="btn mr-2 mat-raised-button" (click)="close()">Close</button>
+    <button class="btn mat-raised-button mat-primary" type="button" (click)="submitRule()">Save</button>
+  </mat-dialog-actions>
+  <br />
+</form>

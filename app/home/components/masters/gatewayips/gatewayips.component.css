@@ -1,0 +1,14 @@
+.data-container {
+    position: relative;
+    min-height: 200px;
+  }
+  
+  .data-table-container {
+    position: relative;
+    max-height: 450px;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }

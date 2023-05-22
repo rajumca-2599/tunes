@@ -1,0 +1,222 @@
+.example-small-box, .example-large-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .example-small-box {
+    position: relative;
+    max-height: 300px;
+    overflow: auto;
+  }
+  
+  .example-large-box {
+    position: relative;
+    max-height: 400px;
+    overflow: auto;
+  }
+  
+  :focus {
+    outline: none !important;
+  }
+  /* Structure */
+  .data-container {
+    position: relative;
+    min-height: 200px;
+  }
+  
+  .data-table-container {
+    position: relative;
+    max-height: 400px;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .data-loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mat-column-created {
+    max-width: 124px;
+  }
+  
+  th.mat-column-gtrid, td.mat-column-gtrid {
+    padding-left: 8px;
+  }
+  
+  .mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+    text-align: center !important;
+  }
+  
+  .rptfilters {
+    /*margin: 16px;*/
+    padding: 10px;
+  }
+  
+  
+  .mat-form-field-infix {
+    padding:0;
+  }
+  
+  .search-number .col-md-12 input {
+    border-bottom: 1px solid #ccc;
+    padding: 6px;
+    font-size: 14px;
+    text-align: left;
+  }
+  .search-number .col-md-12 button {
+    position: absolute;
+    right: 15px;
+    height: 26px;
+    top: 0;
+    width: 26px;
+    padding: 1px !important;
+  }
+  .search-number .col-md-12 span {
+    position: absolute;
+    left: -60px;
+    top: 5px;
+    font-size: 14px;
+  }
+  .date-picker input{
+    border-bottom: none;
+  }
+  .minheight400{
+    min-height: 400px;
+  }
+  .minheight500{
+    min-height: 500px;
+  }
+  .banner-head {
+    color: #3598dc;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .marleft0{margin-left: 0px}
+  .example-list {
+    width: 500px;
+    max-width: 100%;
+    border: solid 1px #ccc;
+    min-height: 60px;
+    display: block;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .example-box {
+    padding: 10px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: pointer;
+    background: white;
+    font-size: 14px;
+  }
+    .example-box.cdk-drag-disabled {
+      background: #ccc;
+      cursor: default;
+    }
+  .mat-card{
+    padding:6px;
+  }
+  .hrmin{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .itm_selected{
+    background-color: #00aeef;
+  }
+  .mat-header-cell{
+    text-align:center;
+    text-transform: uppercase;
+  }
+  .reports_datepicker input {
+    border-bottom: 1px solid #ddd !important;
+  }
+  .borderbox{
+    border: solid 1px #eeeeee;
+  line-height: 50px;
+  height:50px;
+  }
+  
+  .nobrdrtop{
+  border-top: none !important;
+  }
+  
+  
+  .nobrdrleft{
+    border-left: none !important;
+    }
+  
+    
+  .nobrdrrt{
+    border-right: none !important;
+    }
+    
+    .mat-expansion-panel{
+      margin-bottom: 10px;
+    }
+   .ccaretab .mat-tab-body-content{
+      padding-left: 10px;
+    }
+  
+  .no-border {
+  border:none!important}
+  .detail_title.row {
+    border-bottom: 1px solid #ececec;
+    margin: 0;
+  }
+  .fltleft{
+      padding: 5px;
+      margin: 0;
+      float: left;
+      line-height: 20px;
+      font-size: 12px;
+      padding-left: 5px;;
+
+  }
+  .lefttitle{
+  
+      font-weight: 800;
+      text-transform: capitalize;
+      border-right: solid 2px #FFFFFF;
+      height: 40px;
+  }
+  .gridblk{
+    width: 48%;
+    padding: 0px;
+    margin: 0px;
+    /* background-color: #eeeeee; */
+    margin-left: 10px;
+    border-bottom: solid 1px #eee;
+  }
+  .altergrdblk{
+      /* background-color: #cccccc; */
+      border-bottom: solid 1px #eee;
+  }
+  

@@ -1,0 +1,112 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="addRuleForm" novalidate #addUserForm='ngForm'>
+  <mat-dialog-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <mat-form-field>
+            <mat-label> {{'Key'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="msgObj.keyword" name="keyword" #keyword="ngModel" titleChars
+              [disabled]="mode =='update'" maxlength="40" required autocomplete="off">
+
+          </mat-form-field>
+        </div>
+        <!-- <div class="col-sm-3 col-md-3">
+          <mat-form-field>
+            <mat-label>{{'Language'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="msgObj.language" name="language"  [disabled]="mode =='update'">
+              <mat-option *ngFor="let item of langlist" value="{{item.value}}">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3 col-md-3">
+          <mat-form-field>
+            <mat-label>{{'Status'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="msgObj.status" name="status" >
+              <mat-option [value]="1">Active</mat-option>
+              <mat-option [value]="0">Inactive</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+        <div class="col-sm-2 col-md-2">
+          <mat-form-field>
+            <mat-label> {{'Code'| langFilter}}</mat-label>
+            <input matInput type="text" numbersOnly [(ngModel)]="msgObj.code" name="code" [disabled]="mode =='update'"
+              #code="ngModel" maxlength="6" required autocomplete="off">
+
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <mat-form-field>
+            <mat-label> {{'Module Name'| langFilter}}</mat-label>
+            <mat-select name="ddlgroup" [(ngModel)]="msgObj.module">
+              <mat-option *ngFor="let item of modulemasterlist" [value]="item">{{item}}</mat-option>
+            </mat-select>
+            <!-- <input matInput type="text" required [(ngModel)]="msgObj.module" name="module" #module="ngModel" titleChars
+              maxlength="50" autocomplete="off"> -->
+
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2 col-md-2">
+          <mat-form-field>
+            <mat-label> {{'Status'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="msgObj.status" name="status" required>
+              <mat-option [value]="1">Active</mat-option>
+              <mat-option [value]="0" *ngIf="mode =='update'">Inactive</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+        <!-- <div class="col-sm-4 col-md-4">
+          <mat-form-field>
+            <mat-label> {{'Event Type'| langFilter}}</mat-label>
+            <mat-select [(ngModel)]="msgObj.msgtype" name="msgtype" #msgtype="ngModel" required>
+              <mat-option *ngFor="let item of eventtypes" value="{{item.value}}">{{item.name}}</mat-option>
+            </mat-select>
+      
+          </mat-form-field>
+        </div> -->
+
+        <div class="col-sm-6 col-md-12">
+          <mat-form-field>
+            <mat-label>{{env.languages[0].key}} {{'Message'| langFilter}}</mat-label>
+            <textarea matInput type="text" placeholder="" [(ngModel)]="msgObj.message" name="message" titleChars
+              #message="ngModel" required maxlength="200"></textarea>
+
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6 mt-3">
+          <mat-form-field>
+            <mat-label> {{'Language'| langFilter}}</mat-label>
+            <mat-select name="ddlgroup" [(ngModel)]="msgObj.lagnuage1" (selectionChange)="someMethod(msgObj.lagnuage1)">
+              <mat-option [disabled]="ifColorDark(lang.title)"  *ngFor="let lang of languageList" [value]="lang.id">{{lang.title}}</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12 col-md-12">
+          <mat-form-field>
+            <mat-label> {{'Language Message'| langFilter}}</mat-label>
+            <textarea matInput type="text" placeholder="" required [(ngModel)]="msgObj.message1" titleChars
+              name="messageba" #messageba="ngModel" maxlength="200"></textarea>
+
+          </mat-form-field>
+        </div>
+        <!-- <div class="col-sm-12 col-md-12">
+          <mat-form-field>
+            <mat-label> {{'Description'| langFilter}}</mat-label>
+            <textarea matInput type="text" placeholder=""  [(ngModel)]="msgObj.description" titleChars
+              name="description" #description="ngModel" maxlength="200"></textarea>
+          </mat-form-field>
+        </div> -->
+      </div>
+      <hr />
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="pull-right">
+    <button class="btn mr-2 mat-raised-button" (click)="close()">Close</button>
+    <button class="btn mat-raised-button mat-primary" type="button" (click)="submitRule()">Submit</button>
+  </mat-dialog-actions>
+</form>

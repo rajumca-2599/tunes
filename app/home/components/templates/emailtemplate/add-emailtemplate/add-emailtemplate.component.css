@@ -1,0 +1,7 @@
+.mat-dialog-content {
+   overflow-y: scroll !important; 
+}
+.anc-htmleditor{
+   height: 200px;
+   max-height:200px;
+}

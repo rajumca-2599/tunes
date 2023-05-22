@@ -1,0 +1,282 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title">
+                  <h4>
+                    <em class="icon-settings"></em><span class="user">Reports Management <span style="font-size: 16px;">&#8811;</span> Reports</span>
+                    <button type="button"
+                      [ngClass]="isOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                      (click)="toggle()">
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="isOpen"></i>
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="!isOpen"></i>
+                    </button>
+
+                  </h4>
+                </div>
+                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm"
+                  [@openClose]="isOpen ? 'open' : 'closed'">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>Report Type</mat-label>
+                        <mat-select name="service_group" [(ngModel)]="reportType" (ngModelChange)="loadReports()">
+                          <mat-option [value]="1031001">Transactional</mat-option>
+                          <mat-option [value]="1031002">Revenues</mat-option>
+                          <mat-option [value]="1031003">Others</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    
+                    <div class="col-sm-4 col-md-4">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>Report Name</mat-label>
+                        <mat-select name="reportname" [(ngModel)]="reportid" [disabled]="reportnameList.length==0"
+                          (ngModelChange)="loadReportsdata()">
+                          <mat-option *ngFor="let obj of reportnameList" [value]="obj.reportid">{{obj.reportname}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-4 col-md-4 other-mat">
+                        <span class="date-picker reports_datepicker">
+                          <mat-label>{{'Report Date Range'| langFilter}}</mat-label>
+                          <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                          <input name="startdate" placeholder="Report Date Range:" [selectMode]="'range'" 
+                            [(ngModel)]="startdate" [owlDateTimeTrigger]="dt1" 
+                            (ngModelChange)="onDatepickerChange($event)" 
+                            
+                            [owlDateTime]="dt1" [min]="mindays"
+                            [max]="currentdate" readonly />
+                          <owl-date-time #dt1  [pickerType]="'calendar'" (afterPickerOpen)="onDatepickerOpen($event)"></owl-date-time>
+                        </span>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">&nbsp;</div>
+                    <div class="col-sm-6" *ngIf="reportid>0">
+                      <div class="form-group martop_15 other-mat" style="text-align: right">
+                        <a class="btn btn-link cursor-pointer" (click)="toggleQueryFilter()"
+                          *ngIf="filtertypelist !=null && filtertypelist.length>0">
+                          <i class="fa fa-filter marright_5" aria-hidden="true" ></i>Filter<i aria-hidden="true"  class="fa fa-chevron-down marleft_5"></i>
+                        </a>
+                        <a class="btn btn-link cursor-pointer" (click)="toggleDisplayFilter()" style="display: none">
+                          <i class="fa fa-desktop marright_5" aria-hidden="true" ></i>Display<i aria-hidden="true"  class="fa fa-chevron-down marleft_5"></i>
+                        </a>
+                        <!-- <mat-checkbox (click)='saveQueryStateChange()' [(ngModel)]="saveQuery">Save Query</mat-checkbox> -->
+                        <a class="btn btn-link cursor-pointer" id="btngenerate"
+                          (click)='pageObject.pageNo=0;generateReports()' *ngIf="reportid>0">
+                          <i class="fa fa-gear marright_5" aria-hidden="true" ></i>Generate
+                        </a>
+                        <a class="btn btn-link cursor-pointer" (click)='exportReport(env.reportfiledownloadformat)' *ngIf="reportid>0">
+                          <i class="fa fa-download marright_5" aria-hidden="true" ></i>Download
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="isQueryFilter" class="reportfilter" style="margin-bottom: 5px;">
+
+                    <div class="row" *ngFor="let fil of filterselected" style="margin-bottom: 5px">
+                      <hr width="100%">
+                      <div class="col-md-3">
+
+                        <mat-label>Report Field</mat-label>
+                        <mat-select name="reportfiltertype" [(ngModel)]="fil.filtertype" disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of filtertypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                      </div>
+                      <div class="col-md-3">
+                        <mat-label>Comparator</mat-label>
+                        <mat-select name="comparator" [(ngModel)]="fil.comparator" disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of fil.comparelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                      </div>
+                      <div class="col-md-3">
+
+                        <mat-label>Value</mat-label>
+
+                        <mat-select name="paymenttype" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='1'"
+                          disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of paymenttypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                        <mat-select name="paymentchannel" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='2'"
+                          disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of paymentchannellist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                        <mat-select name="transactiontype" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='3'"
+                          disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of transactiontypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+
+                        <mat-select name="usertype" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='4'" disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of usertypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+
+                        <mat-select name="channels" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='5'" disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of channelslist">{{a.name}}</mat-option>
+                        </mat-select>
+
+
+                        <mat-select name="statulis" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='6'" disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of statuslist">{{a.name}}</mat-option>
+                        </mat-select>
+
+
+                        <mat-select name="Operationty" [(ngModel)]="fil.filtervalue" *ngIf="fil.filtertype=='8'"
+                          disabled>
+                          <mat-option [value]="a.id" *ngFor="let a of operationtypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                        <input matInput type="text" titleChars autocomplete="off" value="&nbsp;"
+                          style="border-bottom: solid 1px #cccccc" [(ngModel)]="fil.filtervalue"
+                          *ngIf="fil.filtertype > 20 || fil.filtertype=='7' || fil.filtertype=='9' || fil.filtertype=='10' || fil.filtertype=='11'" disabled>
+
+                      </div>
+                      <div class="col-md-1" style="margin-top:10px">
+                        <button type="button" (click)="removefilter(fil)" class="btn btn-outline-primary">
+                          <em class="fa fa-remove"></em>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="filtertypelist.length>0" style="margin-bottom: 5px">
+                      <hr width="100%">
+                      <div class="col-md-3">
+                        <mat-label>Report Field</mat-label>
+                        <mat-select name="reportfiltertype1" [(ngModel)]="filterobj.filtertype"
+                          (ngModelChange)="changefiltertype()">
+                          <mat-option [value]="a.id" *ngFor="let a of filtertypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                      </div>
+                      <div class="col-md-3">
+                        <mat-label>Comparator</mat-label>
+                        <mat-select name="comparator1" [(ngModel)]="filterobj.comparator">
+                          <mat-option [value]="a.id" *ngFor="let a of filterobj.comparelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                      </div>
+                      <div class="col-md-3">
+
+                        <mat-label>Value</mat-label>
+
+                        <mat-select name="paymenttype1" [(ngModel)]="filterobj.filtervalue"
+                          *ngIf="filterobj.filtertype=='1'">
+                          <mat-option [value]="a.id" *ngFor="let a of paymenttypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                        <mat-select name="paymentchannel1" [(ngModel)]="filterobj.filtervalue"
+                          *ngIf="filterobj.filtertype=='2'">
+                          <mat-option [value]="a.id" *ngFor="let a of paymentchannellist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                        <mat-select name="transactiontype1" [(ngModel)]="filterobj.filtervalue"
+                          *ngIf="filterobj.filtertype=='3'">
+                          <mat-option [value]="a.id" *ngFor="let a of transactiontypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+
+                        <mat-select name="usertyp1e" [(ngModel)]="filterobj.filtervalue"
+                          *ngIf="filterobj.filtertype=='4'">
+                          <mat-option [value]="a.id" *ngFor="let a of usertypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+
+                        <mat-select name="channels2" [(ngModel)]="filterobj.filtervalue"
+                          *ngIf="filterobj.filtertype=='5'">
+                          <mat-option [value]="a.id" *ngFor="let a of channelslist">{{a.name}}</mat-option>
+                        </mat-select>
+
+
+                        <mat-select name="statuli2s" [(ngModel)]="filterobj.filtervalue"
+                          *ngIf="filterobj.filtertype=='6'">
+                          <mat-option [value]="a.id" *ngFor="let a of statuslist">{{a.name}}</mat-option>
+                        </mat-select>
+
+
+                        <mat-select name="Operatio3nty" [(ngModel)]="filterobj.filtervalue"
+                          *ngIf="filterobj.filtertype=='8'">
+                          <mat-option [value]="a.id" *ngFor="let a of operationtypelist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                        <input matInput type="text" titleChars autocomplete="off" value="&nbsp;"
+                          [(ngModel)]="filterobj.filtervalue" style="border-bottom: solid 1px #cccccc"
+                          *ngIf="filterobj.filtertype > 20 || filterobj.filtertype=='7' || filterobj.filtertype=='9' || filterobj.filtertype=='10' || filterobj.filtertype=='11'">
+
+                      </div>
+                      <div class="col-md-1" style="margin-top:10px">
+                        <button type="button" (click)="addfilter()" class="btn btn-outline-primary">
+                          <em class="fa fa-plus"></em>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="isDisplayFilter" class="row">
+                    <div *ngFor="let obj of displayedColumnsFilter" class="col-md-3">
+                      <mat-checkbox (change)="modifyTable(obj)" [(ngModel)]="obj.model">{{obj.value}}</mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                  <div fxLayout="row">
+                    <div class="data-container">
+                      <div class="data-table-container">
+                        <table mat-table [dataSource]="dataSource"  class="data-table">
+                          <ng-container *ngFor="let obj of displayedColumns;let idx = index" matColumnDef="{{obj}}">
+                            <th mat-header-cell *matHeaderCellDef style="min-width:110!important;">{{obj}}</th>
+                            <td mat-cell *matCellDef="let row">
+                              <span *ngIf="obj=='address' || obj=='landmark' || obj=='email'" class="example-tooltip-red1"
+                               title="{{getdatafromrow(row,idx)}}">{{getdatafromrow(row,idx) | slice:0:50}}
+                                <span *ngIf="getdatafromrow(row,idx).length >= 50">...</span>
+                              </span>
+
+                              <span *ngIf="obj !='address' && obj !='landmark' && obj !='email'">{{getdatafromrow(row,idx)}}</span>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                          <tr mat-row
+                            *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                          </tr>
+                        </table>
+                      </div>
+                      <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix"
+                        *ngIf="pageObject.totalRecords > 0">
+                        <div class="mt-0 pull-left">
+
+                          <div class="row">
+                            <div class="col-md-12 mt-0 text-left">
+                              <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                [pageSizeOptions]="[5, 10, 25, 100]">
+                              </mat-paginator>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 pull-right">
+                          <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                            screenReaderCurrentLabel="You're on page" id="user_list_pagination">
+                          </pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--table ends-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

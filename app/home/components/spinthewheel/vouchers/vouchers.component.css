@@ -1,0 +1,22 @@
+.data-table {
+  width: 100%;
+}
+.banner-head {
+  color: #00aeef;
+  font-size: 14px;
+}
+.label-0 {
+  background-color: #337ab7 !important;
+}
+
+.label-1 {
+  background-color: #f0ad4e !important;
+}
+
+.label-2 {
+  background-color: #5cb85c;
+}
+
+.label-3 {
+  background-color: #d9534f;
+}

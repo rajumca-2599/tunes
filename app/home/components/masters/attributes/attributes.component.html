@@ -1,0 +1,129 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title">
+                  <h4>
+                    <em class="icon-settings"></em><span class="user">Master <span style="font-size: 16px;">&#8811;</span> Attributes</span>
+                    <button type="button" [ngClass]="isOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'" (click)="toggle()">
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="isOpen"></i>
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="!isOpen"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn_custom21 pull-right" (click)="createAttributeDialog(null)">
+                      <em class="fa fa-plus">
+                      </em>
+                    </button>
+                  </h4>
+                </div>
+                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm" [@openClose]="isOpen ? 'open' : 'closed'">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>Search</mat-label>
+                        <input matInput type="text" safe-chars autocomplete="off" value="&nbsp;" [(ngModel)]="searchString">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <button type="button" class="btn btn-outline-primary btn_custom" (click)="pageObject.pageNo=0;getattributes()"><i class="fa fa-search" aria-hidden="true" matTooltip="search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--table-->
+                <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                  <div fxLayout="row">
+                    <div class="data-container">
+                      <div class="data-table-container">
+                        <table mat-table [dataSource]="dataSource" matSort class="data-table">
+                          <ng-container matColumnDef="key">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Attribute Key</th>
+                            <td mat-cell *matCellDef="let row">{{row?.key}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="value">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Attribute Value</th>
+                            <td mat-cell *matCellDef="let row">{{row?.value}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="desc">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+                            <td mat-cell *matCellDef="let row">{{row?.desc}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="group">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Group</th>
+                            <td mat-cell *matCellDef="let row">{{row?.group}}</td>
+                          </ng-container>
+
+                          <!-- <ng-container matColumnDef="createdAt">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>CREATED ON</th>
+                            <td mat-cell *matCellDef="let row">{{row?.createdAt}}</td>
+                          </ng-container> -->
+
+                          <!-- <ng-container matColumnDef="modifiedBy">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>MODIFIED BY</th>
+                            <td mat-cell *matCellDef="let row">{{row?.modifiedBy}}</td>
+                          </ng-container> -->
+
+                          <!-- <ng-container matColumnDef="modifiedAt">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>MODIFIED ON</th>
+                            <td mat-cell *matCellDef="let row">{{row?.modifiedAt}}</td>
+                          </ng-container> -->
+                          <ng-container cdkColumnDef="actions" stickyEnd>
+                            <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+                            <td *cdkCellDef="let row">
+                              <div *ngIf="row.status != '2'">
+                                <button matTooltip="Edit Attribute" (click)="createAttributeDialog(row)" class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                  <em class="fa fa-edit"></em>
+                                </button>
+                                <button matTooltip="Delete Attribute" (click)="deleteAttribute(row?.key,row?.value)" class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                  <em class="fa fa-remove"></em>
+                                </button>
+                              </div>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}"></tr>
+                        </table>
+                      </div>
+                      <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix" *ngIf="pageObject.totalRecords > 0">
+                        <div class="mt-0 pull-left">
+
+                          <div class="row">
+                            <div class="col-md-12 mt-0 text-left">
+                              <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                             [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                             [pageSizeOptions]="[5, 10, 25, 100]">
+                              </mat-paginator>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 pull-right">
+                          <pagination-controls class="my-pagination"
+                                               (pageChange)="changePage($event)"
+                                               screenReaderCurrentLabel="You're on page"
+                                               id="user_list_pagination">
+                          </pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--table ends-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+

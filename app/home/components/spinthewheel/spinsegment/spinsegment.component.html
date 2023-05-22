@@ -1,0 +1,301 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title">
+                  <h4>
+                    <em class="icon-settings"></em><span class="user">Spin the Wheel >> Segments</span>
+                    <button type="button"
+                      [ngClass]="isOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                      (click)="toggle()">
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="isOpen"></i>
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="!isOpen"></i>
+                    </button>
+                    <button type="button"
+                      [ngClass]="isAddOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                      (click)="toggleAdd()" *ngIf="userpermissions.add==1">
+                      <i class="fa fa-plus" aria-hidden="true" matTooltip="Add" *ngIf="isAddOpen"></i>
+                      <i class="fa fa-plus" aria-hidden="true" matTooltip="Add" *ngIf="!isAddOpen"></i>
+                    </button>
+                  </h4>
+                </div>
+                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm">
+                  <div class="row" *ngIf="isOpen">
+                    <div class="col-sm-3 col-md-3 other-mat">
+                      <span class="date-picker">
+                        <mat-label>{{'Offer Date'| langFilter}}</mat-label>
+                        <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                        <input name="startdate" placeholder="Offer Date" readonly [selectMode]="'range'"
+                        (ngModelChange)="resetdata()"
+                          [(ngModel)]="startdate" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" />
+                        <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                      </span>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                      <mat-form-field>
+                        <mat-label> {{'Status'| langFilter}}</mat-label>
+                        <mat-select [(ngModel)]="status" name="status" required (ngModelChange)="resetdata()">
+                          <mat-option [value]="a.id" *ngFor="let a of segmentstatuslist">{{a.name}}</mat-option>
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <button type="button" class="btn btn-outline-primary btn_custom"
+                          (click)="pageObject.pageNo=0;getsegmentsList()">
+                          <i class="fa fa-search" aria-hidden="true" matTooltip="search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="isAddOpen" style="min-height: 400px">
+                    <div class="row">
+                      <div class="col-md-3"></div>
+                      <div class="col-md-6">
+                        <mat-card>
+                          <h6 class="banner-head" *ngIf="issingle">Add New Segment</h6>
+                          <h6 class="banner-head" *ngIf="ismulti">Edit Segment</h6>
+                          <hr />
+                          <mat-card-content>
+                            <div class="row" *ngIf="issingle">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-sm-6 col-md-6 other-mat">
+                                    <span class="date-picker">
+                                      <mat-label>{{'Offer Date'| langFilter}}</mat-label>
+                                      <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                                      <input name="uploaddate" placeholder="Upload Date" [min]="d" readonly
+                                        [(ngModel)]="uploaddate" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" />
+                                      <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                                    </span>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <mat-form-field floatLabel="always">
+                                      <mat-label>Segment Name</mat-label>
+                                      <input matInput type="text" titleChars autocomplete="off" value="&nbsp;"
+                                        maxlength="10" [(ngModel)]="segmentname"
+                                        (keydown.space)="$event.preventDefault();">
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <mat-form-field>
+                                      <mat-label> {{'Description'| langFilter}}</mat-label>
+                                      <input matInput type="text" [(ngModel)]="segmentdesc" name="desc" #desc="ngModel"
+                                        maxlength="100" titleChars autocomplete="off">
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <span style="font-size:11px;"><b>Note:</b>Use drag & drop for internet explorer browser, File name should not contain special charaters and spaces. </span>
+                                    <angular-file-uploader [config]="afuConfigId" (ApiResponse)="DocUpload($event)"
+                                      resetUpload="resetVar">
+                                    </angular-file-uploader>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row" *ngIf="ismulti">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-sm-6 col-md-6 other-mat">
+                                    <span class="date-picker">
+                                      <mat-label>{{'Offer Date'| langFilter}}</mat-label>
+                                      <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                                      <input name="mapdate" placeholder="Offer Date" readonly [selectMode]="'range'"
+                                        [min]="minuplod" [(ngModel)]="mapdate" [owlDateTimeTrigger]="dt1"
+                                        [owlDateTime]="dt1" [max]="maxupload" />
+                                      <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                                    </span>
+                                  </div>
+                                  <div class="col-sm-6 col-md-6 other-mat">
+                                    <mat-form-field floatLabel="always">
+                                      <mat-label>Segment Name</mat-label>
+                                      <input matInput type="text" titleChars autocomplete="off"
+                                        value="{{selectedsegment.segmentname}}" maxlength="20" disabled>
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <mat-form-field>
+                                      <mat-label> {{'Description'| langFilter}}</mat-label>
+                                      <input matInput type="text" [(ngModel)]="segmentdesc" name="desc" #desc="ngModel"
+                                        maxlength="100" titleChars autocomplete="off">
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <small>
+                                      Please note this segment will be auto approved and will be added
+                                      for the selected date range
+                                    </small>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-card-content>
+                          <mat-card-actions>
+                            <hr class="mr_remove" />
+                            <div class="row">
+                              <div class="col-md-8" *ngIf="issingle">
+                                <div class="form-group text-right" *ngIf="userpermissions.add==1">
+                                  <button class="btn mr-2 mat-raised-button" (click)="toggleCancel()">Close</button>
+                                  <button class="btn mat-raised-button mat-primary" type="button"
+                                    (click)="showconfirm(1)">
+                                    Add
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="col-md-8 text-right" *ngIf="ismulti">
+                                <div class="form-group" *ngIf="userpermissions.add==1">
+                                  <button class="btn mr-2 mat-raised-button" (click)="toggleCancel()">Close</button>
+                                  <button class="btn mat-raised-button mat-primary" type="button"
+                                    (click)="showconfirm(2)">
+                                    Add
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </mat-card-actions>
+                        </mat-card>
+                      </div>
+                      <div class="col-md-3"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs" *ngIf="!isAddOpen">
+                  <div fxLayout="row">
+                    <div class="data-container">
+                      <div class="data-table-container">
+                        <table mat-table [dataSource]="dataSource" matSort class="data-table">
+
+                          <ng-container matColumnDef="segmentname">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Segment Id</th>
+                            <td mat-cell *matCellDef="let row">{{row?.segmentname}}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="createdon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Offer Date</th>
+                            <td mat-cell *matCellDef="let row">{{row?.offerdate}}</td>
+                          </ng-container>
+
+
+                          <ng-container matColumnDef="approvedon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Approved On</th>
+                            <td mat-cell *matCellDef="let row">{{row?.approvedon}}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="msisdncount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Count</th>
+                            <td mat-cell *matCellDef="let row">
+                              <a *ngIf="row?.msisdncount>0" href="javascript:;" (click)="downloadValidateBase(row,3)"
+                                matTooltip="download total msisdns"> {{row?.msisdncount}} </a>
+                              <span *ngIf="row?.msisdncount <= 0">{{row?.msisdncount}}</span>
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="invalidcount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Invalid Count</th>
+                            <td mat-cell *matCellDef="let row">
+                              <a *ngIf="row?.invalidcount>0" href="javascript:;" (click)="downloadValidateBase(row,1)"
+                                matTooltip="download invalid msisdns"> {{row?.invalidcount}} </a>
+                              <span *ngIf="row?.invalidcount <= 0">{{row?.invalidcount}}</span>
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="duplicatecount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Duplicate Count</th>
+                            <td mat-cell *matCellDef="let row">
+                              <a *ngIf="row?.duplicatecount>0" href="javascript:;" (click)="downloadValidateBase(row,2)"
+                                matTooltip="download duplicate msisdns"> {{row?.duplicatecount}} </a>
+                              <span *ngIf="row?.duplicatecount <= 0">{{row?.duplicatecount}}</span>
+                            </td>
+                            <!--<td mat-cell *matCellDef="let row" [hidden]="row.duplicatecount <=0">{{row?.duplicatecount}}</td>-->
+                          </ng-container>
+
+                          on
+
+                          <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
+                            <td mat-cell *matCellDef="let row">
+                              <span class="label label-{{getStatusLabel(row?.status)}}">
+                                {{getstatus(row?.status)}}</span>
+                            </td>
+                          </ng-container>
+
+                          <ng-container cdkColumnDef="actions" stickyEnd>
+                            <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+                            <td *cdkCellDef="let row">
+                              <div>
+                                <button matTooltip="Approve" (click)="approveconfirm(row,1)"
+                                  *ngIf="userpermissions.edit==1 && row.status=== 0"
+                                  class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-sm">
+                                  <i class="fa fa-check" aria-hidden="true"></i>
+                                </button>
+
+                                <button matTooltip="Configure Same Segment for Multiple days" (click)="selectitem(row)"
+                                  *ngIf="userpermissions.add==1 &&  row.status=== 2"
+                                  class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-sm">
+                                  <i class="fa fa-edit" aria-hidden="true"></i>
+                                </button>
+                                <button matTooltip="Reject" (click)="approveconfirm(row,4)"
+                                  *ngIf="userpermissions.edit==1 &&  row.status=== 0"
+                                  class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-sm">
+                                  <i class="fa fa-close" aria-hidden="true"></i>
+                                </button>
+                                <button matTooltip="Download" (click)="downloadfile(row)"
+                                  *ngIf="userpermissions.export==1"
+                                  class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-sm">
+                                  <i class="fa fa-download"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </ng-container>
+
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                          <tr mat-row
+                            *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}">
+                          </tr>
+                        </table>
+                      </div>
+                      <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix"
+                        [ngClass]="{hideelement: pageObject.totalRecords == 0}">
+                        <div class="mt-0 pull-left">
+
+                          <div class="row">
+                            <div class="col-md-12 mt-0 text-left">
+                              <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                [pageSizeOptions]="[5, 10, 25, 100]">
+                              </mat-paginator>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 pull-right">
+                          <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                            screenReaderCurrentLabel="You're on page" id="user_list_pagination">
+                          </pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--table ends-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

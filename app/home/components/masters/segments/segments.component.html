@@ -1,0 +1,173 @@
+<section class="basic_details sticky base80">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="detail_sec">
+          <div class="details_inner">
+            <div class="type_camp">
+              <div class="container-fluid no-padding">
+                <div class="detail_title">
+                  <h4>
+                    <em class="icon-settings"></em><span class="user">Master <span style="font-size: 16px;">&#8811;</span> MSISDN Segments</span>
+                    <button type="button"
+                            [ngClass]="isOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                            (click)="toggle()">
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="isOpen"></i>
+                      <i class="fa fa-filter" aria-hidden="true" matTooltip="filter" *ngIf="!isOpen"></i>
+                    </button>
+                    <button type="button" *ngIf="!Isseg_limit_reached"
+                            [ngClass]="isAddOpen ? 'btn btn-outline-grey btn_custom1 pull-right marg10' : 'btn btn-outline-primary btn_custom1 pull-right marg10'"
+                            (click)="toggleAdd()">
+                      <i class="fa fa-plus" aria-hidden="true" matTooltip="Add" *ngIf="isAddOpen"></i>
+                      <i class="fa fa-plus" aria-hidden="true" matTooltip="Add" *ngIf="!isAddOpen"></i>
+                    </button>
+                  </h4>
+                </div>
+                <div class="container px-lg-3 my-1 p-1 bg-white rounded shadow-sm">
+                  <div class="row" *ngIf="isOpen">
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>Status</mat-label>
+                        <mat-select [(ngModel)]="fstatus" name="fstatus" required>
+                          <mat-option [value]="a.id" *ngFor="let a of segmentstatuslist">{{a.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field floatLabel="always">
+                        <mat-label>Search</mat-label>
+                        <input matInput type="text" titleChars autocomplete="off" value="&nbsp;"
+                               [(ngModel)]="searchString">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <button type="button" class="btn btn-outline-primary btn_custom"
+                                (click)="getsegmentsList()">
+                          <i class="fa fa-search" aria-hidden="true" matTooltip="search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="isAddOpen">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                      <mat-card>
+                        <h6 class="banner-head">Add New MSISDN Segment</h6>
+                        <hr />
+                        <mat-card-content>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <mat-form-field floatLabel="always">
+                                    <mat-label>Title</mat-label>
+                                    <input matInput type="text" titleChars autocomplete="off" value="&nbsp;" name="title"
+                                           [(ngModel)]="title">
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <span style="font-size:11px;"><b>Note:</b>Use drag & drop for internet explorer browser, File name should not contain special charaters and spaces.</span>
+                                  <angular-file-uploader [config]="afuConfigId" (ApiResponse)="DocUpload($event)"
+                                                         resetUpload="resetVar">
+                                  </angular-file-uploader>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <hr />
+                          <div class="row">
+                            <div class="col-sm-8 col-md-8 other-mat">
+                              <div class="form-group text-right">
+                                <button class="btn mr-2 mat-raised-button" type="button" (click)="toggleCancel()">
+                                  Close
+                                </button>
+                                <button class="btn mat-raised-button mat-primary" type="button" (click)="addsegment()">
+                                  Add
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-card-actions>
+                      </mat-card>
+                    </div>
+
+                    <div class="col-md-3"></div>
+                  </div>
+                </div>
+                <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs" *ngIf="!isAddOpen">
+                  <div fxLayout="row">
+                    <div class="data-container">
+                      <div class="data-table-container">
+                        <table mat-table [dataSource]="dataSource" matSort class="data-table">
+
+
+                          <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>NAME</th>
+                            <td mat-cell *matCellDef="let row">{{row?.filename}}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="createdon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>created on</th>
+                            <td mat-cell *matCellDef="let row">{{row?.createdon}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="updatedon">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated On</th>
+                            <td mat-cell *matCellDef="let row">{{row?.updatedon}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
+                            <td mat-cell *matCellDef="let row">
+                              <span class="label label-{{getStatusLabel(row?.status)}}"> {{getstatus(row?.status)}} </span>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="successcount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Success (Count)</th>
+                            <td mat-cell *matCellDef="let row">{{(row?.success)}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="failedcount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Failed (count)</th>
+                            <td mat-cell *matCellDef="let row">{{(row?.failure)}}</td>
+                          </ng-container>
+
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                          <tr mat-row
+                              *matRowDef="let row; columns: displayedColumns | paginate: { id: 'user_list_pagination', itemsPerPage: pageObject.pageSize, currentPage: pageObject.pageNo, totalItems: pageObject.totalRecords}"></tr>
+                        </table>
+                      </div>
+                      <div class=" px-lg-1 my-1 bg-white rounded shadow-sm clearfix"
+                           [ngClass]="{hideelement: pageObject.totalRecords == 0}">
+                        <div class="mt-0 pull-left">
+
+                          <div class="row">
+                            <div class="col-md-12 mt-0 text-left">
+                              <mat-paginator #paginator class="custom-pagesize" [length]="pageObject?.totalRecords"
+                                             [pageSize]="pageObject?.pageSize" (page)="changePageSize($event)"
+                                             [pageSizeOptions]="[5, 10, 25, 100]">
+                              </mat-paginator>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 pull-right">
+                          <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                                               screenReaderCurrentLabel="You're on page" id="user_list_pagination">
+                          </pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--table ends-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

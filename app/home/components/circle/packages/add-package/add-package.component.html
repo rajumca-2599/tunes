@@ -1,0 +1,112 @@
+<h2 mat-dialog-title>Create Package</h2>
+<hr />
+<form autocomplete="off" name="addPackageForm" novalidate #addPackageForm='ngForm'>
+  <mat-dialog-content>
+    <!-- <div class="container"> -->
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <mat-form-field>
+            <mat-label> {{'Code'| langFilter}}</mat-label>
+            <input matInput type="text" [(ngModel)]="pckObj.code"  name="code" #code="ngModel"
+              maxlength="100" required autocomplete="off">
+        
+          </mat-form-field>
+          <mat-label style="color: deepskyblue; position: relative;
+                        bottom: 14px;">{{"Recharge: STVXXXXX , TOPUP: TOPXXXXX"|langFilter}}</mat-label>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <mat-form-field>
+            <mat-label> {{'Name'| langFilter}}</mat-label>
+            <input matInput type="text" placeholder="" [(ngModel)]="pckObj.name" titleChars name="name" #name="ngModel"
+                    maxlength="200" autocomplete="off" required>   
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12 col-md-12" >
+          <mat-form-field>
+            <mat-label> {{'Description'| langFilter}}</mat-label>
+            <input matInput type="text" placeholder="" [(ngModel)]="pckObj.description"  name="description" #description="ngModel"
+                    maxlength="1000" autocomplete="off">   
+          </mat-form-field>
+        </div>    
+          <div class="col-sm-12 col-md-12">
+            <mat-form-field>
+              <mat-label> {{'Benefits'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="pckObj.benfits" name="benfits" #benfits="ngModel"
+                     required  maxlength="1000"  autocomplete="off">   
+            </mat-form-field>
+          </div>
+        <div class="col-sm-12 col-md-12">
+            <mat-form-field>
+                <mat-label> {{'Data'| langFilter}}</mat-label>
+                <input matInput type="text" placeholder="" [(ngModel)]="pckObj.data" name="data" #data="ngModel"
+                required  maxlength="500"  autocomplete="off">  
+            </mat-form-field>
+            <mat-label style="color: deepskyblue; position: relative;
+                        bottom: 14px;">{{"XX GB/day | Data "|langFilter}}</mat-label>
+        </div> 
+          <div class="col-sm-12 col-md-12">
+            <mat-form-field>
+              <mat-label> {{'SMS'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="pckObj.sms"  name="sms" #sms="ngModel"
+                     required  maxlength="500" autocomplete="off">   
+            </mat-form-field>
+            <mat-label style="color: deepskyblue; position: relative;
+                        bottom: 14px;">{{"XX/Day | SMS "|langFilter}}</mat-label>
+          </div>
+          <div class="col-sm-12 col-md-12">
+            <mat-form-field>
+                <mat-label> {{'Voice'| langFilter}}</mat-label>
+                <input matInput type="text" placeholder="" [(ngModel)]="pckObj.voice"  name="voice" #voice="ngModel"
+                       required  maxlength="500" autocomplete="off"> 
+            </mat-form-field>
+            <mat-label style="color: deepskyblue; position: relative;
+                        bottom: 14px;">{{"XX (Local /STD) | Calls"|langFilter}}</mat-label>
+          </div>
+          <div class="col-sm-12 col-md-12">
+            <mat-form-field>
+              <mat-label> {{'Validity'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="pckObj.validity" name="validity" #validity="ngModel"
+                     required  maxlength="500" autocomplete="off">   
+            </mat-form-field>
+            <mat-label style="color: deepskyblue; position: relative;
+            bottom: 14px;">{{"XX Days | Validity "|langFilter}}</mat-label>
+            
+          </div>
+          <div class="col-sm-12 col-md-12" >
+            <mat-form-field>
+              <mat-label> {{'Info'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="pckObj.info"  name="info" #info="ngModel"
+                      maxlength="1000" autocomplete="off" >   
+            </mat-form-field>
+            <mat-label style="color: deepskyblue; position: relative;
+            bottom: 14px;">{{"Voice Calls: XX|Data: XX |SMS : XX|Validity : XX "|langFilter}}</mat-label>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <mat-form-field>
+              <mat-label> {{'Icon'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="pckObj.icon" name="icon" #icon="ngModel"
+                     maxlength="1000" autocomplete="off">   
+            </mat-form-field>
+          </div>
+   
+          <div class="col-sm-6 col-md-6" >
+            <mat-form-field>
+              <mat-label> {{'Search Keyword'| langFilter}}</mat-label>
+              <input matInput type="text" placeholder="" [(ngModel)]="pckObj.keyword"  name="keyword" #keyword="ngModel"
+                      maxlength="500" autocomplete="off">   
+            </mat-form-field>
+          </div> 
+         
+                         
+          
+      </div>
+          
+      <hr />
+    <!-- </div> -->
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="pull-right">
+    <button class="btn mr-2 mat-raised-button" (click)="close()">Close</button>
+    <button class="btn mat-raised-button mat-primary" type="button" (click)="addPackage()">Submit</button>
+  </mat-dialog-actions>
+</form>

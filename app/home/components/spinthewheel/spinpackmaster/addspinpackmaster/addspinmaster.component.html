@@ -1,0 +1,322 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="addUserForm" novalidate #addUserForm='ngForm'>
+    <mat-dialog-content>
+        <br>
+        <div *ngIf="mode != 'manage'" class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label> {{'English'| langFilter}}</mat-label>
+                        <input matInput type="text" [(ngModel)]="packmstrobj.name" name="name1" maxlength="50"
+                            appTitlespecial required autocomplete="off">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label> {{'Bahasa'| langFilter}}</mat-label>
+                        <input matInput type="text" [(ngModel)]="packmstrobj.description" name="description"
+                            appTitlespecial maxlength="50" autocomplete="off">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label> {{'Category'| langFilter}}</mat-label>
+                        <mat-select name="catagory" [(ngModel)]="packmstrobj.catagory" [disabled]="mode =='update'">
+                            <mat-option [value]="1">LISTING OFFER</mat-option>
+                            <mat-option [value]="2">WINNING OFFER</mat-option>
+                            <mat-option [value]="3">ACQUISITION</mat-option>
+                            <mat-option [value]="4">RETENTION</mat-option>
+                            <mat-option [value]="5">MEMBER TO MEMBER</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label> {{'Offer Type'| langFilter}}</mat-label>
+                        <mat-select [disabled]="mode =='update'" [(ngModel)]="packmstrobj.offertype" name="offertype">
+                            <mat-option [value]="1">DATA</mat-option>
+                            <mat-option [value]="2">VOICE</mat-option>
+                            <mat-option [value]="3">COMBO</mat-option>
+                            <mat-option [value]="4">PULSA</mat-option>
+                            <mat-option [value]="5">MIX</mat-option>
+                            <mat-option [value]="6">VOUCHER </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label> {{'Status'| langFilter}}</mat-label>
+                        <mat-select [(ngModel)]="packmstrobj.status" name="status" required>
+                            <mat-option [value]="1">ACTIVE</mat-option>
+                            <mat-option [value]="0" *ngIf="mode =='update'">INACTIVE</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!--<div class="col-sm-12 col-md-12">
+                    <mat-form-field>
+                        <mat-label> {{'Image URL'| langFilter}}</mat-label>
+                        <textarea matInput type="text" placeholder="" [(ngModel)]="packmstrobj.imageurl" name="imageurl"
+                            safeChars maxlength="200" required></textarea>
+                    </mat-form-field>
+                </div>-->
+            </div>
+        </div>
+
+        <div *ngIf="mode == 'manage'" class="container">
+            <div *ngIf="packmstrobj.offertype != '5'" class="row">
+                <div *ngIf="!partnershow && showpkgbtn" class="col-md-3">
+                    <mat-form-field>
+                        <mat-label> {{'Keyword'| langFilter}}</mat-label>
+                        <input matInput type="text" [(ngModel)]="packmstrobj.keyword" name="keyword" maxlength="20"
+                            required autocomplete="off" titleChars (keydown.space)="$event.preventDefault();">
+                    </mat-form-field>
+                </div>
+                <div *ngIf="!partnershow && showpkgbtn" class="col-md-3">
+                    <mat-form-field>
+                        <mat-label> {{'Short Code'| langFilter}}</mat-label>
+                        <input matInput type="text" [(ngModel)]="packmstrobj.shortcode" name="shortcode" maxlength="20"
+                            required autocomplete="off" titleChars (keydown.space)="$event.preventDefault();">
+                    </mat-form-field>
+                </div>
+                <div *ngIf="partnershow" class="col-md-3">
+                    <mat-form-field floatLabel="always">
+                        <mat-label>Partners</mat-label>
+                        <mat-select name="partnerid" [(ngModel)]="partnerid">
+                            <mat-option *ngFor="let item of partnerList" [value]="item?.partnerid">{{item?.partnername}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="showpkgbtn && !partnershow" class="col-md-3">
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Package</mat-label>
+                            <input matInput type="text" [(ngModel)]="selectedpack" name="Package" maxlength="50"
+                                autocomplete="off" #Package="ngModel" minlength="10" required pkgmasterChars
+                                (keydown.space)="$event.preventDefault();">
+                        </mat-form-field>
+                        <span class="exp-pvr"> ( Eg : PV0000000003)</span>
+                    </div>
+                </div>
+                <div *ngIf="showpkgbtn  " class="col-md-3">
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Channel</mat-label>
+                            <mat-select [(ngModel)]="selectedchannel" name="selectedchannel" required>
+                                <mat-option [value]="itm.channelId" *ngFor="let itm of channelslist">
+                                    {{itm.channelId}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="showpkgbtn" class="col-md-3">
+                    <div *ngIf="!partnershow">
+                        <button type="button" class="btn btn-outline-primary" (click)="onPkgSelectedChange()">
+                            <i class="fa fa-plus" aria-hidden="true">
+                            </i>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="!partnershow" class="col-sm-12 col-md-12">
+                    <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                        <div fxLayout="row">
+                            <div class="data-container bgdata-container">
+                                <div class="data-table-container bgdata-table-container">
+                                    <table mat-table style="width: 100%;" [dataSource]="dataSource"
+                                        class="bgdata-table">
+                                        <ng-container matColumnDef="Offertype">
+                                            <th mat-header-cell *matHeaderCellDef>OFFER TYPE</th>
+                                            <td mat-cell *matCellDef="let row">{{row?.offerName}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Keyword">
+                                            <th mat-header-cell *matHeaderCellDef>KEYWORD</th>
+                                            <td mat-cell *matCellDef="let row">{{row?.keyword}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="ShortCode">
+                                            <th mat-header-cell *matHeaderCellDef>SHORT CODE</th>
+                                            <td mat-cell *matCellDef="let row">{{row?.shortcode}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="pvrid">
+                                            <th mat-header-cell *matHeaderCellDef>PVR ID</th>
+                                            <td mat-cell *matCellDef="let row">{{row?.pvrCode}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="channel">
+                                            <th mat-header-cell *matHeaderCellDef>Channel</th>
+                                            <td mat-cell *matCellDef="let row">{{row?.channel}}</td>
+                                        </ng-container>
+                                        <ng-container cdkColumnDef="actions" stickyEnd>
+                                            <th mat-header-cell *matHeaderCellDef>Actions</th>
+                                            <td *cdkCellDef="let row;let i = index">
+                                                <div>
+                                                    <button matTooltip="Remove Package" (click)="removeSplConfig(row)"
+                                                        class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                                        <i class="fa fa-remove" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div *ngIf="packmstrobj.offertype == '5'" class="row">
+                <div *ngIf="showonmixupdate" class="row" style="width: 100%;">
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label> {{'Offer Type'| langFilter}}</mat-label>
+                            <mat-select [(ngModel)]="offertype" name="offertype">
+                                <mat-option [value]="1">DATA</mat-option>
+                                <mat-option [value]="2">VOICE</mat-option>
+                                <mat-option [value]="3">COMBO</mat-option>
+                                <mat-option [value]="4">PULSA</mat-option>
+                                <mat-option [value]="6">VOUCHER </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="offertype != '6'" class="col-md-3">
+                        <mat-form-field>
+                            <mat-label> {{'Keyword'| langFilter}}</mat-label>
+                            <input matInput type="text" [(ngModel)]="packmstrobj.keyword" name="keyword" maxlength="50"
+                                required autocomplete="off" titleChars (keydown.space)="$event.preventDefault();">
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="offertype != '6'" class="col-md-2">
+                        <mat-form-field>
+                            <mat-label> {{'Short Code'| langFilter}}</mat-label>
+                            <input matInput type="text" [(ngModel)]="packmstrobj.shortcode" name="shortcode"
+                                maxlength="50" required autocomplete="off" titleChars
+                                (keydown.space)="$event.preventDefault();">
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="offertype == '6'" class="col-md-3">
+                        <mat-form-field floatLabel="always">
+                            <mat-label>Partners</mat-label>
+                            <mat-select name="partnerid" [(ngModel)]="partnerid">
+                                <mat-option *ngFor="let item of partnerList" [value]="item?.partnerid">
+                                    {{item?.partnername}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div *ngIf="offertype != '6'" class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>Package</mat-label>
+                            <input matInput type="text" [(ngModel)]="selectedpack" name="mixPackage" maxlength="50"
+                                autocomplete="off" required titleChars (keydown.space)="$event.preventDefault();">
+                        </mat-form-field>
+                        <span class="exp-pvr"> ( Eg : PV0000000003 )</span>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <mat-label>Channel</mat-label>
+                            <!-- <input matInput type="text" [(ngModel)]="selectedchannel" name="sechannel" maxlength="50"
+                                autocomplete="off" required titleChars (keydown.space)="$event.preventDefault();"> -->
+                            <mat-select [(ngModel)]="selectedchannel" name="selectedchannel" required>
+                                <mat-option [value]="itm.channelId" *ngFor="let itm of channelslist">
+                                    {{itm.channelId}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+
+                    </div>
+                    <div *ngIf="offertype == '6'" class="col-md-3">
+                        <button type="button" class="btn btn-outline-primary  pull-right"
+                            (click)="onPkgSelectedChange()">
+                            <i class="fa fa-plus" aria-hidden="true">
+                            </i>
+                        </button>
+                    </div>
+                    <div *ngIf="offertype != '6'" class="col-md-1">
+                        <button type="button" class="btn btn-outline-primary  pull-right"
+                            (click)="onPkgSelectedChange()">
+                            <i class="fa fa-plus" aria-hidden="true">
+                            </i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%;">
+
+                    <div class="col-sm-12 col-md-12">
+                        <span *ngIf="showonmixupdate"></span>
+                        <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                            <div fxLayout="row">
+                                <div class="data-container bgdata-container">
+                                    <div class="data-table-container bgdata-table-container">
+                                        <table mat-table style="width: 100%;" [dataSource]="dataSource"
+                                            class="bgdata-table">
+                                            <ng-container matColumnDef="Offertype">
+                                                <th mat-header-cell *matHeaderCellDef>OFFER TYPE</th>
+                                                <td mat-cell *matCellDef="let row">{{row?.offerName}}</td>
+                                            </ng-container>
+                                            <ng-container matColumnDef="keyword">
+                                                <th mat-header-cell *matHeaderCellDef>Keyword</th>
+                                                <td mat-cell *matCellDef="let row">{{row?.keyword}}</td>
+                                            </ng-container>
+                                            <ng-container matColumnDef="shortcode">
+                                                <th mat-header-cell *matHeaderCellDef>Short Code</th>
+                                                <td mat-cell *matCellDef="let row">{{row?.shortcode}}</td>
+                                            </ng-container>
+                                            <ng-container matColumnDef="partnerid">
+                                                <th mat-header-cell *matHeaderCellDef>Partner</th>
+                                                <td mat-cell *matCellDef="let row">{{row?.partnerName}}</td>
+                                            </ng-container>
+                                            <ng-container matColumnDef="pvrCode">
+                                                <th mat-header-cell *matHeaderCellDef>PVR ID</th>
+                                                <td mat-cell *matCellDef="let row">{{row?.pvrCode}}</td>
+                                            </ng-container>
+                                            <ng-container matColumnDef="channel">
+                                                <th mat-header-cell *matHeaderCellDef>CHANNEL</th>
+                                                <td mat-cell *matCellDef="let row">{{row?.channel}}</td>
+                                            </ng-container>
+                                            <ng-container cdkColumnDef="actions" stickyEnd>
+                                                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                                                <td *cdkCellDef="let row;let i = index">
+                                                    <div>
+                                                        <button matTooltip="Remove Package"
+                                                            *ngIf="userpermissions.delete==1"
+                                                            (click)="removeSplConfig(row)"
+                                                            class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                                            <i class="fa fa-remove" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </ng-container>
+                                            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-divider></mat-divider>
+    <mat-dialog-actions class="pull-right">
+        <button class="mat-raised-button  btn mr-2" (click)="close()">Close</button>
+        <button *ngIf="packmstrobj.offertype=='6' && mode=='manage' " class="mat-raised-button mat-primary  btn"
+            type="button" (click)="onSubmitVoucherInfo()">Submit</button>
+        <button *ngIf="!mixmode && mode!='manage'" class="mat-raised-button mat-primary  btn" type="button"
+            (click)="submitpackmaster()">Submit</button>
+    </mat-dialog-actions>
+</form>

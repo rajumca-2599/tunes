@@ -1,0 +1,191 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr />
+<form autocomplete="off" name="BannerGroupForm" novalidate #BannerGroupForm='ngForm'>
+  <mat-dialog-content>
+    <div class="">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6 class="banner-head">Basic Details</h6>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="row">
+            <div class="col-sm-3 col-md-3">
+              <mat-form-field>
+                <mat-label> {{'Banner Group Name'| langFilter}}</mat-label>
+                <input matInput type="text" [(ngModel)]="bgobj.name" titleChars name="name" #name="ngModel"
+                  [disabled]="mode =='update'" maxlength="50" required autocomplete="off">
+
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3 col-md-3">
+              <mat-form-field>
+                <mat-label> {{'Status'| langFilter}}</mat-label>
+                <mat-select [(ngModel)]="bgobj.status" name="status" required #status="ngModel">
+                  <mat-option value="1">Active</mat-option>
+                  <mat-option value="0">Inactive</mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3 col-md-3">
+              <mat-form-field floatLabel="always">
+                <mat-label>{{'Banner Type'| langFilter}}</mat-label>
+                <mat-select name="ddlbannertype" [(ngModel)]="bgobj.bannertype" required
+                  [disabled]="bannertype_disabled" #bannertype="ngModel" (ngModelChange)="onchangeBannerType()">
+                  <mat-option *ngFor="let item of bannertypes" [value]="item.id">{{ item?.text}}</mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-3 col-md-3 other-mat" style="display: none">
+              <span class="date-picker">
+                <mat-label>{{'Start Date'| langFilter}}</mat-label>
+                <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                <input name="startdate" placeholder="" [min]="d" [max]="enddate" [(ngModel)]="bgobj.startdate"
+                  [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" />
+                <owl-date-time #dt1></owl-date-time>
+              </span>
+            </div>
+            <div class="col-sm-3 col-md-3 other-mat" style="display: none">
+              <span class="date-picker">
+                <mat-label>{{'End Date'| langFilter}}</mat-label>
+                <span class="position-absolute"><em class="fa fa-calendar"></em></span>
+                <input name="enddate" placeholder="" [min]="startdate" [(ngModel)]="bgobj.enddate"
+                  [owlDateTimeTrigger]="dt" [owlDateTime]="dt" />
+                <owl-date-time #dt></owl-date-time>
+              </span>
+            </div>
+            <div class="col-sm-3 col-md-3">
+              <mat-form-field>
+                <mat-label> {{'Banner Group Title'| langFilter}}</mat-label>
+                <input matInput type="text" [(ngModel)]="bgobj.title" titleChars name="bannertitle"
+                  #bannertitle="ngModel" maxlength="50" autocomplete="off">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-12 col-md-12">
+              <mat-form-field>
+                <mat-label> {{'Banner Group Description'| langFilter}}</mat-label>
+                <input matInput type="text" [(ngModel)]="bgobj.desc" titleChars name="desc" #bannertitle="ngModel"
+                  maxlength="200" autocomplete="off">
+
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel  [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6 class="banner-head">Banner Mapping</h6>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="row">
+
+            <div class="col-sm-12 col-md-12 ">
+              <div class="row nospace" style="margin: 0px">
+                <div class="col-sm-7 col-md-7 nospace">
+                  <mat-form-field>
+                    <mat-label> {{'Search By Name'| langFilter}}</mat-label>
+                    <input matInput type="text" [(ngModel)]="bannersearchtext" titleChars name="bannersearchtext"
+                      #name="ngModel" maxlength="50" required autocomplete="off">
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4 col-md-4 nospace">
+                  <div class="form-group ">
+                    <button type="button" class="btn btn-outline-primary btn_custom" (click)="searchbanner(-1)"><i
+                        class="fa fa-search" aria-hidden="true" matTooltip="Get Banners"></i></button>
+                    <button style="margin-left:2px " *ngIf="showprev" type="button"
+                      class="btn btn-outline-grey btn_custom" (click)="searchbanner(0)"><i class="fa fa-arrow-left"
+                        aria-hidden="true" matTooltip="Previous"></i></button>
+                    <button style="margin-left:2px " *ngIf="shownext" type="button"
+                      class="btn btn-outline-grey btn_custom" (click)="searchbanner(1)"><i class="fa fa-arrow-right"
+                        aria-hidden="true" matTooltip="Next"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="row nospace" style="margin: 0px;height: 230px;overflow-y: auto;" *ngIf="bannerslist!=null && bannerslist.length>0">
+                <div class="col-sm-3 col-md-3" *ngFor="let b of bannerslist"
+                  style="border:solid 1px #cccccc;padding:5px;">
+                  <img src="{{b.src}}" alt="{{b.text}}" title="{{b.text}}" style="width: 100%;cursor:pointer"
+                    (click)="onBannerSelectedChange(b)" />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+              <div class="row">
+                <div [hidden]="!show_SelectedBanners" style="width: 100%">
+                  <span>Selected Banners</span>
+                  <div class="container px-lg-1 my-1 p-1 bg-white rounded shadow-sm pos_abs">
+                    <div fxLayout="row">
+                      <div class="data-container bgdata-container">
+                        <div class="data-table-container bgdata-table-container">
+                          <table mat-table [dataSource]="dataSource"  class="bgdata-table">
+                            <ng-container matColumnDef="name">
+                              <th mat-header-cell *matHeaderCellDef >Banner Name</th>
+                              <td mat-cell *matCellDef="let row">{{row?.title}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="image">
+                              <th mat-header-cell *matHeaderCellDef >Image</th>
+                              <td mat-cell *matCellDef="let row">
+                                <img width="150px" height="50px" src="{{getBannerImage(row.bannerid)}}"
+                                  alt="{{row.title}}">
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="order">
+                              <th mat-header-cell *matHeaderCellDef >Order</th>
+                              <td mat-cell *matCellDef="let row;let i = index">
+                                <input matInput class="form-control" [(ngModel)]="row.order" name="{{row.bannerid}}"
+                                  numbersOnly maxlength="2" placeholder="enter order">
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="status">
+                              <th mat-header-cell *matHeaderCellDef >Status</th>
+                              <td mat-cell *matCellDef="let row">{{getStatus(row?.status)}}</td>
+                            </ng-container>
+                            <ng-container cdkColumnDef="actions" stickyEnd>
+                              <th mat-header-cell *matHeaderCellDef>Actions</th>
+                              <td *cdkCellDef="let row;let i = index">
+                                <div>
+                                  <button matTooltip="Remove Banner" [hidden]="!row.isnew && row.status =='0'"
+                                    (click)="removeSelectedBanner(row)"
+                                    class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                    <em class="fa fa-remove"></em>
+                                  </button>
+                                  <button matTooltip="Add Banner" *ngIf="!row.isnew && row.status =='0'"
+                                    (click)="ReactivateBanner(row)"
+                                    class="btn black mt-ladda-btn button-ladda btn-circle btn-outline btn-xs">
+                                    <em class="fa fa-plus"></em>
+                                  </button>
+                                </div>
+                              </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                          </table>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions class="pull-right">
+    <button class="mat-raised-button btn mr-2" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary btn" type="button" (click)="submitBannerGroup()">Submit</button>
+  </mat-dialog-actions>
+</form>
