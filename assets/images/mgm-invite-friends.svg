@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180" height="180" viewBox="0 0 180 180">
+    <defs>
+        <circle id="kduirlioea" cx="43" cy="43" r="43"/>
+        <circle id="hqgx6tue1c" cx="30" cy="30" r="30"/>
+        <circle id="4akdqnwuse" cx="22" cy="22" r="22"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <path stroke="#FFD600" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M76 38L113 50" transform="translate(-180 -128) translate(0 78) translate(180 50)"/>
+                    <path stroke="#ED2324" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M85 94.532L112 79" transform="translate(-180 -128) translate(0 78) translate(180 50)"/>
+                    <g transform="translate(-180 -128) translate(0 78) translate(180 50) translate(11 72)">
+                        <mask id="gtlb0grg3b" fill="#fff">
+                            <use xlink:href="#kduirlioea"/>
+                        </mask>
+                        <use fill="#FFD600" xlink:href="#kduirlioea"/>
+                        <g fill="#FFEE93" mask="url(#gtlb0grg3b)">
+                            <g transform="translate(14 19)">
+                                <circle cx="30.5" cy="16.5" r="16.5"/>
+                                <ellipse cx="30" cy="63.5" rx="30" ry="30.5"/>
+                            </g>
+                        </g>
+                    </g>
+                    <g transform="translate(-180 -128) translate(0 78) translate(180 50) translate(104 34)">
+                        <mask id="eny6lfei5d" fill="#fff">
+                            <use xlink:href="#hqgx6tue1c"/>
+                        </mask>
+                        <use fill="#ED2324" xlink:href="#hqgx6tue1c"/>
+                        <g fill="#FF7677" mask="url(#eny6lfei5d)">
+                            <g transform="translate(10 13)">
+                                <ellipse cx="21.35" cy="11.585" rx="11.55" ry="11.585"/>
+                                <ellipse cx="21" cy="44.585" rx="21" ry="21.415"/>
+                            </g>
+                        </g>
+                    </g>
+                    <g transform="translate(-180 -128) translate(0 78) translate(180 50) translate(36 12)">
+                        <mask id="lblje9lt6f" fill="#fff">
+                            <use xlink:href="#4akdqnwuse"/>
+                        </mask>
+                        <use fill="#FFD600" xlink:href="#4akdqnwuse"/>
+                        <g fill="#FFEE93" mask="url(#lblje9lt6f)">
+                            <g transform="translate(7 10)">
+                                <ellipse cx="15.758" cy="8.426" rx="8.525" ry="8.426"/>
+                                <ellipse cx="15.5" cy="32.426" rx="15.5" ry="15.574"/>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

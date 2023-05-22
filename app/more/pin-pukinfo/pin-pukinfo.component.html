@@ -1,0 +1,50 @@
+<div class="wrapper">
+    <app-header [pgname]="'pininfo'"></app-header>
+    <br/>
+    <br/>
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="goback()" title="">
+        <h5 class="sec-headding">{{'pinpukheading'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+
+    <div class="container-fluid">
+        <div class="morenav-cont bg-white">
+            <div class="morenav">
+                <div class="pin-row">
+                    <div class="row">
+                        <div class="col-6 txt-cont col-md-6">
+                    <p class="maintxt">{{'pin'|translate}}</p>
+                        </div>
+                        <div class="col-6 col-md-6 pintext-right">
+                        {{pinResp.pinnumber}}
+                      </div>      
+                </div>
+                <div class="clearfix"></div>
+               <div class="txt-cont">
+                <p class="sub-text-grey">{{'above_is_your_initial_pin_number'|translate}}</p>
+               </div>
+            </div>
+                
+            </div>
+    </div>
+    <div class="morenav-cont bg-white">
+        <div class="morenav">
+            <div>
+                <div class="row">
+                    <div class="col-6 txt-cont col-md-6">
+                <p class="maintxt">{{'puk'|translate}}</p>
+                    </div>
+                    <div class="col-6 col-md-6 pintext-right">
+                    {{pinResp.puknumber}}
+                  </div>      
+            </div>
+           <div class="txt-cont">
+            <p class="sub-text-grey">{{'use_the_puk_number'|translate}}</p>
+           </div>
+        </div>
+            
+        </div>
+</div>
+</div>  
+</div>

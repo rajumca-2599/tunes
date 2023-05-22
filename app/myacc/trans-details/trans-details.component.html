@@ -1,0 +1,125 @@
+
+<div class="wrapper" style="height: 100vh; overflow-y: scroll;">
+    <app-header [pgname]="'transdetails'"></app-header>
+    <div class="global-back-cont d-flex justify-content-between align-items-center mt-5">
+        <a routerLink="/transhistory"><img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" title=""></a>
+        <h5 class="sec-headding">{{'transactionhistory'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+
+    <div class="trans-status-main">
+        <section class="container-fluid trans-detail">
+            <div class="trans-status-cont">
+                <div class="img-cont text-center">
+                    <img class="tran-ingrogress" src="{{env.cdnurl}}assets/images/pending-light.svg" alt="" title="" *ngIf="transdetails.status=='1'||transdetails.status=='0'">
+                    <img src="{{env.cdnurl}}assets/images/checked_green.svg" alt="" title="" *ngIf="transdetails.status=='2'">
+                    <img class="tran-failed" src="{{env.cdnurl}}assets/images/failed-light.svg" alt="" title="" *ngIf="transdetails.status=='3'">
+                </div>
+                <p class="package-text">{{transdetails.operationtype_title}} - {{transdetails.productname}}</p>
+                <p *ngIf="transdetails.status=='0'" class="text-pending">{{'inprogress'|translate}}</p>
+                <p *ngIf="transdetails.status=='2'" class="text-success">{{'paid'|translate}}</p>
+                <p *ngIf="transdetails.status=='1' || transdetails.status=='3'" class="text-failed">{{'unsuccesful'|translate}}</p>
+                <p class="date-text">{{transdetails.transdate}}</p>
+                <section class="container-fluid trans-detail mt-0 pt-0 pb-0" *ngIf="transdetails.paymenttype=='ShopeePay' && totalSeconds>0 && totalHours==0">
+                    <div class="trans-status-cont">
+                        <div class="remaining-time mt-0">
+                            <p>{{'remainingtime'|translate}}
+                                <!-- <span class="text-primary" *ngIf="shopeepaytimer==true">
+                                    {{shopeepaytimeLeft}} mnt</span> -->
+                                    <span class="otptimer" [ngClass]="{'text-primary': shopeepaytimeLeft< '01:00' }" *ngIf="totalSeconds>0 && totalHours==0">
+                                        {{shopeepaytimeLeft}} mnt</span>
+                                </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="card">
+                <div class="trans-note">
+                    <p class="protip"><span>💡</span>&nbsp;{{'protip'|translate}}</p>
+                    <p class="text-note">{{transdetails.protip}}</p>
+                </div>
+
+                <div class="values-cont-main">
+
+                    <div class="values-cont d-flex justify-content-between">
+                        <label class="title-text">{{'transactionId'|translate}}</label>
+                        <label class="value-text">{{transdetails.tid}}</label>
+                    </div>
+
+                    <div class="values-cont d-flex justify-content-between" *ngIf="transdetails.operationtype=='GIFT'">
+                        <label class="title-text">{{'Sendgiftto'|translate}}</label>                        
+                        <label class="value-text">{{transdetails.tomsisdn}}</label>
+                    </div>
+                    <div class="values-cont d-flex justify-content-between"  *ngIf="transdetails.operationtype=='BUY' && transdetails.transactiontype!='BILLPAY'">
+                        <label class="title-text">{{'buypackage'|translate}}</label>
+                        <div class="d-block">
+                        <label class="value-text d-block">{{transdetails.name}}</label>
+                        <label class="value-text">{{transdetails.tomsisdn}}</label>
+                        </div>
+                    </div>
+                    <div class="values-cont d-flex justify-content-between"  *ngIf="transdetails.transactiontype=='BILLPAY'">
+                        <label class="title-text">{{'billpaymentfor'|translate}}</label>
+                        <div class="d-block">
+                        <label class="value-text d-block">{{transdetails.name}}</label>
+                        <label class="value-text">{{transdetails.tomsisdn}}</label>
+                        </div>
+                    </div>
+                    <div class="values-cont d-flex justify-content-between" *ngIf="transdetails.operationtype=='TOP UP'">
+                        
+                        <label class="title-text">{{'topup.for'|translate}}</label>
+                        <div class="d-block">
+                       <label class="value-text d-block">{{transdetails.name}}</label>
+                        <label class="value-text">{{transdetails.tomsisdn}}</label>
+                    </div>
+                </div>
+                <div class="values-cont d-flex justify-content-between" *ngIf="transdetails.operationtype=='ACTIVATED'">
+                        
+                    <label class="title-text">{{'buypackage'|translate}}</label>
+                    <div class="d-block">
+                   <label class="value-text d-block">{{transdetails.name}}</label>
+                    <label class="value-text">{{transdetails.tomsisdn}}</label>
+                </div>
+            </div>
+
+                    <div class="values-cont d-flex justify-content-between">
+                        <label class="title-text">{{'paymentmethod'|translate}}</label>
+                        <label class="value-text">{{transdetails.paymentchannel|translate}}</label>
+                    </div>
+
+                    <div class="values-cont d-flex justify-content-between">
+                        <label class="title-text">{{'price'|translate}}</label> 
+                        <!-- <label class="value-text">Rp{{transdetails.translateamount}}{{transdetails.translateddecimal}}</label> -->
+                        <label class="value-text">Rp{{orginalprice}}{{orginaldecimal}}</label>
+                    </div>
+
+                    <div class="values-cont d-flex justify-content-between" *ngIf="transdetails.discountprice !=0 && transdetails.price != '0.0'">
+                        <label class="title-text">{{'discount'|translate}}</label>
+                        <label *ngIf="showpercentage" class="value-text text-primary">{{discountpercentage}} %</label>
+                        <label *ngIf="!showpercentage" class="value-text text-primary">{{discountpercentage}} </label>
+                    </div>
+
+                    <div class="hr-line mt-0"></div>
+
+                    <div class="values-cont d-flex justify-content-between">
+                        <label class="total-text pt-2">{{'total'|translate}}</label>
+                        <label class="result-text f-24 pt-1">Rp{{totalprice}}{{translateddecimal}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-cont" *ngIf="(transdetails.status=='2' || transdetails.status=='3' || transdetails.status=='1')&&transdetails.paymenttype!='VOUCHER'">
+                <button type="button" *ngIf="transdetails.transactiontype=='RELOAD'" class="btn btn-primary btn-lg w-100" data-toggle="modal" (click)="doitagain()"
+                    data-target="#popup002">{{'topupagain'|translate}}</button>
+                    <button type="button" *ngIf="((transdetails.transactiontype=='PACKAGE')|| transdetails.transactiontype=='CONTENT') && transdetails.operationtype=='BUY'" class="btn btn-primary btn-lg w-100" data-toggle="modal" (click)="buypackage()"
+                    data-target="#popup002">{{'buypackageagain'|translate}}</button>
+                    <button type="button" *ngIf="transdetails.transactiontype=='PACKAGE' && transdetails.operationtype=='GIFT'" class="btn btn-primary btn-lg w-100" data-toggle="modal" (click)="buypackage()"
+                    data-target="#popup002">{{'sendgiftagain'|translate}}</button>
+                    <button type="button"  *ngIf="transdetails.transactiontype=='BILLPAY' && transdetails.status!='2' " class="btn btn-primary btn-lg w-100" data-toggle="modal" (click)="paynow()"
+                    data-target="#popup002">{{'topup.paynow'|translate}}</button>
+            </div>
+            <div class="btn-cont" *ngIf="(transdetails.status=='0')&&transdetails.paymenttype=='ShopeePay'">
+                <button type="button" class="btn btn-primary btn-lg w-100" data-toggle="modal" (click)="openshopeepayapp()">{{'topup.shoppeepay'|translate}}</button>
+            </div>
+
+        </section>
+    </div>
+</div>

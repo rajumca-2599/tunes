@@ -1,0 +1,164 @@
+<section class="user-profile-entry white-bg">
+    <div class="profile-card">
+        <div class="d-flex justify-content-between align-items-center ">
+            <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="goback()" title="">
+            <h5 class="sec-headding">{{'editprofile'|translate}}</h5>
+            <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+        </div>       
+        <div class="profile-img">
+            <img class="post-profile" [src]="userimage" onerror="this.src='assets/images/account-null-light.svg'" alt="">
+            
+            <img class="img-camera post-profile" (click)="fileInput.click()" src="assets/images/profile-camera.svg" alt="">
+
+          <input
+          class="file-input"
+          type="file"
+          #fileInput 
+          ng2FileSelect
+          [uploader]="uploader" 
+          [accept]="accepttype"         
+          style="display:none" appImgCompressor
+          (onFileSelected)="onFileSelected($event)" 
+        />
+         
+        </div>
+        <div class="prof-detail">
+            <h4 class="black"> {{userProfile?.firstname !='' ?userProfile?.firstname : 'profile.name.empty'|translate  }}</h4>
+            <div class="number-sect">
+                <p class="black">{{msisdn}} <a class="btn btn-outline-danger">{{accountype}}</a></p>               
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="form-main-cont" *ngIf="userinfo && userinfo!={}">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-lg-12">
+                <div class="form-cont login-form ">
+                    <div class="form-inner-cont">
+                        <form name="edituser" autocomplete="off"  #edituser='ngForm' id="edituser" novalidate>
+                            <div class="form-group">
+                                <label>{{'profile.fullname'|translate}}</label>
+                                <input type="text" titleChars name="txtfullname" [(ngModel)]="txtUserName"  #username="ngModel"
+                                 class="form-control" placeholder=" " maxlength="100" minlength="3"  (keypress)="titleCheck($event)" >
+                                 <div *ngIf="username.invalid && (username.dirty || username.touched)" class="err" >                                   
+                                    <div *ngIf="username.errors?.minlength">
+                                        * {{'profile.fullname.req'|translate}}
+                                   </div> 
+                                  </div>
+                                  <section class="inds-card-notification" *ngIf="usernameerror !=''">
+                                    <div class="validation-section">
+                                        <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg">
+                                        <p class="headding4"> {{usernameerror}}</p>
+                                    </div> 
+                                </section>
+                            </div>
+                            <div class="form-group">
+                                <label>{{'profile.email'|translate}}</label>
+                                <input type="text" id="email" name="email" safeChars [(ngModel)]="txtEmailId"  #email="ngModel" 
+                                 class="form-control" placeholder=""  maxlength="100" minlength="8"
+                                 pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" >
+                                 <div *ngIf="email.invalid && (email.dirty || email.touched)" class="err">
+                                    <div *ngIf="email.errors?.required">
+                                      * {{'profile.email.req'|translate}}
+                                    </div>
+                                  </div>
+                                  <div [hidden]="!email.errors?.pattern">{{'profile.email.valid'|translate}}</div> 
+                            </div>
+                            <div class="form-group">
+                                <label>{{'profile.birthdate'|translate}}</label>
+                                <input type="text" 
+                                 name="txtdob" id="txtdob"  [(ngModel)]="txtDob"  #dob="ngModel"
+                                 class="form-control calender disabled-date"  placeholder="MM/DD/YYYY" bsDatepicker 
+                                 [bsConfig]="bsConfig"  [minDate]="minDate"   [maxDate]="maxDate">
+                            </div>
+                            <div class="form-group" *ngIf="days<=3 && this.userinfo.showreferral">
+                                <label>{{'referral_code'|translate}}</label>
+                                <input type="text" name="referalcode" id="referalcode" titleChars [(ngModel)]="txtReferalCode"  #referalcode="ngModel"
+                                class="form-control" placeholder=" " maxlength="20" minlength="2">
+                                <p class="refer-code-text">{{'referral_code_helper_text'|translate}}</p>
+                            </div>
+                            <section class="inds-card-notification" *ngIf="msg !=''">
+                                <div class="validation-section">
+                                    <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg">
+                                    <p class="headding4"> {{msg}}</p>
+                                </div> 
+                            </section>
+                            <div class="form-group form-button-cont text-center mb-3">
+                                <button type="button" class="btn btn-primary mt-80" [disabled]="edituser.invalid"  (click)="updateProfile()">{{'savechanges'|translate}}</button>
+                                <!-- <button type="submit" class="btn btn-primary mt-110 " >CONTINUE</button> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div class="modal fade" id="popup001" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="img-warning warning-new">
+                    <img src="{{env.cdnurl}}assets/images/ok.jpg" alt="">
+                </div>
+                <h2 class="popup-heading">{{'sucess_redem_code'|translate}}</h2>
+                <p class="popup-text">{{redemMsg}}</p>
+
+                <div class="pop-link-cont">
+                    
+              <button
+              type="button"
+              class="btn btn-primary mb-2 m-auto d-block p-3 w-50"
+              data-dismiss="modal" (click)="navigateToAccount()"
+            >{{'check_now'|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="emailVerify" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="img-warning warning-new">
+                    <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="">
+                </div>
+                <h2 class="popup-heading">{{emailmsg}}</h2>
+                <p class="popup-text">{{'verify_email_again'|translate}}</p>
+
+                <div class="pop-link-cont">
+                    
+              <button
+              type="button"
+              class="btn btn-primary mb-2 m-auto d-block p-3 w-50"
+              data-dismiss="modal" (click)="profileUpdate()"
+            >{{'yes'|translate}}</button>
+            <button
+            type="button"
+            class="btn btn-light mb-2 m-auto d-block bg-white"
+            data-dismiss="modal"
+          >
+            {{'no'|translate}}
+          </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal  package-modal fade" id="uploadsucess" role="dialog" (click)="closeModal()">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>                
+                <p>{{profilepicturemessage}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>

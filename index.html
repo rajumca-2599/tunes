@@ -1,43 +1,514 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  
-  <meta charset="utf-8">
-  <title>RBTalbumportal</title>
-  <base href="/">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!--global css-->
-<link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/vendors/animate.css" />
-<!-- /* -- Swiper CSS V 8.4.3 -- */ -->
-<link rel="stylesheet" href="assets/css/vendors/swiper-bundle.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="user-scalable=no,maximum-scale=1.0,width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>myIM3</title>
+    <meta
+      name="description"
+      content="Nikmati kecepatan internet terbaik, paket sms, nelpon dengan kuota unlimited, aplikasi tanpa kuota untuk Android dan iPhone persembahan Indosat Ooredoo"
+    />
 
-<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
-<!--font-awesome js-->
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+    <meta
+      name="keywords"
+      content="im3 ooredoo, indosat ooredoo, aplikasi tanpa kuota, provider internet, provider terbaik, provider internet terbaik, provider internet tercepat, provider internet unlimited, provider internet terhebat, provider internet indonesia,
+provider internet terbaik di indonesia, provider terbaik di indonesia, provider terbaik untuk android, provider terbaik untuk internet, provider terbaik untuk iphone"
+    />
+    <meta name="author" content="Indosat Ooredoo" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script src="env.js"></script>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#1976d2" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <link
+      rel="apple-touch-startup-image"
+      href="assets/images/icons/icon-152x152.png"
+    />
+    <link rel="apple-touch-icon" href="assets/images/icons/icon-152x152.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="assets/images/icons/icon-152x152.png"
+    />
+    <!-- <link
+      rel="stylesheet"
+      href="/ngx-bootstrap@6.2.0/datepicker/bs-datepicker.css"
+    /> -->
+    
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css"
+    />
+    <!-- <link rel="stylesheet" type="text/css" href="/node_modules/ngx-sharebuttons/themes/material/material-dark-theme.scss">
+  <link rel="stylesheet" type="text/css" href="/node_modules/ngx-sharebuttons/themes/material/material-light-theme.scss" -->
+    <link
+      rel="stylesheet"
+      src="/node_modules/ngx-sharebuttons/themes/circles/circles-dark-theme.scss"
+    />
+    <script type="text/javascript">
+      try {
 
-<!--Custom css-->
-<link rel="stylesheet" type="text/css" href="assets/css/custom.css" />
-<!-- <link rel="stylesheet" type="text/css" href="/src/assets/css/imports/components/_comp-audio.scss" /> -->
+        if (location.href.indexOf("/pwa/") > 0) {
+          location.href = "/#/pwa";
+        }
+        if (location.href.indexOf("/getapp/") > 0) {
+          location.href = "/#/getapp";
+        }
+        const urlParams = new URLSearchParams(window.location.hash);
+        for (const param of urlParams) {
+          if (param[0].includes("showpopup"))
+            window.localStorage.setItem("showwelcomepopup", param[1]);
+            window.localStorage.setItem('displaywelcomemodal',btoa('Y'))
+        }
+
+        let deeplinking = window.localStorage.getItem("deeplinking");
+        let oAuth = window.localStorage.getItem("oauth");
+        //added on 23-nov-2021 for website redirection
+        //alert(location.href);
+        try{
+        var src = /src=([^&]+)/.exec(location.href)[1];
+        //alert("src in index.html:"+src);
+        var referurl = /referurl=([^&]+)/.exec(location.href)[1];
+        //alert("referurl in index.html:"+referurl);
+        if (src != undefined && src != "" && src.toLowerCase() == "webio") {
+          // window.localStorage.setItem("isSSO",btoa(true));
+          //alert("ISSO done in index.html");
+          if (referurl != undefined && referurl != "") {
+            window.localStorage.setItem("referurl", btoa(referurl));
+            window.localStorage.setItem("websiteurl", btoa(referurl));
+            //alert("referurl done in index.html");
+          }
+        }
+      }catch(e){
+        console.log(e);
+      }
+      // Commented on 10-jun-2022 to apply this changes irrespective of PWA
+        // if (
+        //   location.href.indexOf("/topup") > 0 ||
+        //   location.href.indexOf("/paybill") > 0 ||
+        //   location.href.indexOf("/myaccount") > 0 ||
+        //   location.href.indexOf("/package") > 0 ||
+        //   location.href.indexOf("/rewards") > 0 ||
+        //   location.href.indexOf("/home") > 0
+        // ) {
+          try {
+            var source = /source=([^&]+)/.exec(location.href)[1]; //value of 1 parameter
+            if (source != undefined && source != "")
+              window.localStorage.setItem("source", btoa(source));
+            var tid = /tid=([^&]+)/.exec(location.href)[1]; //value of 2 parameter
+            if (tid != undefined && tid != "")
+              window.localStorage.setItem("facebooktid", btoa(tid));
+            if (tid.length > 2 && source.length > 2) {
+              deeplinking = null;
+            }
+          } catch (e) {
+            console.log(e);
+          }
+        // }
+        if (
+          deeplinking == "" ||
+          deeplinking == "NA" ||
+          deeplinking == undefined
+        ) {
+          if (location.href.indexOf("/topup") > 0) {
+            window.localStorage.setItem("deeplinking", "true");
+            if (
+              oAuth != undefined &&
+              oAuth != "" &&
+              oAuth != null &&
+              transactionId == tid
+            ) {
+              //Logined User
+              location.href = "/#/topup";
+            } else {
+              window.localStorage.setItem(
+                "pwa_url",
+                btoa(JSON.stringify("topup"))
+              );
+              location.href = "/#/pwa";
+            }
+          } else if (location.href.indexOf("/paybill") > 0) {
+            window.localStorage.setItem("deeplinking", "true");
+            if (oAuth != undefined && oAuth != "" && oAuth != null) {
+              //Logined User
+              location.href = "/#/paybill";
+            } else {
+              window.localStorage.setItem(
+                "pwa_url",
+                btoa(JSON.stringify("paybill"))
+              );
+              location.href = "/#/pwa";
+            }
+          } else if (location.href.indexOf("/myaccount") > 0) {
+            window.localStorage.setItem("deeplinking", "true");
+            if (oAuth != undefined && oAuth != "" && oAuth != null) {
+              //Logined User
+              location.href = "/#/myaccount";
+            } else {
+              window.localStorage.setItem(
+                "pwa_url",
+                btoa(JSON.stringify("myaccount"))
+              );
+              location.href = "/#/pwa";
+            }
+          } else if (location.href.indexOf("/package") > 0) {
+            window.localStorage.setItem("deeplinking", "true");
+            if (oAuth != undefined && oAuth != "" && oAuth != null) {
+              //Logined User
+              location.href = "/#/package";
+            } else {
+              window.localStorage.setItem(
+                "pwa_url",
+                btoa(JSON.stringify("package"))
+              );
+              location.href = "/#/pwa";
+            }
+          } else if (location.href.indexOf("/rewards") > 0) {
+            window.localStorage.setItem("deeplinking", "true");
+            if (oAuth != undefined && oAuth != "" && oAuth != null) {
+              //Logined User
+              location.href = "/#/rewards";
+            } else {
+              window.localStorage.setItem(
+                "pwa_url",
+                btoa(JSON.stringify("rewards"))
+              );
+              location.href = "/#/pwa";
+            }
+          } else if (location.href.indexOf("/home") > 0) {
+            window.localStorage.setItem("deeplinking", "true");
+            if (oAuth != undefined && oAuth != "" && oAuth != null) {
+              //Logined User
+              location.href = "/#/home";
+            } else {
+              window.localStorage.setItem(
+                "pwa_url",
+                btoa(JSON.stringify("home"))
+              );
+              location.href = "/#/pwa";
+            }
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+
+      var clevertap = {
+        event: [],
+        profile: [],
+        account: [],
+        onUserLogin: [],
+        notifications: [],
+        privacy: [],
+      };
+      // clevertap.account.push({ id: "R57-476-7R5Z" });
 
 
 
-<!--js-->
-<script src="assets/js/jquery-3.3.1.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<!--/* -- Swiper JS V 8.4.3 -- */-->
-<script type="text/javascript" src="assets/js/vendors/swiper-bundle.min.js"></script>
-<!-- <script src="assets/js/custom.js"></script> -->
-<script src="assets/js/vendors/sha512.min.js"  type="text/javascript"></script>
-<!-- <script type="text/javascript" src="http://www.turnjs.com/lib/turn.min.js "></script> -->
-<script type="text/javascript" src="http://www.turnjs.com/lib/turn.min.js "></script>
-<!-- <script src="jquery-3.6.1.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-</head>
-<body>
-  <app-root></app-root>
-</body>
+      // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+      clevertap.account.push({ id: "R57-476-7R5Z" });
+      clevertap.privacy.push({ optOut: false }); //set the flag to true, if the user of the device opts out of sharing their data
+      clevertap.privacy.push({ useIP: false }); //set the flag to true, if the user agrees to share their IP data
+      (function () {
+        var wzrk = document.createElement("script");
+        wzrk.type = "text/javascript";
+        wzrk.async = true;
+        wzrk.src =
+          ("https:" == document.location.protocol
+            ? "https://d2r1yp2w7bby2u.cloudfront.net"
+            : "http://static.clevertap.com") + "/js/a.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(wzrk, s);
+      })();
+
+      try {
+        clevertap.notifications.push({
+          titleText: "Apakah kamu mau menerima pemberitahuan push?",
+          bodyText:
+            "Kami hanya akan mengirimkan konten yang relevan dan pembaruan status transaksimu.",
+          okButtonText: "Ya",
+          rejectButtonText: "Tidak",
+          okButtonColor: "#f28046",
+          hidePoweredByCT: true,
+          askAgainTimeInSeconds: 30,
+          serviceWorkerPath: "/clevertap-sw.js",
+        });
+      } catch (e) {
+        console.log("Clever Tap Req" + e);
+      }
+    </script>
+    <!-- Facebook Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "684096272145725");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=684096272145725&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+    <!--GTA Code #JIRA ID:DIGITAL-6854 on 25-Oct-21-->
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src =
+          "https://www.googletagmanager.com/gtm.js?id=" +
+          i +
+          dl +
+          "&gtm_auth=oQq1xG0dJbrvIUjOsxowqg&gtm_preview=env-3&gtm_cookies_win=x";
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-KR23SPM");
+    </script>
+
+    <!-- End Google Tag Manager -->
+  </head>
+
+  <body style="overflow:auto!important;">
+    <img
+      alt="."
+      src="assets/images/px.png"
+      width="1"
+      height="1"
+      style="position: absolute"
+    />
+    <app-root></app-root>
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
+    <!-- <div class="btn">CLOSE</div> -->
+    <script>
+      try {
+        var btn = document.querySelector(".btn");
+        var wrapper = window.parent.document.getElementById("wizParDiv0");
+        btn.addEventListener("click", closePopUp);
+        function closePopUp() {
+          wrapper.remove();
+        }
+      } catch (e) {}
+      try {
+        var btn = document.querySelector(".btn");
+        var wrapper = window.parent.document.getElementById("wizParDiv2");
+        btn.addEventListener("click", closePopUp);
+        function closePopUp() {
+          wrapper.remove();
+        }
+      } catch (e) {}
+      try {
+        var btn = document.querySelector(".btn");
+        var overlay = window.parent.document.getElementById("intentOpacityDiv");
+        var wrapper = window.parent.document.getElementById("intentPreview");
+        btn.addEventListener("click", closePopUp);
+        function closePopUp() {
+          overlay.remove();
+          wrapper.remove();
+        }
+      } catch (e) {}
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=__onGoogleLoaded"></script>
+    <script>
+      // let self;
+      try {
+        var firebaseConfig = {
+          apiKey: "AIzaSyD75sgu4OUwdTkuGcBhSY720OAjCh01vHM",
+          authDomain: "myim3-b0645.firebaseapp.com",
+          databaseURL: "https://myim3-b0645.firebaseio.com",
+          projectId: "myim3-b0645",
+          storageBucket: "myim3-b0645.appspot.com",
+          messagingSenderId: "876546145137",
+          appId: "1:876546145137:web:182443875138d1de81d4d0",
+          measurementId: "G-GG3831TLS5",
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        const messaging = firebase.messaging();
+        messaging
+          .requestPermission()
+          .then(function () {
+            //  MsgElem.innerHTML = "Notification permission granted."
+            console.log("Notification permission granted.");
+
+            // get the token in the form of promise
+            return messaging.getToken();
+          })
+          .then(function (token) {
+            // print the token on the HTML page
+            console.log(token);
+            window.sessionStorage.setItem("fbtokenId", token);
+            // TokenElem.innerHTML = "token is : " + token
+          })
+          .catch(function (err) {
+            // ErrElem.innerHTML = ErrElem.innerHTML + "; " + err
+            console.log("Unable to get permission to notify.", err);
+          });
+        // messaging.onMessage((payload) => {
+        //   console.log("Message received. ", payload);
+        // });
+      } catch (e) {
+        console.log(e);
+      }
+    </script>
+
+    <!--
+Start of Floodlight Tag: Please do not remove
+Activity name of this tag: Myim3app
+URL of the webpage where the tag is expected to be placed: https://myim3app.indosatooredoo.com/
+This tag must be placed between the <body> and </body> tags, as close as possible to the opening tag.
+Creation Date: 07/22/2020
+-->
+    <script type="text/javascript">
+      var axel = Math.random() + "";
+      var a = axel * 10000000000000;
+      document.write(
+        '<iframe src="https://9410194.fls.doubleclick.net/activityi;src=9410194;type=oored005;cat=myim30;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;ord=' +
+          a +
+          '?" width="1" height="1" frameborder="0" style="display:none"></iframe>'
+      );
+    </script>
+    <noscript>
+      <iframe
+        src="https://9410194.fls.doubleclick.net/activityi;src=9410194;type=oored005;cat=myim30;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;ord=1?"
+        width="1"
+        height="1"
+        frameborder="0"
+        style="display: none"
+      ></iframe>
+    </noscript>
+
+    <link
+      href="https://indira2.indosatooredoo.com/client/css/indira_chat_template.css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <div id="indira-bot-webchat-pi" class="indira-bot-webchat-container"></div>
+
+    <style>
+      .indira-bwcs-intro-wrapper
+        .indira-bwcs-panel
+        .indira-bwcs-panel-heading
+        > .indira-bwcs-minim-icon
+        > .indira-bwcs-icon-minim,
+      .indira-bwcs-intro-wrapper
+        .indira-bwcs-panel
+        .indira-bwcs-panel-heading
+        > .indira-bwcs-minim-icon
+        > .indira-bwcs-icon-close {
+        cursor: pointer !important;
+        margin-right: 5px !important;
+        width: 20px !important;
+        background: #fff !important;
+        height: 4px !important;
+        display: inline-block !important;
+        border-radius: 2px !important;
+      }
+
+      .indira-bwcs-intro-wrapper
+        .indira-bwcs-panel
+        .indira-bwcs-panel-heading
+        > .indira-bwcs-minim-icon {
+        top: 2px !important;
+      }
+
+      .indira-bwcs-intro-wrapper
+        .indira-bwcs-panel
+        .indira-bwcs-panel-heading
+        > .indira-bwcs-minim-icon
+        > .indira-bwcs-icon-minim,
+      .indira-bwcs-intro-wrapper
+        .indira-bwcs-panel
+        .indira-bwcs-panel-heading
+        > .indira-bwcs-minim-icon
+        > .indira-bwcs-icon-close {
+        cursor: pointer !important;
+        margin-right: 5px !important;
+        width: 20px !important;
+        background: #fff !important;
+        height: 4px !important;
+        display: inline-block !important;
+        border-radius: 2px !important;
+      }
+
+      .indira-bot-webchat-container .indira-bwcs-pu-chat-box {
+        width: 64px !important;
+        /* position: static !important; */
+      }
+    </style>
+    <script
+      type="text/javascript"
+      src="https://indira2.indosatooredoo.com/client/js/Indira-chat.js"
+    ></script>
+
+    <!-- End of Floodlight Tag: Please do not remove -->
+    <!--GTA4 Code #JIRA ID:DIGITAL-6854 on 25-Oct-21-->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-KR23SPM&gtm_auth=oQq1xG0dJbrvIUjOsxowqg&gtm_preview=env-3&gtm_cookies_win=x"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GTM-KR23SPM");
+    </script>
+    <!---->
+  </body>
 </html>

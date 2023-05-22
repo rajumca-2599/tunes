@@ -1,0 +1,148 @@
+
+<div  class="wrapper" *ngIf="!show && data  && data!='{}'">
+    <app-header [pgname]="'viewpackage'"></app-header>
+    <br/>
+        <!-- <section class="transaction-header-sec roam-quota mt-5 h-auto pb-2"> -->
+            <section  class="transaction-header-sec roam-internet mt-5">
+            <picture>
+                <img
+                  src="{{data.package_banner_image}}"
+                  title=""
+                  alt=""
+                  class="pg2-bgimgw-comp position-back banner-image100"
+                />
+              </picture>
+            <div class="global-back-cont position-front d-flex justify-content-between align-items-center">
+                <img src="{{env.cdnurl}}assets/images/back_dark.svg" (click)="gotoprevious()" alt="" title="">
+                <h5 class="sec-headding">{{data.package_name}}</h5>
+                <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+            </div>
+            <div class="headding-sec position-front d-flex justify-content-between align-items-end">
+                <h2 class="headding-sec-title w-25 mb-3 f-22">{{data.package_name}}
+                </h2>
+                <!-- <div class="img-cont">
+                    <img src="{{data.package_banner_image}}" alt="" title="">
+                </div> -->
+            </div>
+        </section>
+        <section class="inds-package-card roam-pack mt-300 position-relative inds-package-card-01">
+            <div class="container-fluid mhc-mb0 ">
+                <div class="card">
+                           <div class="card-body pb-0">
+                        <section class="inds-card-notification">
+                            <div class="package-section mt-0 ">
+                                <div class="pack-content"> 
+                                    <h2 *ngIf="data.original_tariff > data.tariff"  class="revised-pack">Rp{{data.original_tariff | amountConverter}}
+                                        <span>&nbsp;</span>
+                                    </h2>                                 
+                                    <h2><span>Rp</span> {{data.tariff | amountConverter}}</h2>                    
+                                 </div>
+                                <div class="pack-img" *ngIf="this.navigationFrom != 'onlyforyou'">
+                                    <img class="active" [src]="data.isfavourite ? 'assets/images/favorite-active.svg' : 'assets/images/favorite.svg'" id="myBtn2" alt="">
+                                </div>
+                              
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container-fluid mhc-mb0 inds-package-01"><div class="card"><div class="card-body pb-0">
+            <div class="mb-5" *ngIf="navigationFrom!='onlyforyou'" [innerHtml]="data.package_detail_content | safeHtml"></div>
+          
+            <div class="mb-5" *ngIf="navigationFrom=='onlyforyou'">
+                <!-- <embed  [src]={{data.package_detail_content}} width="600" height="400" > -->
+                    <iframe width="400" height="300" [src]="sanitizer.bypassSecurityTrustResourceUrl(data.package_detail_content)" frameborder="0"></iframe>
+            </div>
+            </div>
+            </div>
+        </div>
+            <div class="modal package-modal  fade" id="myModal1" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="mt-3">{{'package.sucessremoved'|translate}}</h3>
+                            <p>{{'packagemodal.desc'|translate}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal  package-modal fade" id="myModal2" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body"> 
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="mt-3">{{'package.sucessadded'|translate}}</h3>
+                            <p>{{'packagemodal.desc'|translate}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+        <div class="global-back-cont-border fixed-buttons position-fixed bg-white bg-white buy-packs-newsection btm-70 ">
+            <button type="button" *ngIf="data.gift_flag=='Y'" (click)="enableGift()"  class="btn btn-primary  d-block w-100 p-3 mr-1 f-14">{{'sendgift'|translate}}</button>
+            <button type="button" *ngIf="data.buy_flag=='Y'" (click)="gotoPayment()" class="btn btn-primary  d-block w-100 p-3 ml-1 f-14">{{'buynow'|translate}}</button>
+
+        </div>
+    </div> 
+    
+   <div *ngIf="show">
+    <div class="global-back-cont-border shadow-dwn">
+        <div class="img-sec-left">
+            <img src="{{env.cdnurl}}assets/images/close-dark.svg" (click)="enableGift()" alt="" title="">
+        </div>
+        <div class="img-sec-right">
+            <img src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" title="">
+        </div>
+
+    </div>
+
+    <div class="p-2 m-1">
+        <section class="addno-contact">
+            <p class="noto-light-18 text-secondary">{{'sendgift'|translate}}</p>
+            <h4 class="f-14 mb-3 pb-1">{{'sendgift.desc'|translate}}</h4>
+            <div class="form-cont login-form ">
+                <div class="form-inner-cont">
+                    <form>
+                        <div class="form-group ">
+                            <img class="noprefix" src="{{env.cdnurl}}assets/images/noprefix.svg">
+                            <!-- <img class="phonebook" src="{{env.cdnurl}}assets/images/phonebook.svg"> -->
+                            <input autocomplete="off" placeholder="{{'enterphoneno'|translate}}"  name="txtgiftMobileNumber" class="form-control text-grayed prefix-ip"
+                            maxlength="13" [(ngModel)]="txtgiftMobileNumber"  type="tel" appNumbersOnly
+                            required  (keyup)="validatefragment();">
+                        </div>
+                        <div *ngIf="showerror && txtgiftMobileNumber?.length >0" class="inds-card-notification">
+                            <div class="validation-section">
+                                <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg">
+                                <p class="headding4"> {{msg}}</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+    </div>
+    <div class="global-back-cont-border ">
+        <button type="button" (click)="gotoPayment()" class="btn btn-primary  d-block w-100 p-3 f-14" [disabled]="!(txtgiftMobileNumber?.length >= 9)" [ngClass] = "{'unselected' :  !(txtgiftMobileNumber?.length >= 9) }" data-dismiss="modal">{{'continue'|translate}}</button>
+    </div>
+</div>
+<div class="modal package-modal" id="myModal3" role="dialog" data-dismiss="modal" (click)="gotopackage('myModal3')">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body"><button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p class="mt-3">{{'package.nopackage'|translate}}</p>
+            </div>
+        </div>
+    </div>
+</div> 

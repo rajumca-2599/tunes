@@ -1,0 +1,73 @@
+<div class="wrapper" >
+    <app-header [pgname]="'buy'"></app-header>
+<br/>
+<br/>
+    <div class="global-back-cont-border shadow-dwn">
+        <div class="img-sec-left">
+            <img src="{{env.cdnurl}}assets/images/close-dark.svg" (click)="gotoHome()" alt="" title="">
+        </div>
+        <div class="img-sec-right">
+            <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+        </div>
+
+    </div>
+
+    <div class="p-2 m-1">
+        <section class="addno-contact">
+            <p class="noto-light-18 text-secondary">{{'topup'|translate}}</p>
+            <h4 class="f-14 mb-3 pb-1">{{'topup.heading'|translate}}</h4>
+            <div class="form-cont login-form ">
+                <div class="form-inner-cont">
+                    <form>
+                        <div class="form-group ">
+                            <img class="noprefix" src="{{env.cdnurl}}assets/images/noprefix.svg">
+                            <!-- <img class="phonebook" src="{{env.cdnurl}}assets/images/phonebook.svg"> -->
+                            <input autocomplete="off" placeholder="{{'enterphoneno'|translate}}"  name="txtMobileNumber" class="form-control text-grayed prefix-ip"
+                            maxlength="13" [(ngModel)]="txtMobileNumber"  type="tel" appNumbersOnly
+                            required  (keyup)="validatefragment();">
+                        </div>
+                        <div *ngIf="showerror && txtMobileNumber?.length >0" class="inds-card-notification">
+                            <div class="validation-section">
+                                <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg">
+                                <p class="headding4"> {{msg}}</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+        <section *ngIf="show" class="addno-contact">
+            <h4 class=" f-14 mt-4 pb-1 text-dark">{{'topup.vochercode'|translate}}</h4>
+            <div class="form-cont login-form ">
+                <div class="form-inner-cont">
+                    <form>
+                        <div class="form-group ">
+                            <input autocomplete="off" placeholder="{{'entervouchercode'|translate}}"  name="txtvochercode" class="form-control text-grayed"
+                            maxlength="14" [(ngModel)]="txtvochercode"  type="tel" appNumbersOnly (keyup)="validatefragment();">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <section class="amount-selection" *ngIf="!show">
+        <h3>{{'topup.selectedamnt'|translate}}</h3>
+        <div class="selection-box">
+            <div class="box" *ngFor="let item of topupResp; let i = index" (click)="selectTopUpAmount(item)"  [ngClass] = "{'selected' : item.normal_price == selectedamount}">
+                <!-- <p>{{topupamount}}<span> </span></p> -->
+                <p>{{item.topupamount}}<span>{{item.topupdecimal}}</span></p>
+                <img *ngIf="item.normal_price == selectedamount" class="option-selected" src="{{env.cdnurl}}assets/images/payment-checked.png" alt="">
+            </div>
+        </div>
+
+    </section>
+    <div class="global-back-cont-border shadow-dwn">
+        <button *ngIf="!show" (click)="disable()"  class="btn   btn-voucher" >{{'topup.vochercode'|translate}}</button>
+        <button *ngIf="show"  (click)="disable()"  class="btn   btn-voucher" >{{'topup.selectamount'|translate}}</button>
+        <button *ngIf="!show" (click)="gotopayments()" [disabled]="(selectedamount == '' ) || !(txtMobileNumber?.length >= 9 && isFragmentsExist) " class="btn btn-cont-sel" [ngClass] = "{'unselected' :  (selectedamount == '' ) || !(txtMobileNumber?.length >= 9 && isFragmentsExist)}">{{'continue'|translate}}</button>
+        <button *ngIf="show" (click)="voucherreload()" [disabled]="!(txtvochercode?.length >= 14 && isFragmentsExist)" class="btn btn-cont-sel" [ngClass] = "{'unselected' :  !(txtvochercode?.length >= 14 && isFragmentsExist)}">{{'continue'|translate}}</button>
+    </div> 
+</div>

@@ -1,0 +1,13 @@
+<svg id="default_image_topban" xmlns="http://www.w3.org/2000/svg" width="360" height="310" viewBox="0 0 360 310">
+  <rect id="Rectangle_1" data-name="Rectangle 1" width="360" height="310" fill="#eee"/>
+  <g id="default_image" transform="translate(140 115)">
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="40" cy="40" r="40" fill="#eee"/>
+    <g id="Group_2" data-name="Group 2" transform="translate(5 18)">
+      <g id="Group_1" data-name="Group 1" transform="translate(28 15)">
+        <path id="Path_1" data-name="Path 1" d="M7.5,0A7.5,7.5,0,1,0,15,7.5,7.5,7.5,0,0,0,7.5,0Zm0,13.828A6.328,6.328,0,1,1,13.828,7.5,6.325,6.325,0,0,1,7.5,13.828Z" fill="#aaa"/>
+        <path id="Path_2" data-name="Path 2" d="M7.5,3.782a.575.575,0,0,0-.567.582V8.115a.567.567,0,1,0,1.134,0V4.364A.575.575,0,0,0,7.5,3.782Z" fill="#aaa"/>
+        <circle id="Ellipse_2" data-name="Ellipse 2" cx="1" cy="1" r="1" transform="translate(6.5 9.273)" fill="#aaa"/>
+      </g>
+    </g>
+  </g>
+</svg>

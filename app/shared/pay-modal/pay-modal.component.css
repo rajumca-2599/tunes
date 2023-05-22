@@ -1,0 +1,92 @@
+
+.ids-pay-modal-001 .modal-content {
+    border-radius: 10px;
+    border-color: transparent;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body {
+    padding: 15px;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .package-list ul.package-row {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .package-list ul.package-row li {
+    width: 100%;
+    list-style: none;
+    position: relative;
+    border-bottom: 1px solid #eeeeee;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .package-list ul.package-row li:last-child {
+    border: 0;
+    margin-bottom: 0;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .package-list ul.package-row li .package-text {
+    display: inline-block;
+    padding: 12px 0 12px 0px;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .package-list ul.package-row li .package-text h2 {
+    font-family: "noto_sanslight";
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #211e20;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .middle-text span {
+    background-color: #ed2324;
+    border-radius: 30px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    color: #fff;
+    display: inline-block;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #ed2324;
+    vertical-align: top;
+    margin-top: 2px;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .middle-text .popup-heading {
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: inline-block;
+    width: 80%;
+    line-height: 18px;
+    padding-left: 5px;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .middle-text .popup-heading .boldtext {
+    font-family: "noto_sansbold";
+    display: inline;
+    padding: 0 3px;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .popup-text {
+    font-size: 12px;
+    text-align: center;
+    display: block;
+    color: #898989;
+    font-family: "noto_sansregular";
+    padding: 5px 25px 0px 25px;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .popup-text.warning-text-red {
+    color: #ed2324 !important;
+  }
+  
+  .ids-pay-modal-001 .modal-content .modal-body .opt-button {
+    width: 144px;
+    height: 40px;
+    border-radius: 20px;
+    font-family: "Ooredoo-Heavy";
+    font-size: 12px;
+    display: block;
+    margin: 20px auto 0 auto;
+  }
+  

@@ -1,0 +1,90 @@
+<div class="total-payment shadow-dwn position-relative">
+    <div class="payment-amt p-0">
+        <section class="inds-card007  experice-sec w-100 mt-5">
+            <img class="exp-close" (click)="navigateToHome()" src="{{env.cdnurl}}assets/images/close-black.svg">
+            <div class="card mb-0">
+                <div class="card-body ">
+                    <div class="drill-bar-cont mb-0">
+                        <span id="uparrow" class="drill-bar"></span>
+                        <!-- <span id="dwnarrow" class="drill-bar"></span> -->
+                    </div>
+                    <h3>{{'how_was_your_experience'|translate}}</h3>
+                    <div class="star-section">
+                        <div class="star-img">
+                            <div class="col-sm-12">
+                                <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index" style="display: inline-block ;width: 20px;"> 
+                                    <li (click)="countStar(star)" id="{{'starId'+i}}" [ngClass]="{'selected': (star <= selectedValue)}" (mouseover)="addClass(star)" (mouseout)="removeClass(star)"> ★
+                                        <!-- <i class="mdi mdi-star ">★</i> -->
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>                       
+                    </div>
+                    <a class="text-primary noto-light-18 text-center mt-2 pt-1 mb-4 pb-1"> {{ratingmood}}</a>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+    <div class="detail-list ">
+
+        <div class="container-fluid p-0 ">
+            <div class="rating-progress">
+               
+                <div class="progress-sec" >
+                    <p *ngIf="sourceScreen=='reload'" class="card-text">{{'feedback_pay_bill_question1'|translate}}
+                    </p>
+                    <p *ngIf="sourceScreen=='package'" class="card-text">{{'feedback_buy_bill_question1'|translate}}
+                    </p>
+                    <ngx-slider [(value)]="answer1" [options]="options"></ngx-slider>                                     
+                </div>
+                <br/>
+                <br/>
+                <div class="progress-sec ">
+                    <p class="card-text">{{'feedback_pay_bill_question2'|translate}} </p>
+                    <ngx-slider [(value)]="answer2" [options]="unlikeyoptions"></ngx-slider>                   
+                </div>
+
+            </div>
+            <div class="comment-sec ">
+                <h3>{{'let_us_know_what_you_think'|translate}}</h3>
+                <!-- <textarea name="" id="" cols="30" rows="3" class="form-control"
+                    placeholder="Type your comments here"></textarea> -->
+                    <textarea placeholder="{{'type_your_comments'|translate}}"  class="form-control mb-3" autocomplete="off" titleChars name="message" [(ngModel)]="txtopnion"  #message="ngModel" id="txtopnion"
+                    class="form-control" maxlength="100" (keypress)="titleCheck($event)">  </textarea>
+
+            </div>
+            <div class="global-back-cont-border shadow-dwn">
+                <button type="button" (click)="giveFeedback()" class="btn btn-primary  d-block w-100 p-3 f-14">{{'submit_feedback'|translate}}</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="sucess" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content m-3">
+        <div class="modal-body">
+          <div class="img-warning mt-4">
+            <img src="{{env.cdnurl}}assets/images/ok.jpg" />
+          </div>
+          <h2 class="popup-heading mb-4 mt-4 pr-5 pl-5">
+           {{'awesome'|translate}}
+          </h2>
+          <p class="popup-text pl-5 pr-5 mb-4">
+           {{'feedback_thank_you'|translate}}
+          </p>
+          <button
+            type="button"
+            class="btn btn-primary mb-2 m-auto d-block p-3 w-50"
+            data-dismiss="modal" (click)="navigateToHome()"
+          >
+           {{'gotit'|translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

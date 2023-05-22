@@ -1,0 +1,54 @@
+<section class="transaction-header-sec h-100 mt-5">
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg"  (click)="goback()" alt="" title="">
+        <h5 class="sec-headding">{{'store_locator'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+</section>
+<!-- <div class="spacer-15"></div> -->
+<!--card on input 1-->
+<div class="search-component">
+    <div class="search-section">
+        <div class="input-group">
+            <input autocomplete="off" type="text" titleChars name="packagesearch" [(ngModel)]="txtsearch"  #txtlocationsearch="ngModel" id="txtlocationsearch"
+                                     class="form-control" placeholder="{{'search_here'|translate}}" maxlength="20" minlength="3" required  (focus)="show=!show" (keydown.enter)="isSelected($event)" 
+                                     (ngModelChange)="searchLocationData($event)">
+            <img src="{{env.cdnurl}}assets/images/search-icon.svg" alt="">
+        </div>
+    </div>
+</div>
+<section class="inds-card004 search-list" *ngIf="!showemptyDataDiv">
+    <div class="card">
+        <div class="card-body">
+            <div class="history-section">
+                <ul class="history-row">
+                    <li (click)="showMap(item)" *ngFor=" let item of storeLocatorLst ">
+                        <div class="img-history">
+                            <img src="{{env.cdnurl}}assets/images/location-dark.png">
+                        </div>
+                        <div class="history-text">
+                            <h2>{{item.city}}</h2>
+                            <p>{{item.address}}</p>
+                            <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg">
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <div class="user-interactions" *ngIf="showemptyDataDiv">
+        <div class="tab-content">
+            <div class="package-detail">
+                <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="empty Package">
+                <p>
+                {{'cannot_find_location'|translate}} <br/><span class="text-primary">"{{searchterm}}"</span>                    
+            <br/> {{'search_error_message'|translate}} </p>
+            </div>
+        </div>
+
+    </div>

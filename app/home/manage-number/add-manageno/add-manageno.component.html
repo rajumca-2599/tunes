@@ -1,0 +1,41 @@
+<div class="wrapper">
+    <app-header [pgname]="'addmanage'"></app-header>
+    <br/>
+    <br/>
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="goback()" title="">
+        <h5 class="sec-headding">{{'managenoadd'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+
+    <div class="container-fluid">
+
+        <section class="addno-contact mt-4">
+            <p class="noto-light-16">{{'manageno.heading' | translate}}</p>
+            <div class="form-cont login-form ">
+                <div class="form-inner-cont">
+                    <form (keyup.enter)="Login();">
+                        <div class="form-group ">
+                            <label>{{'IM3Number'|translate}}</label>
+                            <img class="noprefix" src="{{env.cdnurl}}assets/images/noprefix.svg">
+                            <!-- <img class="phonebook" src="{{env.cdnurl}}assets/images/phonebook.svg"> -->
+                            <input autocomplete="off" placeholder="{{'enterphoneno'|translate}}"  name="txtMobileNumber" class="form-control text-grayed prefix-ip pl-5"
+                            maxlength="13" [(ngModel)]="txtMobileNumber"  type="tel" appNumbersOnly
+                            required  (keyup)="validatefragment($event);">
+                        </div>
+                        <div *ngIf="showerror && txtMobileNumber?.length >0" class="inds-card-notification">
+                            <div class="validation-section">
+                                <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg">
+                                <p class="headding4"> {{msg}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group form-button-cont text-center ">                          
+                            <button class="btn btn-primary" id="loginBtn" (click)="Login()"
+                            [disabled]="!(txtMobileNumber?.length >= 9 && isFragmentsExist)">{{'savechanges' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

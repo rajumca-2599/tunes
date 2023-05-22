@@ -1,0 +1,95 @@
+<div class="wrapper" style="height: 100vh; overflow-y: auto;">
+    <app-header [pgname]="'billinghistory'"></app-header>
+    <section class="transaction-header-sec mt-5">
+        <div class="global-back-cont d-flex justify-content-between align-items-center mt-5">
+            <img src="{{env.cdnurl}}assets/images/back_dark.svg" (click)="gotoback()"  alt="" title="">
+            <h5 class="sec-headding">{{'transaction.billing'|translate}}</h5>
+            <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+        </div>
+        <div class="headding-sec d-flex justify-content-between align-items-end">
+            <h2 class="headding-sec-title">{{'transaction.billing'|translate}}</h2>
+
+            <div class="img-cont">
+                <img src="{{env.cdnurl}}assets/images/billing-history.svg" alt="" title="">
+            </div>
+
+        </div>
+
+    </section>
+    <div  *ngIf="transactions.length > 0">
+    <section class="inds-card007 billing-history-section" *ngFor="let item of transactions; let i = index">
+        <div class="" *ngIf="item.status=='0'">
+            <div class="card container-fluid overview-card">
+                <div class="card balance-card m-0">
+                    <div class="card-body ">
+                        <div class="d-flex dif-profile-comp paid-comp">
+                            <div class="profile-sec balance-comp ">
+                                <h5 class="profile-num">{{formatdate(item?.invoicedate)}}</h5>
+                                <label class="difuser-name mb-0">Rp{{item.translateamount}}{{item.translateddecimal}}</label>
+                            </div>
+                            <div class="profile-sec text-right" (click)="gotodetails(item)">
+                                <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg">
+                                <span class="paid"> <img src="{{env.cdnurl}}assets/images/paid-green.svg"> {{'paid'|translate}} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="" *ngIf="item.status=='1' || item.status=='2'">
+            <div class="card container-fluid overview-card">
+                <div class="card balance-card m-0">
+                    <div class="card-body ">
+                        <div class="d-flex dif-profile-comp">
+                            <div class="profile-sec balance-comp">
+                                <h5 class="profile-num">{{formatdate(item?.invoicedate)}}</h5>
+                                <label class="difuser-name mb-0  text-primary">Rp{{item.translateamount}}{{item.translateddecimal}} <span>{{'overdue'|translate}}</span></label>
+                            </div>
+                            <div class="profile-sec "><button (click)="navigatetopaybill()" class="btn btn-primary profile-btnsec">{{'paybill'|translate}}</button>
+                            </div>
+                        </div>
+                        <div class="d-flex dif-profile-comp mt-1">
+                            <div class="profile-sec balance-comp">
+                                <div class="profile-sec profile-expdt mw-100">{{'paymentdue'|translate}} {{formatdate(item?.duedate) }}</div>
+
+                            </div>
+
+                            <div class="profile-sec  ">
+                                <a class="button-link" download (click)="downloadStatement(item.downloadbill)">{{'viewstatement'|translate}}<img class="w-h-10 ml-1"
+                                        src="{{env.cdnurl}}assets/images/ic_front_arrow_red.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="" *ngIf="item.status=='1'">
+            <div class="card container-fluid overview-card">
+                <div class="card balance-card m-0">
+                    <div class="card-body ">
+                        <div class="d-flex dif-profile-comp paid-comp">
+                            <div class="profile-sec balance-comp ">
+                                <h5 class="profile-num">{{formatdate(item?.invoicedate)}}</h5>
+                                <label class="difuser-name mb-0">Rp{{item.translateamount}}{{item.translateddecimal}}</label>
+                            </div>
+                            <div class="profile-sec text-right" (click)="gotodetails(item)">
+                                <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg">
+                                <span class="pay-failed"> <img src="{{env.cdnurl}}assets/images/failed.svg"> {{'unpaid'|translate}} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </section>
+</div>
+<div class="error-section-trans" *ngIf="showemptydiv">
+    <div class="error-main">
+        <img src="{{env.cdnurl}}assets/images/ask.jpg">
+        <h2 class="title">{{'nobilling'|translate}}</h2>
+        <p class="sup-text">{{'allyourbilling'|translate}}</p>
+    </div>
+</div>
+</div>

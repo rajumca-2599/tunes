@@ -1,0 +1,62 @@
+
+<div class="wrapper" style="height: 100vh; overflow-y: scroll;">
+    <app-header [pgname]="'transdetails'"></app-header>
+    <div class="global-back-cont d-flex justify-content-between align-items-center mt-5">
+        <a routerLink="/billinghistory"><img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" title=""></a>
+        <h5 class="sec-headding">{{'transaction.billing'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+
+    <div class="trans-status-main">
+        <section class="container-fluid trans-detail">
+            <div class="trans-status-cont">
+                <div class="img-cont text-center">                  
+                    <img class="tran-ingrogress" src="{{env.cdnurl}}assets/images/pending-light.svg" alt="" title="" *ngIf="transdetails.status=='1'">
+                    <img src="{{env.cdnurl}}assets/images/checked_green.svg" alt="" title="" *ngIf="transdetails.status=='2' || transdetails.status=='0'">
+                    <img class="tran-failed" src="{{env.cdnurl}}assets/images/failed-light.svg" alt="" title="" *ngIf="transdetails.status=='3'">
+                </div>
+                <p>{{'billingdetail'|translate}}</p>
+                <p *ngIf="transdetails.status=='1'" class="text-pending">{{'inprogress'|translate}}</p>
+                <p *ngIf="transdetails.status=='2' || transdetails.status=='0'" class="text-success">{{'paid'|translate}}</p>
+                <p *ngIf="transdetails.status=='3'" class="text-failed">{{'unsuccesful'|translate}}</p>
+                <p class="date-text">{{formatdate(transdetails.invoicedate)}}</p>
+            </div>
+            <div class="card">
+                <div class="values-cont-main">
+
+                    <div class="values-cont d-flex justify-content-between">
+                        <label class="title-text">{{'transactionId'|translate}}</label>
+                        <label class="value-text">{{transdetails.tid}}</label>
+                    </div>
+
+                    <div class="values-cont d-flex justify-content-between">
+                        <label class="title-text">{{'invoiceid'|translate}}</label>                        
+                        <label class="value-text">{{transdetails.invoicenumber}}</label>
+                    </div>
+                    <div class="values-cont d-flex justify-content-between" >
+                        <label class="title-text">{{'duedate'|translate}}</label>
+                        <label class="value-text">{{transdetails.formateddate}}</label>
+                    </div>
+                   
+                    <div class="values-cont d-flex justify-content-between">
+                        <label class="title-text">{{'paymentmethod'|translate}}</label>
+                        <label class="value-text">{{transdetails.paymentmethod}}</label>
+                    </div>
+                  
+
+                    <div class="hr-line mt-0"></div>
+
+                    <div class="values-cont d-flex justify-content-between">
+                        <label class="total-text pt-2">{{'total'|translate}}</label>
+                        <label class="result-text f-24 pt-1"><span class="f-14">RP</span>{{transdetails.translateamount}}{{transdetails.translateddecimal}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-cont">
+                <!-- <button type="button" class="btn btn-primary btn-lg w-100" data-toggle="modal" (click)="downloadStatement()"
+                    data-target="#popup002">{{'viewbillingstatement'|translate}}</button> -->
+            </div>
+
+        </section>
+    </div>
+</div>

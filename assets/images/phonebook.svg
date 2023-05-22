@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="32" height="32" transform="translate(137 120)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(-137 -120)" clip-path="url(#clip-path)">
+    <g id="phonebook" transform="translate(114.077 96)">
+      <g id="Group_7" data-name="Group 7">
+        <g id="Group_6" data-name="Group 6">
+          <g id="Group_5" data-name="Group 5" transform="translate(23.888 24)">
+            <path id="Path_4" data-name="Path 4" d="M0,0H30.07V32H0Z" fill="none" fill-rule="evenodd"/>
+            <path id="Path_5" data-name="Path 5" d="M25.27,0a4.8,4.8,0,0,1,4.8,4.8V27.2a4.8,4.8,0,0,1-4.8,4.8H22.982c-.131,0-.262,0-.392-.016A4.8,4.8,0,0,0,27,27.2V4.8A4.8,4.8,0,0,0,22.547.013C22.659,0,22.774,0,22.89,0H25.27Z" fill="#ff7677" fill-rule="evenodd"/>
+            <rect id="Rectangle_2" data-name="Rectangle 2" width="22.552" height="32" rx="4.8" transform="translate(4.51)" fill="#ed2324"/>
+            <rect id="Rectangle_3" data-name="Rectangle 3" width="7.517" height="4.8" rx="2.4" transform="translate(0 6.4)" fill="#ed2324"/>
+            <rect id="Rectangle_4" data-name="Rectangle 4" width="7.517" height="4.8" rx="2.4" transform="translate(0 20.8)" fill="#ed2324"/>
+            <path id="Path_6" data-name="Path 6" d="M14.24,11.213c.346.074,1.072,1.536,1.056,1.888-.021.435-1.043,1.019-1.043,1.019s-.317.224-.326.44a7.64,7.64,0,0,0,1.155,3.1,6,6,0,0,0,2.731,1.872c.216.01.752-.549.9-.611.443-.2,2.36.547,2.339.981-.016.352-1.141,2.01-1.832,2.09s-4.75-.6-6.328-3.994c-1.451-3.12-.677-5.2-.451-5.656a2.232,2.232,0,0,1,1.8-1.131Z" fill="#ff7677" stroke="#ff7677" stroke-linecap="round" stroke-width="2.4" fill-rule="evenodd"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

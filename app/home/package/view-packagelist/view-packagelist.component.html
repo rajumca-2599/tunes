@@ -1,0 +1,116 @@
+<div class="wrapper" *ngIf="packageList.length>0"> 
+    <app-header [pgname]="'viewpackage'"></app-header>
+  <br/>
+    <section  class="transaction-header-sec roam-internet mt-5">
+        <picture>
+            <img
+              src="{{packageList[0].category_banner_image}}"
+              title=""
+              alt=""
+              class="pg2-bgimgw-comp position-back banner-image100"
+            />
+          </picture>
+        <div class="global-back-cont position-front d-flex justify-content-between align-items-center">
+            <img src="{{env.cdnurl}}assets/images/back_dark.svg" (click)="gotoprevious()" alt="" title="">
+            <h5 class="sec-headding">{{packageList[0].category}}</h5>
+            <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()"  alt="" title="">
+        </div>
+        <div class="headding-sec position-front d-flex justify-content-between align-items-end w-50">
+            <h2 class="headding-sec-title">{{packageList[0].category_name}}</h2>
+            <!-- <div class="img-cont">
+                <img src="{{packageList[0].category_banner_image}}" alt="" title="">
+            </div> -->
+        </div>
+    </section>
+    <section class="inds-package-card roam-pack mt-200" >
+        <div *ngFor="let item of packageList[0].commercial_package">
+        <div class="container-fluid mhc-mb0 ">
+    
+            <div class="card">
+                       <div class="card-body pb-0">
+                    <section class="inds-card-notification">
+                        <div *ngIf="item.package_footer_desc!=''" class="validation-section">
+                            <p class="headding4"> 🎁 {{item.package_footer_desc}}</p>
+                        </div>
+                        <div class="package-section">
+                            <div class="pack-content">
+                                <h1 class="pack-name">{{item.package_name}}</h1>    
+                                <ul *ngIf="item.package_benefit.indexOf('##') !=-1">
+                                   <li *ngFor="let desc of item.package_benefit.split('##') | slice:1;">                            
+                                  {{desc}}
+                                    </li>
+                                </ul> 
+                                <ul *ngIf="item.package_benefit.indexOf('##') == -1">
+                                                               
+                                   {{item.package_benefit}}
+                                    
+                                 </ul>  
+                                <h2 *ngIf="item.original_tariff > item.tariff"  class="revised-pack">Rp{{item.original_tariff | amountConverter}} 
+                                    <span>&nbsp;</span>
+                                </h2> 
+                                <h2 *ngIf="!item.isvalidityexist"><span>Rp</span> {{item.tariff|amountConverter}}</h2> 
+                                <h2 *ngIf="item.isvalidityexist"><span>Rp</span> {{item.tariff|amountConverter}} / {{item.validity}}</h2>                
+                             </div>
+                            <div class="pack-img"><img src="{{item.package_highlight_image}}" alt=""></div> 
+                        </div>
+                        <div class="package-footer">
+                            <div class="foot-cont">
+                                <button (click)="getpackage(item)"  *ngIf="item.gift_flag=='Y'" class="btn btn-primary">{{'buygift'|translate}}</button>
+                                <button (click)="getpackage(item)"  *ngIf="item.gift_flag!='Y'" class="btn btn-primary">{{'buy'|translate}}</button>
+                                <a (click)="getpackage(item)">{{'seedetails'|translate}}<img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg"
+                                        alt=""></a>
+                            </div>
+                            <img class="active" (click)="enablefavourite(item)" [src]="item.isfavourite ? 'assets/images/favorite-active.svg' : 'assets/images/favorite.svg'" id="myBtn2" alt="">
+                            
+                        </div>
+                    </section>
+    
+    
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    </section>
+    </div>
+    <div class="modal package-modal" id="myModal3" role="dialog" data-dismiss="modal" (click)="gotopackage('myModal3')">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body"><button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <p class="mt-3">{{'package.nopackage'|translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="modal package-modal  fade" id="viewpackageremove" role="dialog" (click)="reloadpackage('viewpackageremove')">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="mt-3">{{'package.sucessremoved'|translate}}</h3>
+                    <p>{{'packagemodal.desc'|translate}}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <!-- myModal2 viewpackagesucess -->
+    <div class="modal package-modal" id="viewpackagesucess" role="dialog" (click)="reloadpackage('viewpackagesucess')">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="mt-3">{{'package.sucessadded'|translate}}</h3>
+                    <p>{{'packagemodal.desc'|translate}}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>   
+

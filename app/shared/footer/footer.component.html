@@ -1,0 +1,113 @@
+<div class="clearfix"></div>
+<div class="footer-wrap">
+    <section class="footer-nav-maincont">
+        <ul>
+            <li><a href="javascript:void();" (click)="TabClick('home');">
+                    <img *ngIf="footerstateName == 'home'" src="{{env.cdnurl}}assets/images/ic_foo_home.svg" alt="...">
+                    <img *ngIf="footerstateName != 'home'" src="{{env.cdnurl}}assets/images/ic_foo_home-grey.svg" alt="...">
+                    <span [class.selected]="footerstateName == 'home'">{{'footer.home'|translate}}</span>
+                    <!--class="selected"-->
+                </a>
+            </li>
+            <li><a href="javascript:void();" (click)="TabClick('myaccount');">
+                    <!--routerLink="/myaccount"-->
+                    <img *ngIf="footerstateName == 'myaccount'" src="{{env.cdnurl}}assets/images/ic_foo_account.svg" alt="...">
+                    <img *ngIf="footerstateName != 'myaccount'" src="{{env.cdnurl}}assets/images/ic_foo_account-grey.svg" alt="...">
+                    <span [class.selected]="footerstateName == 'myaccount'">{{'footer.acc'|translate}}</span></a>
+            </li>
+            <li><a href="javascript:void();" (click)="TabClick('package');">
+                    <!-- <img src="{{env.cdnurl}}assets/images/ic_foo_buy-grey.svg" alt="..."> -->
+                    <img *ngIf="footerstateName == 'package'" src="{{env.cdnurl}}assets/images/buy-red.png" alt="...">
+                    <img *ngIf="footerstateName != 'package'" src="{{env.cdnurl}}assets/images/ic_foo_buy-grey.svg" alt="...">
+                    <span [class.selected]="footerstateName == 'package'">{{'footer.buy'|translate}}</span></a>
+            </li>
+            <li><a href="javascript:void();" (click)="TabClick('rewards');">                   
+                    <img *ngIf="footerstateName == 'rewards'" src="{{env.cdnurl}}assets/images/ic_foo_reward-red.svg" alt="...">
+                    <img *ngIf="footerstateName != 'rewards'" src="{{env.cdnurl}}assets/images/ic_foo_reward-grey.svg" alt="...">
+                    <span [class.selected]="footerstateName == 'rewards'">{{'footer.reward'|translate}}</span></a>
+            </li>
+            <li><a href="javascript:void();" (click)="TabClick('more');">
+                    <img *ngIf="footerstateName == 'more'" src="{{env.cdnurl}}assets/images/more-red.svg" alt="...">
+                    <img *ngIf="footerstateName != 'more'" src="{{env.cdnurl}}assets/images/ic_foo_more-grey.svg" alt="...">
+                    <span [class.selected]="footerstateName == 'more'">{{'footer.more'|translate}}</span></a>
+                
+            </li>
+        </ul>
+    </section>
+</div>
+
+<!-- PopUp Modals-->
+<!-- Modal popup001-->
+<!-- <div class="ids-popup-modal-001">
+    <div class="modal fade" id="popup001" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-body">
+                    <div class="img-warning">
+                        <img src="assets/images/warning.png">
+                    </div>
+                    <h2 class="popup-heading">{{'cta.popup'|translate}}
+                        {{'cta.header'|translate}} </h2>
+                    <p class="popup-text">{{'cta.text'|translate}}
+                    </p>
+                    <p class="popup-text warning-text-red">*{{'cta.warning'|translate}}</p>
+                    <!-- {{'cta.webversion'|translate}}
+                        {{'cta.access'|translate}}</p> --
+                    <button type="button" class="btn btn-primary opt-button"
+                        data-dismiss="modal">{{appRedircttxt}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- Modal popup002-->
+<!-- <div class="ids-popup-modal-002">
+
+    <div class="modal fade " id="popup002" tabindex="-1" role="dialog" aria-labelledby="popup002" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-body">
+                    <div class="package-list">
+                        <ul class="package-row">
+                            <li>
+                                <div class="package-text">
+                                    <h2>{{'cta.popup2'|translate}}</h2>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="package-text">
+                                    <h2>{{'cta.popup2Package'|translate}}</h2>
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="package-text">
+                                    <h2>{{'cta.popup2extra'|translate}}</h2>
+                                </div>
+
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="middle-text">
+                        <span>!</span>
+                        <h2 class="popup-heading">{{'cta.popup2heading'|translate}}
+                            <p class="boldtext">#{{'lebihuntung'|translate}}</p> {{'imi3'|translate}}</h2>
+                    </div>
+
+                    <p class="popup-text warning-text-red">*{{'cta.warning'|translate}}
+                    </p>
+
+                    <button type="button" class="btn btn-primary opt-button"
+                        data-dismiss="modal">{{appRedircttxt}}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- End -->

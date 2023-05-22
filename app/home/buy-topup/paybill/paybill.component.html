@@ -1,0 +1,48 @@
+<div class="wrapper">
+<div class="global-back-cont-border shadow-dwn bg-white p-0">
+    <div class="img-sec-left border-0">
+        <img src="{{env.cdnurl}}assets/images/close-dark.svg" (click)="gotoHome()" alt="" title="">
+    </div>
+    <div class="img-sec-right">
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" (click)="openNewtab()" title="">
+    </div>
+
+</div>
+<div class="p-2 m-1">
+    <section class="addno-contact mt-100">
+        <p class="noto-light-18 text-secondary">{{'paybill'|translate}}</p>
+       
+      </section>
+    <section class="addno-contact">
+        <h4 class=" f-14 mt-4 pb-1 text-dark">{{'number'|translate}}</h4>
+        <div class="form-cont login-form ">
+            <div class="form-inner-cont">
+                <form>
+                    <div class="form-group position-relative">
+                        <img class="profpic-input"[src]="userimage"  onerror="this.src='assets/images/account-null-light.svg'" alt="">
+                        <input autocomplete="off" placeholder="{{'enterphoneno'|translate}}"  name="txtMobileNumber" class="form-control text-grayed prefix-ip"
+                        maxlength="13" [(ngModel)]="txtMobileNumber"  type="tel" appNumbersOnly
+                        required  (keyup)="validatefragment();" disabled>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<section class="amount-selection">
+    <h3>{{'billtopay'|translate}}</h3>
+    <div class="selection-box">
+        <div class="box d-block text-center fonts" [ngClass] = "{'selected' : topupResp.amount == selectedamount}">
+            <p>{{topupResp.topupamount}}<span>{{topupResp.topupdecimal}}</span></p>
+            <h5 class="headding1 mt-2">{{duedate|date:'MMM d, y'}}</h5>
+            <img *ngIf="topupResp.amount == selectedamount" class="option-selected" src="{{env.cdnurl}}assets/images/payment-checked.png" alt="">
+        </div>             
+    </div>
+
+</section>
+<div class="global-back-cont-border">
+    <button (click)="gotopayments()" class="btn btn-primary  d-block w-100 p-3 mr-1 f-14" [disabled]="selectedamount == ''" [ngClass] = "{'unselected' : selectedamount == '' }">{{'continue'|translate}}</button>
+</div>
+</div>

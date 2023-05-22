@@ -1,0 +1,83 @@
+<div class="wrapper">
+  <app-header [pgname]="'partnerdetails'"></app-header>
+  <br/>
+  <br/>
+  <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+      <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="goback()" title="">
+      <h5 class="sec-headding">{{'connected_apps'|translate}}</h5>
+      <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+  </div>
+
+<div class="bg-more">
+    <div class="morenav-cont bg-white">
+        <div class="morenav ">
+          <div class="row">
+          <div class="img-cont-rounded rounded-circle">
+            <img class="profile" src="{{partnerTotalData.imageurl}}"/>
+        </div>
+            <div>
+                <p class="profile1" >{{partnerTotalData.partnername}}</p>
+            </div>
+          </div>
+            <!-- <div>
+
+                <button type="button"  data-toggle="modal" data-target="#popuprebuy"
+                class="btn btn-primary mb-2 m-auto d-block w-50">Revoke Access</button>
+            </div> -->
+            <div class="profile-sec"><button class="btn btn-primary profile-btnsec" data-toggle="modal" data-target="#popuprebuy">{{'revoke_access_'|translate}}</button>
+      </div>
+        </div>
+        <div class="morenav">
+            <div class="txt-cont">
+                <p class="maintxt">Homepage:</p>
+                <p >{{partnerTotalData.homepageurl}}</p>
+            </div>
+        </div>
+        <div class="morenav">
+            <div class="txt-cont">
+                <p class="maintxt" >{{'email'|translate}}</p>
+                <p >{{partnerTotalData.username }}</p>
+            </div>
+           
+        </div>
+        <div class="morenav">
+            <div class="txt-cont">
+                <p class="maintxt">{{'connected_since'|translate}} </p>
+                <!-- <p >{{partnerTotalData.connected_since |date:'dd MMMM yyyy'}}</p> -->
+                <p  *ngIf="selectedlanguage=='EN'">{{partnerTotalData.connected_since |date:'dd MMMM yyyy'  }}</p>
+                <p *ngIf="selectedlanguage=='ID'">{{partnerTotalData.connected_since |date:'dd MMMM yyyy' | replace }}</p>
+            </div>
+           
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="popuprebuy" tabindex="-1" role="dialog" aria-labelledby="popuprebuy" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content m-3">
+        <div class="modal-body">
+          <div class="img-warning custom-logo-popup mt-4">
+              <img src="assets/images/dialog_questions.png">
+          </div>
+          <h2 class="popup-heading mb-2 mt-4 pl-2 pr-2">
+            {{'revoke_access'|translate}}
+          </h2>
+         
+          <p class="popup-text pl-3 pr-3 mb-2">
+            {{'short_description'|translate}}
+          </p>
+  
+         
+  
+        
+          <button type="button" class="btn btn-primary mb-2 m-auto d-block w-50"  data-dismiss="modal" (click)="Removepartner()">
+        {{'delete_' | translate}}
+          </button>
+  
+          <button type="button" class="btn btn-light mb-2 m-auto d-block bg-white w-50" data-dismiss="modal">
+            {{'cancel' | translate}}
+        </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<section class="inds-drilldown">
+    <div class="box dilldown-section" [class.opened]="isShow" id="drilldown">
+        <div class="drilldown-box">
+            <div class="logo-section">
+                <img src="{{env.cdnurl}}assets/images/im3-logo.png" alt="...">
+            </div>
+            <div class="webversion-section">
+                <p>{{'topdrawer.heading'|translate}}
+                    <strong>#{{'lebihuntung'|translate}}</strong>{{'topdrawer.imi3'|translate}}</p>
+                   
+            </div>
+        </div>
+        <button type="button" (click) ="imiapi.gotoApp();" class="btn btn-primary btn-install">{{'topdrawer.install'|translate}}</button>
+    </div>
+    <div class="drill-btn" (click)="enableToggle()">
+        <span class="drill-bar"></span>
+    </div>
+</section>

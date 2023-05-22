@@ -1,0 +1,9 @@
+.box {
+    max-height: 0px;
+    overflow-y: hidden;
+    transition: ease-in-out 600ms max-height;
+}
+.box.opened {
+    max-height: 100px;
+    transition: ease-in-out 600ms max-height;
+}

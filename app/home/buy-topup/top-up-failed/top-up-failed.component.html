@@ -1,0 +1,57 @@
+<div class="wrapper">
+    <app-header [pgname]="'buy'"></app-header>
+    <br/>
+    <br/>
+<div class="global-back-cont d-flex justify-content-between align-items-center bg-white mt-5">
+    <img src="{{env.cdnurl}}assets/images/close-dark.svg" (click)="gotoHome()" alt="" title="">
+
+    <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+</div>
+
+
+<div class="error-section-trans top-up-content mt-0">
+    <div class="error-main">
+        <img src="{{env.cdnurl}}assets/images/fail.png">
+        <h3 class="title">{{'voucherfailed.heading'|translate}}</h3>
+        <h5 class="topup-msg" *ngIf="reqobj.transtype=='topup' || reqobj.transtype=='reload'">
+            {{'topupfailed.description'|translate}} <span>{{amount | amountConverter}} {{'for'|translate}} {{msisdn}}</span>
+        </h5>
+        <h5 class="topup-msg" *ngIf="(reqobj.transtype=='package')|| (reqobj.transtype=='content')">
+            {{'packagefailed.description'|translate}} {{reqobj.packagename}} {{'for'|translate}} <span> {{msisdn}}</span>
+          
+        </h5>        
+        <h5 class="topup-msg" *ngIf="reqobj.transtype=='billpay'">
+            {{'billpayfailure'|translate}} <span>{{amount | amountConverter}} {{'for'|translate}} {{msisdn}}</span>
+        </h5>
+
+       
+    </div>
+</div>
+<div class="tip-section">
+    <h3>💡PRO TIP</h3>
+    <p>{{sucessresp.protip}}</p>
+    <a href="#"> Call To Action <img src="{{env.cdnurl}}assets/images/detail-red.svg"></a>
+</div>
+<div class="global-back-cont-border" *ngIf="(reqobj.transtype=='package')|| (reqobj.transtype=='content')">
+    <button type="button"  (click)="naviagtetoaccount()"  class="btn btn-primary  d-block w-100 p-3 mr-1 f-14">{{'seequota'|translate}}</button>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="total-payment shadow-dwn" (click)="navigateToFeedback()">
+    <div class="payment-amt p-0">
+        <section class="inds-card007  experice-sec w-100">
+            <div class="card mb-0">
+                <div class="card-body ">
+                    <div class="drill-bar-cont mb-0">
+                        <span id="uparrow" class="drill-bar"></span>
+                        <!-- <span id="dwnarrow" class="drill-bar"></span> -->
+                    </div>
+                    <h3>{{'how_was_your_experience'|translate}}</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>

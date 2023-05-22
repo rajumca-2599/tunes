@@ -1,0 +1,58 @@
+<section class="transaction-header-sec h-100  mt-5">
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" (click)="gotoReadinessCoverage()" alt="" title="">
+        <h5 class="sec-headding">{{'4gcoverage'|translate}}</h5>
+        <img (click)="openNewtab()" src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" title="">
+    </div>
+</section>
+<!-- <div class="spacer-15"></div> -->
+<!--card on input 1-->
+<section class="inds-card007 four-g-section mt-0">
+    <div class="">
+        <div class="card container-fluid overview-card">
+            <div class="card-body pb-0">
+
+                <div class="d-flex dif-profile-comp">
+                    <div class="profile-sec difuser-name">{{userlocation}}</div>
+                </div>
+                <!-- <p class="search-desc">Jakarta, Indonesia</p> -->
+                <div class="hr-line profile-line"> <span class="post-profile-sec">{{'areacoverage'|translate}}</span>
+                </div>
+                <div class="area-detail">
+                    <div class="d-block text-center mt-3" *ngIf="!show">
+                        <img src="{{env.cdnurl}}assets/images/ask.jpg">
+                    </div>
+                    <div class="d-block text-center mt-3" *ngIf="show">
+                        <img src="{{env.cdnurl}}assets/images/ok.jpg">
+                    </div>
+                    <div class="area-info" >
+                        <div *ngIf="!show">
+                        <h3>{{'feedback_bad_title'|translate}} </h3>
+                        <p>{{'feedback_bad_message'|translate}}</p>
+                        <textarea placeholder="{{'hint_comment'|translate}}"  class="form-control mb-3" autocomplete="off" titleChars name="message" [(ngModel)]="txtopnion"  #message="ngModel" id="txtopnion"
+                        class="form-control" maxlength="100">  </textarea>
+                       
+                        <!-- <a href="#" class=" area-btn btn btn-primary  w-100 d-block p-3 mb-3">SHARE </a> -->                      
+                            <div  class="form-group form-button-cont text-center mb-3 ">
+                                <button class="btn btn-primary mt-80 w-50" id="loginBtn" (click)="assignFeedback()"
+                                    [disabled]="txtopnion?.length ==0  ">{{'submit_feedback' | translate}}</button>
+                            </div>
+                        </div>
+                    <div *ngIf="show">
+                            <h3>{{'feedback_thank_title'|translate}} </h3>
+                            <p>{{'feedback_thank_desc'|translate}}</p>
+                        
+                <a (click)="gotoHome()" data-dismiss="modal"
+                    class="area-btn btn btn-primary p-3 btn-outline-danger w-100 d-block  mb-3">{{'backtohome'|translate}}</a>
+
+                <a (click)="gotoReadinessCoverage()" class=" area-btn btn btn-light mb-2 m-auto d-block bg-white"
+                    data-dismiss="modal">{{'check_coverage_again'|translate}} <img
+                        src="assets/images/detail-black-arrow.svg" alt=""></a>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+</section>

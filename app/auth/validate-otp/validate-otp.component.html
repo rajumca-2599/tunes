@@ -1,0 +1,103 @@
+<section class="hedernav-cont">
+    <div class="navctrl-cont">
+        <div class="back-link-cont">
+
+        </div>
+        <div class="lang-cont">
+            <span class="lang-span">
+                <a [class.selected]="selectedlanguage == 'EN'" href="javascript:void()"
+                    (click)="switchLang('EN')">EN</a>
+            </span>
+            <span class="lang-span">
+                <a [class.selected]="selectedlanguage == 'ID'" href="javascript:void()"
+                    (click)="switchLang('ID')">ID</a>
+            </span>
+        </div>
+    </div>
+</section>
+<section  class="form-main-cont"   style="display: flex;min-height: 100vh;padding-top: 30%;align-items: normal">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-lg-12">
+                <div class="form-cont login-form ">
+                    <div class="form-title-cont ">
+                        <h2 class="form-heading">{{'otpheading'|translate}}</h2>
+                    </div>
+                    <div class="form-inner-cont">
+                        <form autocomplete="new-password" (keyup.enter)="validateOTP();">
+                            <p class="Verification-text mt-65">{{'otpverifymsg'|translate:param}}</p>
+                            <div class="form-group-otp otpnewsec otpborder">
+
+                               <!--  <div class="wrapper">
+                                    <input type="password" inputmode="numeric"  id="otp_1" maxlength="1" autocomplete="off"  appNumbersOnly
+                                    (keyup)="eventHandler($event,1)"
+                                    (keydown)="downevent($event,1)"                                     
+                                        required class="otp-input first">
+                                    <input type="tel" id="otp_2" maxlength="1" autocomplete="off" appNumbersOnly required
+                                    (keyup)="eventHandler($event,2)"
+                                    (keydown)="downevent($event,2)"
+                                        class="otp-input second">
+                                    <input type="tel" id="otp_3" maxlength="1" autocomplete="off" appNumbersOnly required
+                                    (keyup)="eventHandler($event,3)"
+                                    (keydown)="downevent($event,3)"
+                                        class="otp-input third">
+                                    <input type="tel" id="otp_4" maxlength="1" autocomplete="off" appNumbersOnly required
+                                    (keyup)="eventHandler($event,4)"
+                                    (keydown)="downevent($event,4)"
+                                        class="otp-input fourth">
+                                    <input type="tel" id="otp_5" maxlength="1" autocomplete="off" appNumbersOnly required
+                                    (keyup)="eventHandler($event,5)"
+                                    (keydown)="downevent($event,5)"
+                                        class="otp-input fifth">
+                                    <input type="tel" id="otp_6" maxlength="1" autocomplete="off" appNumbersOnly required
+                                    (keyup)="eventHandler($event,6)"
+                                    (keydown)="downevent($event,6)"
+                                        class="otp-input sixth">
+                                </div> -->
+                                <ng-otp-input (onInputChange)="onOtpChange($event)" autocomplete="new-password"   #ngOtpInput 
+                                     [config]="config">
+                                </ng-otp-input> 
+                                <!-- <div class="form-group otp-section">
+                                    </div>  --> 
+                                <!-- <input type="textbox" name="txtOTP" [(ngModel)]="txtOTP" class="error" maxlength="6"  id="pincode-input1" placeholder="Enter OTP" appNumbersOnly required> -->
+
+                                <!-- <input _ngcontent-yka-c54="" numberonly="" maxlength="1" autocomplete="off" 
+                                    class="otp-input ng-valid ng-star-inserted ng-touched ng-dirty" id="otp_0_uk011ishkkfkaffi349"
+                                     type="password" placeholder="" onkeypress="return (event.charCode >= 48 &amp;&amp; event.charCode <= 57) || event.charCode == 0" pattern="\d*" style="width: 40px; height: 40px; border: 1px solid rgb(204, 204, 204);"> -->
+                            </div>
+
+
+
+                            <div *ngIf="errMsg!='' && otp.length > 0" class="inds-card-notification">
+                                <div class="validation-section">
+                                    <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg">
+                                    <p class="headding4"> {{errMsg}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-button-cont text-center mb-0">
+
+                                <button [disabled]="otp.length < 6" class="btn btn-primary" id="verifyBtn"
+                                    (click)="validateOTP()">{{'otpverify'|translate}}</button>
+
+                            </div>
+
+                            <div class="form-group form-link-cont text-center">
+                                <ng-container *ngIf="timerOn">
+                                    <p class="resend-text">{{'otpmsg'|translate}}</p>
+                                    <div class="otptimer">{{'otpretery'|translate}} <span>{{timeLeft}}</span></div>
+                                </ng-container>
+                                <p *ngIf="showResendPwd" class="resend-text">{{'otpcode'|translate}}<a
+                                        [ngClass]="{'disabled': timerOn}" (click)="resendOtp()">
+                                        {{'otpresend'|translate}}</a></p>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>

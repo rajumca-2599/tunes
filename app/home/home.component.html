@@ -1,0 +1,89 @@
+<section class="herobanner-cont">
+    <app-header [pgname]="'home'"></app-header>
+    <app-top-slider [groupname]="'Home'"></app-top-slider>
+</section>
+<app-dashboard></app-dashboard>
+<app-advance-promotions [advancesourceid]="advancepromotionsourceid"></app-advance-promotions>
+<app-recommendations></app-recommendations>
+<app-only-for-you></app-only-for-you>
+<app-promotions [sourceid]="promobannersourceid" [source]="'home'"></app-promotions>
+<app-promotions [sourceid]="promotionssourceid" [source]="'home'"></app-promotions>
+<app-popular-content [source]="'home'"></app-popular-content>
+<app-popular-package [source]="'home'"></app-popular-package>
+
+    <!-- small Modal Modal -->
+    <div class="modal  fade" id="smallModal" *ngIf="!firstLogin" tabindex="-1" aria-labelledby="largeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-promo modal-sm modal-dialog-centered ">
+            <div class="modal-content modal-promo">
+
+                <div class="modal-body promo-body" >
+                    <!-- <div *ngIf="!item.ishtml">
+                    <button type="button" class="close promo-close" data-dismiss="modal"  (click)="closeDiv('smallModal')" aria-label="Close">
+                        <span aria-hidden="true" >
+                    <img src="{{env.cdnurl}}assets/images/close-black.svg" alt="close"></span>
+                    </button>
+                    <a>
+                        <img class="promo-img" src="{{item.image.image}}" alt="">
+                        <div class="text-center my-3">
+                        <button type="button"  (click)="activateOffer()" class="btn btn-primary  d-block w-100 p-3 f-14" >{{item.context.buttontext}}</button>
+                        </div>
+                    </a>
+                </div> -->
+                <!-- <div *ngIf="item.ishtml" >                    -->
+                    <div class="swiper-container sw-promo" [swiper]="config" [(index)]="index">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" *ngFor="let item of notificationList">
+                                <div>{{item.title}}</div>
+                                <button type="button" class="close promo-close" data-dismiss="modal"  (click)="closeDiv('smallModal')" aria-label="Close">
+                                    <span aria-hidden="true">
+                                <img src="{{env.cdnurl}}assets/images/close-black.svg" alt="close"></span>
+                                </button>
+                                <div class="d-flex justify-content-center modal-content modal-body" [innerHtml]="item.data | safeHtml"></div>
+                                <div class="text-center my-3">
+                                    <button type="button" (click)="activateOffer()"  class="btn btn-primary  d-block w-100 p-3 f-14" >{{item.context.buttontext}}</button>
+                                </div>
+                               
+                            </div>                           
+                        </div>  
+                        <br/> 
+                        <div class="swiper-pagination"></div>                    
+                    </div>
+                    
+                <!-- </div> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+	
+
+    <div class="modal  package-modal fade" id="offeractivated" role="dialog" (click)="closeDiv('offeractivated')">
+        <div class="modal-dialog">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <p>{{'offer.desc'|translate}}</p>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+    <!-- DIGITAL-6706|venkatarao.m|PWA Redirection|2021-09-28 -->
+    <!-- <div class="modal  fade" id="divredirectModal" tabindex="-1" aria-labelledby="largeModalLabel" 
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-promo modal-sm modal-dialog-centered modal-lg">
+            <div class="modal-content modal-promo">
+                <div class="modal-body promo-body" style="text-align: -webkit-center;">
+                  <div [innerHTML]="redirecthtml  | safeHtml" style="text-align: -webkit-center;">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="onredirectModalClose()">{{'close'|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+	

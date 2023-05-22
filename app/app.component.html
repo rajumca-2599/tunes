@@ -1,3 +1,18 @@
+<div class="wrapper">
+  <app-topdrawer *ngIf="showHeader(router.url)"></app-topdrawer>
+  <div [@routeAnimations]="prepareRoute(outlet)" [@.disabled]="disableAnimation">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</div>
+<app-footer *ngIf="showHeader(router.url)" [stateName]="stateName"></app-footer>
 
-
-<router-outlet></router-outlet>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#fff" type="ball-pulse" [fullScreen]="true" template="<div class='om_loader_wrapper'>
+                    <div class='om_loader_card'>
+                        <div class='gif_loader'>
+                            <img src='{{env.cdnurl}}assets/images/inds-loader.gif' width='60px' alt='..'>
+                        </div>
+                        <p class='dots_anim loading_text'>{{'loading'|translate}}</p>
+                        
+                    </div>
+                </div>">
+</ngx-spinner>

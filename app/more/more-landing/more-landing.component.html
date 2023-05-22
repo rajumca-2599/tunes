@@ -1,0 +1,289 @@
+<div class="wrapper">
+    <app-header [pgname]="'home'"></app-header>
+    <br/>
+    <br/>
+<section class="rewards-profile-entry">
+    <div class="profile-card">
+        <div class="profile-img">
+
+            <img  [src]="userimage"  onerror="this.src='assets/images/account-null-light.svg'" alt="">
+        </div>
+        <div class="prof-detail">
+            <h4 class="prof-name"> {{userProfile?.firstname !='' ?userProfile?.firstname : 'profile.name.empty'|translate  }}</h4>
+            <div class="number-sect">
+                <p>{{msisdn}} <a>{{accountype}}</a></p>
+                <a class="button-link" (click)="navigateToProfile()">{{'full_profile'|translate}}<img src="{{env.cdnurl}}assets/images/detail-light.svg"
+                        alt=""></a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<div class="container-fluid" *ngIf="alertsResp.length>=1">
+    <section class="inds-swiper04 container-fluid rewards-redeem-ref">
+        <!-- Swiper -->
+        <div class="slide-head-sec">
+            <h3>{{'things_to_done'|translate}}</h3>
+            <p>{{alertsResp.length}}</p>
+        </div>
+        <div class="swiper-container inds-swiper04-cont moreswipper2701" [swiper]="config" [(index)]="index">
+            <div class="swiper-wrapper" >           
+                <div class="swiper-slide" *ngFor="let item of alertsResp">                     
+                    <section class="inds-sw04-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>{{item.title}} </h4>
+                                <p>{{item.description}}</p>
+                            </div>
+                            <div class="redeem-footer">
+                                <a (click)="naviagateUrl(item.pageurl)">{{item.buttontext}}</a>
+                                <img src="{{env.cdnurl}}assets/images/ic_front_arrow_red.svg">
+                            </div>
+                        </div>
+                    </section>
+                </div> 
+                            
+            </div>
+            <br/>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+</div>
+<div class="bg-more">
+    <div class="more-nav-cont container-fluid ">
+        <h2 class="more-head">{{'account_setting'|translate}}</h2>
+    </div>
+
+    <div class="morenav-cont bg-white">
+        <div class="morenav" (click)="navigatetoManageNo()">
+            <div class="txt-cont">
+                <p class="maintxt">{{'manage_number'|translate}}</p>
+            </div>
+            <div> 
+                <a  >
+                    <img  src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt="">
+
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="morenav-cont bg-white">
+    <div class="morenav" (click)="navigatetoPartnerList()">
+        <div class="txt-cont">
+            <p class="maintxt">{{'connected_apps'|translate}}</p>
+        </div>
+        <div>
+           
+            <a><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>            
+        </div>
+    </div>
+    </div>
+</div>
+<!-- <div class="spacer-15"></div> -->
+<div class="bg-more">
+    <div class="more-nav-cont container-fluid ">
+        <h2 class="more-head">{{'mysimcard'|translate}}</h2>
+    </div>
+
+    <div class="morenav-cont bg-white">
+        <div class="morenav">
+            <div class="txt-cont">
+                <p class="maintxt">{{'simcardstatus'|translate}}</p>
+                <p *ngIf="simResp.dukapilstatus!=undefined && simResp.dukapilstatus=='Registered'" class="sub-text-green">{{simstatus}}</p>  
+                <p *ngIf="simResp.dukapilstatus!=undefined && simResp.dukapilstatus!='Registered'" class="color-red" class="sub-text-grey">{{simstatus}}</p>   
+                <p *ngIf="simResp.dukapilstatus==undefined" class="color-red" class="sub-text-grey">{{'unregistered'|translate}}</p>                                                     
+            </div>
+            <div>
+                <!-- <p class="sub-text-grey text-primary">{{'registernow'|translate}}</p> -->
+                <!-- <a><img src="assets/images/detail-black-arrow.svg" alt=""></a> -->
+                <button type="button" *ngIf="simResp.dukapilstatus!='Registered'" (click)="openUrl()"  class="btn btn-primary btn-outline-danger">{{'registernow'|translate}}</button>
+                <a  *ngIf="simResp.dukapilstatus=='Registered'" (click)="openSimCardPopUP()">
+                    <img  src="{{env.cdnurl}}assets/images/info-icon.svg" alt="" width="20">
+
+                </a>
+            </div>
+        </div>
+        <div class="morenav" (click)="navigateToReadines()">
+            <div class="txt-cont">
+                <p class="maintxt">{{'4greadlines'|translate}}</p>                             
+            </div>
+            <div>
+                <!-- <p class="sub-text-grey text-primary">{{'registernow'|translate}}</p> -->
+                <a><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>            
+            </div>
+        </div>
+        <div class="morenav" (click)="navigateToPinInfo()">
+            <div class="txt-cont">
+                <p class="maintxt">{{'pininfo'|translate}}</p>                             
+            </div>
+            <div>
+        <a><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>            
+            </div>
+        </div>
+        <div class="morenav" (click)="openRoamingPopUP()">
+            <div class="txt-cont">
+                <p class="maintxt">{{'roamingstatus'|translate}}</p>
+                <p *ngIf="roamingInfo.status!='true'" class="sub-text-grey">{{'notactive'|translate}}</p> 
+                <p *ngIf="roamingInfo.status=='true'" class="sub-text-green" >{{'active'|translate}}</p>                              
+            </div>
+            <div>               
+                <a><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>
+            
+            </div>
+        </div>
+        <div class="morenav" (click)="openNewTab('buynewnumber')">
+            <div class="txt-cont">
+                <p class="maintxt">{{'buynewnumber'|translate}}</p>
+                <p class="sub-text-grey text-primary">{{'new'|translate}}</p>
+            </div>
+            <div>
+                <a><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>
+            </div>
+        </div>
+        <div class="hr-line-more "></div>
+        <div class="morenav" (click)="openNewTab('prepaidactivation')">
+            <div class="txt-cont">
+                <p class="maintxt">{{'prepaidactivation'|translate}} </p>
+                <p class="sub-text-grey text-primary">{{'new'|translate}}</p>
+            </div>
+            <div>
+                <a href="https://myim3.indosatooredoo.com/registration"><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-more">
+    <div class="more-nav-cont container-fluid ">
+        <h2 class="more-head">{{'information'|translate}}</h2>
+    </div>
+
+    <div class="morenav-cont bg-white">
+
+        <div class="morenav" (click)="navigateToStoreLocator()">
+            <div class="txt-cont">
+                <p class="maintxt">{{'storelocator'|translate}}</p>
+            </div>
+            <div>
+                <a><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>
+            </div>
+        </div>
+        <div class="hr-line-more "></div>
+
+        <div class="morenav" (click)="openNewTab('webbooking')">
+            <div class="txt-cont">
+                <p class="maintxt">{{'webbooking'|translate}}</p>
+            </div>
+            <div>
+                <a ><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>
+            </div>
+        </div>
+        <div class="hr-line-more "></div>
+
+        <div class="morenav" (click)="openNewTab('aboutmyimi')">
+            <div class="txt-cont">
+                <p class="maintxt">{{'aboutmyim3'|translate}}</p>
+            </div>
+            <div>
+                <a ><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="bg-more">
+
+    <div class="more-nav-cont container-fluid ">
+    </div>
+    <div class="morenav-cont bg-white">
+
+        <div class="morenav" (click)="show()">
+            <div class="txt-cont">
+                <p class="maintxt">{{'header.logout'|translate}}</p>
+            </div>
+            <div>
+                <a ><img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+</div>
+
+<div class="modal fade" id="popup001" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="img-warning warning-new">
+                    <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="">
+                </div>
+                <h2 class="popup-heading">{{'logout.header'|translate}}</h2>
+                <p class="popup-text">{{'logout.desc'|translate}}</p>
+
+
+                <button type="button" class="btn btn-primary opt-button" (click)="modalRef.hide()" data-dismiss="modal">{{'cancel'|translate}}  </button>
+
+
+                <div class="pop-link-cont">
+
+                    <!-- <h5 class="head5">Got myIM3 App?</h5> -->
+                    <a class="button-link-black" (click)="logout()">{{'logout'|translate}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="simstatuspopup" data-dismiss="modal" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="img-warning warning-new">
+                    <img src="{{env.cdnurl}}assets/images/ok.jpg" alt="">
+                </div>
+                <h2 class="popup-heading">{{'hey'|translate}} {{userProfile?.firstname}}</h2>
+                <p class="popup-text">{{simMsg}}</p>
+
+
+                <!-- <button type="button" class="btn btn-primary opt-button" (click)="modalRef.hide()" data-dismiss="modal">{{'no'|translate}} </button> -->
+
+
+                <div class="pop-link-cont">
+
+                    <!-- <h5 class="head5">Got myIM3 App?</h5> -->
+                    <!-- <a class="button-link-black" (click)="modalRef.hide()"  >{{'ok'|translate}}</a> -->
+                       <button type="button" class="btn btn-primary opt-button" (click)="modalRef.hide()" data-dismiss="modal">{{'ok'|translate}} </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="roamingstatuspopup" data-dismiss="modal" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="img-warning warning-new">
+                    <img src="{{env.cdnurl}}assets/images/ok.jpg" alt="">
+                </div>
+                <h2  class="popup-heading">{{'roaming_active_title'|translate}}
+                    <span class="green" *ngIf="roamingInfo.status=='true'">{{'active'|translate}}</span>
+                    <span class="color-red" *ngIf="roamingInfo.status!='true'">{{'notactive'|translate}}</span>
+                </h2>
+                
+               
+
+               
+                <p *ngIf="roamingInfo.status=='true'" class="popup-text">{{'roaming_active_message'|translate}}</p>
+                <p *ngIf="roamingInfo.status!='true'" class="popup-text">{{'roaming_inactive_message'|translate}}</p>
+                <div class="pop-link-cont">
+                       <button type="button" class="btn btn-primary opt-button" (click)="modalRef.hide()" data-dismiss="modal">{{'topup.gotit'|translate}} </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

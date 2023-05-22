@@ -1,0 +1,32 @@
+.history-txt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: lightslategray;
+}
+#a {
+    position: relative;
+    border-radius: 14px;
+    box-shadow: 2px 2px 2px 2px whitesmoke;
+   
+  }
+  .dummyimg{
+    height: 290px;
+    width: 100%;
+    padding: 35px;
+    border: 2px solid rgb(219 211 211);
+    border-radius: 38px;
+    margin-inline: auto;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+  }
+  #boldid{
+    font-weight: 12px;
+  }
+ 
+   
+   
+   
+   
+ 

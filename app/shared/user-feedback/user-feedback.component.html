@@ -1,0 +1,46 @@
+<div
+class="modal fade"
+id="verificationsent"
+tabindex="-1"
+role="dialog"
+aria-labelledby="popup001"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content m-3">
+    <div class="modal-body">
+      <div class="img-warning mt-4">
+        <img src="assets/images/ok.jpg" />
+      </div>
+      <h2 class="popup-heading mb-4 mt-4 pr-5 pl-5">
+       {{'do_you_love_myim3'|translate}}
+      </h2>
+      <p class="popup-text pl-5 pr-5 mb-4">
+       {{'share_some_love'|translate}}      
+      </p>
+      <div class="star-section">
+        <div class="star-img">
+            <div class="col-sm-12">
+                <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index" style="display: inline-block ;width: 20px;"> 
+                    <li (click)="countStar(star)" id="{{'starId'+i}}" [ngClass]="{'selected': (star <= selectedValue)}" (mouseover)="addClass(star)" (mouseout)="removeClass(star)"> ★
+                        <!-- <i class="mdi mdi-star ">★</i> -->
+                    </li>
+                </ul>
+            </div>
+        </div>                       
+    </div>
+    <p class="popup-text pl-5 pr-5 mb-4">
+      {{'would_you_like_to_rate_our_app_on_play_store_too'|translate}}
+    </p>
+
+      <button
+        type="button"
+        class="btn btn-primary mb-2 m-auto d-block p-3 w-50"
+        data-dismiss="modal" (click)="navigateToPlayStore()"
+      >
+        {{'rate_on_playstore'|translate}}
+      </button>
+    </div>
+  </div>
+</div>
+</div>

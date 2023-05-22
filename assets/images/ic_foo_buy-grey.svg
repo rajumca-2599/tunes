@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="47" viewBox="0 0 48 47">
+    <defs>
+        <filter id="prefix__a" width="165%" height="474.5%" x="-32.5%" y="-181.8%" filterUnits="objectBoundingBox">
+            <feOffset dy="-2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="25"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.878431373 0 0 0 0 0.878431373 0 0 0 0 0.878431373 0 0 0 1 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd" filter="url(#prefix__a)" transform="translate(-136 -1)">
+        <g>
+            <path d="M0 0H18.489V18.489H0z" transform="translate(150.756 15.533)"/>
+            <g fill="#AAA">
+                <path fill-rule="nonzero" d="M8.217 18.489c-1.135 0-2.054-.925-2.054-2.054 0-1.13.924-2.055 2.054-2.055s2.055.925 2.055 2.055c0 1.13-.92 2.054-2.055 2.054zm0-2.465c-.226 0-.41.185-.41.41 0 .227.184.411.41.411.226 0 .411-.184.411-.41 0-.226-.18-.411-.41-.411zM13.353 18.489c-1.135 0-2.054-.925-2.054-2.054 0-1.13.924-2.055 2.054-2.055s2.054.925 2.054 2.055c0 1.13-.919 2.054-2.054 2.054zm0-2.465c-.226 0-.41.185-.41.41 0 .227.184.411.41.411.226 0 .411-.184.411-.41 0-.226-.185-.411-.41-.411z" transform="translate(150.756 15.533)"/>
+                <path d="M15.735 13.353H5.617c-.422 0-.792-.299-.896-.718L2.07 1.915H.926C.416 1.914 0 1.483 0 .956 0 .431.417 0 .926 0h1.862c.423 0 .793.3.897.718l2.65 10.715h8.654l1.417-6.635H6.508c-.509 0-.925-.43-.925-.957 0-.527.416-.957.925-.957h11.055c.278 0 .544.131.723.359.174.227.243.52.18.807l-1.828 8.55c-.093.436-.469.753-.903.753z" transform="translate(150.756 15.533)"/>
+                <path fill-rule="nonzero" d="M8.282 10.56c-.488 0-.886-.463-.886-1.028s.398-1.027.886-1.027h4.39c.488 0 .887.462.887 1.027s-.4 1.027-.886 1.027H8.282zM7.697 7.601c-.505 0-.918-.462-.918-1.027s.413-1.027.918-1.027h6.381c.505 0 .919.462.919 1.027S14.583 7.6 14.078 7.6h-6.38z" transform="translate(150.756 15.533)"/>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,99 @@
+<section class="herobanner-cont">
+    <app-header [pgname]="'home'"></app-header>
+    <app-top-slider [groupname]="'REWARDS'"></app-top-slider>
+</section>
+<div class="wrapper" *ngIf=" mgmInfo  && mgmInfo!='{}'">
+<section class="inds-card007 rewards-landing" >
+    <div class="">
+        <div class="card container-fluid overview-card">
+            <div class="card-body pb-0">
+
+                <div class="drill-bar-cont">
+                    <span class="drill-bar"></span>
+                </div>
+            </div>
+            <div class="card balance-card">
+                <div class="card-body ">
+                    <div class="member-pack mb-0">
+                        <div class="friends-redeim">
+                            <h5>{{'friends_redeemed'|translate}}</h5>
+                            <h1>{{mgmInfo.friends_redeemed}}</h1>
+
+                        </div>
+                        <div class="quota-earned">
+                            <h5>{{'bonus_quota_earned'|translate}}</h5>
+                            <h1>{{mgmInfo.quota_earned}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="referal-section">
+    <h4 class="quota-limit" *ngIf="this.mgmInfo.alertmsg!=undefined && this.mgmInfo.alertmsg!=''">
+        {{this.mgmInfo.alertmsg}}
+    </h4>
+    <h2 class="referal-title"><div [innerHtml]="mgmText.text[5] | safeHtml"></div></h2>
+    <div class="referal-types">
+        <ul>
+            <li>
+                <p class="index-list">1</p>
+                <div class="referal-img">
+                    <img src="{{env.cdnurl}}assets/images/img-tuto-ref-1.svg" alt="">
+                </div>
+                <p class="referal-text" [innerHtml]="mgmText.text[0] | safeHtml">                    
+                </p>
+            </li>
+            <li>
+                <p class="index-list">2</p>
+                <div class="referal-img">
+                    <img src="{{env.cdnurl}}assets/images/img-tuto-ref-2.svg" alt="">
+                </div>
+                <p class="referal-text" [innerHtml]="mgmText.text[1] | safeHtml">
+                </p>
+            </li>
+            <li>
+                <p class="index-list">3</p>
+                <div class="referal-img">
+                    <img src="{{env.cdnurl}}assets/images/img-tuto-ref-4.svg" alt="">
+                </div>
+                <p class="referal-text" [innerHtml]="mgmText.text[2] | safeHtml">
+                </p>
+            </li>
+            <li>
+                <p class="index-list">4</p>
+                <div class="referal-img">
+                    <img src="{{env.cdnurl}}assets/images/img-tuto-ref-5.svg" alt="">
+                </div>
+                <p class="referal-text" [innerHtml]="mgmText.text[3] | safeHtml"> 
+                    <!-- <span class="max-referal-text">*max 10 referral/day</span> -->
+                </p>
+            </li> 
+        </ul>
+    </div>
+    <div class="referal-invite">
+        <img src="{{env.cdnurl}}assets/images/invite-friends.png" alt="">
+        <h4><div [innerHtml]="mgmText.text[4] | safeHtml"></div></h4>
+        <button type="button" class="btn btn-primary btn-install w-100 pt-3 pb-3" (click)="navigateToFriends()" >{{'invite_friends'|translate}}</button>
+    </div>
+</section>
+</div>
+<div class="modal fade" id="rewardsexceedpopup" data-dismiss="modal" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="img-warning warning-new">
+                    <img src="{{env.cdnurl}}assets/images/warning.png" alt="">
+                </div>
+                <h2 class="popup-heading">{{content}}</h2>
+                <p class="popup-text">{{'no_bonus_quota_message'|translate}}</p>                
+                <button type="button" class="btn btn-primary opt-button" (click)="navigate()" data-dismiss="modal">{{'ok'|translate}} </button>              
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="wrapper">
+    <section class="header-main">
+        <div class="inds-drilldown">
+            <div class="dilldown-section collapse" id="drilldown">
+                <div class="drilldown-box bg-white">
+                    <div class="logo-section">
+                        <img src="assets/images/im3-logo.svg">
+                    </div>
+                    <div class="webversion-section">
+                        <p>Do more on myIM3 app. Enjoy all these app features with no data usage charges!
+                            <strong>#LebihUntung</strong> in myIM3</p>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary btn-install">INSTALL/OPEN</button>
+            </div>
+            <div aria-expanded="true" class="drill-btn" id="drill-btn-img" data-toggle="collapse" data-target="#drilldown">
+                <span class="drill-bar"></span>
+            </div>
+        </div>
+       
+    </section>
+    <div class="hedernav-cont11">
+        <app-anotherheader [pgname]="'partnerdashboard'"></app-anotherheader>
+    </div>
+    
+    
+    
+    <div class="form-cont login-form pt-4">
+        <div class="form-title-cont mt-6">
+            <h2 class="form-heading mt-5"> {{'connect_with_tokopedia'| translate}} </h2>
+        </div>
+        <div class="mt-2 text-center custom-logo">
+            <img src="assets/images/custom-logo.png" alt="" title="">
+        </div>
+        <div class="form-inner-cont text-center mt-3">
+                <p class="Verification-text text-color mt-65">
+                    {{'c1'| translate}}
+                </p>
+        </div>
+    </div>
+
+    <div class="container-fluid background-bgg">
+
+        <section class="manage-contact pt-3 pb-3">
+
+            <h4 class="border-0">myIM3</h4>
+
+        <section class="comp-card005 mb-2">               
+            <div class="card">
+                <div class="content">
+                    <div class="contact-cont-comp border-0">
+                        <div class="img-cont-rounded rounded-circle">
+                            <img class="profile" src="{{ProfilesData.myim3.picture}}" onerror="this.src='assets/images/account-null-light.svg'" alt="">
+                            </div>
+                        <div class="contact-dls history-text12">
+                            <button class="redious btn-outline-danger" *ngIf="userType=='prepaid'">{{'prepaid'| translate}}</button>
+                            <button class="redious btn-outline-danger" *ngIf="userType=='postpaid'">{{'postpaid'| translate}}</button>
+                            <h4 class="profile-sec profile-num m-0">{{ProfilesData.myim3.msisdn}}</h4>
+                            </div>
+                    </div>
+                    <div class="contact-text contact-dls history-text12">
+                        <p>{{ProfilesData.myim3.name}}</p>
+                        <p class="emailcol" style="margin-top:-6px;">{{ProfilesData.myim3.emailid}}</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <h4 class="border-0">Tokopedia</h4>
+
+        <section class="comp-card005 mb-2">               
+            <div class="card">
+                <div class="content">
+                    <div class="contact-cont-comp border-0">
+                        <div class="img-cont-rounded rounded-circle">
+                           
+                            <img class="profile" src="{{ProfilesData.partner.picture}}" onerror="this.src='assets/images/account-null-light.svg'" alt="">
+                            </div>
+                        <div class="contact-dls history-text12">
+                            
+                            <h4 class="profile-sec profile-num mt-4">{{ProfilesData.partner.userid}}</h4>
+                            </div>
+                    </div>
+                    <div class="contact-text contact-dls history-text12">
+                        
+                        <p class="contact-dls-no emailcol">{{ProfilesData.partner.username}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </section>
+    </div>
+    
+    <div class="global-back-cont-border mt-3 mb-3">
+        <button type="button" class="btn btn-primary d-block w-100 p-3 f-14" data-toggle="modal" data-target="#popuprebuy">
+            {{'continue'| translate}}  </button>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="popuprebuy" tabindex="-1" role="dialog" aria-labelledby="popuprebuy" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content m-3">
+      <div class="modal-body">
+        <div class="mt-2 text-center custom-logo">
+            <img src="assets/images/concentpopupimg.png">
+        </div>
+        <h2 class="popup-heading mb-2 mt-4 pl-2 pr-2">
+          <span class="pl-3 pr-3">{{'connect_with_tokopedia'| translate}} </span>
+        </h2>
+        
+        <p class="popup-txt pl-3 pr-3 mb-2">
+            {{'condition'| translate}}
+        </p>
+
+        <section class="inds-card-notification-comp mt-2 mb-2">
+            <div class="validation-section card cardbg">
+                <p class="concentpopuptxt">
+                    {{'terms'| translate}}
+                 
+                </p>
+            </div>
+        </section>
+
+        <section>
+              
+        <label class="container popup-text"  >  
+            <input id="checkbox-1"  name="checkbox-1" type="checkbox"  [(ngModel)]="isChecked" (change)="checkValue(isChecked?'A':'B')">
+            <span class="checkmark"></span>
+          </label>
+        
+          <label class="newdata" >
+            {{'agree'| translate}}<strong class="newcol"> <a  href="{{env.partner_terms_condition_url}}" target="_blank">{{'_agree'| translate}}</a></strong> {{'agree_'| translate}}
+          </label>
+       
+        </section>
+        
+        <button type="button" class="btn btn-primary mb-2 m-auto d-block w-50" [disabled]="!isChecked"  data-dismiss="modal" (click)="Savesresponse()">
+            {{'connect'| translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

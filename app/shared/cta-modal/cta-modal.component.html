@@ -1,0 +1,94 @@
+<div class="ids-cta-modal-001">
+          <!-- <div class="modal-dialog modal-dialog-centered"> -->
+            <div class="modal-content ">
+                <div class="modal-body">
+                    <div class="img-warning">
+                        <img src="{{env.cdnurl}}assets/images/warning.png">
+                    </div>
+                    <h2 class="popup-heading">{{'cta.popup'|translate}}
+                        {{'cta.header'|translate}} </h2>
+                    <p class="popup-text">{{'cta.text'|translate:param}}
+                    </p>
+                    <p class="popup-text warning-text-red">*{{'cta.warning'|translate}}</p>
+                     <button type="button"  class="btn btn-primary opt-button"
+                        data-dismiss="modal" (click) ="imiapi.gotoApp();">{{ appRedircttxt |translate}}</button>
+                        <div class="pop-link-cont">
+                            <h5 class="head5">{{'cta.getmyim3app'|translate}}</h5>
+                            <a class="button-link" href="javascript:void();"
+                            data-dismiss="modal" (click) ="imiapi.gotoApp();">{{'cta.tapheretoopen'|translate}}</a>
+                        </div>
+                </div>
+            </div>
+       <!--  </div> -->
+</div>
+    
+ 
+   <!--  <div class="modal-body">
+        <div class="img-warning">
+            <img src="assets/images/warning.png">
+        </div>
+        <h2 class="popup-heading">You need to have myIM3 app
+            installed on your phone </h2>
+        <p class="popup-text">Click the button below to install it
+            from play store</p>
+        <p class="popup-text warning-text-red">*this feature will be available soon on the
+            web version.
+            In the meantime, please install myIM3 app to have full access</p>
+
+        <button type="button" class="btn btn-primary opt-button" data-dismiss="modal">Go to
+            App store</button>
+    </div> -->
+  
+
+
+<!-- Modal pay bill
+<ng-container *ngIf="type=='paybill'">
+    <div class="ids-popup-modal-002">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content ">
+                    <div class="modal-body">
+                        <div class="package-list">
+                            <ul class="package-row">
+                                <li>
+                                    <div class="package-text">
+                                        <h2>Deactivate package</h2>
+                                    </div>
+
+                                </li>
+                                <li>
+
+                                    <div class="package-text">
+                                        <h2>Change package</h2>
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div class="package-text">
+                                        <h2>Buy Extra Quota</h2>
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div class="middle-text">
+                            <span>!</span>
+                            <h2 class="popup-heading"> You can do all of these on our app
+                                Download now and do more on myIM3
+                                <p class="boldtext">#LebihUntung</p> in myIM3</h2>
+                        </div>
+
+                        <p class="popup-text warning-text-red">*this feature will be available soon on the
+                            web version.
+                            In the meantime, please install myIM3 app to have full access</p>
+
+                        <button type="button" class="btn btn-primary opt-button" data-dismiss="modal">Go to
+                            App store</button>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</ng-container>
+Modal popup002 End--> 

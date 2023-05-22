@@ -1,0 +1,63 @@
+<section class="transaction-header-sec h-100  mt-5">
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" (click)="gotoReadinessCoverage()" alt="" title="">
+        <h5 class="sec-headding">{{'4gcoverage'|translate}}</h5>
+        <img (click)="openNewtab()" src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" title="">
+    </div>
+</section>
+<section class="inds-card007 four-g-section mt-0">
+    <div class="">
+        <div class="card container-fluid overview-card">
+            <div class="card-body pb-0">
+
+                <div class="d-flex dif-profile-comp">
+                    <div class="profile-sec difuser-name">{{userlocation}}</div>
+                </div>
+                <!-- <p class="search-desc">Jakarta, Indonesia</p> -->
+                <div class="hr-line profile-line"> <span class="post-profile-sec">{{'areacoverage'|translate}}</span>
+                </div>
+                <div class="area-detail">
+                    <div class="d-block text-center mt-3">
+                        <img src="{{env.cdnurl}}assets/images/ok.jpg">
+                    </div>
+                    <div class="area-info">
+                        <h3>{{'feedback_excellent_title'|translate}} </h3>
+                        <p>{{'feedback_excellent_message'|translate}}</p>                      
+                        <!-- <a href="#" class=" area-btn btn btn-primary  w-100 d-block p-3 mb-3">SHARE </a> -->
+                        <div class="social-btns">
+                            <label class="profile-num text-verylight">{{'tap_below'|translate}}</label>
+                            <share-buttons  theme="material-dark" show="5" 
+                            [include]="['whatsapp','facebook','twitter','linkedin','sms']"
+                            [exclude]="['pinterest','reddit','mix','vk','telegram','xing','copy','line','messenger','email']"
+                            [image] ="googleMapUrl"
+                            [url]="googleMapUrl"
+                            [description]="description"
+                            [autoSetMeta]="true" ></share-buttons>
+                            </div>
+                        <a (click)="gotoHome()" class=" area-btn btn btn-light mb-2 m-auto d-block bg-white"
+                            data-dismiss="modal">{{'backtohome'|translate}}
+                            <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""></a>
+                    </div>
+
+
+                </div>
+            </div>
+            <div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div class="modal  package-modal fade" id="feedbacksucess" role="dialog" (click)="closeModal()">
+    <div class="modal-dialog">
+`
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p>{{deletemessage}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>

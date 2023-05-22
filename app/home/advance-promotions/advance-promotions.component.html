@@ -1,0 +1,24 @@
+<section class="inds-swiper06">        
+        <div class="swiper-container inds-nswiper01-cont" [swiper]="config" [(index)]="index">
+            <!-- <div class="swiper-wrapper d-flex justify-content-center"> -->
+                <div class="swiper-wrapper"> 
+                <div class="swiper-slide" style="width: 139.636px;"  *ngFor="let data of promotions">
+                    <section class="inds-sw06-card">
+                        <div class="card">
+                            <div class="card-body d-flex">
+                                <a (click)="openCTAModal()">
+                                    <div class="img-history w-40">
+                                        <!-- <img src="{{env.cdnurl}}assets/images/indira-icon.png" /> -->
+                                         <img src="{{data.src}}" />
+                                    </div>
+                                    <h5>{{data.title}}</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  

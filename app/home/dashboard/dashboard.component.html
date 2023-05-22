@@ -1,0 +1,585 @@
+<!--Place Holder-->
+<section class="inds-swiper01-card" *ngIf="hasContent ==0">
+    <div class="container-fluid mhc-mb0 ">
+
+        <div class="card">
+            <div class="card-body pb-0">
+
+                <section class="inds-card-notification">
+                    <div class="validation-section loads">
+
+                        <p class="headding4"> </p>
+                    </div>
+                </section>
+
+
+                <div class="d-flex dif-profile-comp">
+                    <div class="profile-sec difuser-name loads"></div>
+                    <div class="profile-sec"><a href="#"></a>
+                    </div>
+                </div>
+                <div class="d-flex dif-profile-comp">
+                    <div class="profile-sec profile-num loads"></div>
+                    <div class="profile-sec profile-expdt loads"></div>
+                </div>
+                <div class="hr-line "></div>
+
+                <div class="d-flex dif-profile-comp">
+                    <div class="profile-sec balance-comp">
+                        <h5 class="profile-num loads"></h5>
+                        <label class="difuser-name mb-0 loads"></label>
+                    </div>
+                    <div class="profile-sec loads">
+                    </div>
+                </div>
+                <div class="hr-line mb-1"></div>
+            </div>
+
+            <section class="inds-swiper02">
+                <!-- Swiper -->
+                <div class="swiper-container inds-swiper02-cont">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <section class="inds-sw02-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title loads"></h5>
+                                        <p class="card-text-color data-text loads"></p>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-blue loads" role="progressbar"
+                                                style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <section class="inds-sw02-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title loads"></h5>
+                                        <p class="card-text-color voice-text loads"></p>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success loads" role="progressbar"
+                                                style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <section class="inds-sw02-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title loads"></h5>
+                                        <p class="card-text-color sms-text loads"></p>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-orange loads" role="progressbar"
+                                                style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <section class="inds-sw02-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title loads"></h5>
+                                        <p class="card-text-color credit-text loads"></p>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info loads" role="progressbar"
+                                                style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</section>
+<!--Place Holder-->
+
+
+
+<section class="inds-swiper01-card" *ngIf="hasContent ==1">
+    <div class="container-fluid mhc-mb0 ">
+        <div class="card">
+            <div class="card-body pb-0">
+                <section class="inds-card-notification" *ngIf="dashboardResp.smartAlerts?.length >0  ">
+                    <ng-container  *ngFor="let item of dashboardResp.smartAlerts;let first=first;">
+                    <div class="validation-section" *ngIf="first">
+
+                            <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg" alt="...">
+                            <p class="headding4"> {{item.title}}</p>
+                      
+                    </div>
+                </ng-container>
+                </section>
+                <div class="d-flex dif-profile-comp">
+                    <!-- <ng-container *ngIf="userProfile?.firstname != ''" class="profile-sec difuser-name">{{userProfile?.firstname}}</ng-container>
+                    <ng-container *ngIf="userProfile?.firstname ==''" class="profile-sec difuser-name">{{'profile.name.empty'|translate}}</ng-container> -->
+                    <div class="profile-sec difuser-name">
+                        {{userProfile?.firstname !='' ?userProfile?.firstname : 'profile.name.empty'|translate  }}</div>
+                    <div class="profile-sec text-right"><a (click)="navigateToAccount()"><img
+                                src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt="..."></a>
+                    </div>
+                </div>
+                <div class="d-flex dif-profile-comp">
+                    <div class="profile-sec profile-num">{{userProfile?.msisdn}} <label
+                            class="btn btn-outline-danger">{{imiapi.getSubstype()}}</label></div>
+
+                    <div *ngIf="dashboardResp.prepaidinfo" class="profile-sec profile-expdt">
+                        {{dashboardResp.prepaidinfo.expires}}</div>
+                    <div *ngIf="dashboardResp.postpaidinfo" class="profile-sec profile-expdt">
+                        {{dashboardResp.postpaidinfo.expires}}</div>
+                </div>
+                <div class="hr-line "></div>
+
+                <div class="d-flex dif-profile-comp">
+                    <div *ngIf="dashboardResp.prepaidinfo" class="profile-sec balance-comp">
+                        <h5 class="profile-num">{{'balance'|translate}}</h5>
+                        <label *ngIf="dashboardResp.prepaidinfo?.balance >= env.prepaid_minbalance"
+                            class="difuser-name mb-0 mw-100">
+                            Rp{{dashboardResp.prepaidinfo?.balance |amountConverter}}</label>
+                        <label *ngIf="dashboardResp.prepaidinfo?.balance < env.prepaid_minbalance"
+                            class="difuser-name mb-0 mw-100"><span
+                                style="color: red;">Rp{{ dashboardResp.prepaidinfo?.balance |amountConverter}}
+                            </span></label>
+                    </div>
+                    <div *ngIf="ispostpaid" class="profile-sec balance-comp">
+                        <h5 class="profile-num">{{'currentusage'|translate}}</h5>
+                        <label class="difuser-name mb-0 mw-100">
+                            Rp{{dashboardResp.packdata?.totaltagihan|amountConverter}}</label>
+                    </div>
+                    <!-- <div class="profile-sec"><button class="btn btn-primary profile-btnsec"
+                            (click)="openCTAModal();">{{'topup'|translate}}</button>
+                    </div> -->
+                    <!-- <div *ngIf="!ispostpaid" class="profile-sec"><button class="btn btn-primary profile-btnsec"
+                            (click)="navigatetoTopUP();">{{'topup'|translate}}</button>
+                    </div> -->
+                    <!-- <div  *ngIf="ispostpaid"  class="profile-sec"><button class="btn btn-primary profile-btnsec"
+                        (click)="navigatetoTopUP();">{{'paybill'|translate}}</button>
+                    </div> -->
+                    <div class="profile-sec"><button class="btn btn-primary profile-btnsec"
+                            (click)="navigatetoTopUP();">{{'topup'|translate}}</button>
+                    </div>
+                    <!--   data-toggle="modal"
+                        data-target="#popup001" -->
+                </div>
+                <div class="hr-line mb-1"></div>
+            </div>
+
+            <section class="inds-swiper02">
+                <div class="swiper-container inds-swiper02-cont" [swiper]="config" [(index)]="index">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <!--*ngFor="let item of dashboardResp.summary"-->
+                            <!-- Data-->
+                            <section class="inds-sw02-card">
+                                <a href="javascript:void();" (click)="navigateToAccount()">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <h5 class="card-title">{{'data'|translate}}</h5>
+                                            <div
+                                                *ngIf="dashboardResp.summary?.data.isunlimited; then valDataProg  else defDataProg">
+                                            </div>
+                                            <ng-template #valDataProg>
+                                                <!-- <div class="card-text-color data-text" *ngIf="dashboardResp.summary.data.module_type">
+                                                    &nbsp;0&nbsp;KB 
+                                                </div> -->
+
+                                                <p class="card-text-color data-text"
+                                                    *ngIf="!dashboardResp.summary.data.isunlimited">
+                                                    {{imiapi.bytesToSizeData(dashboardResp.summary.data.remainingquota,dashboardResp.summary.data.quotaunit)}}
+                                                </p>
+                                                <!--&nbsp; {{dashboardResp.summary.data.quotaunit}}-->
+                                                <div class="progress" *ngIf="!dashboardResp.summary.data.isunlimited">
+                                                    <div class="progress-bar bg-blue" role="progressbar"
+                                                        [style]="getStyle(dashboardResp.summary.data.remainingquota,dashboardResp.summary.data.initialquota)"
+                                                        aria-valuenow="getPercentVal(dashboardResp.summary.data.remainingquota,dashboardResp.summary.data.initialquota)"
+                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+
+                                                <p class="card-icon" *ngIf="dashboardResp.summary.data.isunlimited"><img
+                                                        src="{{env.cdnurl}}assets/images/ic_bal_data.svg"></p>
+                                                <div class="progress" *ngIf="dashboardResp.summary.data.isunlimited">
+                                                    <div class="progress-bar bg-blue" role="progressbar"
+                                                        style="width:100%" aria-valuenow="100" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+
+                                            </ng-template>
+                                            <ng-template #defDataProg>
+                                                <p class="card-text-color data-text">&nbsp;0&nbsp;KB </p>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-blue" role="progressbar"
+                                                        style="width:0%" aria-valuenow="0" aria-valuemin="0"
+                                                        aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- VOICE-->
+                            <section class="inds-sw02-card">
+                                <a href="javascript:void();" (click)="navigateToAccount()">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{'voice'|translate}}</h5>
+                                            <div
+                                                *ngIf="dashboardResp.summary?.voice; then valVoiceProg   else defVoiceProg">
+                                            </div>
+                                            <ng-template #valVoiceProg>
+                                                <p class="card-text-color voice-text"
+                                                    *ngIf="!dashboardResp.summary.voice.isunlimited">
+                                                    {{dashboardResp.summary.voice.remainingquota}} &nbsp;
+                                                    {{dashboardResp.summary.voice.quotaunit}}</p>
+                                                <div class="progress" *ngIf="!dashboardResp.summary.voice.isunlimited">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        [style]="getStyle(dashboardResp.summary.voice.remainingquota,dashboardResp.summary.voice.initialquota)"
+                                                        aria-valuenow="getPercentVal(dashboardResp.summary.voice.remainingquota,dashboardResp.summary.voice.initialquota)"
+                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <!-- Unlimited-->
+                                                <p class="card-icon" *ngIf="dashboardResp.summary.voice.isunlimited">
+                                                    <img src="{{env.cdnurl}}assets/images/ic_bal_voice.svg"></p>
+                                                <div class="progress" *ngIf="dashboardResp.summary.voice.isunlimited">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        style="width:100%" aria-valuenow="100" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template #defVoiceProg>
+                                                <p class="card-text-color voice-text"> 0 Sec </p>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        style="width:0%" aria-valuenow="0" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </ng-template>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- SMS-->
+                            <section class="inds-sw02-card">
+                                <a href="javascript:void();" (click)="navigateToAccount()">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <h5 class="card-title">{{'sms'|translate}}</h5>
+
+                                            <div *ngIf="dashboardResp.summary?.sms; then valSMSProg   else defSMSProg">
+                                            </div>
+                                            <ng-template #valSMSProg>
+                                                <p class="card-text-color sms-text"
+                                                    *ngIf="!dashboardResp.summary.sms.isunlimited">
+                                                    {{dashboardResp.summary.sms.remainingquota}} &nbsp;
+                                                    {{dashboardResp.summary.sms.quotaunit}}</p>
+                                                <div class="progress" *ngIf="!dashboardResp.summary.sms.isunlimited">
+                                                    <div class="progress-bar bg-orange" role="progressbar"
+                                                        [style]="getStyle(dashboardResp.summary.sms.remainingquota,dashboardResp.summary.sms.initialquota)"
+                                                        aria-valuenow="getPercentVal(dashboardResp.summary.sms.remainingquota,dashboardResp.summary.sms.initialquota)"
+                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+
+                                                <!-- Unlimited-->
+                                                <p class="card-icon" *ngIf="dashboardResp.summary.sms.isunlimited"><img
+                                                        src="{{env.cdnurl}}assets/images/ic_bal_message.svg"></p>
+                                                <div class="progress" *ngIf="dashboardResp.summary.sms.isunlimited">
+                                                    <div class="progress-bar bg-orange" role="progressbar"
+                                                        style="width:100%" aria-valuenow="100" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template #defSMSProg>
+                                                <p class="card-text-color sms-text">0 SMS</p>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-orange" role="progressbar"
+                                                        style="width:0%" aria-valuenow="0" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </ng-template>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- CREDITS -->
+                            <section class="inds-sw02-card">
+                                <a href="javascript:void();" (click)="navigateToAccount()">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <h5 class="card-title">{{'credits'|translate}}</h5>
+                                            <div
+                                                *ngIf="dashboardResp.summary?.credits; then valCreditsProg   else defCreditsProg">
+                                            </div>
+                                            <ng-template #valCreditsProg>
+                                                <p class="card-text-color credit-text"
+                                                    *ngIf="!dashboardResp.summary.credits.isunlimited">
+                                                    Rp {{dashboardResp.summary.credits.remainingquota}} </p>
+                                                <!-- &nbsp;{{dashboardResp.summary.credits.quotaunit}} -->
+                                                <div class="progress"
+                                                    *ngIf="!dashboardResp.summary.credits.isunlimited">
+                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                        [style]="getStyle(dashboardResp.summary.credits.remainingquota,dashboardResp.summary.credits.initialquota)"
+                                                        aria-valuenow="getPercentVal(dashboardResp.summary.credits.remainingquota,dashboardResp.summary.credits.initialquota)"
+                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+
+                                                <!-- Unlimited Credits-->
+                                                <p class="card-icon" *ngIf="dashboardResp.summary.credits.isunlimited">
+                                                    <img src="{{env.cdnurl}}assets/images/ic_bal_credit.svg"></p>
+                                                <div class="progress" *ngIf="dashboardResp.summary.credits.isunlimited">
+                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                        style="width:100%" aria-valuenow="100" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template #defCreditsProg>
+                                                <p class="card-text-color credit-text">Rp 0</p>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                        style="width:0%" aria-valuenow="0" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </ng-template>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                            <!-- End Credits-->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Post Paid Bill display-->
+
+<section class="inds-card001 container-fluid"
+    *ngIf="hasContent ==1 && ispostpaid && dashboardResp.packdata?.tagihanskr <0">
+    <div class="card">
+        <div class="card-body">
+            <!--   <section class="inds-card-notification" *ngIf="dashboardResp.smartAlerts?.length >0  ">
+                <div class="validation-section" *ngFor="let item of dashboardResp.smartAlerts">
+                    <img class="alertimg" src="assets/images/ic_alert-sign.svg" alt="...">
+                    <p class="headding4"> {{item.title}}</p>
+                </div>
+            </section> -->
+            <div class="yourbill-section">
+                <h2>{{'yourbill'|translate}}</h2>
+                <div class="bill-statement">
+                    <p> Rp{{dashboardResp.packdata?.credits |amountConverter}}<span
+                            class="credit-btn">{{'credit'|translate}}</span></p>
+                    <!-- <a href="javascript:void()" routerLink="/billinghistory"> {{'viewstatement'|translate}} <img
+                            src="{{env.cdnurl}}assets/images/ic_front_arrow_red.svg"></a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="inds-card002 container-fluid"
+    *ngIf="hasContent ==1 && ispostpaid && dashboardResp.packdata?.tagihanskr > 0">
+    <div class="card">
+        <div class="card-body">
+            <!--  <section class="inds-card-notification" *ngIf="dashboardResp.smartAlerts?.length >0  ">
+                <div class="validation-section" *ngFor="let item of dashboardResp.smartAlerts">
+                    <img class="alertimg" src="assets/images/ic_alert-sign.svg" alt="...">
+                    <p class="headding4"> {{item.title}}</p>
+                </div>
+            </section> -->
+            <div class="yourbill-section">
+                <h2>{{'yourbill'|translate}}</h2>
+                <div class="bill-statement">
+                    <div class="billtxt-btn-cont">
+                        <p> Rp{{dashboardResp.packdata?.credits |amountConverter}} </p>
+                        <button type="button" class="btn btn-primary "
+                            (click)="naviagtetopaybill()">{{'paybill' |translate}}</button>
+                    </div>
+                    <div class="payment-statment">
+                        <p>{{'paymentdue'|translate}} {{dashboardResp.packdata?.paymentduedate }}</p>
+                        <!-- <a href="javascript:void()"routerLink="/billinghistory"> {{'viewstatement'|translate}} <img
+                                src="{{env.cdnurl}}assets/images/detail-red.svg"></a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End  Post paid Bill Display-->
+
+
+<section class="inds-swiper01-card" *ngIf="hasContent ==2">
+    <div class="container-fluid mhc-mb0 ">
+        <div class="card">
+            <div class="card-body pb-0">
+                <!-- <ng-template *ngIf="dashboardResp.smartAlerts  &&  dashboardResp.smartAlerts?.length > 0">
+                <section class="inds-card-notification">
+                    <div class="validation-section" *ngFor="let item of dashboardResp.smartAlerts">
+                        <img class="alertimg" src="assets/images/ic_alert-sign.svg" alt="...">
+                        <p class="headding4"> {{item.title}}</p>
+                    </div>
+                </section>
+            </ng-template> -->
+                <div class="d-flex dif-profile-comp">
+                    <div class="profile-sec difuser-name">
+                        {{userProfile?.firstname !='' ?userProfile?.firstname : 'profile.name.empty'|translate  }}</div>
+                    <div class="profile-sec text-right"><a (click)="navigateToAccount()"><img
+                                src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt="..."></a>
+                    </div>
+                </div>
+                <div class="d-flex dif-profile-comp">
+                    <div class="profile-sec profile-num">{{userProfile?.msisdn}} <label
+                            class="btn btn-outline-danger ml-2">{{imiapi.getSubstype()}}</label></div>
+                    <div class="profile-sec profile-expdt"></div>
+                </div>
+                <div class="hr-line "></div>
+
+                <div class="d-flex dif-profile-comp">
+
+                    <div *ngIf="!ispostpaid" class="profile-sec balance-comp">
+                        <h5 class="profile-num">{{'balance'|translate}}</h5>
+                        <!-- <label class="difuser-name mb-0"> Rp </label> -->
+                        <div class="profile-sec profile-expdt mw-100">{{'loadtext'|translate}} </div>
+                    </div>
+                    <div *ngIf="ispostpaid" class="profile-sec balance-comp">
+                        <!--  <label class="difuser-name mb-0"> Rp</label> -->
+                        <h5 class="profile-num">{{'currentusage'|translate}}</h5>
+                        <div class="profile-sec profile-expdt mw-100">{{'loadtext'|translate}}</div>
+
+
+                    </div>
+                    <div class="profile-sec">
+                        <img class="warning-img" src="{{env.cdnurl}}assets/images/ic_warning.svg" alt="">
+                        <!-- <button class="btn btn-primary profile-btnsec" (click)="openCTAModal();">{{'topup'|translate}}</button> -->
+                    </div>
+
+                </div>
+                <div class="hr-line mb-1"></div>
+            </div>
+
+            <section class="inds-swiper02">
+                <div class="swiper-container inds-swiper02-cont" [swiper]="config" [(index)]="index">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <!--*ngFor="let item of dashboardResp.summary"-->
+                            <!-- Data-->
+                            <section class="inds-sw02-card">
+                                <a href="javascript:void();" (click)="navigateToAccount()">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <h5 class="card-title">{{'data'|translate}}</h5>
+                                            <p class="card-text-color data-text">&nbsp;-&nbsp; </p>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-blue" role="progressbar" style="width:0%"
+                                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- VOICE-->
+                            <section class="inds-sw02-card">
+                                <a href="javascript:void();" (click)="navigateToAccount()">
+                                    <div class="card">
+                                        <a href="javascript:void();" (click)="navigateToAccount()">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{'voice'|translate}}</h5>
+
+                                                <p class="card-text-color voice-text"> - </p>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        style="width:0%" aria-valuenow="0" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+
+                                            </div>
+                                        </a>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- SMS-->
+                            <section class="inds-sw02-card">
+                                <a href="javascript:void();" (click)="navigateToAccount()">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{'sms'|translate}}</h5>
+
+
+                                            <p class="card-text-color sms-text"> - </p>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-orange" role="progressbar" style="width:0%"
+                                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- CREDITS -->
+                            <section class="inds-sw02-card">
+                                <a href="javascript:void();" (click)="navigateToAccount()">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{'credits'|translate}}</h5>
+
+                                            <p class="card-text-color credit-text"> - </p>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-info" role="progressbar" style="width:0%"
+                                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                            <!-- End Credits-->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>

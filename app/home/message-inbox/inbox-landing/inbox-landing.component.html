@@ -1,0 +1,107 @@
+<div class="wrapper" >
+
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img (click)="gotoHome()" src="{{env.cdnurl}}assets/images/close-dark.svg" alt="" title="">
+        <h5 [ngClass] = "messages && messages.length >0 ? '' : 'd-flex mr-4 sec-headding text-center w-50' " class="sec-headding">{{'inbox'|translate}}</h5>
+        <a *ngIf="messages && messages.length >0"  data-toggle="modal" data-target="#popup001"><img src="{{env.cdnurl}}assets/images/trash.svg" alt=""
+                title=""></a>
+    </div>
+
+    <div class="container-fluid">
+        <section class="inbox">
+            <div *ngIf="messages && messages.length >0 then showData else hideData"></div>
+            <ng-template #hideData>
+                <div class="user-interactions">
+                    <div class="tab-content">
+            <div class="package-detail mt-5 pt-5">
+                <img src="{{env.cdnurl}}assets/images/ok.jpg" alt="empty Package">                
+                <h3>{{'allclear'|translate}}</h3>
+            </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #showData>
+            <div class="swiper-container swiper-container-inbox" [swiper]="config" *ngFor="let message of messages">
+                <div class="swiper-wrapper">
+                    <!-- <div class="swiper-slide" >
+                        <div class="inbox-unread" >
+                            <div class="item-cont">
+                                <img src="{{env.cdnurl}}assets/images/oval.svg" alt="" title="">
+                                <p class="text">Unread</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="swiper-slide" (click)="showMessage(message)">
+                        <div class="inbox-cont">
+                            <div class="img-cont-rounded rounded-circle"><img class="profile"
+                                src={{message.icon}} alt="" title=""  onerror="this.src='assets/images/account-null-light.svg'"></div>
+                        <div class="inbox-dls">
+                            <p class="inbox-dls-name text-secondary">{{message.title}}</p>
+                            <p class="inbox-dls-no f-12">{{message.summary}}</p>
+                            <!-- <p class="inbox-dls-no f-12">{{message.created_on| date: 'dd MMM yyyy HH:mm:ss'}}</p> -->
+                            <p class="inbox-dls-no f-12">{{message.created_on}}</p>
+                        </div>
+                        <div class="inbox-more-cont">
+                            <img *ngIf="message.status == 'A'" src="{{env.cdnurl}}assets/images/dot.svg" alt="" title=""> 
+                            <img class="more-arrow" src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt="" title="">
+                        </div>
+                    </div> 
+                    </div>             
+                    <div class="swiper-slide" >
+                        <div class="inbox-delete">
+                            <div class="item-cont" (click)="deleteMessage(message.transactionid)">
+                                <img src="{{env.cdnurl}}assets/images/trash-light.svg" alt=""   title="">
+                                <p class="text">{{'delete'|translate}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </ng-template>
+        </section>
+    </div>
+
+
+    <div class="modal package-modal  fade" id="delall-modal" role="dialog" (click)="closeModal()">
+        <div class="modal-dialog">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+               
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="mt-3">{{'package.sucessremoved'|translate}}</h3>
+                    <p>{{'inbox.msgdeleted'|translate}}</p>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+
+    <!-- Modal popup001-->
+    <div class="modal fade" id="popup001" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-body">
+                    <div class="img-warning">
+                        <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="">
+                    </div>
+                    <h2 class="popup-heading">{{'deleteall'|translate}}?</h2>
+                    <p class="popup-text">{{'inbox.message'|translate}} </p>
+
+
+                    <button type="button" class="btn btn-primary opt-button w-50" id="delall-btn"
+                        data-dismiss="modal" (click)="deleteall()" >{{'deleteall'|translate}}
+                    </button>
+
+                    <div class="pop-link-cont">
+
+                        <!-- <h5 class="head5">Got myIM3 App?</h5> -->
+                        <a class="button-link-black" data-dismiss="modal">{{'cancel'|translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

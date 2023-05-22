@@ -1,0 +1,189 @@
+<div class="wrapper">
+    <app-header [pgname]="'timelimit'"></app-header>
+<br/>
+<br/>
+<div class="global-back-cont d-flex justify-content-between align-items-center bg-white mt-5">
+    <img (click)="gotoHome()" src="assets/images/close-dark.svg" alt="" title="">
+
+    <img src="assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+</div>
+
+
+<div class="error-section-trans top-up-content mt-0">
+    <div class="error-main">
+        <img src="{{env.cdnurl}}assets/images/wait.png">
+        <h3 class="title" *ngIf=" reqobj.paymentchannel!='SHOPEE_PAY'">{{'transactioninprocess'|translate}}</h3>
+        <h3 class="title" *ngIf=" reqobj.paymentchannel=='SHOPEE_PAY'">{{'topup.waitingforpayment'|translate}}</h3>
+        <h5 class=topup-msg *ngIf="reqobj.type == 'banking' && reqobj.transtype=='reload'">
+            {{'banking.finish'|translate}} {{reqobj.transtype|uppercase}} {{'for'|translate}} <span> {{data.msisdn}}.</span>
+            {{'banking.within'|translate}}
+        </h5>
+        <h5 class=topup-msg *ngIf="reqobj.type == 'banking' && reqobj.transtype=='package'">
+            {{'package.sucess'|translate}} {{'package.purchase'|translate}}  <span>  {{reqobj.packagename}} </span>{{'for'|translate}} <span> {{data.msisdn}}</span>
+        </h5>
+        <h5 class=topup-msg *ngIf="reqobj.type == 'banking' && reqobj.transtype=='content'">
+            {{'package.sucess'|translate}} {{'content.purchase'|translate}}  <span>  {{topupamount}}{{topupdecimal}} </span>{{'for'|translate}} <span> {{data.msisdn}}</span>
+        </h5>
+        <h5 class=topup-msg *ngIf="reqobj.type == 'ewallet' && reqobj.transtype=='reload' && reqobj.paymentchannel!='SHOPEE_PAY'">
+            {{'topup.finish.ewallet'|translate}} {{reqobj.transtype|uppercase}} Rp{{data.amount }} {{'for'|translate}} <span> {{data.msisdn}}</span>
+                {{'on'|translate}}  {{paymentmode}} 
+        </h5>
+        <h5 class=topup-msg *ngIf="reqobj.type == 'ewallet' && reqobj.transtype=='package'">
+            {{'package.sucess'|translate}}  {{'package.purchase'|translate}} <span>  {{reqobj.packagename}}</span> {{'for'|translate}}  <span>{{data.msisdn}}  </span>          
+        </h5>
+        <h5 class=topup-msg *ngIf="reqobj.type == 'ewallet' && reqobj.transtype=='content'">
+            {{'package.sucess'|translate}}  {{'content.purchase'|translate}} <span>  {{topupamount}}{{topupdecimal}}</span> {{'for'|translate}}  <span>{{data.msisdn}}  </span>          
+        </h5>
+        <h5 class=topup-msg *ngIf="reqobj.type == 'balance' && reqobj.transtype=='package'">
+            {{'topup.finish.balance'|translate}} <span> {{reqobj.packagename}}</span> {{'for'|translate}} <span> {{data.msisdn}}</span>
+            {{'isbeingprocessed'|translate}}
+        </h5>
+        <h5 class=topup-msg *ngIf="reqobj.type == 'balance' && reqobj.transtype=='content'">
+            {{'topup.contentfinish.balance'|translate}} <span> {{topupamount}}{{topupdecimal}}</span> {{'for'|translate}} <span> {{data.msisdn}}</span>
+            {{'isbeingprocessed'|translate}}
+        </h5>
+        <h5 class=topup-msg *ngIf="reqobj.transtype=='billpay' && (reqobj.type == 'ewallet') && reqobj.paymentchannel!='SHOPEE_PAY'">
+          
+            {{'billpaysucess'|translate}} Rp{{data.amount }} {{'for'|translate}} <span> {{data.msisdn}}.</span>
+                {{'please'|translate}}  {{paymentmode}}
+        </h5> 
+        <h5 class=topup-msg *ngIf="reqobj.transtype=='billpay' &&((reqobj.type == 'banking'|| reqobj.type=='balance'))">
+            {{'billpaysucess'|translate}} Rp{{data.amount }} {{'for'|translate}} <span> {{data.msisdn}}</span>
+        </h5>       
+        <h5 class=topup-msg *ngIf="reqobj.type == 'ewallet' && (reqobj.transtype=='reload'|| reqobj.transtype=='billpay') && reqobj.paymentchannel=='SHOPEE_PAY'">
+                {{'shopee_pay_desc'|translate}}
+        </h5>
+
+    </div>
+</div>
+<div class="amount-pay" *ngIf="reqobj.type == 'banking'">
+    <p class="amt-text">{{'topup.transferto'|translate}}</p>
+    <p class="amt-price mb-0">{{data.actionData}}</p>
+</div>
+<div class="amount-pay" *ngIf="reqobj.type == 'banking'">
+    <p class="amt-text">{{'topup.amunttopay'|translate}}</p>
+    <p class="amt-price">Rp{{data.amount }}</p>
+</div>
+<div class="amount-pay" *ngIf="reqobj.type != 'balance' && reqobj.paymentchannel!='SHOPEE_PAY'">
+    <p class="amt-text">{{'topup.timelimit'|translate}} </p>
+    <p class="amt-price">{{todayDate| date:'EE, d MMM y H:mm  zzzz' |convertDate}}</p>
+</div>
+<div class="tip-section" *ngIf="reqobj.type == 'balance'">
+    <h3>💡PRO TIP</h3>
+    <p>{{data.protip}}</p>
+    <a href="#"> Call To Action <img src="{{env.cdnurl}}assets/images/detail-red.svg"></a>
+</div>
+<div class="amount-pay" *ngIf="reqobj.type == 'balance'">
+    <h5 class=topup-msg>{{'chktransaction'|translate}}</h5>
+</div>
+<div class="global-back-cont-border">
+    <button type="button"  *ngIf="(reqobj.paymentchannel != 'GOPAY')&& (reqobj.paymentchannel!='SHOPEE_PAY')" (click)="navigatetoTransaction()"  class="btn btn-primary  d-block w-100 p-3 mr-1 f-14">{{'checktransaction'|translate}}</button>
+    <button type="button" *ngIf="reqobj.paymentchannel == 'GOPAY'" (click)="navigatetoTransaction()"  class="btn btn-primary  d-block w-50 p-3 mr-1 f-14">{{'later'|translate}}</button>
+    <button type="button" *ngIf="reqobj.paymentchannel == 'GOPAY'" (click)="navigatetoGopay()"  class="btn btn-primary  d-block w-50 p-3 mr-1 f-14">{{'paynow'|translate}}</button>
+</div>
+
+<!-- <section class="container-fluid trans-detail mt-0 pt-0 pb-0" *ngIf="reqobj.type == 'balance'|| reqobj.type == 'card'"> -->
+    <section class="container-fluid trans-detail mt-0 pt-0 pb-0" *ngIf="reqobj.paymentchannel=='SHOPEE_PAY'">
+    <div class="trans-status-cont">
+        <div class="remaining-time mt-0">
+            <p>{{'remainingtime'|translate}}
+                <span class="otptimer" [ngClass]="{'text-primary': shopeepaytimeLeft< '01:00' }" *ngIf="shopeepaytimer==true">
+                    {{shopeepaytimeLeft}} mnt</span>
+                    <!-- <div class="otptimer"  *ngIf="shopeepaytimer==true"><span>{{shopeepaytimeLeft}} mnt</span></div> -->
+                    <span class="text-primary" *ngIf="shopeepaytimer==false">
+                        {{'expired'|translate}}</span>
+                </p>
+        </div>
+    </div>
+</section>
+<div class="amount-section" style="padding: 0px 25px"  *ngIf="reqobj.paymentchannel=='SHOPEE_PAY'">
+    <div class="top-upamount">        
+        <div class="payment-row" *ngIf="sourcescreen=='viewpackage' && gift!='Y'">
+            <h4>
+                {{'shopeebuypackage'|translate}}
+            </h4>
+            <p>{{topupid}}</p>
+        </div>
+    </div>
+</div>
+<div class="amount-section" style="padding: 0px 25px"  *ngIf="reqobj.paymentchannel=='SHOPEE_PAY'">
+    <div class="top-upamount">        
+        <div class="payment-row" *ngIf="gift=='Y'">
+            <h4>
+                {{'giftpackage'|translate}}
+            </h4>
+            <p>{{topupid}}</p>
+        </div>
+    </div>
+</div>
+<div class="amount-section" style="padding: 0px 25px"  *ngIf="reqobj.paymentchannel=='SHOPEE_PAY'">
+    <div class="top-upamount">        
+        <div class="payment-row" *ngIf="sourcescreen=='topup'">
+            <h4>
+                {{'shopeetopup'|translate}}
+            </h4>
+            <p>{{selecteddenom}}<span>{{topupdecimal}}</span></p>
+        </div>
+    </div>
+</div>
+<div class="amount-section" style="padding: 0px 25px"  *ngIf="reqobj.paymentchannel=='SHOPEE_PAY'">
+    <div class="top-upamount">        
+        <div class="payment-row" *ngIf="sourcescreen=='paybill'">
+            <h4>
+                {{'billpayment'|translate}}
+            </h4>
+            <p>Rp{{selecteddenom}}<span>{{topupdecimal}}</span></p>
+        </div>
+    </div>
+</div>
+
+<div class="amount-section" style="padding: 0px 25px"  *ngIf="reqobj.paymentchannel=='SHOPEE_PAY'">
+    <div class="top-upamount">       
+        <div class="payment-row">
+            <h4>
+                {{'recipientnumber'|translate}}
+            </h4>
+            <p>{{topupNumber}}</p>
+        </div>
+        
+    </div>
+</div>
+<div class="amount-section" style="padding: 0px 25px"  *ngIf="reqobj.paymentchannel=='SHOPEE_PAY'">
+    <div class="top-upamount">        
+        <div class="payment-row">
+            <h4>
+                {{'topup.amunttopay'|translate}}
+            </h4>
+            <p>Rp{{selecteddenom}}<span>{{topupdecimal}}</span></p>
+        </div>        
+    </div>
+</div>
+
+
+<br/>
+<br/>
+<div class="global-back-cont-border" *ngIf="reqobj.paymentchannel=='SHOPEE_PAY'">
+    <button type="button" *ngIf="shopeepaytimer==true" (click)="openshopeepayapp()"  class="btn btn-primary  d-block w-100 p-3 mr-1 f-14">{{'topup.shoppeepay'|translate}}</button>
+    <button type="button" *ngIf="shopeepaytimer==false" (click)="navigatetoTransaction()"  class="btn btn-primary  d-block w-100 p-3 mr-1 f-14">{{'seetransactionhistory'|translate}}</button>
+</div>
+
+<br/>
+<br/>
+<br/>
+<div class="total-payment shadow-dwn" (click)="navigateToFeedback()">
+    <div class="payment-amt p-0">
+        <section class="inds-card007  experice-sec w-100">
+            <div class="card mb-0">
+                <div class="card-body ">
+                    <div class="drill-bar-cont mb-0">
+                        <span id="uparrow" class="drill-bar"></span>
+                        <!-- <span id="dwnarrow" class="drill-bar"></span> -->
+                    </div>
+                    <h3>{{'how_was_your_experience'|translate}}</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+</div>

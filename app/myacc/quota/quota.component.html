@@ -1,0 +1,457 @@
+<ng-container *ngIf="hasContent !=0">
+    <!--Data Remaining.-->
+    <section class="comp-card006 container-fluid" *ngIf="remainingData.length >0">
+        <div class="comp-section-heading">
+            <img src="{{env.cdnurl}}assets/images/data-icon.svg" alt="..."><label>{{'quota.data'|translate}}</label>
+        </div>
+        <div class="card quotacard" *ngFor="let item of remainingData">
+            <div class="content">
+                <div class="d-flex gradient-width">
+                    <div class="prog-normal">
+                        <div class="hed-title"> {{item.packagedetails?.ServiceDescription}}</div>
+                        <div class="expdated">{{item.packagedetails?.EndDate}}</div>
+
+
+
+                    </div>
+                    <div class="prog-normal text-right">
+                        <div class="comp-tooltip">
+                            <a (click)="openPayModal(item);">
+                                <ul>
+
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngFor="let itm of item.data;let first = first;">
+                    <div [ngClass]="first? 'progress-sec': 'progress-sec mt-4'" *ngIf="itm.show=='ON'">
+                        <!-- class="progress-sec mt-4" -->
+                        <!--  <div *ngIf="(itm.isfup && itm.isfup=='true'); then tmplFUP  else tmpDef">
+                        </div>
+                        <ng-template #tmplFUP>
+                        </ng-template> -->
+                        <!-- <ng-template #tmpDef> -->
+                        <h5 class="card-title">{{itm?.description}}</h5>
+                        <ng-container *ngIf="itm.roaming == true">
+                            <p class="card-text"><img src="{{env.cdnurl}}assets/images/ic_data_balance.svg"><label>
+                                    {{imiapi.bytesToSizeData(itm.initialQuota,itm.quotaUnit)}}</label>
+                            </p>
+                        </ng-container>
+                        <!-- Unlimited Flag-->
+                        <ng-container
+                            *ngIf="itm.roaming != true && (itm.unlimitedFlag =='Y' || itm.unlimitedFlag == true) ">
+                            <p class="card-text"><img src="{{env.cdnurl}}assets/images/ic_data_unlimited.svg"><label>
+                                    {{'unlimited'|translate}}</label>
+                            </p>
+
+                            <!-- <div class="progress" *ngIf="!(itm.isfup && itm.isfup=='true')">
+                                <div class="progress-bar bg-blue" role="progressbar" style="width:100%"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div> -->
+                        </ng-container>
+                        <!-- Def Flag-->
+                        <ng-container
+                            *ngIf=" itm.roaming != true && (itm.unlimitedFlag =='N' || itm.unlimitedFlag == false)">
+                            <p *ngIf="itm.showremaining" class="card-text">
+                                <label> {{imiapi.bytesToSizeData(itm.remainingQuota,itm.quotaUnit)}} /</label>
+                                <ng-container>{{imiapi.bytesToSizeData(itm.initialQuota,itm.quotaUnit)}}
+                                    <!-- {{itm.initialQuota}} {{itm.quotaUnit}} -->
+                                </ng-container>
+                            </p>
+                            <p *ngIf="!itm.showremaining" class="card-text">
+                                <ng-container>
+                                    {{imiapi.bytesToSizeData(itm.initialQuota,itm.quotaUnit)}}
+                                </ng-container>
+                            </p>
+                            <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar"
+                                    [style]="getStyle(itm.remainingQuota,itm.initialQuota)"
+                                    aria-valuenow="getPercentVal(itm.remainingQuota,itm.initialQuota)" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="itm.isfup && itm.isfup=='true'">
+                            <div class="d-flex gradient-width">
+                                <h5 class="gradient-normal card-title mb-2"></h5>
+                                <div class="gradient-normal text-right"><span class="icon-help">?</span></div>
+                            </div>
+                            <div class="progradiant-cont">
+                                <div class="bar-point" [style]="getBarPointStyle(itm.usedQuota,itm.initialQuota)">
+                                </div>
+                                <div class="progress gradient">
+                                    <div class="progress-bar gradient-bar bg-blue" role="progressbar" style="width:100%"
+                                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gradient-width mt-1">
+                                <div class="prog-normal">Normal</div>
+                                <div class="prog-normal text-right">Max</div>
+                            </div>
+                        </ng-container>
+
+                        <!--  </ng-template> -->
+                    </div>
+                </ng-container>
+
+                <ng-container *ngFor="let itmSpecial of specialData;">
+                    <div class="progress-sec mt-4"
+                        *ngIf="item.packagedetails?.PackageCode != '' && item.packagedetails?.PackageCode == itmSpecial.pvr_id">
+
+                        <h5 class="card-title">{{itmSpecial?.UnlimitedDataBarString}} </h5>
+                        <p></p>
+                        <div class="progress">
+                            <div class="progress-bar bg-blue" role="progressbar" style="width:100%" aria-valuenow="100"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                    </div>
+                </ng-container>
+
+
+
+                
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Voice Quota-->
+    <section class="comp-card006 container-fluid" *ngIf="remainingVoice.length >0">
+        <div class="comp-section-heading">
+            <img src="{{env.cdnurl}}assets/images/voice-icon.svg" alt="..."><label>{{'quota.voice'|translate}}</label>
+        </div>
+        <div class="card" *ngFor="let item of remainingVoice">
+            <div class="content">
+                <div class="d-flex gradient-width">
+                    <div class="prog-normal">
+                        <div class="hed-title"> {{item.packagedetails?.ServiceDescription}}</div>
+                        <div class="expdated">{{item.packagedetails?.EndDate}}</div>
+                    </div>
+                    <div class="prog-normal text-right">
+                        <div class="comp-tooltip">
+                            <a (click)="openPayModal(item);">
+                                <ul>
+
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngFor="let itm of item.voice">
+                    <div class="progress-sec mt-1" *ngIf="itm.show=='ON'">
+
+
+                        <h5 class="card-title">{{itm?.description}}</h5>
+                        <ng-container *ngIf="itm.roaming == true">
+                            <p class="card-text"><img src="{{env.cdnurl}}assets/images/ic_data_balance.svg"><label>
+                                    {{itm.initialQuota}} {{itm.quotaUnit}}</label>
+                            </p>
+                        </ng-container>
+                        <!-- Unlimited Flag-->
+                        <ng-container
+                            *ngIf=" itm.roaming != true && (itm.unlimitedFlag =='Y' || itm.unlimitedFlag == true)">
+                            <p class="card-text"><img src="{{env.cdnurl}}assets/images/ic_bal_voice.svg"><label>
+                                    {{'unlimited'|translate}}</label>
+                            </p>
+                        <!--     <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:100%"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div> -->
+                        </ng-container>
+                        <ng-container
+                            *ngIf="itm.roaming != true && (itm.unlimitedFlag =='N' || itm.unlimitedFlag == false)">
+                            <p *ngIf="itm.showremaining" class="card-text"><label> {{itm.remainingQuota}}
+                                    {{itm.quotaUnit}} /</label>
+                                <ng-container>{{itm.initialQuota}} {{itm.quotaUnit}}
+                                </ng-container>
+                            </p>
+                            <p *ngIf="!itm.showremaining" class="card-text">
+                                <ng-container>{{itm.initialQuota}} {{itm.quotaUnit}}
+                                </ng-container>
+                            </p>
+
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar"
+                                    [style]="getStyle(itm.remainingQuota,itm.initialQuota)"
+                                    aria-valuenow="getPercentVal(itm.remainingQuota,itm.initialQuota)" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </ng-container>
+
+
+                    </div>
+                </ng-container>
+
+                <ng-container *ngFor="let itmSpecial of specialVoice;">
+                    <div class="progress-sec mt-4"
+                        *ngIf="item.packagedetails?.PackageCode != '' && item.packagedetails?.PackageCode == itmSpecial.pvr_id">
+
+                        <h5 class="card-title">{{itmSpecial?.UnlimitedPhoneBarString}} </h5>
+                        <p></p>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width:100%" aria-valuenow="100"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </section>
+    <!-- <section class="inds-error-load container-fluid" *ngIf="remainingVoice.length ==0">
+        <div class="comp-section-heading">
+            <img src="assets/images/voice-icon.svg" alt="..."><label>{{'quota.voice'|translate}}</label>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="error-section">
+                    <img src="assets/images/ic_warning.svg" alt="">
+                    <p>Unable to fetch the content</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- End Voice Quota-->
+
+    <!-- SMS Quota-->
+    <section class="comp-card006 container-fluid" *ngIf="remainingSMS.length >0">
+        <div class="comp-section-heading">
+            <img src="{{env.cdnurl}}assets/images/message-icon.svg" alt="..."><label>{{'quota.sms'|translate}}</label>
+        </div>
+        <div class="card" *ngFor="let item of remainingSMS">
+            <div class="content">
+                <div class="d-flex gradient-width">
+                    <div class="prog-normal">
+                        <div class="hed-title">{{item.packagedetails?.ServiceDescription}}</div>
+                        <div class="expdated">{{item.packagedetails?.EndDate}}</div>
+                    </div>
+                    <div class="prog-normal text-right">
+                        <div class="comp-tooltip">
+                            <a (click)="openPayModal(item);">
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngFor="let itm of item.sms">
+                    <div class="progress-sec mt-1" *ngIf="itm.show=='ON'">
+                        <h5 class="card-title">{{itm?.description}}</h5>
+
+
+                        <ng-container *ngIf="itm.roaming == true">
+                            <p class="card-text"><img src="{{env.cdnurl}}assets/images/ic_data_balance.svg"><label>
+                                    {{itm.initialQuota}} {{itm.quotaUnit}}</label>
+                            </p>
+                        </ng-container>
+                        <!-- Unlimited Flag-->
+                        <ng-container
+                            *ngIf=" itm.roaming != true && (itm.unlimitedFlag =='Y' || itm.unlimitedFlag == true)">
+                            <p class="card-text"><img src="{{env.cdnurl}}assets/images/ic_bal_message.svg"><label>
+                                    {{'unlimited'|translate}}</label>
+                            </p>
+                            <!-- <div class="progress">
+                                <div class="progress-bar bg-orange" role="progressbar" style="width:100%"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div> -->
+
+                        </ng-container>
+                        <ng-container
+                            *ngIf=" itm.roaming != true && (itm.unlimitedFlag =='N' || itm.unlimitedFlag == false)">
+                            <p *ngIf="itm.showremaining" class="card-text"><label> {{itm.remainingQuota}}
+                                    {{itm.quotaUnit}} /</label>
+                                <ng-container>{{itm.initialQuota}} {{itm.quotaUnit}}
+                                </ng-container>
+                            </p>
+                            <p *ngIf="!itm.showremaining" class="card-text">
+                                <ng-container>{{itm.initialQuota}} {{itm.quotaUnit}}
+                                </ng-container>
+                            </p>
+
+                            <div class="progress">
+                                <div class="progress-bar bg-orange" role="progressbar"
+                                    [style]="getStyle(itm.remainingQuota,itm.initialQuota)"
+                                    aria-valuenow="getPercentVal(itm.remainingQuota,itm.initialQuota)" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </ng-container>
+
+
+                    </div>
+                </ng-container>
+
+                <ng-container *ngFor="let itmSpecial of specialSMS;">
+                    <div class="progress-sec mt-4"
+                        *ngIf="item.packagedetails?.PackageCode != '' && item.packagedetails?.PackageCode == itmSpecial.pvr_id">
+
+                        <h5 class="card-title">{{itmSpecial?.UnlimitedSMSBarString}} </h5>
+                        <p></p>
+                        <div class="progress">
+                            <div class="progress-bar bg-orange" role="progressbar" style="width:100%" aria-valuenow="100"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </section>
+    <!-- <section class="inds-error-load container-fluid" *ngIf="remainingSMS.length ==0">
+        <div class="comp-section-heading">
+            <img src="assets/images/message-icon.svg" alt="..."> <label>{{'quota.sms'|translate}}</label>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="error-section">
+                    <img src="assets/images/ic_warning.svg" alt="">
+                    <p>Unable to fetch the content</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- End SMS Quota-->
+
+    <!-- Credit Quota-->
+    <section class="comp-card006 container-fluid" *ngIf="remainingRupiah.length >0">
+        <div class="comp-section-heading">
+            <img src="{{env.cdnurl}}assets/images/credit-icon.svg" alt="..."><label>{{'quota.credit'|translate}}</label>
+        </div>
+        <div class="card" *ngFor="let item of remainingRupiah">
+            <div class="content">
+                <div class="d-flex gradient-width">
+                    <div class="prog-normal">
+                        <div class="hed-title">{{item?.packagedetails?.ServiceDescription}}
+                        </div>
+                        <div class="expdated">{{item?.packagedetails?.EndDate}}</div>
+                    </div>
+                    <!-- As per suggestion for credits should be disabled -->
+                    <!-- <div class="prog-normal text-right">
+                        <div class="comp-tooltip">
+                            <a (click)="openPayModal(item);">
+                                <ul>
+
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+
+                                </ul>
+                            </a>
+                        </div>
+                    </div> -->
+                </div>
+                <ng-container *ngFor="let itm of item.rupiah">
+                    <div class="progress-sec mt-1" *ngIf="itm.show=='ON'">
+                        <h5 class="card-title">{{itm?.description}}</h5>
+
+
+                        <ng-container *ngIf="itm.roaming == true">
+                            <p class="card-text"><img src="{{env.cdnurl}}assets/images/ic_data_balance.svg"><label>
+                                    {{itm.initialQuota}} {{itm.quotaUnit}}</label>
+                            </p>
+                        </ng-container>
+                        <!-- Unlimited Flag-->
+
+                        <ng-container
+                            *ngIf=" itm.roaming != true && (itm.unlimitedFlag =='Y' || itm.unlimitedFlag == true)">
+                            <p class="card-text"><img src="{{env.cdnurl}}assets/images/ic_bal_credit.svg"><label>
+                                    {{'unlimited'|translate}}</label>
+                            </p>
+                           <!--  <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width:100%"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div> -->
+                        </ng-container>
+                        <ng-container
+                            *ngIf=" itm.roaming != true && (itm.unlimitedFlag =='N' || itm.unlimitedFlag == false) ">
+                            <p *ngIf="itm.showremaining" class="card-text"><label> {{itm.remainingQuota}}
+                                    {{itm.quotaUnit}} /</label>
+                                <ng-container>{{itm.initialQuota}} {{itm.quotaUnit}}
+                                </ng-container>
+                            </p>
+                            <p *ngIf="!itm.showremaining" class="card-text">
+                                <ng-container>{{itm.initialQuota}} {{itm.quotaUnit}}
+                                </ng-container>
+                            </p>
+
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar"
+                                    [style]="getStyle(itm.remainingQuota,itm.initialQuota)"
+                                    aria-valuenow="getPercentVal(itm.remainingQuota,itm.initialQuota)" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </ng-container>
+
+
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </section>
+    <!-- <section class="inds-error-load container-fluid" *ngIf="remainingRupiah.length ==0">
+        <div class="comp-section-heading">
+            <img src="assets/images/credit-icon.svg" alt="..."> <label>{{'quota.credit'|translate}}</label>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="error-section">
+                    <img src="assets/images/ic_warning.svg" alt="">
+                    <p>Unable to fetch the content</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- End Credit Quota-->
+
+</ng-container>
+<!-- Page Loading..-->
+<section class="inds-swiper03" *ngIf="hasContent ==0">
+    <div class="comp-section-heading">
+        <img src="{{env.cdnurl}}assets/images/data-icon.svg" alt="..."><label>{{'quota.no'|translate}}</label>
+    </div>
+    <div class="swiper-container dif-swiper-cards4-imgbtn" [swiper]="config" [(index)]="index">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let i of placeholders">
+                <section class="inds-sw03-card">
+                    <div class="card placeload">
+                        <div class="image-placeholder loads"></div>
+                        <div class="card-body">
+                            <h5 class="card-title content-shape loads"></h5>
+                            <p class="card-text content-shape loads"></p>
+                            <div class="button-link content-shape loads"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End No Data-->
+<div class="modal  package-modal fade" id="deactivatesucess" role="dialog" (click)="closeModal()">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p>{{message}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>

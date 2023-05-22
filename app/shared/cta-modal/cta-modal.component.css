@@ -1,0 +1,62 @@
+
+/* Component comp-popups nav */
+.ids-cta-modal-001 .modal-content {
+  border-radius: 10px;
+  border-color: transparent;
+}
+
+.ids-cta-modal-001  .modal-content .modal-body {
+  padding: 20px;
+}
+
+.ids-cta-modal-001  .modal-content .modal-body .img-warning {
+  width: 80px;
+  height: 85px;
+  margin: 0 auto;
+  display: block;
+}
+
+.ids-cta-modal-001  .modal-content .modal-body .popup-heading {
+  font-size: 18px;
+  text-align: center;
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 10px;
+  padding: 0 32px;
+  font-family: "noto_sanslight";
+}
+
+.ids-cta-modal-001  .modal-content .modal-body .popup-text {
+  font-size: 12px;
+  text-align: center;
+  display: block;
+  color: #898989;
+  font-family: "noto_sansregular";
+  padding: 0 20px;
+}
+
+.ids-cta-modal-001  .modal-content .modal-body .popup-text.warning-text-red {
+  color: #ed2324 !important;
+}
+
+.ids-cta-modal-001  .modal-content .modal-body .opt-button {
+  width: 144px;
+  height: 40px;
+  border-radius: 20px;
+  font-family: "Ooredoo-Heavy";
+  font-size: 12px;
+  display: block;
+  margin: 20px auto 0 auto;
+}
+
+
+.ids-cta-modal-001  .modal-content .modal-body .pop-link-cont {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.ids-cta-modal-001 .modal-content .modal-body .pop-link-cont .head5 {
+  font-family: "Ooredoo-Heavy";
+  margin: 0;
+  font-size: 14px;
+}

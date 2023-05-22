@@ -1,0 +1,57 @@
+<div class="wrapper">
+    <section class="transaction-header-sec mt-5">
+        <div class="global-back-cont d-flex justify-content-between align-items-center">
+            <img src="assets/images/back_dark.svg" (click)="goback()" alt="" title="">
+            <h5 class="sec-headding">{{'invite_friend'|translate}}</h5>
+            <img src="assets/images/help_dark.svg" alt="" (click)="openNewtab()" title="">
+        </div>
+        <div class="headding-sec d-flex justify-content-between align-items-end">
+            <h2 class="headding-sec-title">{{'invite_friend'|translate}}</h2>
+
+            <div class="img-cont">
+                <img src="{{env.cdnurl}}assets/images/mgm-invite-friends.svg" alt="" title="">
+            </div>
+
+        </div>
+
+    </section>
+    <section class="inds-card007 billing-history-section">
+        <div class="">
+            <div class="card container-fluid overview-card">
+                <div class="card balance-card m-0">
+                    <div class="card-body ">
+                        <div class="d-flex dif-profile-comp ">
+                            <div class="profile-sec balance-comp">
+                                <h5 style="float:left;"  class="profile-num text-verylight" >{{'your_referral_code'|translate}}</h5>
+                                <!-- <label style="float:left;" class="difuser-name mb-0" >{{referralCode}}</label>   -->
+                                <input type="text" id="cardNumber" #userinput style="border: 0px none; " value={{this.referralCode}} >                              
+                                <!-- <button type="button" style="float:left;" (click)="copyCode()" class="btn btn-primary" >{{'copy'|translate}}</button> -->
+                            </div>  
+                            <div class="profile-sec "><button (click)="copyCode(userinput)" class="btn btn-primary profile-btnsec">{{'copy'|translate}}</button>
+                        </div>
+                        </div>
+                        <div class="d-flex dif-profile-comp socialbtns-cont">
+                          
+                            <div class="social-btns">
+                                <label class="profile-num text-verylight">{{'tap_below'|translate}}</label>
+                            <share-buttons  theme="material-dark" show="5" 
+                            [include]="['whatsapp','facebook','twitter','linkedin','sms']"
+                            [exclude]="['pinterest','reddit','mix','vk','telegram','xing','copy','line','messenger','email']"
+                            [image] ="data.url"
+                            [url]="data.url"
+                            [description]="description"
+                            [autoSetMeta]="true" ></share-buttons>
+</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="rewards-invite-terms">
+        <!-- <h5>{{'terms_conditions'|translate}}</h5> -->
+        <iframe width="350" height="500" [src]="sanitizer.bypassSecurityTrustResourceUrl(mgmurl)" frameborder="0"></iframe>
+    </section>
+   
+</div>

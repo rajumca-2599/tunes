@@ -1,0 +1,234 @@
+<section class="herobanner-cont">
+    <app-header [pgname]="'home'"></app-header>
+    <app-top-slider [groupname]="'BUY'"></app-top-slider>
+</section>
+<!-- <br/> -->
+<div class="wrapper">
+    <!-- <section class="inds-card007 mt-100"> -->
+        <section class="inds-card007">
+        <div class="">
+            <div class="card container-fluid overview-card">
+                <div class="card-body pb-0">
+                    <div class="drill-bar-cont">
+                        <span class="drill-bar"></span>
+                    </div>
+                    <div class="d-flex dif-profile-comp">
+                        <div class="profile-sec difuser-name">{{'package.desc'|translate}}</div>
+                    </div>
+                </div>
+                <div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="user-interactions scroll-tab">
+        <ul class="nav w-100" role="tablist" id="tabs-move" >
+            <li class="nav-item">               
+                <a aria-selected="true" (click)="getselectedtab('step-1')" id="step1-tab" [ngClass]="enablepackagetab ? 'nav-link active' : 'nav-link'" data-toggle="tab"
+                    role="tab"> <img  class="bg-pink" src="{{env.cdnurl}}assets/images/package-icon.png" alt="Package">
+                    <h2 class="icon-title">{{'package'|translate}}</h2>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a aria-selected="true" (click)="getselectedtab('step-2')"  id="step2-tab" [ngClass]="enablecontenttab ? 'nav-link active' : 'nav-link'" data-toggle="tab"
+                    role="tab"> <img class="bg-pink" src="{{env.cdnurl}}assets/images/content-icon.png" alt=" Package">
+                    <h2 class="icon-title">{{'content'|translate}}</h2>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a aria-selected="true" (click)="getselectedtab('step-3')"  id="step3-tab"  [ngClass]="enablefavouritetab ? 'nav-link active' : 'nav-link'"  data-toggle="tab"
+                    role="tab"> <img class="bg-pink" src="{{env.cdnurl}}assets/images/favorite-icon.png" alt="Package">
+                    <h2 class="icon-title">{{'favorite'|translate}}</h2>
+                </a>
+
+
+            </li>
+
+<!--            
+            <div class="panel panel-move">
+
+            </div> -->
+        </ul>
+        <div class="tab-content">
+            <div id="step-1" *ngIf="enablepackagetab" [ngClass] = "enablepackagetab ?'tab-pane  active show' : 'tab-pane' ">
+                <!-- <div class="package-detail">
+                    <img src="assets/images/ask.jpg" alt="empty Package">
+                    <h3>
+                        Seems empty for now,
+                        You don’t have any favorite package or content.
+                    </h3>
+                    <p>Go browse our package and content and set your favorite!</p>
+                </div> -->
+                <div id="body">
+                    <div class="out-wrap">
+                        <ul id="tabs" class="nav pl-0" role="tablist">
+                            <li role="presentation" *ngFor="let package of packageList; let i = index"  [ngClass] = "{'active' : package.title == selectedtab}">
+                                <a (click)="selctedPackageCategory(package)" aria-controls="Music" role="tab" data-toggle="tab">{{package.title}}</a>
+                            </li>   
+                        </ul>
+                        <!-- <scrollable-tabs [tabs]="tabs" (emitSelectedTab)="selctedPackageCategory($event)"></scrollable-tabs> -->
+                    </div>
+                        <div class="tab-content" >
+                            <div role="tabpanel" class="tab-pane active">
+                                <section class="inds-package-card combo-pack " *ngFor="let item of catgList">
+                                    <div class="container-fluid mhc-mb0 p-0">
+                                        <div class="card" (click)="getpackagelist(item.category_id)">
+                                            <div class="wrap" *ngIf="item.category_ribbon!=''">
+                                                <span class="ribbon6">{{item.category_ribbon}}</span>
+                                            </div>
+                                                   <div class="card-body pb-0">
+                                                <section class="inds-card-notification">
+                                                    <div  *ngIf="item.category_footer_desc!=''" class="validation-section">
+                                                        <p class="headding4"> 🎁{{item.category_footer_desc}}</p>
+                                                    </div>
+                                                    <div class="package-section" (click)="getpackagelist(item.category_id)">
+                                                        <div class="pack-content">
+                                                            <h1 class="pack-name">{{item.category_name}}</h1>     
+                                                             <p>{{item.category_subtitle}}</p>
+                                                             <span>{{'startfrom'|translate}}</span>
+                                                            <h2><span class="text-secondary">Rp</span> {{item.category_start_price| amountConverter}}</h2>    
+                                                            <button (click)="getpackagelist(item.category_id)" class="btn btn-primary">{{'viewall'|translate}}</button>                
+                                                         </div>
+                                                        <div class="pack-img"><img src="{{item.category_list_image}}" alt=""></div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>        
+                                </section>
+                            </div>
+                        </div>
+                   
+                </div>
+            </div>
+            <div id="step-2" *ngIf="enablecontenttab" [ngClass] = "enablecontenttab ?'tab-pane  active show' : 'tab-pane' ">
+                
+                <section class="data-pack-section" *ngFor="let content of contentList" [style.background-image]="getstyle(content)">
+                    <picture>
+                        <img src={{content.category_list_image}} title="" alt="" class="pg2-bgimgw-comp">
+                    
+                    </picture>
+                    <div class="data-pack-content" (click)="getpackagelist(content.category_id)">
+                        <h2>{{content.category}}</h2>
+                        <p>{{content.category_subtitle}}</p>
+                       
+                        <button class="btn btn-primary package-btn" >{{'viewall'|translate}}</button>
+
+                    </div>
+
+                </section>
+      
+               
+            </div>
+            
+            <div id="step-3" *ngIf="enablefavouritetab" [ngClass] = "enablefavouritetab ?'tab-pane  active show' : 'tab-pane' ">
+                <div *ngIf="favouriteList && favouriteList.length >0 then showData else hideData"></div>
+                <ng-template #hideData>
+                <div class="package-detail">
+                    <img src="assets/images/ask.jpg" alt="empty Package">
+                    <h3>
+                       {{'favourite'|translate}} 
+                    </h3>
+                    <p>{{'favourite.desc'|translate}}</p>
+                </div>
+                </ng-template>
+                <ng-template #showData>
+               <section  class="inds-package-card" *ngFor="let favourite of favouriteList">
+                <div class="container-fluid mhc-mb0 p-0 ">
+            
+                    <div class="card">
+                        <!-- <div class="wrap" *ngIf="favourite.category_ribbon!=''">
+                            <span class="ribbon6">{{favourite.category_ribbon}}</span>
+                        </div> -->
+                        <div class="card-body pb-0">
+                            <section class="inds-card-notification">
+                                <!-- <div *ngIf="favourite.category_footer_desc!=''" class="validation-section">
+                                    <p class="headding4"> 🎁 {{favourite.category_footer_desc}}</p>
+                                </div> -->
+                                <div class="package-section">
+                                    <div class="pack-content">
+                                        <h1 class="pack-name">{{favourite.commercial_package.package_name}}</h1>
+                                        <p class="pack-des">{{favourite.commercial_package.package_subtitle}}</p>
+                                        <h2 *ngIf="favourite.commercial_package.original_tariff > favourite.commercial_package.tariff"  class="revised-pack">Rp{{favourite.commercial_package.tariff | amountConverter}}
+                                            <span>&nbsp;</span>
+                                        </h2>
+                                        <h1 class="monthly-pack">Rp{{favourite.commercial_package.tariff|amountConverter}} </h1>
+                                        
+                                    </div>
+                                    <div class="pack-img"><img src="{{favourite.commercial_package.package_highlight_image}}" alt=""></div>
+                                </div>
+                                <div class="package-footer">
+                                    <div class="foot-cont">
+                                        <button  (click)="navigateToBuy(favourite.commercial_package)" class="btn btn-primary">{{'buygift'|translate}}</button>
+                                        <a class="pr-0" (click)="navigateToBuy(favourite.commercial_package)">{{'seedetails'|translate}}<img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg"
+                                                alt=""></a>
+                                    </div>
+                            <img class="active" (click)="enablefavourite(favourite.commercial_package)" [src]="favourite.commercial_package.isfavourite ? 'assets/images/favorite-active.svg' : 'assets/images/favorite.svg'" id="myBtn2" alt="">
+                                </div>
+                            </section>
+            
+            
+                        </div>
+            
+                    </div>
+                </div>
+                <!-- Modal -->
+                </section>
+                </ng-template>
+            </div>          
+            <div class="clearfix"></div>           
+            <app-popular-package [source]="'package'"></app-popular-package>
+            <app-promotions [sourceid]="promotionssourceid" [source]="'package'"></app-promotions>
+            <app-promotions [sourceid]="promotionbannerssourceid" [source]="'package'"></app-promotions>
+            <app-popular-content [source]="'package'"></app-popular-content>
+        </div>
+    </div>
+</div>
+<div class="modal package-modal" id="myModal3" role="dialog" data-dismiss="modal" (click)="closeModal('myModal3')">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+                <p>{{'package.nopackage'|translate}}</p>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- myModal1 packageremove-->
+<div class="modal package-modal  fade" id="packageremove" role="dialog" (click)="closeModal('packageremove')">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+           
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="mt-3">{{'package.sucessremoved'|translate}}</h3>
+                <p>{{'packagemodal.desc'|translate}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- myModal2->packagesucess -->
+<div class="modal  package-modal fade" id="packagesucess" role="dialog" (click)="closeModal('packagesucess')">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="mt-3">{{'package.sucessadded'|translate}}</h3>
+                <p>{{'packagemodal.desc'|translate}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->

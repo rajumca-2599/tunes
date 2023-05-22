@@ -1,0 +1,380 @@
+<div class="wrapper">
+    <app-header [pgname]="'buypayment'"></app-header>
+    <br/>
+    <br/>
+    <section class="transaction-header-sec h-100 ">
+        <div
+            class="global-back-cont red-bottom  pl-3 pr-1 d-flex justify-content-between align-items-center bg-white">
+
+            <h5 class="sec-headding " (click)="gotoPreviousScreen()">{{'topup.back'|translate}}</h5>
+            <img (click)="openNewtab()"  src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" title="">
+        </div>
+    </section>     
+    <section class="payment-section  pt-0">
+        <section class="addno-contact card-details pl-0">
+            <p class="noto-light-18 text-secondary mb-2 mt-2 pl-0">{{'topup.paymentmethod'|translate}}</p>
+        </section>
+        <div class="payment-list-row" *ngIf="preferredinfo.length>0 &&(balance.length>0 || ispostapaid)" >          
+            <h3 *ngIf="selectedlanguage=='EN'"> {{preferredinfo[0].displayname_en}}</h3>
+            <h3 *ngIf="selectedlanguage=='ID'"> {{preferredinfo[0].displayname_id}}</h3>
+            <ul *ngFor="let info of preferredinfo" >
+                <li [ngClass] = "{'selected' : info.id == selectedpaymentmode}"  [class.disabled]="!info.isPaymentModeAllowed" >
+                    <div class="card-detail" [ngClass] = "{'w-50' : info.lowbalance}" (click)="doPayment(info)">
+                        <img *ngIf="info.isPaymentModeAllowed" src="{{env.cdnurl}}assets/images/{{info.id}}.png" alt="">
+                        <img *ngIf="!info.isPaymentModeAllowed" src="assets/images/{{info.id}}_grey.svg" alt="">
+                      
+                        <div class="d-flex mt-2 flex-column justify-content-center" >
+                            <h3 *ngIf="selectedlanguage=='EN'" class=" p-0 m-0">{{info.name_en}}</h3>
+                            <h3 *ngIf="selectedlanguage=='ID'" class=" p-0 m-0">{{info.name_id}}</h3>
+                            <h3 *ngIf="!info.lowbalance&&!ispostapaid" class=" p-0 m-0 f-12">Rp{{balance |amountConverter}}</h3>
+                            <h3 *ngIf="info.lowbalance && !ispostapaid" class=" p-0 m-0 f-12"  style="color: red;">Rp{{balance |amountConverter}}</h3>
+                        </div>  
+                        <img *ngIf="info.id == selectedpaymentmode" class="option-selected" src="{{env.cdnurl}}assets/images/payment-checked.png" alt="">
+                    </div>
+                    <!-- <div class="offer w-50" *ngIf="!info.isPaymentModeAllowed">
+                        <h3 class="text-secondary">{{'notapplicable'|translate}}</h3>
+                    </div> -->
+                    <div *ngIf="info.lowbalance">
+                        <h2  class="f-14 mr-3 pt-3 text-primary">{{'insufficentbalance'|translate}}</h2>
+                    </div>
+                </li>               
+            </ul>
+        </div>
+        <div class="payment-list-row" *ngIf="ewalletInfo.length>0" >          
+            <h3 *ngIf="selectedlanguage=='EN'"> {{ewalletInfo[0].displayname_en}}</h3>
+            <h3 *ngIf="selectedlanguage=='ID'"> {{ewalletInfo[0].displayname_id}}</h3>
+            <ul *ngFor="let ewallet of ewalletInfo" >
+                <li [ngClass] = "{'selected' : ewallet.id == selectedpaymentmode}" [class.disabled]="!ewallet.isPaymentModeAllowed">
+                    <div class="card-detail" (click)="doPayment(ewallet)">
+                        <img *ngIf="ewallet.isPaymentModeAllowed" src="{{env.cdnurl}}assets/images/{{ewallet.id}}.png" alt="">
+                        <img *ngIf="!ewallet.isPaymentModeAllowed" src="{{env.cdnurl}}assets/images/{{ewallet.id}}_grey.png" alt="">
+                       <h3>{{ewallet.name}}</h3> 
+                        <img *ngIf="ewallet.id == selectedpaymentmode" class="option-selected" src="{{env.cdnurl}}assets/images/payment-checked.png" alt="">
+                    </div>
+                    <div class="offer w-50" *ngIf="!ewallet.isPaymentModeAllowed">
+                        <h3 class="text-secondary">{{'notapplicable'|translate}}</h3>
+                    </div>
+                    
+                </li>               
+            </ul>
+        </div>
+        <div class="payment-list-row" *ngIf="cardInfo.length>0" >
+            <h3 *ngIf="selectedlanguage=='EN'"> {{cardInfo[0].displayname_en}}</h3>
+            <h3 *ngIf="selectedlanguage=='ID'"> {{cardInfo[0].displayname_id}}</h3>
+            <ul *ngFor="let ecard of cardInfo" >
+                <li [ngClass] = "{'selected' : ecard.id == selectedpaymentmode}"  [class.disabled]="!ecard.isPaymentModeAllowed">
+                    <div class="card-detail" (click)="doPayment(ecard)">
+                        <img *ngIf="ecard.isPaymentModeAllowed"  src="{{env.cdnurl}}assets/images/{{ecard.id}}.svg" alt="">
+                        <img *ngIf="!ecard.isPaymentModeAllowed"  src="{{env.cdnurl}}assets/images/{{ecard.id}}_grey.svg" alt="">                       
+                        <h3>{{ecard.name}}</h3>
+                        <img *ngIf="ecard.id == selectedpaymentmode" class="option-selected" src="{{env.cdnurl}}assets/images/payment-checked.png" alt="">
+                    </div>
+                    <!-- <div class="offer">
+                        <h3 class="offer-detail">50% off</h3>
+                    </div> -->
+                    <div class="offer w-50" *ngIf="!ecard.isPaymentModeAllowed">
+                        <h3 class="text-secondary">{{'notapplicable'|translate}}</h3>
+                    </div>
+                </li>
+            </ul>
+        </div> 
+         <div class="payment-list-row" *ngIf="bankInfo.length>0">            
+            <h3 *ngIf="selectedlanguage=='EN'"> {{bankInfo[0].displayname_en}}</h3>
+            <h3 *ngIf="selectedlanguage=='ID'"> {{bankInfo[0].displayname_id}}</h3>
+            <ul  *ngFor="let bank of bankInfo" >
+                <li [ngClass] = "{'selected' : bank.id == selectedpaymentmode}" [class.disabled]="!bank.isPaymentModeAllowed">
+                    <div class="card-detail" (click)="doPayment(bank)">
+                        <img *ngIf="bank.isPaymentModeAllowed" src="assets/images/{{bank.id}}.png" alt="">
+                        <img *ngIf="!bank.isPaymentModeAllowed" src="assets/images/{{bank.id}}_grey.svg" alt="">
+                        <h3>{{bank.name}}</h3>
+                        <img *ngIf="bank.id == selectedpaymentmode" class="option-selected" src="assets/images/payment-checked.png" alt="">
+                    </div>
+                    <div class="offer w-50" *ngIf="!bank.isPaymentModeAllowed">
+                        <h3 class="text-secondary">{{'notapplicable'|translate}}</h3>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+
+<div class="clearfix"></div>
+
+
+<div class="total-payment shadow-dwn">
+    <div class="payment-amt pb-0 pt-3">
+        <div class="amount" >
+            <div class="total-amt" *ngIf="!showPurchaseReview">
+                <h3>{{'total'|translate}}</h3>
+                <!-- <p><span>Rp</span>{{selecteddenom |  amountConverter}}</p> -->
+                <p><span>Rp</span>{{selecteddenom}}{{topupdecimal}}</p>
+            </div>
+            <p>{{'topup.purchase'|translate}}</p>
+            <h3 class="review-purchase d-none">{{'topup.review'|translate}}</h3>
+        </div>
+        <img id="uparrow" (click)="showPurchaseReview = !showPurchaseReview" [ngClass] = "{'d-none' :showPurchaseReview}" src="{{env.cdnurl}}assets/images/caret-up-dark.png" alt="">
+        <img id="dwnarrow" (click)="showPurchaseReview = !showPurchaseReview" class="d-none" src="{{env.cdnurl}}assets/images/caret-down-dark-50x50.png" [ngClass] = "{'d-block' :showPurchaseReview}" alt="">
+    </div>
+    <div class="detail-list d-none" [ngClass] = "{'d-block' :showPurchaseReview} " >
+        <ul>
+            <li>
+                <div class="amount-section" *ngIf="sourcescreen=='topup'">
+                    <div class="top-upamount">
+                        <img src="{{env.cdnurl}}assets/images/review.svg" alt="">
+                        <div class="amountlist">
+                            <h4>
+                                {{'topup.amount'|translate}}
+                            </h4>
+                            <!-- <p>Rp{{selecteddenom | amountConverter}}</p> -->
+                            <p>Rp{{selecteddenom}}<span>{{topupdecimal}}</span></p>
+                           
+                        </div>
+                    </div>
+                    <div class="total-amount">Rp{{selecteddenom}}{{topupdecimal}}</div>
+                </div>
+                <div class="amount-section" *ngIf="sourcescreen=='viewpackage'">
+                    <div class="top-upamount">
+                        <img src="{{env.cdnurl}}assets/images/review.svg" alt="">
+                        <div class="amountlist">
+                            <h4>
+                                {{'packageprice'|translate}}
+                            </h4>
+                            <p>{{topupid}}</p>
+                        </div>
+                    </div>
+                    <!-- <div class="total-amount">Rp{{selecteddenom}}{{topupdecimal}}</div> -->
+                    <div class="total-amount">Rp{{denomresponse.normal_price|amountConverter}}</div>
+                </div>
+                <div class="amount-section" *ngIf="sourcescreen=='paybill'">
+                    <div class="top-upamount">
+                        <img src="{{env.cdnurl}}assets/images/review.svg" alt="">
+                        <div class="amountlist">
+                            <h4>
+                                {{'billpay'|translate}}
+                            </h4>
+                            <p>{{duedate}}</p>
+                        </div>
+                    </div>
+                    <div class="total-amount">Rp{{selecteddenom}}{{topupdecimal}}</div>
+                </div>
+
+            </li>
+            <li>
+                <div class="amount-section">
+                    <div class="top-upamount">
+                        <!-- <img src="{{env.cdnurl}}assets/images/review-user.jpg" alt=""> -->
+                        <img [src]="userimage"  onerror="this.src='assets/images/account-null-light.svg'" alt="">
+                        <div class="amountlist" *ngIf="sourcescreen=='topup'">
+                            <h4>
+                                {{'topup.for'|translate}}
+                            </h4>
+                            <p>{{topupNumber }}</p>
+                        </div>
+                        <div class="amountlist" *ngIf="sourcescreen=='viewpackage'">
+                            <h4>
+                                {{'buypackage'|translate}}
+                            </h4>
+                            <p>{{topupNumber }}</p>
+                        </div>
+                        <div class="amountlist" *ngIf="sourcescreen=='paybill'">
+                            <h4>
+                                {{'payfor'|translate}}
+                            </h4>
+                            <p>{{topupNumber }}</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="amount-section" *ngIf="sourcescreen=='viewpackage' && (denomresponse.discount_price!='0'||denomresponse.discount_price!='0.0')">
+                    <div class="top-upamount">
+                        <img src="{{env.cdnurl}}assets/images/discount.svg" alt="">
+                        <div class="amountlist">
+                            <h4>
+                                {{'discount'|translate}}
+                            </h4>
+                            <div class="total-amount">{{discountpercentage}}%</div>
+                        </div>
+                    </div>
+                   
+                    <span class="text-primary">-Rp{{denomresponse.discount_price|amountConverter}}</span>
+                </div>
+            </li>
+        </ul>
+        <div class="total-cost">
+            <h3>{{'total'|translate}}</h3>
+            <!-- <p><span>Rp</span>{{selecteddenom | amountConverter}}</p> -->
+            <p><span>Rp</span>{{selecteddenom}}{{topupdecimal}}</p>
+
+        </div>
+    </div>
+    <div class="payment-btns">
+        <button (click)="gotoPreviousScreen()" class="btn btn-cancel text-secondary">{{'cancel'|translate}}</button>
+        <button class="btn btn-payment btn-primary"  [disabled]="!enabletopup" [ngClass] = "{'unselected' :!enabletopup} " (click)="makepayment()" data-toggle="modal" >{{'topup.paynow'|translate}}</button>
+    </div>
+</div>
+</div>
+<!-- Modal Filter Starts -->
+
+<div class="modal m-bottom fade" id="filtersModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header pt-3 pl-3 pr-3">
+                <h5 class="modal-title m-title text-secondary" id="exampleModalLabel">{{'footer.acc'|translate}} {{selectedpaymentmode}} </h5>
+                <button type="button" class="close" (click)="deselectSelectedPayment()" data-dismiss="modal" aria-label="Close" >
+                    <span aria-hidden="true"><img src="{{env.cdnurl}}assets/images/close-dark.svg" alt="" title=""></span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <section class="form-main-cont ">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <div class="form-cont login-form ">
+
+                                    <div class="form-inner-cont">
+                                        <form>
+                                            <div class="form-group ">
+                                                <label class="text-heavy text-secondary">{{'accountnumber'|translate}}</label>
+                                                <input autocomplete="off" placeholder="{{'paymentplaceholder'|translate}}"  name="txtMobileNumber" class="form-control text-grayed"
+                                                maxlength="13" [(ngModel)]="txtMobileNumber"  type="tel" appNumbersOnly
+                                                required >
+                                            </div>
+                                            <p class="Verification-text text-left text-secondary">
+                                              {{msg}}
+                                            </p>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link text-secondary" (click)="deselectSelectedPayment()" data-dismiss="modal">{{'cancel'|translate}}</button>
+                <!-- <button type="button" class="btn btn-primary" [disabled]="!(txtMobileNumber?.length >= 9)" [ngClass] = "{'unselected' :  !(txtMobileNumber?.length >= 9) }"  (click)="showPurchaseReview = !showPurchaseReview" data-dismiss="modal">{{'continue'|translate}}</button> -->
+             <button type="button" class="btn btn-primary" (click)="hideAccountNo()" [disabled]="!(txtMobileNumber?.length >= 9)" [ngClass] = "{'unselected' :  !(txtMobileNumber?.length >= 9) }" data-dismiss="modal">{{'continue'|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal m-bottom fade" id="shopeepayModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header pt-3 pl-3 pr-3">
+                <h5 class="modal-title m-title text-secondary" id="ModalLabel">{{'paywith'|translate}} ShopeePay </h5>
+                <button type="button" class="close" (click)="deselectSelectedPayment()" data-dismiss="modal" aria-label="Close" >
+                    <span aria-hidden="true"><img src="{{env.cdnurl}}assets/images/close-dark.svg" alt="" title=""></span>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <section class="form-main-cont ">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <div class="form-cont login-form ">
+
+                                    <div class="form-inner-cont">
+                                        <form>
+                                            <div class="form-group ">
+                                                <label class="text-heavy text-secondary">{{'shoppepaynumber'|translate}}</label>
+                                                <p class="Verification-text text-left text-secondary">
+                                                    {{shopeepaymsg}}
+                                                  </p>
+                                                <input autocomplete="off" placeholder="{{'shopeepaypaymentplaceholder'|translate}}"  name="txtMobileNumber" class="form-control text-grayed"
+                                                maxlength="13" [(ngModel)]="txtMobileNumber"  type="tel" appNumbersOnly
+                                                required >
+                                            </div>
+                                            
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link text-secondary" (click)="deselectSelectedPayment()" data-dismiss="modal">{{'cancel'|translate}}</button>
+                <!-- <button type="button" class="btn btn-primary" [disabled]="!(txtMobileNumber?.length >= 9)" [ngClass] = "{'unselected' :  !(txtMobileNumber?.length >= 9) }"  (click)="showPurchaseReview = !showPurchaseReview" data-dismiss="modal">{{'continue'|translate}}</button> -->
+             <button type="button" class="btn btn-primary" (click)="hideAccountNo()" [disabled]="!(txtMobileNumber?.length >= 9)" [ngClass] = "{'unselected' :  !(txtMobileNumber?.length >= 9) }" data-dismiss="modal">{{'continue'|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal package-modal" id="paymentmodal" role="dialog" data-dismiss="modal" (click)="closeModal('paymentmodal')">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">              
+                <p>{{'pay.desc'|translate}}</p>
+            </div>
+        </div>
+    </div>
+</div> 
+<div class="modal fade" id="eligible" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content m-3">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="img-warning mt-4">
+                    <img src="{{env.cdnurl}}assets/images/warning.png">
+                </div>
+                <h2 class="popup-heading mb-4 mt-4">{{'topup.confirmation'|translate}}</h2>
+                <p class="popup-text pl-4 pr-4 mb-4 f-14">{{'topup.cuurentdesc'|translate}}
+                    <span class="text-primary">{{topupid}} </span></p>
+
+                    <p class="popup-text pl-4 pr-4 mb-4 f-14">{{'topup.existdesc'|translate}}
+                        <span class="text-primary">-{{eligible.expirydatetime}} {{'daysleft'|translate}} {{eligible.packagename}} </span></p>
+                      
+                        <p class="popup-text pl-4 pr-4 mb-4 f-14">{{'topup.areyousure'|translate}} <span class=" text-primary"> {{eligible.rebuytype}}</span> 
+                          {{'rebuyupgrade'|translate}} 
+                       </p>   
+
+
+                <button type="button" (click)="contuinepayment()" class="btn btn-primary mb-2 m-auto d-block" data-dismiss="modal">
+                  {{'topup.gotit'|translate}} </button>
+
+                <button *ngIf="eligible.eligibility == 'ELIGIBLE' " type="button" class="btn btn-light mb-2 m-auto d-block bg-white"
+                    data-dismiss="modal" (click)="unselectPaymentmode()" >{{'cancel'|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="noteligible" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true" data-dismiss="modal" (click)="closeModal('noteligible')">
+<div class="modal-dialog modal-dialog-centered" >
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="img-warning mt-4">
+                    <img src="{{env.cdnurl}}assets/images/warning.png">
+                </div>
+                <h2 class="popup-heading mb-3 mt-4">{{'oops'|translate}}</h2>
+                <p class="pl-3 pr-3 text-center text-dark">{{eligible.responsemsg}}</p>
+                <button type="button" class="btn btn-primary mb-2 m-auto d-block" (click)="unselectPaymentmode()" data-dismiss="modal">
+                    {{'topup.gotit'|translate}} </button>
+            </div>
+    </div>
+</div> 
+</div>
+<div class="modal fade" id="errorpopup" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true" data-dismiss="modal" (click)="closeModal('errorpopup')">
+    <div class="modal-dialog modal-dialog-centered" >
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="img-warning mt-4">
+                        <img src="{{env.cdnurl}}assets/images/warning.png">
+                    </div>  
+                    <h2 class="popup-heading mb-3 mt-4">{{'oops'|translate}}</h2>                 
+                    <p class="pl-3 pr-3 text-center text-dark">{{failuremesg}}</p>                   
+                </div>
+        </div>
+    </div> 
+    </div>

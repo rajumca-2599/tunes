@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <app-header [pgname]="'readiness'"></app-header>
+    <br/>
+    <br/>
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="goback()" title="">
+        <h5 class="sec-headding">{{'4greadlines'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+
+    <div class="container-fluid">
+        <div class="morenav-cont bg-white">
+            <div class="morenav">
+                <div class="txt-cont">
+                    <p class="maintxt">{{'4gplus_sim_card'|translate}}</p>
+                    <p class="sub-text-grey">{{'4g_network_success_message'|translate}}</p>               
+                </div>
+                <div>
+                    <a *ngIf="readinesInfo.simflag=='Y'"><img  src="{{env.cdnurl}}assets/images/check-icon.svg" alt="" width="20"></a> 
+                    <a *ngIf="readinesInfo.simflag!='Y'"><img  src="{{env.cdnurl}}assets/images/error-icon.svg" alt="" width="20"></a>  
+                </div>
+            </div>
+    </div>
+    <div class="morenav-cont bg-white">
+        <div class="morenav">
+            <div class="txt-cont">
+                <p class="maintxt">{{'4gplus_device'|translate}}</p>
+                <p class="sub-text-grey">{{'4g_network_success_message'|translate}}</p>               
+            </div>
+            <div>
+                <a *ngIf="readinesInfo.deviceflag=='Y'"><img  src="{{env.cdnurl}}assets/images/check-icon.svg" alt="" width="20"></a> 
+                <a *ngIf="readinesInfo.deviceflag!='Y'"><img  src="{{env.cdnurl}}assets/images/error-icon.svg" alt="" width="20"></a>   
+            </div>
+        </div>
+</div>
+<div class="morenav-cont bg-white" (click)="gotoCoverage()">
+    <div class="morenav">
+        <div class="txt-cont">
+            <p class="maintxt">{{'4plus_coverage'|translate}}</p>
+            <p class="sub-text-grey">{{'view_and_rate_your_area'|translate}}</p>               
+        </div>
+        <div>
+            <a><img src="assets/images/detail-black-arrow.svg" alt=""></a>   
+        </div>
+    </div>
+</div>
+</div>  
+</div>

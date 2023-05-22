@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="86" height="52" viewBox="0 0 86 52">
+    <defs>
+        <rect id="lxs40mxqea" width="86" height="52" x="0" y="0" rx="8"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <path fill="#FFF" d="M0 0H360V908H0z" transform="translate(-77 -429)"/>
+            <g>
+                <g>
+                    <g>
+                        <g transform="translate(-77 -429) translate(0 24) translate(29 127) translate(7 278) translate(41)">
+                            <mask id="73d502jieb" fill="#fff">
+                                <use xlink:href="#lxs40mxqea"/>
+                            </mask>
+                            <use fill="#F4F4F4" xlink:href="#lxs40mxqea"/>
+                            <g fill="#9F9F9F" mask="url(#73d502jieb)">
+                                <g>
+                                    <path d="M0 0H18V3H0zM22 0H40V3H22zM44 0H62V3H44zM66 0H84V3H66z" transform="translate(11 31)"/>
+                                </g>
+                            </g>
+                            <text fill="#333" font-family="NotoSans-Bold, Noto Sans" font-size="14" font-weight="bold" mask="url(#73d502jieb)">
+                                <tspan x="16" y="27">5</tspan>
+                            </text>
+                            <text fill="#333" font-family="NotoSans-Bold, Noto Sans" font-size="14" font-weight="bold" mask="url(#73d502jieb)">
+                                <tspan x="38" y="27">5</tspan>
+                            </text>
+                            <text fill="#333" font-family="NotoSans-Bold, Noto Sans" font-size="14" font-weight="bold" mask="url(#73d502jieb)">
+                                <tspan x="60" y="25">|</tspan>
+                            </text>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

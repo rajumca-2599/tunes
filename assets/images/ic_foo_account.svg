@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="47" viewBox="0 0 48 47">
+    <defs>
+        <filter id="prefix__a" width="165%" height="474.5%" x="-32.5%" y="-181.8%" filterUnits="objectBoundingBox">
+            <feOffset dy="-2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="25"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.878431373 0 0 0 0 0.878431373 0 0 0 0 0.878431373 0 0 0 1 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd" filter="url(#prefix__a)" transform="translate(-73 -1)">
+        <g>
+            <path d="M0 0H18.489V18.489H0z" transform="translate(87.644 15.533)"/>
+            <g fill="#ED2324" transform="translate(87.644 15.533)">
+                <rect width="2.175" height="5.438" x="16.314" rx="1.088"/>
+                <path d="M16.78 1.795l.123.124c.391.39.391 1.023 0 1.414l-7.045 7.045c-.39.39-1.023.39-1.414 0l-.124-.124c-.39-.39-.39-1.024 0-1.414l7.045-7.045c.39-.39 1.024-.39 1.415 0z"/>
+                <path d="M9.89 10.197l-.124.124c-.39.39-1.024.39-1.415 0l-3.2-3.2c-.39-.39-.39-1.024 0-1.415l.124-.123c.39-.39 1.024-.39 1.415 0l3.2 3.2c.39.39.39 1.023 0 1.414z"/>
+                <path d="M6.54 5.51l.124.125c.39.39.39 1.023 0 1.414l-3.97 3.969c-.39.39-1.023.39-1.413 0l-.124-.124c-.39-.39-.39-1.024 0-1.414l3.969-3.97c.39-.39 1.024-.39 1.414 0zM18.489 1v.175c0 .552-.448 1-1 1H14.05c-.552 0-1-.448-1-1V1c0-.552.448-1 1-1h3.438c.552 0 1 .448 1 1z"/>
+                <g transform="translate(2.054 8.217)">
+                    <rect width="2.175" height="9.788" x="13.051" rx="1.088"/>
+                    <path d="M10.788 3.263h.175c.553 0 1 .447 1 1v4.525c0 .553-.447 1-1 1h-.175c-.552 0-1-.447-1-1V4.263c0-.553.448-1 1-1z"/>
+                    <rect width="2.175" height="5.438" x="6.525" y="4.35" rx="1.088"/>
+                    <path d="M4.263 3.263h.175c.552 0 1 .447 1 1v4.525c0 .553-.448 1-1 1h-.175c-.553 0-1-.447-1-1V4.263c0-.553.447-1 1-1z"/>
+                    <rect width="2.175" height="4.35" y="5.438" rx="1.088"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

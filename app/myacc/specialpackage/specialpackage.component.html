@@ -1,0 +1,55 @@
+<section class="inds-swiper06" >
+    <div class="main-hedding-cont mhc-mb0" *ngIf="hasContent !=2">
+        <div class="hedding-nav-cont">
+            <h2>{{'splpckg.heading'|translate}}</h2>
+        </div>
+    </div>
+
+
+    <!-- Swiper -->
+    <div class="swiper-container inds-swiper06-cont" *ngIf="hasContent==1">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let item of specialpackages">
+                <section class="inds-sw06-card" *ngIf="item.home_banner !=''">
+                    <div class="card"> 
+                        <div class="card-body">
+                            <img [src]="item.home_banner" (click)="openNewtab(item.home_banner_url)"  alt="..." onerror="this.src='assets/images/default_image_content.svg'">
+                            <!-- <div class="item_introtext">You are currently on </div>
+                            <h5>Prime Lite</h5> home_banner_url -->
+                           <!--  <div class="item_link" *ngIf="item.home_banner_url !=''"><a
+                                    [href]="item.home_banner_url">{{'splpckg.benfit'|json}} ></a></div> -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <section class="inds-error-load container-fluid" *ngIf="hasContent ==2">
+    <div class="card">
+        <div class="card-body">
+            <div class="error-section">
+                <img src="assets/images/ic_warning.svg" alt="">
+                <p>{{'warning'|translate}}</p>
+            </div>
+        </div>
+    </div>
+</section> -->
+<section class="inds-swiper03" *ngIf="hasContent ==0">
+    <div class="swiper-container dif-swiper-cards4-imgbtn" [swiper]="config" [(index)]="index">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let i of placeholders">
+                <section class="inds-sw03-card">
+                    <div class="card placeload">
+                        <div class="image-placeholder loads"></div>
+                        <div class="card-body">
+                            <h5 class="card-title content-shape loads"></h5>
+                            <p class="card-text content-shape loads"></p>
+                            <div class="button-link content-shape loads"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>

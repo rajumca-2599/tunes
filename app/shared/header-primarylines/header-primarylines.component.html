@@ -1,0 +1,29 @@
+
+<div class="manage-number">   
+    <hr>
+    <div class="indo-main-menu" >
+
+        <div class="mianaccount-sec" *ngFor="let item of data; let i = index" (click)="addChildNumber(item)" >
+            <h4 data-toggle="modal"
+                data-target="#popup-logout">
+                <img src="{{env.cdnurl}}assets/images/dot-icon.png" class="mr-2" title="" *ngIf="childnumber== item.msisdn"
+                    alt="">
+                <span *ngIf="item.parent">{{item.name}} ({{'main'|translate}})</span>
+                <span *ngIf="!item.parent">{{item.name}} </span>
+            </h4>
+            <div class="usernumber1" >
+                <label> {{item.msisdn}} </label>
+                <a class="btn btn-outline-danger"> {{item.serviceType}} </a>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+</div>
+
+<div class="profile-sec">
+    <button class="btn btn-primary profile-btnsec" [disabled]="!enablemanagenumber"
+         (click)="navigatetomanageno()">
+    {{'manageno'|translate}}
+    </button>
+</div>

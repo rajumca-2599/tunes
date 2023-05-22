@@ -1,0 +1,122 @@
+<div class="wrapper">
+   <app-header [pgname]="'manage'"></app-header>
+    <br/>
+    <br/>
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="backtoHome()" title="">
+        <h5 class="sec-headding">{{'manageno'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+
+    <div class="container-fluid">
+            <section class="manage-cont-new" *ngIf="parentdata && parentdata.length>0 && !enablemanagenumber">
+                <div class="contact-cont disabling-number"  *ngFor="let item of parentdata"> 
+                    <div class="contact-dls w-100 text-center">
+                        <p *ngIf="item.name !=''" class="contact-dls-name">{{item.name}} ({{'main'|translate}})</p>
+                    <p *ngIf="item.name ==''" class="contact-dls-name">{{'noname'|translate}}</p>
+                        <p class="contact-dls-no ">{{item.msisdn}} <a href="" class="btn prepaid-button">{{item.serviceType}}</a></p>
+                    </div>
+                </div>
+                <div class="contact-cont"  *ngFor="let item of data"> 
+                    <div class="contact-dls w-100 text-center">
+                        <p  *ngIf="item.name !=''" class="contact-dls-name"> <span class="dot-circle"> <img class="mr-2" src="{{env.cdnurl}}assets/images/dot-icon.png" > </span>{{item.name}} </p>
+                        <p  *ngIf="item.name ==''" class="contact-dls-name"> <span class="dot-circle"><img class="mr-2" src="{{env.cdnurl}}assets/images/dot-icon.png" > <img class="profile"
+                            [src]="userimage" onerror="this.src='assets/images/account-null-light.svg'" alt="{{env.cdnurl}}assets/images/account-null-light.svg" title="item.name"></span>{{'noname'|translate}} </p>
+                        <p class="contact-dls-no">{{item.msisdn}} <a class="btn prepaid-button">{{item.serviceType}}</a></p>
+                    </div>
+                 
+                </div>
+                <p class="f-12 mt-4 ml-4 mr-4 text-dark">
+                    {{'childnumbermessage'|translate}}
+                    </p>
+           </section>
+
+
+        <section class="manage-contact" *ngIf="enablemanagenumber">
+            <div class="contact-cont" *ngFor="let item of data">
+                <div class="img-cont-rounded rounded-circle"><img class="profile"
+                        [src]="item.imagelocation" onerror="this.src='assets/images/account-null-light.svg'" alt="{{env.cdnurl}}assets/images/account-null-light.svg" title="item.name"></div>
+                <div class="contact-dls" (click)="addChildNumber(item)">
+                    <p *ngIf="item.parent" class="contact-dls-name">{{item.name}} ({{'main'|translate}})</p>
+                    <p *ngIf="!item.parent && item.name !=''" class="contact-dls-name">{{item.name}}</p>
+                    <p *ngIf="!item.parent && item.name ==''" class="contact-dls-name">{{'noname'|translate}}</p>
+                    <p class="contact-dls-no">{{item.msisdn}} <a href="" class="btn btn-outline-small">{{item.serviceType}}</a></p>
+                </div>
+                <div *ngIf="!item.parent" class="trash-cont">
+                    <a>
+                    <img class="profile" src="{{env.cdnurl}}assets/images/trash.svg"   (click)="show(item.name,item.msisdn)"> 
+                </a>                    
+                </div>
+            </div>
+            <a id="addNo-btn">
+                <div class="contact-cont add-num"  (click)="addnewnumber()">
+                    <div class="img-cont-rounded rounded-circle"><img class="profile"
+                            src="{{env.cdnurl}}assets/images/add-number-dark.svg" alt="" title=""></div>
+                    <div class="contact-dls">
+                        <p  class="contact-dls-name" >{{'manageno.add'|translate}}</p>
+
+                    </div>
+                </div>
+            </a>
+        </section>
+    </div>
+
+    
+     <!-- Modal popup001--> 
+   
+<!-- <ng-template #template>   -->
+  
+<!-- </ng-template> -->
+</div>
+<div class="modal fade" id="deletepopup" data-dismiss="modal" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="img-warning warning-new">
+                    <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="">
+                </div>
+                <h2 class="popup-heading">{{content}}</h2>
+                <p class="popup-text">{{'manageno.deletetxt'|translate}}</p>
+
+
+                <button type="button" class="btn btn-primary opt-button" (click)="modalRef.hide()" data-dismiss="modal">{{'no'|translate}} </button>
+
+
+                <div class="pop-link-cont">
+
+                    <!-- <h5 class="head5">Got myIM3 App?</h5> -->
+                    <a class="button-link-black" (click)="deleteNumber()">{{'manageno.yestxt'|translate}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal  package-modal fade" id="deletesucess" role="dialog" (click)="closeModal()">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="mt-3">{{deletemsisdn}} {{'sucessremove'|translate}}</h3>
+                <p>{{deletemessage}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal  package-modal fade" id="addsucess" role="dialog" (click)="closeModal()">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" (click)="getdata()" data-dismiss="modal">&times;</button>
+                <h3 class="mt-3"> {{childno}} {{'sucess'|translate}}</h3>
+                <p>{{'sucessfullyaddnumber'|translate}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+  

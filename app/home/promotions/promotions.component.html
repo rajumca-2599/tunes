@@ -1,0 +1,54 @@
+<section class="main-hedding-cont" [ngClass] = "{'mr-0 ml-0' : source =='package' }" *ngIf="hasContent !=2">
+    <div class="hedding-nav-cont">
+        <!-- <h2>{{'promotions.title'|translate}} </h2> -->
+        <h2>{{title}} </h2>
+        <!-- <a class="button-link" [ngClass] = "{'pr-0' : source =='package' }" (click)="openCTAModal();">{{'onlyappbtntext'|translate}} <img
+                src="{{env.cdnurl}}assets/images/ic_front_arrow_red.svg" alt="..."></a> -->
+                <!-- <a *ngIf="source=='home'" class="button-link" (click)="openCTAModal();">{{'morebtntext'|translate}} 
+                    <img src="{{env.cdnurl}}assets/images/ic_front_arrow_red.svg" alt="..."></a> -->
+    </div>
+    <div class="hedding-info-cont">
+        <img src="{{env.cdnurl}}assets/images/ic_alert-red.png" alt="...">
+        <p> {{'promotions.heading'|translate}} <b>#{{'lebihuntung'|translate}}</b> {{'imi3'|translate}}</p>
+    </div>
+</section>
+<section class="inds-swiper03"  [ngClass] = "{'pack-card-pd' : source =='package' }" *ngIf="hasContent ==0">
+    <div class="swiper-container dif-swiper-cards4-imgbtn" [swiper]="config" [(index)]="index">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let i of placeholders">
+                <section class="inds-sw03-card">
+                    <div class="card placeload">
+                        <div class="image-placeholder loads"></div>
+                        <div class="card-body">
+                            <h5 class="card-title content-shape loads"></h5>
+                            <p class="card-text content-shape loads"></p>
+                            <div class="button-link content-shape loads"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="inds-swiper04 container-fluid" [ngClass] = "{'pack-card-pd' : source =='package' }" *ngIf="hasContent ==1">
+    <div class="swiper-container inds-swiper04-cont" [swiper]="config" [(index)]="index">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let item of promotions">
+                <section class="inds-sw04-card">
+                    <img [src]="item.src" (click)="openNewtab(item.url)" alt="..." onerror="this.src='assets/images/default_image_content.svg'">
+                </section>
+            </div>
+        </div>
+        <div *ngIf="promotions.length>1" class="swiper-pagination1" ></div>
+    </div>
+</section>
+<!-- <section class="inds-error-load container-fluid" *ngIf="hasContent==2">
+    <div class="card">
+        <div class="card-body">
+            <div class="error-section">
+                <img src="assets/images/ic_warning.svg" alt="...">
+                <p>{{'warning'|translate}}</p>
+            </div>
+        </div>
+    </div>
+</section> -->

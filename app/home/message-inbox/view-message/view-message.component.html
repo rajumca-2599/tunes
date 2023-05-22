@@ -1,0 +1,13 @@
+<div >    
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img (click)="navigatetoinbox()" src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" title="">
+        <h5 class="sec-headding">{{'inbox'|translate}}</h5>
+        <a data-toggle="modal" (click)="deleteMessage(singlemessage.transactionid)"><img src="{{env.cdnurl}}assets/images/trash.svg" alt=""
+                title=""></a>
+    </div>
+<div class="mb-5 d-flex justify-content-center" [innerHtml]="singlemessage.data | safeHtml"></div>
+<div class="global-back-cont-border fixed-buttons position-fixed w-100">
+    <button type="button" (click)="gotoHome()"  class="btn btn-primary d-block w-100 p-3 mr-1 f-14">{{'backtohome'|translate}}</button>
+
+</div>
+</div>

@@ -1,0 +1,48 @@
+<div class="herobanner-cont loads" *ngIf="!hasContent">
+<section class="swiper-container dif-swiper-herobanner" >
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+      <!-- Slides -->
+
+      <!-- Slides -->
+      <div class="swiper-slide">
+          <div class="ban-img-cont ">
+              
+          </div>
+      </div>
+
+      <div class="swiper-slide">
+          <div class="ban-img-cont loads">
+              
+          </div>
+      </div>
+
+      <div class="swiper-slide">
+          <div class="ban-img-cont loads">
+              
+          </div>
+      </div>
+
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+</section>
+</div>
+
+<section  *ngIf="hasContent"   class="swiper-container dif-swiper-herobanner"
+  [swiper]="config"
+  [(index)]="index">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let item of banners">
+      <div class="ban-img-cont">
+        <img
+          [src]="item.src"
+          (click)="openNewtab(item.url,item.bannerid)"
+          alt="..."
+        />
+      </div>
+    </div>
+  </div>
+  <div *ngIf="banners.length>1" class="swiper-pagination"></div>
+</section>
+

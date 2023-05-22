@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="720" height="560" viewBox="0 0 720 560">
+  <defs>
+    <clipPath id="clip-custom_1">
+      <rect width="720" height="560"/>
+    </clipPath>
+  </defs>
+  <g id="custom_1" data-name="custom – 1" clip-path="url(#clip-custom_1)">
+    <rect width="720" height="560" fill="#c2c2c2"/>
+  </g>
+</svg>

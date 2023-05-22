@@ -1,0 +1,59 @@
+<section class="comp-card005 container-fluid">
+    <div class="comp-section-heading" *ngIf="hasContent !=2">
+        <img src="{{env.cdnurl}}assets/images/content-icon.svg" alt=""><label>{{'subscription.heading'|translate}}</label>
+    </div>
+    <div *ngIf="hasContent==1">
+        <div class="card" *ngFor="let item of subscriptions">
+            <div class="content">
+                <div class="d-flex gradient-width">
+                    <div class="prog-normal">
+                        <div class="hed-title">{{item.PackageName}}</div>
+                        <div class="expdated mb-0">{{item.EndDate}}</div>
+                    </div>
+                    <div class="prog-normal text-right">
+                        
+                        <div class="comp-tooltip">
+                            <a (click) ="openPayModal(item);">
+                                <ul>
+                                   
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!--  <section class="inds-error-load container-fluid"  *ngIf="hasContent ==2">
+        <div class="card">
+            <div class="card-body">
+                <div class="error-section">
+                    <img src="assets/images/ic_warning.svg" alt="">
+                    <p>{{'warning'|translate}}</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+</section>
+<section class="inds-swiper03"  *ngIf="hasContent ==0">
+    <div class="swiper-container dif-swiper-cards4-imgbtn" [swiper]="config" [(index)]="index">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let i of placeholders">
+                <section class="inds-sw03-card">
+                    <div class="card placeload">
+                        <div class="image-placeholder loads"></div>
+                        <div class="card-body">
+                            <h5 class="card-title content-shape loads"></h5>
+                            <p class="card-text content-shape loads"></p>
+                            <div class="button-link content-shape loads"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>

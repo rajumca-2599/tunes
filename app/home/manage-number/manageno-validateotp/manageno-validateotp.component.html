@@ -1,0 +1,62 @@
+<div class="wrapper">
+    <app-header [pgname]="'managenovalidateotp'"></app-header>
+    <br/>
+    <br/>
+        <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+            <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" title="" (click)="backtomanagenumber()" >
+            <h5 class="sec-headding">{{'otpheading'|translate}}</h5>
+            <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+        </div>
+
+        <section class="form-main-cont">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col col-lg-12">
+
+                        <div class="form-cont login-form ">
+                            <div class="form-title-cont ">
+                                <p class="Verification-text mt-65">{{'otpverifymsg'|translate:param}}</p>
+                            </div>
+                            <div class="form-inner-cont">
+                                <form  (keyup.enter)="validateOTP();">
+                                    <!-- <p class="Verification-text mt-65"> </p>    -->
+                                    <div class="form-group-otp otpnewsec otpborder">
+                                        <ng-otp-input (onInputChange)="onOtpChange($event)" autocomplete="new-password"   #ngmanageOtpInput 
+                                        [config]="manageconfig">
+                                        </ng-otp-input>                                       
+                                    </div>
+
+                                    <div *ngIf="errMsg!='' && otp.length > 0" class="inds-card-notification">
+                                        <div class="validation-section">
+                                            <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg">
+                                            <p class="headding4"> {{errMsg}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-button-cont text-center mb-0">
+                                        <button [disabled]="otp.length < 6 " class="btn btn-primary" id="verifyBtn"
+                                        (click)="validateOTP()">{{'otpverify'|translate}}</button>
+                                    </div>
+
+                                    <div class="form-group form-link-cont text-center">
+                                        <ng-container *ngIf="timerOn">
+                                            <p class="resend-text">{{'otpmsg'|translate}}</p>
+                                            <div class="otptimer">{{'otpretery'|translate}} <span>{{timeLeft}}</span></div>
+                                        </ng-container>
+                                        <p *ngIf="showResendPwd" class="resend-text">{{'otpcode'|translate}}<a
+                                                [ngClass]="{'disabled': timerOn}" (click)="resendOtp()">
+                                                {{'otpresend'|translate}}</a></p>      
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+
+            </div>
+       
+      </section>
+    </div>
+   

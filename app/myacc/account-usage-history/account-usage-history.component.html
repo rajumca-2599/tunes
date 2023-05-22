@@ -1,0 +1,350 @@
+<section class="transaction-header-sec mt-5" *ngIf="showTransactions">
+    <div class="global-back-cont d-flex justify-content-between align-items-center">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="gotoback()" title="">
+        <h5 class="sec-headding">{{'transaction.usage'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" (click)="openNewtab()" title="">
+    </div>
+    <div class="headding-sec d-flex justify-content-between align-items-end">
+        <h2 class="headding-sec-title">{{'transaction.usage'|translate}}</h2>
+
+        <div class="img-cont">
+            <img src="{{env.cdnurl}}assets/images/usage-history.svg" alt="" title="">
+        </div>
+
+    </div>
+    <h2 *ngIf="transactions!=undefined && !showemptydiv"class="container-fluid trans-count">{{'showing'|translate}} {{data.length + sms.length +voice.length}} {{'transaction'|translate}}</h2>
+    <section class="comp-card005 container-fluid usage-card-section"  >
+
+        <div class="card">
+            <div class="updates-date">
+                <h2>{{'last_updated'|translate}} {{ lastUpdate }} </h2>
+            </div>
+            <div class="content usage-detail">
+      
+    
+                <div class="progress-sec">
+                    <ul>
+                        <li class="pl-0 border-0"  (click)="showDataInfo()">
+                            <img src="{{env.cdnurl}}assets/images/data-icon.svg" alt="">
+                            <h5 class="card-title">{{'data'|translate}}</h5>
+                            <p *ngIf="data.length>=1" class="card-text"><label>{{summary.data.value}} {{summary.data.unit}}</label></p>
+                            <p *ngIf="data.length==0" class="card-text"><label>0</label></p>
+                        </li>
+                        <li  (click)="showVoiceInfo()">
+                            <img src="{{env.cdnurl}}assets/images/voice-icon.svg" alt="">
+                            <h5 class="card-title">{{'voice'|translate}}</h5>
+                            <p *ngIf="voice.length>=1" class="card-text"><label>{{summary.voice.value}} {{summary.voice.unit}}</label></p>
+                            <p *ngIf="voice.length==0" class="card-text"><label>0</label></p>
+                        </li>
+                        <li (click)="showSmsInfo()">
+                            <img src="{{env.cdnurl}}assets/images/message-icon.svg" alt="">
+                            <h5 class="card-title">{{'sms'|translate}}</h5>
+                            <p *ngIf="sms.length>=1"  class="card-text"><label>{{summary.sms.value}} {{summary.sms.unit}}</label></p>
+                            <p *ngIf="sms.length==0"  class="card-text"><label>0</label></p>
+                        </li>
+                        <!-- <li>
+                            <img src="{{env.cdnurl}}assets/images/content-icon.svg" alt="">
+                            <h5 class="card-title">CONTENT</h5>
+                            <p class="card-text"><label>3K</label></p>
+                        </li> -->
+                    </ul>
+    
+                    <div class="progress">
+                        <div class="progress-bar bg-blue" role="progressbar" style="width:36%" aria-valuenow="35"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-voice" role="progressbar" style="width:36%" aria-valuenow="30"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-orange" role="progressbar" style="width:36%" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <!-- <div class="progress-bar bg-content" role="progressbar" style="width:20%" aria-valuenow="20"
+                            aria-valuemin="0" aria-valuemax="100"></div> -->
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    
+    </section>
+    <h2 class="headerusage">{{'usage_detail'|translate}}</h2>
+ <section class="inds-card004 container-fluid usage-history-list" *ngIf="transactions!=undefined">
+    <div class="card">
+        <div class="card-body">
+            <div class="history-section">
+                <ul class="history-row">
+                    <li *ngFor="let tdata of transactions.data">
+                        <div class="img-history bg-data">
+                            <img src="{{env.cdnurl}}assets/images/usage-data.png" />
+                        </div>
+                        <div class="history-text">
+                            <div class="usage-det">
+                                <h2>{{tdata.title}}</h2>
+                                <p>{{tdata.desc}}</p>
+                            </div>                           
+                        </div>
+                       
+
+                    </li>
+                    <li *ngFor="let tvoice of transactions.voice">
+                        <div class="img-history bg-voice">
+                            <img src="{{env.cdnurl}}assets/images/usage-voice.png" />
+                        </div>
+                        <div class="history-text">
+                            <div class="usage-det">
+                                <h2>{{tvoice.title}}</h2>
+                                <p>{{tvoice.desc}}</p>
+                            </div>
+                            <div class="usage-cost">
+                                <p>Rp{{tvoice.amount}}</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li *ngFor="let tsms of transactions.sms">
+                        <div class="img-history bg-sms">
+                            <img src="{{env.cdnurl}}assets/images/usage-message.png" />
+                        </div>
+                        <div class="history-text">
+                            <div class="usage-det">
+                                <h2>{{tsms.title}}</h2>
+                                <p>{{tsms.desc}}</p>
+                            </div>
+                            <div class="usage-cost">
+                                <p>Rp{{tsms.amount}}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section> 
+<section *ngIf="showemptydiv">
+<div class="user-interactions use-nodata">
+    <div class="tab-content">
+        <div class="package-detail">
+            <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="empty Package">
+            <h3>
+            {{'no_usage_title'|translate}} <br/>                  
+            </h3>
+            <p>{{'no_usage_desc'|translate}}</p>
+        </div>
+    </div>
+
+</div>
+</section> 
+</section>
+
+<section *ngIf="showData">
+    <div class="d-flex justify-content-between align-items-center">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="closeinfo()" title="">
+        <h5 class="sec-headding">{{'data'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" (click)="openNewtab()" title="">
+    </div>
+<section class="comp-card005 container-fluid usage-card-section" *ngIf="data.length>0">
+
+    <div class="card">
+        <!-- <div class="updates-date">
+            <h2>{{'showing'|translate}} {{data.length}} {{'transaction'|translate}} </h2>           
+        </div> -->
+        <h2 class="headerusage">{{'usage_chart'|translate}}</h2>
+        <div class="content detail">
+            <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [colors]="barChartColors"
+            [chartType]="barChartType"
+            [legend]="barChartLegend">
+          </canvas>
+        </div>
+    </div>
+</section>
+<h2 class="headerusage">{{'usage_detail'|translate}}</h2>
+<section class="inds-card004 container-fluid usage-history-list" *ngIf="transactions!=undefined && !showemptyDataDiv">
+    <div class="card">
+        <div class="card-body">
+            <div class="history-section">
+                <ul class="history-row">
+                    <li *ngFor="let tdata of transactions.data">
+                        <div class="img-history bg-data">
+                            <img src="{{env.cdnurl}}assets/images/usage-data.png" />
+                        </div>
+                        <div class="history-text">
+                            <div class="usage-det">
+                                <h2>{{tdata.title}}</h2>
+                                <p>{{tdata.desc}}</p>
+                            </div>                           
+                        </div>
+                        <div class="usage-cost">                            
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngIf="showemptyDataDiv || transactions==undefined">
+    <div class="user-interactions">
+        <div class="tab-content">
+            <div class="package-detail">
+                <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="empty Package">
+                <h3>
+                {{'no_usage_title'|translate}} <br/>                  
+                </h3>
+                <p>{{'no_usage_desc'|translate}}</p>
+            </div>
+        </div>
+    
+    </div>
+    </section> 
+</section>
+<section *ngIf="showVoice">
+    <div class="d-flex justify-content-between align-items-center">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="closeinfo()" title="">
+        <h5 class="sec-headding">{{'voice'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" (click)="openNewtab()" title="">
+    </div>
+<section class="comp-card005 container-fluid usage-card-section"  *ngIf="voice.length>0">
+
+    <div class="card">
+        <!-- <div class="updates-date">
+            <h2>{{'showing'|translate}} {{voice.length}} {{'transaction'|translate}} </h2>
+        </div> -->
+        <h2 class="headerusage">{{'usage_chart'|translate}}</h2>
+        <div class="content detail">
+            <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [colors]="barChartColors"
+            [chartType]="barChartType"
+            [legend]="barChartLegend">
+          </canvas>
+        </div>
+    </div>
+</section>
+<h2 class="headerusage">{{'usage_detail'|translate}}</h2>
+<section *ngIf="transactions!=undefined && !showemptyVoiceDiv" class="inds-card004 container-fluid usage-history-list" >
+    <div class="card">
+        <div class="card-body">
+            <div class="history-section">
+                <ul class="history-row">
+                    <li *ngFor="let tvoice of transactions.voice">
+                        <div class="img-history bg-voice">
+                            <img src="{{env.cdnurl}}assets/images/usage-voice.png" />
+                        </div>
+                        <div class="history-text">
+                            <div class="usage-det">
+                                <h2>{{tvoice.title}}</h2>
+                                <p>{{tvoice.desc}}</p>
+                            </div>
+                            <div class="usage-cost">
+                                <p>Rp{{tvoice.amount}}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngIf="showemptyVoiceDiv || transactions==undefined">
+    <div class="user-interactions">
+        <div class="tab-content">
+            <div class="package-detail">
+                <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="empty Package">
+                <h3>
+                {{'no_usage_title'|translate}} <br/>                  
+                </h3>
+                <p>{{'no_usage_desc'|translate}}</p>
+            </div>
+        </div>
+    
+    </div>
+    </section> 
+</section>
+<section *ngIf="showSms">
+    <div class="d-flex justify-content-between align-items-center">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="closeinfo()" title="">
+        <h5 class="sec-headding">{{'sms'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" alt="" (click)="openNewtab()" title="">
+    </div>
+<section class="comp-card005 container-fluid usage-card-section" *ngIf="sms.length>0">
+
+    <div class="card">
+        <!-- <div class="updates-date">
+            <h2>{{'showing'|translate}} {{sms.length}} {{'transaction'|translate}} </h2>
+        </div> -->
+        <h2 class="headerusage">{{'usage_chart'|translate}}</h2>
+        <div class="content detail">
+            <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [colors]="barChartColors"
+            [chartType]="barChartType"
+            [legend]="barChartLegend">
+          </canvas>
+        </div>
+    </div>
+</section>
+<h2 class="headerusage">{{'usage_detail'|translate}}</h2>
+<section *ngIf="transactions!=undefined && !showemptySMSDiv" class="inds-card004 container-fluid usage-history-list">
+    <div class="card">
+        <div class="card-body">
+            <div class="history-section">
+                <ul class="history-row">
+                    <li *ngFor="let tsms of transactions.sms">
+                        <div class="img-history bg-sms">
+                            <img src="{{env.cdnurl}}assets/images/usage-message.png" />
+                        </div>
+                        <div class="history-text">
+                            <div class="usage-det">
+                                <h2>{{tsms.title}}</h2>
+                                <p>{{tsms.desc}}</p>
+                            </div>
+                            <div class="usage-cost">
+                                <p>Rp{{tsms.amount}}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngIf="showemptySMSDiv || transactions==undefined">
+    <div class="user-interactions">
+        <div class="tab-content">
+            <div class="package-detail">
+                <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="empty Package">
+                <h3>
+                {{'no_usage_title'|translate}} <br/>                  
+                </h3>
+                <p>{{'no_usage_desc'|translate}}</p>
+            </div>
+        </div>
+    
+    </div>
+    </section> 
+</section>
+<!-- <ng-template [ngIf]="showemptydiv">
+    <div class="user-interactions">
+        <div class="tab-content">
+            <div class="package-detail">
+                <img src="{{env.cdnurl}}assets/images/ask.jpg" alt="empty Package">
+                <p>
+                {{'nodatafound'|translate}} <br/>                  
+                </p>
+            </div>
+        </div>
+
+    </div>
+       
+              
+</ng-template> -->
+
+
+
+
+

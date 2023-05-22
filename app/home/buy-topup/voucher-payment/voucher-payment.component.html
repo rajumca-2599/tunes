@@ -1,0 +1,52 @@
+<div class="wrapper">
+   
+<div class="global-back-cont d-flex justify-content-between align-items-center bg-white mt-5">
+    <img src="{{env.cdnurl}}assets/images/close-dark.svg" (click)="gotoHome()" alt="" title="">
+</div>
+
+
+<div class="error-section-trans top-up-content mt-0" *ngIf="voucherresp">
+    <div class="error-main" *ngIf="voucherresp.status==1" >
+        <img src="{{env.cdnurl}}assets/images/fail.png">
+        <h3 class="title">{{'voucherfailed.heading'|translate}}</h3>
+     
+        <h5 class="topup-msg">
+            {{'topupfailed.description'|translate}} Rp0  {{'for'|translate}} {{voucherresp.msisdn}}
+        </h5>
+        
+       
+    </div>
+    <div class="error-main" *ngIf="voucherresp.status==0" >
+        <img src="{{env.cdnurl}}assets/images/ok.jpg">
+        <h3 class="title">{{'topupsucess.heading'|translate}}</h3>     
+        <h5 class="topup-msg">
+            {{'vouchersucess.description'|translate}}  Rp{{voucherresp.data.amount|amountConverter}} {{'for'|translate}} {{voucherresp.msisdn}}
+        </h5>       
+       
+    </div>
+</div>
+<div class="tip-section">
+    <h3>💡PRO TIP</h3>
+    <p  *ngIf="voucherresp">{{voucherresp.data.protip}}</p>
+    <a  *ngIf="voucherresp" href="#"> {{voucherresp.data.buttontext}} <img src="{{env.cdnurl}}assets/images/detail-red.svg"></a>
+</div>
+<div class="global-back-cont-border">
+    <button type="button" (click)="gotoHome()"  class="btn btn-primary  d-block w-100 p-3 mr-1 f-14">{{'backtohome'|translate}}</button>
+</div>
+<div class="total-payment shadow-dwn" (click)="navigateToFeedback()">
+    <div class="payment-amt p-0">
+        <section class="inds-card007  experice-sec w-100">
+            <div class="card mb-0">
+                <div class="card-body ">
+                    <div class="drill-bar-cont mb-0">
+                        <span id="uparrow" class="drill-bar"></span>
+                        <!-- <span id="dwnarrow" class="drill-bar"></span> -->
+                    </div>
+                    <h3>{{'how_was_your_experience'|translate}}</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+</div>

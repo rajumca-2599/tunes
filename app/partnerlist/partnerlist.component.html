@@ -1,0 +1,51 @@
+
+<div class="wrapper">
+    <app-header [pgname]="'partnerlist'"></app-header>
+    <br/>
+    <br/>
+    <div class="card" id="a">
+       <div *ngIf="successMsgbool">
+        <p id="boldid"  class="history-txt"><strong>{{'successmsg'|translate}}</strong></p>
+        <p  class="history-txt">{{'smsg'|translate}}</p>
+       </div>
+       <div  *ngIf="failureMsgbool">
+        <p id="boldid" class="history-txt"><strong>{{'faiuremsg'|translate}}</strong></p>
+        <p  class="history-txt">{{'fmsg'|translate}}</p>
+       </div>
+       
+    </div>
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white" id="b">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="goback()" title="">
+        <h5 class="sec-headding">{{'connected_apps'|translate}}</h5>
+        <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+
+    <section class="inds-card004 container-fluid">
+    <div class=" dummyimg" *ngIf="!dataListValue && !newdataList">
+        <img  src="assets/images/notconnectedapps.png">
+        <p  class="history-txt">{{'nacy'|translate}}</p>
+    </div>
+        <div class="card" *ngIf="dataListValue">
+            <div class="card-body">
+                <div class="history-section">
+                    <ul class="history-row">
+                        <li *ngFor="let item of partnerListData">
+                            <a (click)="navigateToHistory(item)">
+                                <div class="img-history">
+                                    <img src="{{item.imageurl}}"/>
+                                </div>
+                                <div class="history-text">
+                                    <h2>{{item.partnername}}</h2>
+                                    <p  *ngIf="selectedlanguage=='EN'">{{'connected_since' |translate}} {{item.connected_since |date:'dd MMMM yyyy'  }}</p>
+                                    <p *ngIf="selectedlanguage=='ID'">{{'connected_since' |translate}} {{item.connected_since |date:'dd MMMM yyyy' | replace }}</p>
+                                    <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg">
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

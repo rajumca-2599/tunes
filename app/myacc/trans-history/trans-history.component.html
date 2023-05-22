@@ -1,0 +1,164 @@
+
+<div class="wrapper"  infiniteScroll [infiniteScrollDistance]="2" 
+[infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false" style="height: 100vh; overflow-y: auto;">
+<app-header [pgname]="'transhistory'"></app-header>
+
+    <section class="transaction-header-sec mt-5">
+        <div class="global-back-cont d-flex justify-content-between align-items-center">
+            <img src="{{env.cdnurl}}assets/images/back_dark.svg" (click)="gotoback()" alt="" title="">
+            <h5 class="sec-headding">{{'transaction.heading'|translate}}</h5>
+            <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+        </div>
+        <div class="headding-sec d-flex justify-content-between align-items-end">
+            <h2 class="headding-sec-title">{{'transaction.heading'|translate}}</h2>
+
+            <div class="img-cont">
+                <img src="{{env.cdnurl}}assets/images/transaction_history.svg" alt="" title="">
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="trans-filter-cont d-flex justify-content-between align-items-center" *ngIf="totalfilters <= 0">
+        <a href="#" data-toggle="modal" data-target="#filtersModal">
+            <div class="filter-sec d-flex align-items-center">
+                <img src="{{env.cdnurl}}assets/images/filter.svg" alt="" title="">
+                <h5 class="sec-headding">{{'filter'|translate}}</h5>
+            </div>
+        </a>
+        <p class="trans">{{'showing'|translate}} {{recordcounts?.total || 0}} {{'transaction'|translate}}</p>
+    </section>
+    <section class="trans-filter-cont d-flex justify-content-between align-items-center" *ngIf="totalfilters > 0">
+        <a href="#" data-toggle="modal" data-target="#filtersModal">
+            <div class="filter-sec d-flex align-items-center">
+                <img src="{{env.cdnurl}}assets/images/filter-red.svg" alt="" title="">
+                <h5 class="sec-headding text-primary">{{totalfilters}} Filter Applied</h5>
+            </div>
+        </a>
+        <p class="trans">{{'showing'|translate}} {{recordcounts?.filtered || 0}} {{'transaction'|translate}}</p>
+    </section>
+    <!-- Modal Filter Starts -->
+    <div class="modal m-bottom fade" id="filtersModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content pwa-filter-transaction">
+                <div class="modal-header">
+                    <h5 class="modal-title m-title" id="exampleModalLabel">{{'filtertransactionhistory'|translate}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{env.cdnurl}}assets/images/close-dark.svg" alt="" title=""></span>
+                    </button>
+                </div>
+                <div class="modal-body filter-modal-body">
+                    <form>
+                        <h4 class="form-heading">{{'date'|translate}}</h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 pr-2">
+                                    <label>{{'from'|translate}}</label>
+                                    <input type="text"  name="txtdob" id="txtdob"  [(ngModel)]="filterdates.from"  #startdate="ngModel"
+                                     class="form-control  form-date calender disabled-date"  placeholder="DD/MM/YYYY" bsDatepicker required
+                                     [bsConfig]="bsConfig"  [minDate]="minDate"   [maxDate]="filterdates.to">
+                                    <img class="form-cal-img" src="{{env.cdnurl}}assets/images/calendar.svg" alt="" title="">
+                                </div>
+                                <div class="col-sm-12 col-md-6 pr-2">
+                                    <label>{{'to'|translate}}</label>
+                                    <input type="text"  name="txttodate" id="txttodate"  [(ngModel)]="filterdates.to"  #todate="ngModel"
+                                    class="form-control  form-date calender disabled-date"  placeholder="DD/MM/YYYY" bsDatepicker required
+                                    [bsConfig]="bsConfig" [minDate]="filterdates.from"   [maxDate]="maxDate">
+                                   <img class="form-cal-img" src="{{env.cdnurl}}assets/images/calendar.svg" alt="" title="">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <h4 class="form-heading">{{'status'|translate}}</h4>
+
+                        <div class="form-group">
+                            <div class="custom-checkbox mb-2">
+                                <input (change)="statusselectall()" type="checkbox" id="trans_status_all" value="" name="trans_status_all" [(ngModel)]="statusall"/>
+                                <label for="trans_status_all">{{'allstatus'|translate}}</label>
+                            </div>
+                            <div class="custom-checkbox mb-2" *ngFor="let item of transStatusList; let i = index;">
+                                <input (change)="filterschange('status',$event)" type="checkbox" id="trans_status{{i}}" value="{{item.id}}" name="trans_status{{item.id}}" [(ngModel)]="transStatusList[i].checked"/>
+                                <label *ngIf="selectedlanguage=='ID'" for="trans_status{{i}}">{{item.titlebah}}</label>
+                                <label *ngIf="selectedlanguage=='EN'" for="trans_status{{i}}">{{item.titleeng}}</label>
+                            </div>
+                            
+                        </div>
+
+                        <h4 class="form-heading">{{'catg'|translate}}</h4>
+
+                        <div class="form-group">
+                            <div class="custom-checkbox mb-2">
+                                <input (change)="categoryselectall()" type="checkbox" id="category_all" value="" name="category_all" [(ngModel)]="categoryall"/>
+                                <label for="category_all">{{'allcatg'|translate}}</label>
+                            </div>
+
+                            <div class="custom-checkbox mb-2" *ngFor="let item of transCategoryList; let i = index;">
+                                <input (change)="filterschange('category',$event)" type="checkbox" id="category{{i}}" value="{{item.id}}" name="category{{item.id}}" [(ngModel)]="transCategoryList[i].checked"/>
+                                <label *ngIf="selectedlanguage=='ID'" for="category{{i}}">{{item.titlebah}}</label>
+                                <label *ngIf="selectedlanguage=='EN'" for="category{{i}}">{{item.titleeng}}</label>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+                <div class="modal-footer pwa-modal-footer">
+                    <!-- <button type="button" *ngIf="!hidereset" class="btn btn-link text-secondary" data-dismiss="modal">{{'close'|translate}}</button> -->
+                    <button type="button"  class="btn btn-link text-secondary" (click)="resetfilter()">{{'reset'|translate}}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="filtertransactions()">{{'applyfilters'|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Filter Ends -->
+
+<div  *ngIf="transactions.length > 0">
+    <section class=" container-fluid  inds-card002" *ngFor="let item of transactions; let i = index">
+        <div class="card">
+            <div class="card-body">
+                <div class="yourbill-section">
+                    <h2>{{item?.transdate}}</h2>
+                    <div class="bill-statement">
+                        <div class="billtxt-btn-cont" (click)="gotodetails(item);">
+                            <p> Rp {{item.translateamount}}{{item.translateddecimal}}</p>
+                                <a> <img class="w-30" src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""
+                                    title=""></a>
+                        </div>
+                        <div class="payment-statment">
+                            <!-- <p class="w-50">{{item.operationtype|translate}} - {{(item.productname.length>20)? (item.productname | slice:0:20)+'..':(item.productname) }}</p> -->
+                            <!-- <p [ngClass]="item.productname.length>=25 ? 'w-50' : 'w-70'" >{{item.operationtype_title}} - {{item.productname}}</p> -->
+                            <!-- <p class="w-50" *ngIf="item.productname.length>=25">{{item.operationtype_title}} - {{item.productname}}</p> -->
+                           <!-- <p [ngClass]="item.productname.length>=25 ? 'w-50' : 'w-70'" >{{item.operationtype_title}} - {{(item.productname.length>=40) ? (item.productname | slice:0:40) +'..' : (item.productname)}}</p> -->
+                           <p [ngClass]="item.productname.length>=25 ? 'w-50' : 'w-70'" >{{item.operationtype_title}} - {{item.productname | truncate:[40, '...'] }}</p>
+                            <p *ngIf="item.status=='0'" class="pay-process"> 
+                                <img class="ic-rel5" src="{{env.cdnurl}}assets/images/pending.svg" title="" alt="">{{'inprogress'|translate}}
+                            </p>
+                                <!-- <p *ngIf="item.status=='1'" class="pay-process"> 
+                                <img class="ic-rel5" src="{{env.cdnurl}}assets/images/pending.svg" title="" alt="">{{'inprogress'|translate}}
+                            </p> -->
+                            <p *ngIf="item.status=='2'" class="pay-success"> 
+                                <img class="ic-rel5" src="{{env.cdnurl}}assets/images/paid.svg" title="" alt="">{{'paid'|translate}}
+                            </p>
+                            <p *ngIf="item.status=='1' || item.status=='3'" class="pay-failed"> 
+                                <img class="ic-rel5" src="{{env.cdnurl}}assets/images/failed.svg" title="" alt="">{{'unsuccesful'|translate}}
+                            </p>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+    <div class="error-section-trans" *ngIf="showemptydiv">
+        <div class="error-main">
+            <img src="{{env.cdnurl}}assets/images/ask.jpg">
+            <h2 class="title">{{'notransactionyet'|translate}}</h2>
+            <p class="sup-text">{{'trytopackage'|translate}} </p>
+        </div>
+    </div>
+</div>

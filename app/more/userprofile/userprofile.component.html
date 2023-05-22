@@ -1,0 +1,172 @@
+<section class="user-profile-entry">
+    <div class="profile-card">
+        <div class="d-flex justify-content-between align-items-center ">
+            <img src="{{env.cdnurl}}assets/images/back_dark.svg" alt="" (click)="goback()" title="">
+            <h5 class="sec-headding">{{'full_profile'|translate}}</h5>
+            <img src="{{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+        </div>
+        <div class="profile-img">
+
+            <img  [src]="userimage"  onerror="this.src='assets/images/account-null-light.svg'" alt="">
+        </div>
+        <div class="prof-detail">
+            <h4 class="prof-name"> {{userProfile?.firstname !='' ?userProfile?.firstname : 'profile.name.empty'|translate  }}</h4>
+            <div class="number-sect">
+                <p>{{msisdn}} <a>{{accountype}}</a></p>               
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="wrapper">
+    <section class="prof-edit-success">
+        <div class="head-row">
+            <h3>{{'personaldata'|translate}}</h3>
+            <a style="color: red;" (click)="navigateToEditProfile()">{{'edit'|translate}}</a>
+        </div>
+
+
+        <section class="form-main-cont prof-edit-form">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col col-lg-12">
+                        <div class="form-cont  data-form">
+                            <div class="form-inner-cont">
+                                <form class="profile-edit-form">
+                                    <div class="form-group">
+                                        <label>{{'full_name'|translate}}</label>
+                                        <!-- <input type="text" class="form-control" placeholder="Ralph Rogers"> -->
+                                        <p>{{userinfo.firstname}}</p>
+                                    </div>
+                                    <div class="form-group d-flex justify-content-between">
+                                        <div class="email-verification">
+                                            <label>{{'profile.email'|translate}}</label>
+                                            <!-- <input type="email" class="form-control"
+                                                placeholder="raplh.rogers@gmail.com"> -->
+                                            <p>{{userinfo.emailid}}</p>
+                                        </div>
+                                        <a class="color-red" *ngIf="!userinfo.emailverified && userinfo.emailid!= undefined" (click)="openPopUp()" data-toggle="modal" data-target="#verificationsent"
+                                            class="Verify">
+                                            {{'verifynow'|translate}}</a>
+                                        <a class="green"  *ngIf="userinfo.emailverified" data-toggle="modal" data-target="#verificationsent"
+                                            class="Verify">
+                                            {{'verified'|translate}} </a>
+
+                                    </div>                                    
+                                    <div class="form-group border-0">
+                                        <label>{{'profile.birthdate'|translate}}</label>
+                                        <!-- <input type="datetime" class="form-control border-0 disabled-date"
+                                            placeholder="01/01/1990"> -->
+                                        <p>{{userinfo.dob}}</p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="head-row pt-4">
+            <h3>{{'linkedaccount'|translate}}</h3>
+        </div>
+
+        <div class="linked-section">
+            <ul>
+                <li>
+                    <div class="socail-link">
+                        <div class="social-icon">
+                            <img src="{{env.cdnurl}}assets/images/facebook.jpg" alt="">
+                        </div>
+                        <div class="socail-detail">
+                            <h3>{{'facebook'|translate}}</h3>
+                            <p>{{'link_with_facebook_account'|translate}}</p>
+                        </div>
+                    </div>
+                    <div class="mr-0" >
+                        <a *ngIf="userinfo.socialfacebookid==''" (click)="connectWithSocialAccount('facebook')" class="btn btn-primary text-white" id="linkedBtn">{{'connect'|translate}}</a>
+                        <a *ngIf="userinfo.socialfacebookid!=''" (click)="disconnectWithSocialAccount('facebook')" class="social-disconnect color-red " id="linkedBtn">{{'disconnect'|translate}}</a>
+                    </div>
+                </li>
+                <li class="border-0">
+                    <div class="socail-link" >
+                        <div class="social-icon">
+                            <img src="{{env.cdnurl}}assets/images/google.jpg" alt="">
+                        </div>
+                        <div class="socail-detail">
+                            <h3>{{'google'|translate}}</h3>
+                            <p>{{'link_with_google_account'|translate}}</p>
+                        </div>
+                    </div>
+                    <!-- <div class="linked-status">
+                        <a href="">DISCONNECT</a>
+                    </div> -->
+                    <div class="mr-0" >
+                        <a *ngIf="userinfo.socialemailid==''" (click)="connectWithSocialAccount('google')" class="btn btn-primary text-white" id="linkedBtn">{{'connect'|translate}}</a>
+                        <a *ngIf="userinfo.socialemailid!=''" (click)="disconnectWithSocialAccount('google')" class="social-disconnect color-red" id="linkedBtn">{{'disconnect'|translate}}</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<div class="modal  package-modal fade" id="deletesucess" role="dialog" (click)="closeModal()">
+    <div class="modal-dialog">
+`
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="mt-3">{{msgheader}}</h3>
+                <p>{{deletemessage}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div
+        class="modal fade"
+        id="emailverify"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="popup001"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content m-3">
+            <div class="modal-body">
+              <div class="img-warning mt-4">
+                <img src="{{env.cdnurl}}assets/images/email-verify.png" />
+              </div>
+              <h2 class="popup-heading mb-4 mt-4 pr-5 pl-5">
+                {{'check_your_email'|translate}}
+              </h2>
+              <p class="popup-text pl-5 pr-5 mb-4">
+              {{text}}
+              </p>
+
+              <button
+                type="button"
+                class="btn btn-primary mb-2 m-auto d-block p-3 w-50"
+                data-dismiss="modal" (click)="verifyEmail()"
+              >
+                {{'resend_email'|translate}}
+              </button>
+              <button
+                type="button"
+                class="btn btn-light mb-2 m-auto d-block bg-white"
+                data-dismiss="modal"
+              >
+                {{'gotit'|translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>

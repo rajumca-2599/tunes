@@ -1,0 +1,161 @@
+<section class="transaction-header-sec h-100 mt-5">
+    <div class="global-back-cont d-flex justify-content-between align-items-center bg-white">
+        <img src="{{env.cdnurl}}assets/images/back_dark.svg" (click)="goback()" alt="" title="">
+        <h5 class="sec-headding">{{'store_locator'|translate}}</h5>
+        <img src=" {{env.cdnurl}}assets/images/help_dark.svg" (click)="openNewtab()" alt="" title="">
+    </div>
+</section>
+<!-- <div class="spacer-15"></div> -->
+<!--card on input 1-->
+<section class="map-on-card-compo">
+    <div id="map" class="geomap"  ></div>
+    <div class="search-section">
+        <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="txtsearch" name="searchlocation"  #searchlocation="ngModel" id="txtsearch"
+             placeholder="{{'search'|translate}}" (click)="navigateToDetails()" aria-label="search">
+            <img src="assets/images/search-icon.svg" alt="">
+        </div>
+
+        <section class="inds-swiper04 container-fluid rewards-redeem-ref mt-2" *ngIf="showenablelocation">
+            <!-- Swiper -->
+            <div class="swiper-container inds-swiper04-cont">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <section class="inds-sw04-card">
+                            <div class="card">
+                                <div class="card-body pb-2">
+                                    <h4>{{'gps_turned_off'|translate}}</h4>
+                                    <p class="mb-0 f-12">{{'message_gps_turned_off'|translate}}</p>
+                                </div>
+                                <div class="redeem-footer">
+                                    <a href="#">{{'turn_on_gps'|translate}}</a>
+                                    <img src="{{env.cdnurl}}assets/images/ic_front_arrow_red.svg">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</section>
+<section class="inds-card007 four-g-section" *ngIf="showlist">
+    <div class="">
+        <div class="card container-fluid overview-card">
+            <div class="drill-bar-cont mb-2 mt-3">
+                <span class="drill-bar"></span>
+            </div>
+            <div class="d-flex dif-profile-comp">
+                <div class="profile-sec difuser-name">{{'near_by_store'|translate}}</div>
+            </div>
+            <ul class="store_locations_list">
+                <li class="d-flex align-items-start" (click)="showLocatorAddress(item)" *ngFor="let item of storeLocatorLst">
+                    <div class="store_location--img">
+                        <img src="{{env.cdnurl}}assets/images/location-dark.png" alt="">
+                        <p class="mb-0">{{item.dist}}km</p>
+                    </div>
+                    <div class="store_location--info">
+                        <h4 class="mb-1">{{item.name}}</h4>
+                        <p class="mb-0">{{item.address}}</p>
+                    </div>
+                    <img class="arrow_right" src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt="">
+                </li>              
+            </ul>
+        </div>
+
+    </div>
+</section>
+<section class="inds-card007 four-g-section mt-0" *ngIf="!showlist">
+    <div class="card container-fluid overview-card">
+        <div class="store_detail_wrap">
+            <div class="d-flex align-items-center justify-content-between">
+                <a href="javascript:void(0);" (click)="naviagteToList()" class="arrow_link_red">{{'back_to_list'|translate}}</a>
+                <a class="arrow_link_black d-flex align-items-center">
+                    <!-- <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg" alt=""> -->
+                    {{data.dist}} km
+                </a>
+            </div>
+            <h3 class="light_heading my-4">
+                {{data.name}}
+            </h3>
+            <div class="d-flex align-items-center justify-content-between socialbtns-cont">
+                <div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <button (click)="openWebUrl()" class="btn btn-primary mr-2">
+                            {{'booking'|translate}}
+                        </button>
+                        <a (click)="navigateToGoogleMap()" class="btn btn-primary btn-outline-primary">
+                            {{'direction'|translate}}
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <!-- <a href="#" class="share_btn">
+                        <img src="{{env.cdnurl}}assets/images/share_btn.svg" alt="">
+                    </a> -->
+                    
+                    <div class="social-btns">
+                    <share-buttons  theme="material-dark" show="5" 
+                    [include]="['whatsapp','facebook','twitter','linkedin','sms']"
+                    [exclude]="['pinterest','reddit','mix','vk','telegram','xing','copy','line','messenger','email']"
+                    [image] ="googleMapUrl"
+                    [url]="googleMapUrl"
+                    [description]="description"
+                    [autoSetMeta]="true" ></share-buttons>
+                    </div>
+                </div>
+            </div>
+            <hr class="hr_line">
+            <ul class="store_address_details">
+                <li class="d-flex align-items-start">
+                    <div class="store_address--img">
+                        <img src="{{env.cdnurl}}assets/images/map_gray.svg" alt="">
+                    </div>
+                    <div class="store_address--info">
+                        <p>{{data.address}}</p>
+                    </div>
+                </li>
+                <li class="d-flex align-items-start">
+                    <div class="store_address--img">
+                        <img src="{{env.cdnurl}}assets/images/time_gray.svg" alt="">
+                    </div>
+                    <div class="store_address--info" *ngIf="bookinfoId!=''">                        
+                        <div class="row">
+                            <div class="col-6 pr-0">
+                                <p>{{bookinfoId[0].td[0]}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{bookinfoId[0].td[1]}} </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 pr-0">
+                                <p>{{bookinfoId[1].td[0]}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{bookinfoId[1].td[1]}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 pr-0">
+                                <p>{{bookinfoId[2].td[0]}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{bookinfoId[2].td[1]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- <li class="d-flex align-items-start">
+                    <div class="store_address--img">
+                        <img src="{{env.cdnurl}}assets/images/call_gray.svg" alt="">
+                    </div>
+                    <div class="store_address--info">
+                        <p>021 - 850123</p>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</section>

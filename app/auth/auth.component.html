@@ -1,0 +1,105 @@
+<section class="hedernav-cont">
+    <div class="navctrl-cont">
+        <div class="back-link-cont">
+        </div>
+        <div class="lang-cont">
+            <span class="lang-span">
+                <a [class.selected]="selectedlanguage == 'EN'" href="javascript:void()"
+                    (click)="switchLang('EN')">EN</a>
+            </span>
+            <span class="lang-span">
+                <a [class.selected]="selectedlanguage == 'ID'" href="javascript:void()"
+                    (click)="switchLang('ID')">ID</a>
+            </span>
+        </div>
+    </div>
+</section>
+<section class="form-main-cont">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-lg-12">
+                <div class="form-cont login-form ">
+                    <div class="form-title-cont ">
+                        <h2 class="form-heading mb-40 mt-5">{{'login'|translate}}<br />{{'loginheading'|translate}}</h2>
+                    </div>
+                    <div class="form-inner-cont">
+                        <form (keyup.enter)="Login();">
+                            <div class="form-group ">
+                                <label for="txtMobileNumber">{{'IM3Number' | translate}}</label>
+                                <img class="noprefix" alt="." src="{{env.cdnurl}}assets/images/noprefix.svg">
+                                <input autocomplete="off"   name="txtMobileNumber" class="form-control text-grayed prefix-ip"
+                                    maxlength="13" [(ngModel)]="txtMobileNumber"  type="tel" appNumbersOnly
+                                    required   (keyup)="validatefragment($event);">
+
+                                    <!-- clearMsg($event) -->
+                            </div>
+                            <div *ngIf="showerror && txtMobileNumber?.length >0" class="inds-card-notification">
+                                <div class="validation-section">
+                                    <img class="alertimg" src="{{env.cdnurl}}assets/images/ic_alert-sign.svg">
+                                    <p class="headding4"> {{msg}}</p>
+                                </div>
+                            </div>
+                            <p class="Verification-text text-left">{{'disclaimer'|translate}}</p>
+
+                            <div class="form-group form-button-cont text-center ">
+                                <button class="btn btn-primary" id="loginBtn" (click)="Login()"
+                                    [disabled]="!(txtMobileNumber?.length >= 9 && isFragmentsExist)">{{'continue' | translate}}</button>
+                            </div>
+                            <div class="login-divider">
+                                <div class="col-12 p-0">
+                                    <hr class="divider">
+                                    <span class="div-Or">{{'login_with'|translate}}</span>
+                                </div>
+                            </div>
+                            <div class="social-section">
+
+                                <a (click)="signInWithSocialAcc('facebook')" class="btn btn-social facebook" data-toggle="modal"
+                               >
+                                    <span class="socail-sec"><img src="{{env.cdnurl}}assets/images/facebook.jpg"></span>
+                                    {{'continue_edit'|translate}} {{'with'|translate}} {{'facebook'|translate}}</a>
+                                <a (click)="signInWithSocialAcc('google')" class="btn btn-social google" data-toggle="modal"
+                                    >
+                                    <span class="socail-sec"> <img src="{{env.cdnurl}}assets/images/google.jpg"
+                                            class="google-icon"></span>
+
+                                            {{'continue_edit'|translate}} {{'with'|translate}} {{'google'|translate}}</a>
+                            </div>
+                            <div class="member-pack">
+                                <p>{{'dont_have_im3'|translate}} </p>
+                                <h5 (click)="navigateToIm3()">{{'get_your_im3'|translate}}</h5>
+
+                            </div>
+
+                            
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="emailverify" tabindex="-1" role="dialog" aria-labelledby="popup001" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content m-3">
+        <div class="modal-body">
+          <div class="img-warning mt-4">
+            <img src="{{env.cdnurl}}assets/images/warning.png" />
+          </div>
+          <h2 class="popup-heading mb-4 mt-4 pr-5 pl-5">
+            {{'social_login_warning'|translate}}
+          </h2>
+          <p class="popup-text pl-5 pr-5 mb-4">
+           {{'social_login_warning_desc'|translate}}
+          </p>
+          <button
+            type="button"
+            class="btn btn-primary mb-2 m-auto d-block p-3 w-50"
+            data-dismiss="modal"
+          >
+            {{'ok'|translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

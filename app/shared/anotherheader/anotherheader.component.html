@@ -1,0 +1,126 @@
+<section class="hedernav-cont1">
+    <div class="navctrl-cont">
+        <div class="back-link-cont" (click)="redirectToWebsite()">
+            <a href="javascript:void()" class="main-navlink"><img
+                    src="{{env.cdnurl}}assets/images/ic_back_arrow_black.svg" alt="...">
+                {{'header.backtoooredoo'|translate}}</a>
+        </div>
+        <div class="lang-cont">
+            <span class="lang-span">
+                <div *ngIf="selectedlanguage == 'EN'; then disEngLangSel else  enbEngLangSel"></div>
+                <ng-template #disEngLangSel>
+                    <a [class.selected]="selectedlanguage == 'EN'">EN</a>
+                </ng-template>
+                <ng-template #enbEngLangSel>
+                    <a [class.selected]="selectedlanguage == 'EN'" (click)="switchLang('EN')">EN</a>
+                </ng-template>
+            </span>
+            <span class="lang-span">
+                <div *ngIf="selectedlanguage == 'ID'; then disIdLangSel else  enbIdLangSel"></div>
+                <ng-template #disIdLangSel>
+                    <a [class.selected]="selectedlanguage == 'ID'">ID</a>
+                </ng-template>
+                <ng-template #enbIdLangSel>
+                    <a [class.selected]="selectedlanguage == 'ID'" (click)="switchLang('ID')">ID</a>
+                </ng-template>
+
+            </span>
+        </div>
+    </div>
+</section>
+<div class="indo-mainheader" *ngIf="pgname=='home'|| pgname=='myaccount'">
+    <header>
+        <nav>
+            <!--:: main-header two st new comp ::-->
+            <div class="hedernav-cont">
+                <div class="b-line"></div>
+
+                <div class="min-header-two ">
+
+                    <div class="d-flex justify-content-between prof-cont">
+                        <div>
+                            <!-- <img *ngIf="!showuserImage"  src="{{env.cdnurl}}assets/images/plus-icon.svg" (click)="navigatetoManageNo()"   alt=""> -->
+                            <div *ngIf="data.length<=1; then valDataProg ">
+                            </div>
+                            <ng-template #valDataProg>
+                                <img src="{{env.cdnurl}}assets/images/plus-icon.svg" (click)="navigatetoManageNo()"
+                                    alt="">
+                            </ng-template>
+                            <div id="viewaccordian" class="profile-accordion"
+                                (click)="isShowPrimaryLinesDiv = !isShowPrimaryLinesDiv">
+
+
+                                <div *ngIf="data.length>1" class="prof-head collapsed" aria-expanded="true"
+                                    aria-controls="collapseOne">
+
+                                    <img class="profpic rounded-circle" [src]="userimage"
+                                        onerror="this.src='assets/images/account-null-light.svg'" alt="">
+                                    <div class="accordion_arrow">
+                                        <img class="arrow" src="{{env.cdnurl}}assets/images/detail-black-arrow-down.svg"
+                                            alt="">
+
+                                    </div>
+                                </div>
+
+                                <div id="viewnumbers" class="logout-cont overlay"
+                                    [ngClass]="{isShowPrimaryLinesDiv: 'logout-cont collapse overlay show'}"
+                                    aria-labelledby="headingOne" *ngIf="isShowPrimaryLinesDiv">
+
+                                    <div class="manage-number">
+                                        <hr>
+                                        <div class="indo-main-menu">
+
+                                            <div class="mianaccount-sec" *ngFor="let item of data; let i = index"
+                                                (click)="addChildNumber(item)">
+                                                <h4 data-toggle="modal" data-target="#popup-logout">
+                                                    <img src="{{env.cdnurl}}assets/images/dot-icon.png" class="mr-2"
+                                                        title="" *ngIf="childnumber== item.msisdn" alt="">
+                                                    <span *ngIf="item.parent">{{item.name}}
+                                                        ({{'main'|translate}})</span>
+                                                    <span *ngIf="!item.parent">{{item.name}} </span>
+                                                </h4>
+                                                <div class="usernumber1">
+                                                    <label> {{item.msisdn}} </label>
+                                                    <a class="btn btn-outline-danger"> {{item.serviceType}} </a>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="profile-sec">
+                                        <button class="btn btn-primary profile-btnsec" [disabled]="!enablemanagenumber"
+                                            (click)="navigatetomanageno()">
+                                            {{'manageno'|translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="indosearch-sec">
+                            <div class="searchiocnn"><img src="assets/images/search-icon.svg" title="" alt=""></div>
+                            <input class="indo-search" type="search" autocomplete="off" spellcheck="false"
+                                aria-live="polite" placeholder="{{'search'|translate}}" (click)="navigatetoSearch()">
+                        </div>
+                        <div class="indo-img svg01">
+                            <a (click)="navigatetoFavourite()"><img src="assets/images/favorite-head.svg" title=""
+                                    alt=""></a>
+                        </div>
+                        <div class="indo-img">
+                            <a (click)="gotomessageInbox()"><img src="assets/images/inbox-light-new.svg" title=""
+                                    alt=""></a>
+                        </div>
+                        <div class="indo-img">
+                            <a (click)="openNewtab()"><img src="assets/images/help-dark.svg" title="" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--:: main-header two end ::-->
+
+        </nav>
+    </header>
+</div>

@@ -1,0 +1,19 @@
+
+<div class="ids-cta-modal-001" id="divredirectModal" *ngIf="enablemodal">
+  <div class="bmbackbg" style="position: fixed;width: 100%; z-index: 0;height: 100%;background: rgba(0, 0, 0, 0.6);top:0px;left:0px;right:0px">
+  </div>
+        <!-- <div class="modal-dialog modal-dialog-centered"> -->
+          <div class="modal-content">
+              <div class="modal-body">
+                 
+                <div [innerHTML]="redirecthtml  | safeHtml" style="text-align: -webkit-center;">
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="onredirectModalClose()">{{'close'|translate}}</button>
+                </div> -->
+                
+              </div>
+          </div>
+     <!--  </div> -->
+     
+</div>

@@ -1,0 +1,49 @@
+<section class="inds-card004 container-fluid" >
+    <div class="card">
+        <div class="card-body">
+            <div class="history-section">
+                <ul class="history-row">
+                    <li>
+                        <a (click)="navigateToHistory()">
+                            <div class="img-history">
+                                <img src="{{env.cdnurl}}assets/images/card_004_transaction.svg" />
+                            </div>
+                            <div class="history-text">
+                                <h2>{{'transaction.heading'|translate}}</h2>
+                                <p>{{'transcation.history'|translate}}</p>
+                                <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg">
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <!-- <a (click)="navigateToBillingHistory();"> -->
+                            <a (click)="navigateToUsageHistory();">
+                            <div class="img-history">
+                                <img src="{{env.cdnurl}}assets/images/card_004_usage.svg" />
+                            </div>
+                            <div class="history-text">
+                                <h2>{{'transaction.usage'|translate}}</h2>
+                                <p>{{'transaction.usage.detail'|translate}}</p>
+                                <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg">
+
+                            </div>
+                        </a>
+                    </li>
+                    <li *ngIf="ispostpaid">
+                        <a (click)="navigateToBillingHistory();">
+                            <div class="img-history">
+                                <img src="{{env.cdnurl}}assets/images/card_004_billing.svg" />
+                            </div>
+                            <div class="history-text">
+                                <h2>{{'transaction.billing'|translate}}</h2>
+                                <p>{{'transaction.billing.details'|translate}}</p>
+                                <img src="{{env.cdnurl}}assets/images/detail-black-arrow.svg">
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

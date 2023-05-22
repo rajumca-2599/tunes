@@ -1,0 +1,35 @@
+<section class="main-hedding-cont mhc-mb0"  *ngIf="hasContent ==1 && popularcontents  && popularcontents !='[]'">
+    <div class="hedding-nav-cont">
+        <h2>{{popularcontents.attributes.title}}</h2>
+        <a  class="button-link"  (click)="navigatetoHotPromo();">{{'view'|translate}} 
+            <img src="{{env.cdnurl}}assets/images/ic_front_arrow_red.svg" alt="..."></a>
+    </div>
+</section>
+<section class="inds-swiper05"  *ngIf="hasContent ==1">
+    <div class="swiper-container dif-swiper-cards4-sw05" [swiper]="config" [(index)]="index">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let item of popularcontents.commercialPackages">
+                <section class="inds-sw05-card " (click)="gotpayment(item);">
+                    <div class="card">
+                        <!-- <img class="card-img-top" [src]="item.recommendedimage" alt="..."> -->
+                        <div class="card05-img-sec loads">
+                            <img class="card-img-top" [src]="item.recommendedimage" alt="..."  onerror="this.src='assets/images/default_image_content.svg'">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.package_name}}</h5>
+                            <p class="card-text">{{item.package_subtitle}}</p>
+                        </div>
+                        <!-- <div class="card-footer">
+                          
+                            <div class="card-footer-text">{{item.tariff_display}}</div>
+                        </div> -->
+                        <div class="card-footer footer-rupees">
+                            <div class="card-footer-text rupees-month"><span>Rp</span>{{item.traiffdisplay}}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
